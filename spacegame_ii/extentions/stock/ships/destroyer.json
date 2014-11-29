@@ -2,7 +2,7 @@
     "name":"Cargo Transport",
     "id":"destroyer_transport_test",
     "source_faction":"test",
-    "hull":50,
+    "hull":100,
     "mass":20,
     "image":"../image/ships/4-3.png",
     "cost":2200,
@@ -10,10 +10,27 @@
     "start_speed":160,
     "reactor_max":100,
     "reactor_regen":5,
-    "shields":200,
+    "shields":100,
     "max_speed":200,
     "turn_rate":3,
-    "systems":[],
+    "systems":[
+        {
+            "name":"ENGINES",
+            "attributes":["max_speed", "speed"],
+            "effects_damaged":[0.5, 0.5],
+            "effects_destroyed":[0.1, 0.1],
+            "health":10,
+            "threshold_damaged":6
+        },
+        {
+            "name":"THRUSTERS",
+            "attributes":["turn_rate"],
+            "effects_damaged":[0.6],
+            "effects_destroyed":[0.2],
+            "health":10,
+            "threshold_damaged":6
+        }
+    ],
     "hardpoints":[
         {
             "size":"small",

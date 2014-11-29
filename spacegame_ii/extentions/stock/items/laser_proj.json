@@ -13,14 +13,25 @@
     },
     "fire_events":[
         {
-            "primitive":"render_laser_beam",
-            "color":[255,0,0],
-            "duration":0.3,
-            "thickness":1
-        },
-        {
-            "primitive":"simple_damage",
-            "damage":20
+            "primitive":"fire_projectile",
+            "image":"../image/items/red_laser_projectile.png",
+            "lifetime":10,
+            "homeing":false,
+            "impact":[
+                {
+                    "primitive":"simple_damage_impact",
+                    "damage":20
+                },
+                {
+                    "primitive":"explosion_at_parent",
+                    "particles":200
+                },
+                {
+                    "primitive":"sound_effect",
+                    "effect_path":"../sound/explode_1.wav",
+                    "volume":75
+                }
+            ]
         }
     ],
     "equip":[],

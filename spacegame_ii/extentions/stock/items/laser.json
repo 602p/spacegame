@@ -20,7 +20,7 @@
         },
         {
             "primitive":"simple_damage",
-            "damage":20
+            "damage":10
         }
     ],
     "equip":[],
