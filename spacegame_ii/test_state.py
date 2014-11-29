@@ -38,6 +38,11 @@ def test(r, n, p):
 	return True
 primitives.register_primitive(root, "render_laser_beam", test)
 
+def test2(r, n, p):
+	p.parent.targeted.damage(n["damage"])
+	return True
+primitives.register_primitive(root, "simple_damage", test2)
+
 item.load_dir(root, "extentions/stock/items")
 ship.load_dir(root, "extentions/stock/ships")
 

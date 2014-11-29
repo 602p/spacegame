@@ -71,9 +71,10 @@ class DamageModel:
 
 	def damage_hull(self, hull):
 		self.hull-=hull
-		s=random.sample(self.systems,1)[0]
-		if s:
-			s.deal_damage(hull)
+		if len(self.systems)>0:
+			s=random.sample(self.systems,1)[0]
+			if s:
+				s.deal_damage(hull)
 		if self.hull<0:
 			self.hull=0
 			self.ship.on_destroy()
@@ -89,11 +90,17 @@ class DamageModel:
 		self.damage_hull(damage*peirce)
 
 	def load_systems(self, config):
+		"""Takes a list of dicts describing systems and adds them to its internal register.
+		config - Loaded from JSON"""
 		for i in config:
-			self.systems.append(DamageSystem(self, i))
-			self.systems.append(None)
+			self.systems.append(DamageSystem(self, i)) #Instanciate a DamageSystem
+			self.systems.append(None) #Add a placeholder so there is only a 1/2 chance of damage going to a system
 
 	def render_full(self, screen, font, x=0, y=0):
+		"""Render a full view of system damage status
+		screen - surface to render on
+		font - font to use
+		x, y - top left corner position"""
 		screen.blit(font.render("SYSTEMS:", False, (255,255,255)), (x,y))
 		i=1
 		for s in self.systems:
@@ -102,7 +109,11 @@ class DamageModel:
 				i+=1
 
 	def render_infobox(self, screen, font, x, y):
-		rotated_image, rotated_rect=rot_center(aspect_scale(self.ship.image, (100,100)), pygame.Rect((x+50-(self.ship.image.get_width()/2),y+50-(self.ship.image.get_height()/2)), self.ship.image.get_size()), self.ship.rigidbody.get_angle())
+		"""Render a small view of the ship, its shields, hull, and energy
+		screen - surface to render on
+		font - font to use
+		x, y - offset of top left corner of minimap BOX, not whole widget"""
+		rotated_image, rotated_rect=rot_center(aspect_scale(self.ship.image, (50,50)), pygame.Rect((x+50-(self.ship.image.get_width()/2),y+50-(self.ship.image.get_height()/2)), self.ship.image.get_size()), self.ship.rigidbody.get_angle())
 		screen.blit(rotated_image, (rotated_rect.x,rotated_rect.y))
 		pygame.draw.rect(screen, (255,255,255), pygame.Rect(x,y,100,100), 4)
 		pygame.draw.rect(screen, (255,0,0), pygame.Rect(x,y+100,(self.hull/self.maxhull)*100,20))
