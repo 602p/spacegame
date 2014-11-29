@@ -4,14 +4,11 @@ import pyconsole
 
 def credits():
 	print("Spacegame was made by:")
-	time.sleep(1)
 	print("Creator/Main Coder: Louis Goessling")
-	time.sleep(1)
 	print("Idea Generator/Artist/Some Code: Sebastian Waterhouse")
-	time.sleep(3)
-	print("Pyconsole made by: John Schank")
-	time.sleep(1)
-	print("For the rest of the people use time.sleep(1) and print('whatever'"))
+	print("Pyconsole from: John Schank")
+	print("Art assets by MillionthVector (http://millionthvector.blogspot.de)")
+	print("Misc. assets from Opengameart.org")
 
 pygame.init()
 
