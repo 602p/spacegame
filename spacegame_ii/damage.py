@@ -1,5 +1,5 @@
 from __future__ import division
-import random, pygame
+import random, pygame, math
 from rotutil import rot_center, aspect_scale
 
 system_status=[
