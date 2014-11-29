@@ -108,11 +108,16 @@ class DamageModel:
 				screen.blit(font.render(str(i)+": "+s.get_descriptor()[0], False, s.get_descriptor()[1]), (x,y+(i*20)))
 				i+=1
 
-	def render_infobox(self, screen, font, x, y):
+	def render_infobox(self, screen, font, x, y, show_distance):
 		"""Render a small view of the ship, its shields, hull, and energy
 		screen - surface to render on
 		font - font to use
 		x, y - offset of top left corner of minimap BOX, not whole widget"""
+		
+		targetdistancex = abs(self.ship.rigidbody.x - self.ship.root.state_manager.states["game"].player.rigidbody.x)
+		targetdistancey = abs(self.ship.rigidbody.y - self.ship.root.state_manager.states["game"].player.rigidbody.y)
+		targetdistance = math.sqrt(targetdistancex**2 + targetdistancey**2)
+		
 		rotated_image, rotated_rect=rot_center(aspect_scale(self.ship.image, (50,50)), pygame.Rect((x+50-(self.ship.image.get_width()/2),y+50-(self.ship.image.get_height()/2)), self.ship.image.get_size()), self.ship.rigidbody.get_angle())
 		screen.blit(rotated_image, (rotated_rect.x,rotated_rect.y))
 		pygame.draw.rect(screen, (255,255,255), pygame.Rect(x,y,100,100), 4)
@@ -125,6 +130,9 @@ class DamageModel:
 		pygame.draw.rect(screen, (0,255,0), pygame.Rect(x,y+120,(self.ship.current_power/self.ship.reactor_max)*100,20))
 		r=font.render("PWR:"+str(int(self.ship.current_power))+"/"+str(int(self.ship.reactor_max)), False, (0,175,175))
 		screen.blit(r, (x+50-(r.get_width()/2),y+120+10-(r.get_height()/2)))
+		if show_distance==1:
+			r=font.render("Target Distance:"+str(int(targetdistance)),False, (255,255,255))
+			screen.blit(r, (x+50-(r.get_width()/2),y-40+(r.get_height()/2)))
 
 	def regen(self):
 		if self.shields<self.maxshields:
