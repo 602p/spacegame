@@ -1,5 +1,5 @@
 from __future__ import division
-import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, ingame_console
+import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate
 import pyconsole
 
 pygame.init()

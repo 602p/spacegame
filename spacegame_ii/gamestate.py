@@ -4,42 +4,44 @@ import state, ship, pygame, random, tasks
 class RunningGameState(state.State):
 	def first_start(self):
 		self.player=ship.create_ship(self.root, "cargo_transport_test", 100, 100)
-		self.ship2=ship.create_ship(self.root, "destroyer_transport_test", 200, 200)
+		self.ship2=ship.create_ship(self.root, "destroyer_transport_test", 100, 100)
 		self.player.targeted=self.ship2
-		self.ship2.rigidbody.set_magnitude(60)
+		self.ship2.rigidbody.x=0
+		self.ship2.rigidbody.y=0
 		self.stars=pygame.transform.scale(pygame.image.load("stars-1.png").convert_alpha(), (500,500))
-		# nebulae=[
-		# 	pygame.image.load("extentions/stock/image/bg-elements/nebula-1.png").convert_alpha(),
-		# 	pygame.image.load("extentions/stock/image/bg-elements/nebula-2.png").convert_alpha(),
-		# 	pygame.image.load("extentions/stock/image/bg-elements/nebula-3.png").convert_alpha()
-		# ]
-		# planets=[
-		# 	pygame.image.load("extentions/stock/image/planets/planet-1.png").convert_alpha(),
-		# 	pygame.image.load("extentions/stock/image/planets/planet-2.png").convert_alpha(),
-		# 	pygame.image.load("extentions/stock/image/planets/planet-3.png").convert_alpha(),
-		# 	pygame.image.load("extentions/stock/image/planets/planet-4.png").convert_alpha(),
-		# 	pygame.image.load("extentions/stock/image/planets/planet-5.png").convert_alpha(),
-		# 	pygame.image.load("extentions/stock/image/planets/planet-6.png").convert_alpha(),
-		# 	pygame.image.load("extentions/stock/image/planets/planet-7.png").convert_alpha(),
-		# 	pygame.image.load("extentions/stock/image/planets/planet-8.png").convert_alpha(),
-		# 	pygame.image.load("extentions/stock/image/planets/planet-9.png").convert_alpha(),
-		# 	pygame.image.load("extentions/stock/image/planets/planet-10.png").convert_alpha(),
-		# 	pygame.image.load("extentions/stock/image/planets/planet-11.png").convert_alpha(),
-		# 	pygame.image.load("extentions/stock/image/planets/planet-12.png").convert_alpha(),
-		# 	pygame.image.load("extentions/stock/image/planets/planet-13.png").convert_alpha(),
-		# 	pygame.image.load("extentions/stock/image/planets/planet-14.png").convert_alpha(),
-		# 	pygame.image.load("extentions/stock/image/planets/planet-15.png").convert_alpha(),
-		# 	pygame.image.load("extentions/stock/image/planets/planet-16.png").convert_alpha(),
-		# ]
+		nebulae=[
+			pygame.image.load("extentions/stock/image/bg-elements/nebula-1.png").convert_alpha(),
+			pygame.image.load("extentions/stock/image/bg-elements/nebula-2.png").convert_alpha(),
+			pygame.image.load("extentions/stock/image/bg-elements/nebula-3.png").convert_alpha()
+		]
+		planets=[
+			pygame.image.load("extentions/stock/image/planets/planet-1.png").convert_alpha(),
+			pygame.image.load("extentions/stock/image/planets/planet-2.png").convert_alpha(),
+			pygame.image.load("extentions/stock/image/planets/planet-3.png").convert_alpha(),
+			pygame.image.load("extentions/stock/image/planets/planet-4.png").convert_alpha(),
+			pygame.image.load("extentions/stock/image/planets/planet-5.png").convert_alpha(),
+			pygame.image.load("extentions/stock/image/planets/planet-6.png").convert_alpha(),
+			pygame.image.load("extentions/stock/image/planets/planet-7.png").convert_alpha(),
+			pygame.image.load("extentions/stock/image/planets/planet-8.png").convert_alpha(),
+			pygame.image.load("extentions/stock/image/planets/planet-9.png").convert_alpha(),
+			pygame.image.load("extentions/stock/image/planets/planet-10.png").convert_alpha(),
+			pygame.image.load("extentions/stock/image/planets/planet-11.png").convert_alpha(),
+			pygame.image.load("extentions/stock/image/planets/planet-12.png").convert_alpha(),
+			pygame.image.load("extentions/stock/image/planets/planet-13.png").convert_alpha(),
+			pygame.image.load("extentions/stock/image/planets/planet-14.png").convert_alpha(),
+			pygame.image.load("extentions/stock/image/planets/planet-15.png").convert_alpha(),
+			pygame.image.load("extentions/stock/image/planets/planet-16.png").convert_alpha(),
+		]
 
-		# self.generated=[]
+		self.generated=[]
 
-		# random.seed(0)
-		# for i in range(random.randint(30,60)):
-		# 	self.generated.append([[random.randint(-8000,8000), random.randint(-6000,6000)],nebulae[random.randint(0,len(nebulae)-1)]])
-		# for i in range(random.randint(5,10)):
-		# 	self.generated.append([[random.randint(-8000,8000), random.randint(-6000,6000)],planets[random.randint(0,len(planets)-1)]])
-
+		random.seed(0)
+		for i in range(random.randint(30,60)):
+			self.generated.append([[random.randint(-8000,8000), random.randint(-6000,6000)],nebulae[random.randint(0,len(nebulae)-1)]])
+		for i in range(random.randint(5,10)):
+			self.generated.append([[random.randint(-8000,8000), random.randint(-6000,6000)],planets[random.randint(0,len(planets)-1)]])
+		self.ship2.rigidbody.x=0
+		self.ship2.rigidbody.y=0
 	def start(self):
 		pass
 	def update_and_render(self):
@@ -48,8 +50,8 @@ class RunningGameState(state.State):
 		for y in range(-6000,6000,self.stars.get_height()):
 			for x in range(-8000,8000,self.stars.get_width()):
 				self.root.screen.blit(self.stars, (x,y))
-		# for n in self.generated:
-		# 	self.root.screen.blit(n[1], n[0])
+		for n in self.generated:
+			self.root.screen.blit(n[1], n[0])
 
 		if pygame.key.get_pressed()[pygame.K_LEFT]:
 			self.player.rigidbody.rotate(self.player.turn_rate)
@@ -61,6 +63,7 @@ class RunningGameState(state.State):
 			self.player.exert_reverse_engine()
 		if pygame.key.get_pressed()[pygame.K_SPACE]:
 			self.player.fire_item_in_hardpoint(0)
+		self.ship2.exert_engine()
 
 		for e in pygame.event.get():
 			if e.type==pygame.KEYDOWN:

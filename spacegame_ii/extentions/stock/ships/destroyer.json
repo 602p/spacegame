@@ -11,7 +11,7 @@
     "reactor_max":100,
     "reactor_regen":5,
     "shields":200,
-    "max_speed":4,
+    "max_speed":200,
     "turn_rate":3,
     "systems":[],
     "hardpoints":[

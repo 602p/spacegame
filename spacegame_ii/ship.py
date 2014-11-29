@@ -136,13 +136,16 @@ class Ship(serialize.SerializableObject):
 		self.render_items()
 		self.particlemanager.update()
 		self.particlemanager.draw(self.root.screen)
-		self.rigidbody.update_in_seconds(time)
-		self.rigidbody.mass=self.get_mass()
 
 		if self.rigidbody.get_magnitude()<0:
 			self.rigidbody.set_magnitude(0)
 		if self.rigidbody.get_magnitude()>self.max_speed:
 			self.rigidbody.set_magnitude(self.max_speed)
+		
+		self.rigidbody.update_in_seconds(time)
+		self.rigidbody.mass=self.get_mass()
+
+		
 
 		self.damage.regen()
 
