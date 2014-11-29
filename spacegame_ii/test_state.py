@@ -1,5 +1,5 @@
 from __future__ import division
-import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate
+import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader
 import pyconsole
 
 pygame.init()
@@ -43,8 +43,7 @@ def test2(r, n, p):
 	return True
 primitives.register_primitive(root, "simple_damage", test2)
 
-item.load_dir(root, "extentions/stock/items")
-ship.load_dir(root, "extentions/stock/ships")
+extention_loader.load_all_packages(root, 'extentions')
 
 root.state_manager.add_state(gamestate.RunningGameState(), "game")
 root.state_manager.add_state(gamestate.RunningGamePausedState(), "game_paused")
