@@ -88,6 +88,7 @@ class RunningGameState(state.State):
 
 		self.player.damage.render_full(self.root.screen.screen, self.root.font)
 		self.player.damage.render_infobox(self.root.screen.screen, self.root.font_small, 1150, 50)
+		self.player.targeted.damage.render_infobox(self.root.screen.screen, self.root.font_small, 1150, 530)
 
 		self.root.screen.set_offset((self.player.rigidbody.x-(self.root.renderspace_size[0]/2), self.player.rigidbody.y-(self.root.renderspace_size[1]/2)))
 
