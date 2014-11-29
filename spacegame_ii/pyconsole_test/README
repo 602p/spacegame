@@ -1,0 +1,47 @@
+pyconsole version 0.5|
+---------------------'
+
+
+Installation: Unpack tar.gz file.
+	If you're going to include this in your own pygame project
+	you only need the pyconsole.py file and the fonts directory
+
+Testing:
+	Unpack the tar.gz file, cd into the created folder and 
+	run "python test.py". This will open a pygame window with 
+	a sample pyconsole.
+	Type help at the pyconsole for a list of commands
+
+Including the Console in your project:
+	To include pyconsole in your game follow these steps:
+	1. Configure pyconsole.cfg (or leave it as it is to try out the default config)
+	2. import pyconsole to your project
+	3. Create a console object by calling pyconsole.Console
+	4. In your main loop:
+		a. Call console.process_input()
+			-Make sure to call it before you process any other input if you've 
+			 set preserve_events to True in your pyconsole.cfg. If preserve_events is
+			 True and you do not clear the Event Queue your program will hang
+			-If the console is active, any key events will be caught by the console
+			 and processed, if it isn't process_input() will do nothing and return.
+		b. Call console.draw()
+			-If the console is active this will draw the console to the screen,
+			 otherwise it wont do anything.
+	
+	
+Using the console:
+	Command Syntax:
+		<command-name> <arg1> <arg2> <arg3> ... <argn>
+		ex: "help clear" prints the help information for the function clear
+		
+	Variable Syntax:
+		$<variable-name>
+		$<variable-name> = <value>
+		ex: $x 				Just print the value of x
+			$x = 100		Set x equal to 100
+		
+
+The test program should make most of this clear	
+
+-John Schanck
+ JmSchanck AT gmail DOT com
