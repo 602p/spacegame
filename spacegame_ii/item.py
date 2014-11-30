@@ -1,5 +1,6 @@
 import pygame, rarity, assets, datetime, os, json, primitives, serialize
 from rotutil import *
+from jsonutil import dget
 
 def init(root):
 	if not 'item_factories' in dir(root):
@@ -36,8 +37,8 @@ class ItemFactory:
 		self.cost=json_dict["cost"]
 		self.id=json_dict["id"]
 		self.name=json_dict["name"]
-		self.inventory_image=assets.load_image(package_root, json_dict["inventory_image"])
-		self.equipped_image=assets.load_image(package_root, json_dict["equipped_image"])
+		self.inventory_image=root.gamedb.get_asset(json_dict["inventory_image"])
+		self.equipped_image=root.gamedb.get_asset(json_dict["equipped_image"])
 		self.mass=json_dict["mass"]
 		self.hardpoint=json_dict["mount_type"]
 		self.rarity=rarity.Rarity(json_dict["rarity"])
@@ -72,7 +73,7 @@ class Item(serialize.SerializableObject):
 
 		self.equipped=equipped
 
-		self.last_fired=datetime.datetime.now()
+		self.last_fired=0
 
 	def render_equipped(self, surface):
 		surface.blit(self.equipped_image, (0,0))
@@ -97,19 +98,22 @@ class Item(serialize.SerializableObject):
 		self.dequip_actions()
 
 	def fire_actions(self):
-		self.last_fired=datetime.datetime.now()
+		self.last_fired=self.root.game_time
 		for i in self.fire_events:
 			if not primitives.run_primitive(self.root, i["primitive"], i, self): break
 
 	def can_fire(self):
 		for i in self.fire_required:
 			if i=="energy":
-				pass #TODO: DO
-			if i=="enemy_selected":
-				pass #TODO: DO
-			if i=="cooldown":
-				if datetime.datetime.now()-self.last_fired<datetime.timedelta(seconds=self.fire_required[i]):
+				if self.parent.current_power<self.fire_required[i]:
 					return False
+			if i=="enemy_selected":
+				if self.parent.targeted==None:
+					return False
+			if i=="cooldown":
+				if self.root.game_time-self.last_fired<self.fire_required[i]:
+					return False
+		self.parent.current_power-=dget(self.fire_required,"energy",0)
 		return True
 
 	def fire(self):

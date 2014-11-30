@@ -1,10 +1,10 @@
 {
-    "name":"Cargo Transport",
+    "name":"Destroyer test",
     "id":"destroyer_transport_test",
     "source_faction":"test",
     "hull":100,
     "mass":20,
-    "image":"../image/ships/4-3.png",
+    "image":"ship_destroyer_tt",
     "cost":2200,
     "cargo":1000,
     "start_speed":160,

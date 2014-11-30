@@ -2,34 +2,41 @@
     "name":"Basic Laser",
     "id":"wep_proj_laser",
     "inventory_image":"$BLANK",
-    "equipped_image":"../image/items/red_laser_turret.png",
+    "equipped_image":"item_laser_turret",
     "mount_type":"small",
     "cost":500,
     "mass":1,
     "required":{
-        "energy":10,
-        "enemy_selected":true,
-        "cooldown":2
+        "energy":5,
+        "enemy_selected":false,
+        "cooldown":0.5
     },
     "fire_events":[
         {
             "primitive":"fire_projectile",
-            "image":"../image/items/red_laser_projectile.png",
+            "image":"item_laser_bullet",
             "lifetime":10,
-            "homeing":false,
+            "homing":false,
+            "velocity":600,
             "impact":[
                 {
                     "primitive":"simple_damage_impact",
                     "damage":20
                 },
                 {
-                    "primitive":"explosion_at_parent",
-                    "particles":200
+                    "primitive":"explosion_at_parent_targeted",
+                    "particles":200,
+                    "r_min":255,
+                    "r_max":255,
+                    "g_min":0,
+                    "g_max":0,
+                    "speed":4,
+                    "time_min":10,
+                    "time_max":25
                 },
                 {
                     "primitive":"sound_effect",
-                    "effect_path":"../sound/explode_1.wav",
-                    "volume":75
+                    "effect":"sound_explode1"
                 }
             ]
         }

@@ -36,15 +36,15 @@ def make_hitNumber(number, font, x, y):
 def make_hitText(text, font, x, y, color):
 	return Particle(font.render(text, False, color), x, y, _update_float_up, 60)
 
-def make_explosion_pix(x, y):
+def make_explosion_slow(x, y, count=200):
 	i=0
 	ps=[]
-	while i<201:
+	while i<count:
 		surf=pygame.Surface((2,2))
-		surf.fill((random.randint(150, 255), random.randint(0, 100), 0))
+		surf.fill((random.randint(200, 255), random.randint(150, 200), 0))
 		exec("""def move_direction(self):
-	self.x+="""+str((random.random()-random.random())*6)+"""
-	self.y+="""+str((random.random()-random.random())*6))
+	self.x+="""+str((random.random()-random.random())*3)+"""
+	self.y+="""+str((random.random()-random.random())*3))
 		ps.append(Particle(surf, x, y, move_direction, 45, True))
 		i+=1
 	return ps
@@ -58,7 +58,7 @@ def make_gibs(x, y, num=50):
 		exec("""def move_direction(self):
 	self.x+="""+str((random.random()-random.random())*2)+"""
 	self.y+="""+str((random.random()-random.random())*2))
-		ps.append(Particle(surf, x, y, move_direction, 15, True))
+		ps.append(Particle(surf, x, y, move_direction, random.randint(10,30), True))
 		i+=1
 	return ps
 

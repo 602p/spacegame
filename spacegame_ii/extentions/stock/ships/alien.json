@@ -4,7 +4,7 @@
     "source_faction":"test",
     "hull":50,
     "mass":20,
-    "image":"../image/ships/1-1.png",
+    "image":"ship_alien_tt",
     "cost":2200,
     "cargo":1000,
     "start_speed":160,

@@ -4,7 +4,7 @@
     "hull":50,
     "shields":50,
     "mass":20,
-    "image":"../image/ships/4-5.png",
+    "image":"ship_cargo_tt",
     "cost":2200,
     "cargo":20,
     "start_speed":2400,
@@ -34,7 +34,7 @@
         {
             "size":"small",
             "x":16,
-            "y":8,
+            "y":14,
             "render_on_top":true
         },
         {
@@ -46,7 +46,7 @@
     ],
     "start_equip":[
         {
-            "item_name":"wep_basic_laser",
+            "item_name":"wep_proj_laser",
             "equipped":0
         }
     ],

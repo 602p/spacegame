@@ -1,0 +1,14 @@
+{
+	"assets":[
+		{
+			"name":"item_laser_bullet",
+			"path":"image/items/red_laser_projectile.png",
+			"type":"image"
+		},
+		{
+			"name":"item_laser_turret",
+			"path":"image/items/red_laser_turret.png",
+			"type":"image"
+		}
+	]
+}

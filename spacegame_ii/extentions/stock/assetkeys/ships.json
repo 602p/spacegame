@@ -1,0 +1,19 @@
+{
+	"assets":[
+		{
+			"name":"ship_cargo_tt",
+			"path":"image/ships/4-5.png",
+			"type":"image"
+		},
+		{
+			"name":"ship_destroyer_tt",
+			"path":"image/ships/4-3.png",
+			"type":"image"
+		},
+		{
+			"name":"ship_alien_tt",
+			"path":"image/ships/1-1.png",
+			"type":"image"
+		}
+	]
+}

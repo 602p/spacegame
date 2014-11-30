@@ -27,6 +27,8 @@ class ScrollingWorldManager:
 		self.offset_y=offset[1]
 	def draw_line(self, color, start, end, thickness=1):
 		pygame.draw.line(self.screen, color, (start[0]-self.offset_x, start[1]-self.offset_y),(end[0]-self.offset_x, end[1]-self.offset_y), thickness)
+	def draw_rect(self, color, rect, width):
+		pygame.draw.rect(self.screen, color, ((rect.x-self.offset_x, rect.y-self.offset_y),rect.size), width)
 
 def aspect_scale(img,(bx,by)):
 	""" Scales 'img' to fit into box bx/by.

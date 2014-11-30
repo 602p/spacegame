@@ -2,7 +2,7 @@
     "name":"Basic Laser",
     "id":"wep_basic_laser",
     "inventory_image":"$BLANK",
-    "equipped_image":"../image/items/red_laser_projectile.png",
+    "equipped_image":"item_laser_bullet",
     "mount_type":"small",
     "cost":500,
     "mass":1,

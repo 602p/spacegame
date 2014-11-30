@@ -1,6 +1,5 @@
 from __future__ import division
-import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader
-import pyconsole
+import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader, assets, pyconsole
 
 def credits():
 	print("Spacegame was made by:")
@@ -15,6 +14,7 @@ pygame.init()
 renderspace_size=(1300,700)
 
 screen=pygame.display.set_mode(renderspace_size)
+pygame.display.set_caption("Spacegame Alpha")
 
 scrollingscreen=rotutil.ScrollingWorldManager(screen)
 
@@ -34,28 +34,16 @@ root.console_font=pygame.font.SysFont("", 15)
 root.screen=scrollingscreen
 root.state_manager=state.StateManager(root)
 root.console = pyconsole.Console(screen,(0,0,1300,200),localsx=locals())
+root.gamedb=assets.GameAssetDatabase()
 
 root.renderspace_size=renderspace_size
-
-def test(r, n, p):
-	def _internal(t, r):
-		p=t.data[1]
-		n=t.data[0]
-		r.screen.draw_line(n["color"], p.get_center(), p.parent.targeted.rotated_rect.center, n["thickness"])
-	tasks.add_task(r, "render_last", tasks.Task(_internal, n["duration"], (n, p)))
-	return True
-primitives.register_primitive(root, "render_laser_beam", test)
-
-def test2(r, n, p):
-	p.parent.targeted.damage(n["damage"])
-	return True
-primitives.register_primitive(root, "simple_damage", test2)
 
 extention_loader.load_all_packages(root, 'extentions')
 
 root.state_manager.add_state(gamestate.RunningGameState(), "game")
 root.state_manager.add_state(gamestate.RunningGamePausedState(), "game_paused")
 root.state_manager.goto_state("game")
+root.game_time=0
 g=root.state_manager.states["game"]
 
 root.clock=pygame.time.Clock()
@@ -67,9 +55,16 @@ run=True
 
 eventclear_tick=0
 
+i=0
+while i!=20:
+	pygame.display.update()
+	i+=1
+
 while run:
 	root.clock.tick()
 	pygame.event.pump()
+
+	root.game_time+=1/max(root.clock.get_fps(),0.001)
 	
 	for e in pygame.event.get():
 		if e.type==pygame.QUIT:

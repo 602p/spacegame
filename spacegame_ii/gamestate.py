@@ -3,11 +3,12 @@ import state, ship, pygame, random, tasks
 
 class RunningGameState(state.State):
 	def first_start(self):
-		self.player=ship.create_ship(self.root, "cargo_transport_test", 100, 100)
-		self.ship2=ship.create_ship(self.root, "destroyer_transport_test", 100, 100)
-		self.player.targeted=self.ship2
-		self.ship2.rigidbody.x=0
-		self.ship2.rigidbody.y=0
+		self.entities=[ship.create_ship(self.root, "cargo_transport_test", 100, 100)]
+		self.player=self.entities[0]
+		self.entities.append(ship.create_ship(self.root, "destroyer_transport_test", 100, 100))
+		self.player.targeted=self.entities[1]
+		self.entities[1].rigidbody.x=0
+		self.entities[1].rigidbody.y=0
 		self.stars=pygame.transform.scale(pygame.image.load("stars-1.png").convert_alpha(), (500,500))
 		nebulae=[
 			pygame.image.load("extentions/stock/image/bg-elements/nebula-1.png").convert_alpha(),
@@ -40,8 +41,8 @@ class RunningGameState(state.State):
 			self.generated.append([[random.randint(-8000,8000), random.randint(-6000,6000)],nebulae[random.randint(0,len(nebulae)-1)]])
 		for i in range(random.randint(5,10)):
 			self.generated.append([[random.randint(-8000,8000), random.randint(-6000,6000)],planets[random.randint(0,len(planets)-1)]])
-		self.ship2.rigidbody.x=0
-		self.ship2.rigidbody.y=0
+		self.entities[1].rigidbody.x=0
+		self.entities[1].rigidbody.y=0
 	def start(self):
 		pass
 	def update_and_render(self):
@@ -63,7 +64,7 @@ class RunningGameState(state.State):
 			self.player.exert_reverse_engine()
 		if pygame.key.get_pressed()[pygame.K_SPACE]:
 			self.player.fire_item_in_hardpoint(0)
-		self.ship2.exert_engine()
+		self.entities[1].exert_engine()
 
 		for e in pygame.event.get():
 			if e.type==pygame.KEYDOWN:
@@ -75,10 +76,13 @@ class RunningGameState(state.State):
 					pygame.event.post(e)
 
 		self.root.particlemanager.draw(self.root.screen)
-		self.ship2.rigidbody.rotate(20)
+		self.entities[1].rigidbody.rotate(20)
 		update_time=1/max(self.root.clock.get_fps(), 0.001)
-		self.ship2.tick(self.root.screen, update_time)
-		self.player.tick(self.root.screen, update_time)
+		for entitiy in reversed(self.entities): #run thru in reverse so player is always on top
+			if not entitiy.kill:
+				entitiy.tick(self.root.screen, update_time)
+			else:
+				del entitiy
 		
 		self.root.screen.screen.blit(self.root.font.render("F: "+str(self.root.clock.get_fps()), False, (0,255,255)), (0,600))
 		self.root.screen.screen.blit(self.root.font.render("A: "+str(self.player.rigidbody.get_angle()), False, (0,255,255)), (0,620))

@@ -1,4 +1,4 @@
-import os, item, ship, serialize, primitives, imp
+import os, item, ship, serialize, primitives, imp, json
 
 def load_all_packages(root, dirn):
 	for i in os.listdir(dirn):
@@ -7,12 +7,19 @@ def load_all_packages(root, dirn):
 def load_package(root, dirn):
 	flist=os.listdir(dirn)
 	for fname in flist:
-		if fname.upper()=="SHIPS":
-			ship.load_dir(root, dirn+"/"+fname)
-		if fname.upper()=="ITEMS":
-			item.load_dir(root, dirn+"/"+fname)
 		if fname.upper()=="PLUGINS":
 			load_plugins(root, dirn+"/"+fname)
+	for fname in flist:
+		if fname.upper()=="ASSETKEYS":
+			for cfname in os.listdir(dirn+'/'+fname):
+				root.gamedb.load_assetfile(dirn+"/"+fname+"/"+cfname, dirn+'/')
+	for fname in flist:
+		if fname.upper()=="ITEMS":
+			item.load_dir(root, dirn+"/"+fname)
+	for fname in flist:
+		if fname.upper()=="SHIPS":
+			ship.load_dir(root, dirn+"/"+fname)
+		
 
 def load_plugins(root, dirn):
 	for fname in os.listdir(dirn):

@@ -139,6 +139,8 @@ class DamageModel:
 			if self.ship.current_power>2:
 				self.shields+=2/self.ship.root.clock.get_fps()
 				self.ship.current_power-=2/self.ship.root.clock.get_fps()
+		if self.ship.current_power<self.ship.reactor_max:
+			self.ship.current_power+=self.ship.reactor_regen*(1/self.ship.root.clock.get_fps())
 
 	def __call__(self, *args, **kwargs):
 		self.damage(*args, **kwargs)

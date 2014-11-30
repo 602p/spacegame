@@ -31,7 +31,7 @@ class ShipFactory:
 	def __init__(self, root, package_root, config):
 		self.root=root
 
-		self.image=assets.load_image(package_root, config["image"])
+		self.image=root.gamedb.get_asset(config["image"])
 		self.id_string=config["id"]
 		self.name=config["name"]
 		self.hull=config["hull"]
@@ -88,6 +88,10 @@ class Ship(serialize.SerializableObject):
 		self.rigidbody=physics.RigidBody2D(mass, x, y, None)
 
 		self.particlemanager=particles.ParticleManager()
+
+		self.kill=False
+
+		self.can_be_hit=True
 
 	def get_inventory_mass(self):
 		m=0
@@ -171,7 +175,7 @@ class Ship(serialize.SerializableObject):
 		self.rigidbody.exert_in_vector(self.speed)
 		
 	def exert_reverse_engine(self):
-		self.rigidbody.exert_in_vector(-self.speed*2)
+		self.rigidbody.exert_in_vector(-self.speed*4)
 
 	def on_destroy(self):
 		pass
