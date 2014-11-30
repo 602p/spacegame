@@ -14,6 +14,7 @@ class Projectile:
 		self.image=image
 		self.kill=False
 		self.root=root
+		self.start=self.root.game_time
 		self.parent=parent
 		self.name="PROJECTILE"
 
@@ -24,7 +25,7 @@ class Projectile:
 		self.rotated_image, self.rotated_rect=rot_center(self.image.copy(), pygame.Rect((self.rigidbody.x, self.rigidbody.y), self.image.get_size()), self.rigidbody.get_angle())
 		screen.blit(self.rotated_image, (self.rotated_rect.x,self.rotated_rect.y))
 		self.rigidbody.update_in_seconds(time)
-		if self.currtime>self.lifetime:
+		if self.root.game_time-self.start>self.lifetime:
 			self.kill=True
 		for i in self.root.state_manager.states["game"].entities:
 			if i != self.parent.parent and i.can_be_hit:

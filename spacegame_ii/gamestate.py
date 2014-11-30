@@ -7,6 +7,7 @@ class RunningGameState(state.State):
 		self.player=self.entities[0]
 		self.entities.append(ship.create_ship(self.root, "destroyer_transport_test", 100, 100))
 		self.player.targeted=self.entities[1]
+		self.entities[1].targeted=self.player
 		self.entities[1].rigidbody.x=0
 		self.entities[1].rigidbody.y=0
 		self.stars=pygame.transform.scale(pygame.image.load("stars-1.png").convert_alpha(), (500,500))
@@ -70,6 +71,9 @@ class RunningGameState(state.State):
 			if e.type==pygame.KEYDOWN:
 				if e.key == pygame.K_1:
 					self.player.damage(1)
+				if e.key == pygame.K_2:
+					self.entities[1].fire_item_in_hardpoint(0)
+					self.entities[1].fire_item_in_hardpoint(1)
 				else:
 					pygame.event.post(e)
 			else:

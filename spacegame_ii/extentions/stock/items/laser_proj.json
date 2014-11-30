@@ -15,13 +15,13 @@
         {
             "primitive":"fire_projectile",
             "image":"item_laser_bullet",
-            "lifetime":10,
+            "lifetime":5,
             "homing":false,
             "velocity":600,
             "impact":[
                 {
                     "primitive":"simple_damage_impact",
-                    "damage":20
+                    "damage":10
                 },
                 {
                     "primitive":"explosion_at_parent_targeted",
