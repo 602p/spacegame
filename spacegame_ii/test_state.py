@@ -1,4 +1,8 @@
 from __future__ import division
+from logging import debug, info, warning, error, critical
+import logging
+logging.basicConfig(filemode='w', filename='spacegame.log',level=logging.DEBUG, format='[%(asctime)s] %(levelname)s: %(message)s')
+debug("Logging Started")
 import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader, assets, pyconsole, interdiction_gui
 
 def credits():
@@ -79,8 +83,6 @@ while run:
 		root.fps=999
 	else:
 		root.fps=root.clock.get_fps()
-
-	root.game_time+=1/max(root.fps,0.001)
 	
 	if pygame.event.peek(pygame.QUIT):run=0
 	root.console.process_input()

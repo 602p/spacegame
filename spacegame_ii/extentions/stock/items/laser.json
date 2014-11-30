@@ -15,7 +15,7 @@
         {
             "primitive":"render_laser_beam",
             "color":[255,0,0],
-            "duration":0.3,
+            "duration":2,
             "thickness":3
         },
         {

@@ -6,7 +6,7 @@ def init_primitives(root):
 			p=t.data[1]
 			n=t.data[0]
 			r.screen.draw_line(n["color"], p.get_center(), p.parent.targeted.rotated_rect.center, n["thickness"])
-		tasks.add_task(r, "render_last", tasks.Task(_internal, n["duration"], (n, p)))
+		tasks.add_task(r, "render_last", tasks.Task(r, _internal, n["duration"], (n, p)))
 		return True
 	primitives.register_primitive(root, "render_laser_beam", test)
 

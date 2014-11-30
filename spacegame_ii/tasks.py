@@ -19,15 +19,15 @@ def run_group(root, tag):
 			del root.tasks_index[tag][root.tasks_index[tag].index(i)]
 
 class Task:
-	def __init__(self, update, duration, data=None):
+	def __init__(self, root, update, duration, data=None):
 		self._update=update
 		self.duration=duration
-		self.start=datetime.datetime.now()
+		self.start=root.game_time
 		self.data=data
-		self.timeout=datetime.timedelta(seconds=duration)
+		self.timeout=duration
 		self.delete=False
 
 	def update(self, root):
 		self._update(self, root)
-		if datetime.datetime.now()-self.start>self.timeout:
+		if root.game_time-self.start>self.timeout:
 			self.delete=True

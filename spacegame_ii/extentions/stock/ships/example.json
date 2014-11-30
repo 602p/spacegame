@@ -46,7 +46,7 @@
     ],
     "start_equip":[
         {
-            "item_name":"wep_proj_laser",
+            "item_name":"wep_basic_laser",
             "equipped":0
         }
     ],

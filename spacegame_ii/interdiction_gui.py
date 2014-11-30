@@ -1,6 +1,11 @@
 import pygame, textwrap, pylygon
+from logging import debug, info, warning, error, critical
 
 def interdict_ok(root, title, content, button="ACCEPT", titlecolor=(255,255,255), textcolor=(0,0,0), buttoncolor=(0,0,255)):
+	debug("Starting interdict_ok")
+	debug("T:"+title)
+	debug("C:"+content)
+	debug("B:"+button)
 	screen=root.screen.screen
 	x=350
 	y=150

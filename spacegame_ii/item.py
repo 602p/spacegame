@@ -1,6 +1,7 @@
 import pygame, rarity, assets, datetime, os, json, primitives, serialize
 from rotutil import *
 from jsonutil import dget
+from logging import debug, info, warning, error, critical
 
 def init(root):
 	if not 'item_factories' in dir(root):
@@ -11,6 +12,7 @@ def load_dir(root, dname):
 		load_file(root, dname+"/"+i, dname)
 
 def load_file(root, fname, package_root):
+	debug("Load item_file '"+fname+"' from '"+package_root+"'")
 	with open(fname, 'r') as f:
 		load_string(root, f.read(), package_root)
 
@@ -47,6 +49,9 @@ class ItemFactory:
 		self.passive_dequip=json_dict["dequip"]
 		self.fire_events=json_dict["fire_events"]
 		self.root=root
+
+		debug("Loaded item '"+self.id)
+
 	def __call__(self, parent, equipped=-1):
 		return Item(self.root, self.id, self.name, self.cost, self.mass, self.inventory_image, self.equipped_image,
 			self.fire_required, self.hardpoint, self.rarity, self.passive_equip,

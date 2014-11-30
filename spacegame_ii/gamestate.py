@@ -101,6 +101,8 @@ class RunningGameState(state.State):
 		self.root.screen.set_offset((self.player.rigidbody.x-(self.root.renderspace_size[0]/2), self.player.rigidbody.y-(self.root.renderspace_size[1]/2)))
 
 		tasks.run_group(self.root, "render_last")
+
+		self.root.game_time+=min(1/max(self.root.fps,0.001),0.1)
 	def suspend(self):
 		self.root.background_gamerun_screen=self.root.screen.screen.copy()
 		#darkenx=pygame.Surface(self.root.background_gamerun_screen.get_size())

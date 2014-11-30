@@ -2,6 +2,7 @@ from __future__ import division
 import rarity, os, json, serialize, item, assets, random, assets, pygame, math, particles, physics, damage, pygame
 from math import cos, sin, radians, degrees
 from rotutil import *
+from logging import debug, info, warning, error, critical
 
 def init(root):
 	if not 'ship_factories' in dir(root):
@@ -12,6 +13,7 @@ def load_dir(root, dname):
 		load_file(root, dname+"/"+i, dname)
 
 def load_file(root, fname, package_root):
+	debug("Load ship_file '"+fname+"' from '"+package_root+"'")
 	with open(fname, 'r') as f:
 		load_string(root, f.read(), package_root)
 
@@ -50,6 +52,8 @@ class ShipFactory:
 		self.max_speed=config["max_speed"]
 		self.turn_rate=config["turn_rate"]
 		self.systems=config["systems"]
+
+		debug("Loaded ship '"+self.id_string)
 
 	def __call__(self, x=0, y=0, with_equip=1):
 		s = Ship(self.root, self.image, self.id_string, self.name, self.hull, self.mass, self.cost, self.cargo,\

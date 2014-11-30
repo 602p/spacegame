@@ -1,4 +1,5 @@
 import os, pygame, json
+from logging import debug, info, warning, error, critical
 
 class GameAssetDatabase:
 	def __init__(self):
@@ -40,10 +41,10 @@ class GameAssetDatabase:
 		assert node["type"] in self.loaders, "Loader type '"+node["type"]+"' not defined [GameAssetDatabase]"
 		self.assets[node["name"]]=self.loaders[node["type"]](node, basepath)
 
-	def load_assetfile(self, path, basepath, d=None):
+	def load_assetfile(self, path, basepath):
 		for i in json.load(open(path))["assets"]:
 			self.load_with_loader(i, basepath)
-			if d: d.write("NODE["+basepath+","+path+"]: "+str(i)+"\n")
+			debug("Load node ["+path+"::"+basepath+"]: "+str(i))
 
 	def get_asset(self, key):
 		return self.assets[key]

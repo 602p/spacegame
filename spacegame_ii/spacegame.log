@@ -1,0 +1,45 @@
+[2014-11-30 17:58:44,003] DEBUG: Logging Started
+[2014-11-30 17:58:44,369] DEBUG: Load package 'extentions/stock'====================================================
+[2014-11-30 17:58:44,371] DEBUG: Load plugin 'extentions/stock/plugins/beam_laser.py'
+[2014-11-30 17:58:44,371] DEBUG: Run init 'extentions/stock/plugins/beam_laser.py'::init_primitives
+[2014-11-30 17:58:44,371] DEBUG: Load plugin 'extentions/stock/plugins/projectiles.py'
+[2014-11-30 17:58:44,371] DEBUG: Run init 'extentions/stock/plugins/projectiles.py'::init_primitives
+[2014-11-30 17:58:44,371] DEBUG: Load assetkey 'extentions/stock/assetkeys/font.json'----
+[2014-11-30 17:58:44,371] DEBUG: Load node [extentions/stock/assetkeys/font.json::extentions/stock/]: {u'path': u'ui/modular/kenvector_future_thin.ttf', u'type': u'font', u'name': u'font_standard', u'size': 20}
+[2014-11-30 17:58:44,372] DEBUG: Load node [extentions/stock/assetkeys/font.json::extentions/stock/]: {u'path': u'ui/modular/kenvector_future_thin.ttf', u'type': u'font', u'name': u'font_standard_large', u'size': 30}
+[2014-11-30 17:58:44,372] DEBUG: Load node [extentions/stock/assetkeys/font.json::extentions/stock/]: {u'path': u'ui/modular/kenvector_future_thin.ttf', u'type': u'font', u'name': u'font_standard_small', u'size': 15}
+[2014-11-30 17:58:44,372] DEBUG: Load node [extentions/stock/assetkeys/font.json::extentions/stock/]: {u'path': u'ui/modular/kenvector_future_thin.ttf', u'type': u'font', u'name': u'font_standard_very_small', u'size': 10}
+[2014-11-30 17:58:44,378] DEBUG: Load node [extentions/stock/assetkeys/font.json::extentions/stock/]: {u'sys_name': u'monospace', u'type': u'sysfont', u'name': u'font_sys_mono', u'size': 20}
+[2014-11-30 17:58:44,378] DEBUG: Load assetkey 'extentions/stock/assetkeys/items.json'----
+[2014-11-30 17:58:44,380] DEBUG: Load node [extentions/stock/assetkeys/items.json::extentions/stock/]: {u'path': u'image/items/red_laser_projectile.png', u'type': u'image', u'name': u'item_laser_bullet'}
+[2014-11-30 17:58:44,380] DEBUG: Load node [extentions/stock/assetkeys/items.json::extentions/stock/]: {u'path': u'image/items/red_laser_turret.png', u'type': u'image', u'name': u'item_laser_turret'}
+[2014-11-30 17:58:44,380] DEBUG: Load assetkey 'extentions/stock/assetkeys/ships.json'----
+[2014-11-30 17:58:44,381] DEBUG: Load node [extentions/stock/assetkeys/ships.json::extentions/stock/]: {u'path': u'image/ships/4-5.png', u'type': u'image', u'name': u'ship_cargo_tt'}
+[2014-11-30 17:58:44,381] DEBUG: Load node [extentions/stock/assetkeys/ships.json::extentions/stock/]: {u'path': u'image/ships/4-3.png', u'type': u'image', u'name': u'ship_destroyer_tt'}
+[2014-11-30 17:58:44,384] DEBUG: Load node [extentions/stock/assetkeys/ships.json::extentions/stock/]: {u'path': u'image/ships/1-1.png', u'type': u'image', u'name': u'ship_alien_tt'}
+[2014-11-30 17:58:44,384] DEBUG: Load assetkey 'extentions/stock/assetkeys/sound.json'----
+[2014-11-30 17:58:44,390] DEBUG: Load node [extentions/stock/assetkeys/sound.json::extentions/stock/]: {u'volume': 1, u'path': u'sound/explode-1.ogg', u'type': u'sound', u'name': u'sound_explode1'}
+[2014-11-30 17:58:44,390] DEBUG: Load assetkey 'extentions/stock/assetkeys/ui_assembled.json'----
+[2014-11-30 17:58:44,391] DEBUG: Load node [extentions/stock/assetkeys/ui_assembled.json::extentions/stock/]: {u'path': u'ui/assembled/metalPanel.png', u'type': u'image', u'name': u'uia_metal_panel'}
+[2014-11-30 17:58:44,400] DEBUG: Load node [extentions/stock/assetkeys/ui_assembled.json::extentions/stock/]: {u'path': u'ui/OKDialog.png', u'type': u'image', u'name': u'uia_ok_dialog'}
+[2014-11-30 17:58:44,410] DEBUG: Load node [extentions/stock/assetkeys/ui_assembled.json::extentions/stock/]: {u'path': u'ui/YNDialog.png', u'type': u'image', u'name': u'uia_yn_dialog'}
+[2014-11-30 17:58:44,410] DEBUG: Load item_dir 'extentions/stock/items'
+[2014-11-30 17:58:44,410] DEBUG: Load item_file 'extentions/stock/items/laser.json' from 'extentions/stock/items'
+[2014-11-30 17:58:44,410] DEBUG: Loaded item 'wep_basic_laser
+[2014-11-30 17:58:44,411] DEBUG: Load item_file 'extentions/stock/items/laser_proj.json' from 'extentions/stock/items'
+[2014-11-30 17:58:44,411] DEBUG: Loaded item 'wep_proj_laser
+[2014-11-30 17:58:44,411] DEBUG: Load ship_dir 'extentions/stock/ships'
+[2014-11-30 17:58:44,411] DEBUG: Load ship_file 'extentions/stock/ships/alien.json' from 'extentions/stock/ships'
+[2014-11-30 17:58:44,411] DEBUG: Loaded ship 'alien_transport_test
+[2014-11-30 17:58:44,411] DEBUG: Load ship_file 'extentions/stock/ships/destroyer.json' from 'extentions/stock/ships'
+[2014-11-30 17:58:44,411] DEBUG: Loaded ship 'destroyer_transport_test
+[2014-11-30 17:58:44,411] DEBUG: Load ship_file 'extentions/stock/ships/example.json' from 'extentions/stock/ships'
+[2014-11-30 17:58:44,413] DEBUG: Loaded ship 'cargo_transport_test
+[2014-11-30 17:58:53,920] DEBUG: Starting interdict_ok
+[2014-11-30 17:58:53,921] DEBUG: T:TEST_TITLE
+[2014-11-30 17:58:53,921] DEBUG: C:text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text 
+[2014-11-30 17:58:53,921] DEBUG: B:ACCEPT
+[2014-11-30 17:58:58,588] DEBUG: Starting interdict_ok
+[2014-11-30 17:58:58,589] DEBUG: T:TEST_TITLE
+[2014-11-30 17:58:58,589] DEBUG: C:text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text 
+[2014-11-30 17:58:58,589] DEBUG: B:ACCEPT
