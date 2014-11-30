@@ -12,6 +12,7 @@ class Projectile:
 		self.lifetime=lifetime
 		self.currtime=0
 		self.image=image
+		self.mask=pygame.mask.from_surface(self.image)
 		self.kill=False
 		self.root=root
 		self.start=self.root.game_time
@@ -23,13 +24,14 @@ class Projectile:
 	def tick(self, screen, time):
 		self.currtime+=time
 		self.rotated_image, self.rotated_rect=rot_center(self.image.copy(), pygame.Rect((self.rigidbody.x, self.rigidbody.y), self.image.get_size()), self.rigidbody.get_angle())
-		screen.blit(self.rotated_image, (self.rotated_rect.x,self.rotated_rect.y))
+		screen.blit(self.rotated_image, (self.rigidbody.x, self.rigidbody.y))
+		self.rotated_mask=pygame.mask.from_surface(self.rotated_image)
 		self.rigidbody.update_in_seconds(time)
 		if self.root.game_time-self.start>self.lifetime:
 			self.kill=True
 		for i in self.root.state_manager.states["game"].entities:
 			if i != self.parent.parent and i.can_be_hit:
-				if i.rotated_rect.collidepoint((self.rigidbody.x, self.rigidbody.y)):
+				if i.rotated_mask.overlap(self.mask, (self.rotated_rect.x-i.rotated_rect.x,self.rotated_rect.y-i.rotated_rect.y)):
 					self.kill=True
 					self.impacted=i
 					for i in self.impact:

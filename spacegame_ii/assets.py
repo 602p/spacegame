@@ -19,6 +19,20 @@ class GameAssetDatabase:
 			return i
 		self.loaders["sound"]=load_sound
 
+		def load_font(node, basepath):
+			s=20
+			if "size" in node:
+				s=node["size"]
+			return pygame.font.Font(basepath+node["path"], s)
+		self.loaders["font"]=load_font
+
+		def load_sysfont(node, basepath):
+			s=20
+			if "size" in node:
+				s=node["size"]
+			return pygame.sysfont.SysFont(node["sys_name"], s)
+		self.loaders["sysfont"]=load_sysfont
+
 	def register_loader(self, func, key):
 		self.loaders["key"]=func
 
@@ -26,9 +40,10 @@ class GameAssetDatabase:
 		assert node["type"] in self.loaders, "Loader type '"+node["type"]+"' not defined [GameAssetDatabase]"
 		self.assets[node["name"]]=self.loaders[node["type"]](node, basepath)
 
-	def load_assetfile(self, path, basepath):
+	def load_assetfile(self, path, basepath, d=None):
 		for i in json.load(open(path))["assets"]:
 			self.load_with_loader(i, basepath)
+			if d: d.write("NODE["+basepath+","+path+"]: "+str(i)+"\n")
 
 	def get_asset(self, key):
 		return self.assets[key]

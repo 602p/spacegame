@@ -9,7 +9,7 @@
     "cargo":20,
     "start_speed":2400,
     "reactor_max":100,
-    "reactor_regen":2,
+    "reactor_regen":4,
     "max_speed":600,
     "turn_rate":360,
     "systems":[

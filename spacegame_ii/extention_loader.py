@@ -1,10 +1,12 @@
 import os, item, ship, serialize, primitives, imp, json
 
 def load_all_packages(root, dirn):
+	d=open("asset_debug.log", 'w')
 	for i in os.listdir(dirn):
-		load_package(root, dirn+"/"+i)
+		load_package(root, dirn+"/"+i, d)
+	d.close()
 
-def load_package(root, dirn):
+def load_package(root, dirn, d=None):
 	flist=os.listdir(dirn)
 	for fname in flist:
 		if fname.upper()=="PLUGINS":
@@ -12,7 +14,7 @@ def load_package(root, dirn):
 	for fname in flist:
 		if fname.upper()=="ASSETKEYS":
 			for cfname in os.listdir(dirn+'/'+fname):
-				root.gamedb.load_assetfile(dirn+"/"+fname+"/"+cfname, dirn+'/')
+				root.gamedb.load_assetfile(dirn+"/"+fname+"/"+cfname, dirn+'/', d)
 	for fname in flist:
 		if fname.upper()=="ITEMS":
 			item.load_dir(root, dirn+"/"+fname)

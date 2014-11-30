@@ -1,5 +1,5 @@
 from __future__ import division
-import rarity, os, json, serialize, item, assets, random, assets, pygame, math, particles, physics, damage
+import rarity, os, json, serialize, item, assets, random, assets, pygame, math, particles, physics, damage, pygame
 from math import cos, sin, radians, degrees
 from rotutil import *
 
@@ -32,6 +32,7 @@ class ShipFactory:
 		self.root=root
 
 		self.image=root.gamedb.get_asset(config["image"])
+		self.mask=pygame.mask.from_surface(self.image)
 		self.id_string=config["id"]
 		self.name=config["name"]
 		self.hull=config["hull"]
@@ -135,6 +136,7 @@ class Ship(serialize.SerializableObject):
 
 	def tick(self, screen, time):
 		self.rotated_image, self.rotated_rect=rot_center(self.image.copy(), pygame.Rect((self.rigidbody.x, self.rigidbody.y), self.image.get_size()), self.rigidbody.get_angle())
+		self.rotated_mask=pygame.mask.from_surface(self.rotated_image)
 		screen.blit(self.rotated_image, (self.rotated_rect.x,self.rotated_rect.y))
 		self.render_engines()
 		self.render_items()

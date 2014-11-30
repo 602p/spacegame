@@ -1,0 +1,34 @@
+{
+	"assets":[
+		{
+			"name":"font_standard",
+			"path":"ui/modular/kenvector_future_thin.ttf",
+			"type":"font",
+			"size":20
+		},
+		{
+			"name":"font_standard_large",
+			"path":"ui/modular/kenvector_future_thin.ttf",
+			"type":"font",
+			"size":30
+		},
+		{
+			"name":"font_standard_small",
+			"path":"ui/modular/kenvector_future_thin.ttf",
+			"type":"font",
+			"size":15
+		},
+		{
+			"name":"font_standard_very_small",
+			"path":"ui/modular/kenvector_future_thin.ttf",
+			"type":"font",
+			"size":10
+		},
+		{
+			"name":"font_sys_mono",
+			"type":"sysfont",
+			"sys_name":"monospace",
+			"size":20
+		}
+	]
+}

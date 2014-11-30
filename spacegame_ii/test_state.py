@@ -1,5 +1,5 @@
 from __future__ import division
-import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader, assets, pyconsole
+import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader, assets, pyconsole, interdiction_gui
 
 def credits():
 	print("Spacegame was made by:")
@@ -27,10 +27,6 @@ primitives.init(root)
 tasks.init(root)
 tasks.add_group(root, "render_last")
 root.particlemanager=particles.ParticleManager()
-root.font=pygame.font.Font("kenvector_future_thin.ttf", 15)
-root.font_large=pygame.font.Font("kenvector_future_thin.ttf", 25)
-root.font_small=pygame.font.Font("kenvector_future_thin.ttf", 10)
-root.console_font=pygame.font.SysFont("", 15)
 root.screen=scrollingscreen
 root.state_manager=state.StateManager(root)
 root.console = pyconsole.Console(screen,(0,0,1300,200),localsx=locals())
@@ -61,11 +57,7 @@ while i!=20:
 	i+=1
 
 while run:
-	root.clock.tick()
-	pygame.event.pump()
 
-	root.game_time+=1/max(root.clock.get_fps(),0.001)
-	
 	for e in pygame.event.get():
 		if e.type==pygame.QUIT:
 			run=0
@@ -74,10 +66,22 @@ while run:
 				root.console.set_active()
 			elif e.key == pygame.K_ESCAPE:
 				root.state_manager.goto_state("game_paused")
+			elif e.key == pygame.K_3:
+				interdiction_gui.interdict_ok(root, "TEST_TITLE", "text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text ")
 			else:
 				pygame.event.post(e)
 		else:
 			pygame.event.post(e)
+	root.clock.tick()
+	pygame.event.pump()
+
+	if root.clock.get_fps()<1:
+		root.fps=999
+	else:
+		root.fps=root.clock.get_fps()
+
+	root.game_time+=1/max(root.fps,0.001)
+	
 	if pygame.event.peek(pygame.QUIT):run=0
 	root.console.process_input()
 	root.state_manager.run_tick()

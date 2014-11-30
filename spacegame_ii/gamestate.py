@@ -81,22 +81,22 @@ class RunningGameState(state.State):
 
 		self.root.particlemanager.draw(self.root.screen)
 		self.entities[1].rigidbody.rotate(20)
-		update_time=1/max(self.root.clock.get_fps(), 0.001)
+		update_time=1/self.root.fps
 		for entitiy in reversed(self.entities): #run thru in reverse so player is always on top
 			if not entitiy.kill:
 				entitiy.tick(self.root.screen, update_time)
 			else:
 				del entitiy
 		
-		self.root.screen.screen.blit(self.root.font.render("F: "+str(self.root.clock.get_fps()), False, (0,255,255)), (0,600))
-		self.root.screen.screen.blit(self.root.font.render("A: "+str(self.player.rigidbody.get_angle()), False, (0,255,255)), (0,620))
-		self.root.screen.screen.blit(self.root.font.render("V: "+str(self.player.rigidbody.get_magnitude()), False, (0,255,255)), (0,640))
-		self.root.screen.screen.blit(self.root.font.render("X: "+str(self.player.rigidbody.x), False, (0,255,255)), (0,680))
-		self.root.screen.screen.blit(self.root.font.render("Y: "+str(self.player.rigidbody.y), False, (0,255,255)), (0,660))	
+		self.root.screen.screen.blit(self.root.gamedb.get_asset("font_standard_small").render("F: "+str(self.root.clock.get_fps()), False, (0,255,255)), (0,600))
+		self.root.screen.screen.blit(self.root.gamedb.get_asset("font_standard_small").render("A: "+str(self.player.rigidbody.get_angle()), False, (0,255,255)), (0,620))
+		self.root.screen.screen.blit(self.root.gamedb.get_asset("font_standard_small").render("V: "+str(self.player.rigidbody.get_magnitude()), False, (0,255,255)), (0,640))
+		self.root.screen.screen.blit(self.root.gamedb.get_asset("font_standard_small").render("X: "+str(self.player.rigidbody.x), False, (0,255,255)), (0,680))
+		self.root.screen.screen.blit(self.root.gamedb.get_asset("font_standard_small").render("Y: "+str(self.player.rigidbody.y), False, (0,255,255)), (0,660))	
 
-		self.player.damage.render_full(self.root.screen.screen, self.root.font)
-		self.player.damage.render_infobox(self.root.screen.screen, self.root.font_small, 1150, 50, 0)
-		self.player.targeted.damage.render_infobox(self.root.screen.screen, self.root.font_small, 1150, 530, 1)
+		self.player.damage.render_full(self.root.screen.screen, self.root.gamedb.get_asset("font_standard_small"))
+		self.player.damage.render_infobox(self.root.screen.screen, self.root.gamedb.get_asset("font_standard_very_small"), 1150, 50, 0)
+		self.player.targeted.damage.render_infobox(self.root.screen.screen, self.root.gamedb.get_asset("font_standard_very_small"), 1150, 530, 1)
 
 		self.root.screen.set_offset((self.player.rigidbody.x-(self.root.renderspace_size[0]/2), self.player.rigidbody.y-(self.root.renderspace_size[1]/2)))
 
@@ -110,8 +110,8 @@ class RunningGameState(state.State):
 
 class RunningGamePausedState(state.State):
 	def first_start(self):
-		self.petr=self.root.font_large.render("PRESS ENTER TO RESUME", 1, (255,255,255))
-		self.paused=self.root.font_large.render("PAUSED", 1, (255,255,255))
+		self.petr=self.root.gamedb.get_asset("font_standard_large").render("PRESS ENTER TO RESUME", 1, (255,255,255))
+		self.paused=self.root.gamedb.get_asset("font_standard_large").render("PAUSED", 1, (255,255,255))
 	def update_and_render(self):
 		self.root.screen.screen.fill((0,0,0))
 		if 'background_gamerun_screen' in dir(self.root):
