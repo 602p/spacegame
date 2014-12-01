@@ -51,6 +51,13 @@ root.clock=pygame.time.Clock()
 pygame.event.set_blocked([pygame.KEYUP, pygame.MOUSEMOTION, pygame.MOUSEBUTTONDOWN, pygame.MOUSEBUTTONUP,
 	pygame.VIDEORESIZE, pygame.VIDEOEXPOSE, pygame.ACTIVEEVENT])
 
+fps_log=[1]
+fps_log_enable=0
+
+def logfps():
+	global fps_log_enable
+	fps_log_enable=not fps_log_enable
+
 run=True
 
 eventclear_tick=0
@@ -81,6 +88,8 @@ while run:
 	else:
 		root.fps=root.clock.get_fps()
 	
+	
+
 	if pygame.event.peek(pygame.QUIT):run=0
 	root.console.process_input()
 	try:
@@ -91,6 +100,22 @@ while run:
 		for i in traceback.format_exception(exc_type, exc_value, exc_traceback): error(i)
 		if not interdiction_gui.interdict_yn(root, "ERROR", "Error in state_manager.run_tick. WARNING: IF YOU CONTINUE GAME MAY CORRUPT OF CONTINUE TO ERROR. Error in log; please submit! Crash datum:"+" "*100+str(e), "RESUME", "QUIT"):
 			sys.exit()
+
+	if fps_log_enable:
+		fps_log.append(int(root.fps))
+		if len(fps_log)==renderspace_size[0]:
+			fps_log=[0]
+		pygame.draw.line(root.screen.screen, (255,0,0), (0, 400), (renderspace_size[0],400))
+		pygame.draw.line(root.screen.screen, (0,0,255), (0, 340), (renderspace_size[0],340))
+		pygame.draw.line(root.screen.screen, (0,255,0), (0, 300), (renderspace_size[0],300))
+		c=0
+		for i in fps_log:
+			c+=1
+			if len(fps_log)>1:
+				pygame.draw.line(root.screen.screen, (0,255,255), (c-1, 400-fps_log[c-2]), (c, 400-i))
+		root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("FPS: "+str(root.fps), False, (0,255,255)), (0,410))
+		root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("FPS_AVG: "+str(sum(fps_log)/len(fps_log)), False, (0,255,255)), (0,420))
+
 	root.console.draw()
 	pygame.display.flip()
 	if eventclear_tick==10:
