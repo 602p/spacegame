@@ -1,5 +1,5 @@
 from __future__ import division
-import state, ship, pygame, random, tasks
+import state, ship, pygame, random, tasks, overlay_gui, interdiction_gui, sys
 from logging import debug, info, warning, error, critical
 
 class RunningGameState(state.State):
@@ -45,6 +45,8 @@ class RunningGameState(state.State):
 			self.generated.append([[random.randint(-8000,8000), random.randint(-6000,6000)],planets[random.randint(0,len(planets)-1)]])
 		self.entities[1].rigidbody.x=0
 		self.entities[1].rigidbody.y=0
+
+		self.player.selected_wep=0
 	def start(self):
 		pass
 	def update_and_render(self):
@@ -65,7 +67,7 @@ class RunningGameState(state.State):
 		if pygame.key.get_pressed()[pygame.K_DOWN]:
 			self.player.exert_reverse_engine()
 		if pygame.key.get_pressed()[pygame.K_SPACE]:
-			self.player.fire_item_in_hardpoint(0)
+			self.player.fire_item_in_hardpoint(self.player.selected_wep)
 		try:
 			self.entities[1].exert_engine()
 			self.entities[1].rigidbody.rotate(self.entities[1].turn_rate)
@@ -78,6 +80,16 @@ class RunningGameState(state.State):
 				if e.key == pygame.K_2:
 					self.entities[1].fire_item_in_hardpoint(0)
 					self.entities[1].fire_item_in_hardpoint(1)
+				if e.key == pygame.K_4:
+					raise IndexError("Test error")
+				if e.key == pygame.K_a:
+					self.player.selected_wep-=1
+					if self.player.selected_wep==-1:
+						self.player.selected_wep=len(self.player.hardpoints)-1
+				if e.key == pygame.K_s:
+					self.player.selected_wep+=1
+					if self.player.selected_wep==len(self.player.hardpoints):
+						self.player.selected_wep=0
 				else:
 					pygame.event.post(e)
 			else:
@@ -102,10 +114,22 @@ class RunningGameState(state.State):
 					error("ERROR REMOVING TARGETED")
 					error(e)
 
+		if self.player.kill:
+			i=0
+			while i!=200:
+				self.root.particlemanager.update()
+				self.root.particlemanager.draw(self.root.screen)
+				i+=1
+			interdiction_gui.interdict_ok(self.root, "GAME OVER", "You have died. Were playing "+self.player.name+" ("+self.player.id_string+"). Killed by TODO. Better luck next time :(", "QUIT")
+			pygame.quit()
+			sys.exit()
+
 		self.entities=[]
 
 		self.entities=new_entities
-		
+
+
+		self.root.screen.screen.blit(self.root.gamedb.get_asset("font_standard_small").render("T: "+str(self.root.game_time), False, (0,255,255)), (0,580))
 		self.root.screen.screen.blit(self.root.gamedb.get_asset("font_standard_small").render("F: "+str(self.root.clock.get_fps()), False, (0,255,255)), (0,600))
 		self.root.screen.screen.blit(self.root.gamedb.get_asset("font_standard_small").render("A: "+str(self.player.rigidbody.get_angle()), False, (0,255,255)), (0,620))
 		self.root.screen.screen.blit(self.root.gamedb.get_asset("font_standard_small").render("V: "+str(self.player.rigidbody.get_magnitude()), False, (0,255,255)), (0,640))
@@ -114,6 +138,7 @@ class RunningGameState(state.State):
 
 		self.player.damage.render_systems_full(self.root.screen.screen, self.root.gamedb.get_asset("font_standard_small"))
 		self.player.damage.render_infobox(self.root.screen.screen, self.root.gamedb.get_asset("font_standard_very_small"), 1150, 50, 0)
+		overlay_gui.render_wepbar(self.root, self, self.player, 186, 632)
 		
 		if self.player.targeted:
 			self.player.targeted.damage.render_infobox(self.root.screen.screen, self.root.gamedb.get_asset("font_standard_very_small"), 1150, 530, 1)

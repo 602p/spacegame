@@ -69,10 +69,10 @@ def init_primitives(root):
 		return True
 	primitives.register_primitive(root, "simple_damage_impact", simple_damage_impact)
 
-	def explosion_at_parent_targeted(r, n, p):
-		p.impacted.particlemanager.add_particles(gen_explosion_from_node_source(r, n, p.rigidbody.x, p.rigidbody.y))
+	def explosion_at_parent(r, n, p):
+		p.impacted.particlemanager.add_particles(gen_explosion_from_node_source(r, n["style"], p.rigidbody.x, p.rigidbody.y))
 		return True
-	primitives.register_primitive(root, "explosion_at_parent_targeted", explosion_at_parent_targeted)
+	primitives.register_primitive(root, "explosion_at_parent", explosion_at_parent)
 
 	def sound_effect(r, n, p):
 		r.gamedb.get_asset(n["effect"]).play()

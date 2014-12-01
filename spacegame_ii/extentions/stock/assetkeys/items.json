@@ -9,6 +9,16 @@
 			"name":"item_laser_turret",
 			"path":"image/items/red_laser_turret.png",
 			"type":"image"
+		},
+		{
+			"name":"item_laser_turret_inventory",
+			"path":"image/items/laser_cannon_inv.png",
+			"type":"image"
+		},
+		{
+			"name":"item_laser_turret_inventory2",
+			"path":"image/items/laser_cannon2_inv.png",
+			"type":"image"
 		}
 	]
 }

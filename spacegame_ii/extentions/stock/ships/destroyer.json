@@ -68,6 +68,7 @@
             "equipped":1
         }
     ],
+    "ship_die":"%explosion_ship_large%",
     "engine_sources":[
         {
             "x":9,
@@ -106,6 +107,5 @@
                 "rarity":100
             }
         ]
-    },
-    "ship_explosion":"%explosion_ship_large%"
+    }
 }

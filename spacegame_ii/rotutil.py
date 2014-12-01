@@ -21,7 +21,8 @@ class ScrollingWorldManager:
 		self.offset_x=offset_x
 		self.offset_y=offset_y
 	def blit(self, image, coords):
-		self.screen.blit(image, (coords[0]-self.offset_x, coords[1]-self.offset_y))
+		if coords[0]>self.offset_x-3000 and coords[0]<self.offset_x+3000 and coords[1]>self.offset_y-3000 and coords[1]<self.offset_y+3000:
+			self.screen.blit(image, (coords[0]-self.offset_x, coords[1]-self.offset_y))
 	def set_offset(self, offset):
 		self.offset_x=offset[0]
 		self.offset_y=offset[1]

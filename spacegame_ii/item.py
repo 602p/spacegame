@@ -114,7 +114,7 @@ class Item(serialize.SerializableObject):
 				if self.parent.current_power<self.fire_required[i]:
 					return False
 			if i=="enemy_selected":
-				if self.parent.targeted==None:
+				if self.parent.targeted==None and self.fire_required[i]:
 					return False
 			if i=="cooldown":
 				if self.root.game_time-self.last_fired<self.fire_required[i]:

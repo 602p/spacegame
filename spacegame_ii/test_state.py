@@ -1,6 +1,6 @@
 from __future__ import division
 from logging import debug, info, warning, error, critical
-import logging
+import logging, sys, traceback
 logging.basicConfig(filemode='w', filename='spacegame.log',level=logging.DEBUG, format='[%(asctime)s] %(levelname)s: %(message)s')
 debug("Logging Started")
 import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader, assets, pyconsole, interdiction_gui
@@ -55,10 +55,7 @@ run=True
 
 eventclear_tick=0
 
-i=0
-while i!=20:
-	pygame.display.update()
-	i+=1
+pygame.mouse.set_cursor(*pygame.cursors.broken_x)
 
 while run:
 
@@ -86,7 +83,14 @@ while run:
 	
 	if pygame.event.peek(pygame.QUIT):run=0
 	root.console.process_input()
-	root.state_manager.run_tick()
+	try:
+		root.state_manager.run_tick()
+	except BaseException as e:
+		exc_type, exc_value, exc_traceback = sys.exc_info()
+		error("================ROOT ERROR=====================")
+		for i in traceback.format_exception(exc_type, exc_value, exc_traceback): error(i)
+		if not interdiction_gui.interdict_yn(root, "ERROR", "Error in state_manager.run_tick. WARNING: IF YOU CONTINUE GAME MAY CORRUPT OF CONTINUE TO ERROR. Error in log; please submit! Crash datum:"+" "*100+str(e), "RESUME", "QUIT"):
+			sys.exit()
 	root.console.draw()
 	pygame.display.flip()
 	if eventclear_tick==10:

@@ -16,10 +16,10 @@
                 "time_max":1
        		}
 		},
-		{
-			"name":"cfg_explosion_ship_large",
-			"type":"json",
-			"json":{
+        {
+            "name":"cfg_very_large_explosion",
+            "type":"json",
+            "json":{
                 "particles":1000,
                 "r_min":200,
                 "r_max":255,
@@ -33,7 +33,17 @@
                 "time_max":1.1,
                 "size_min":10,
                 "size_max":50
-       		}
+            }
+        },
+		{
+			"name":"cfg_explosion_ship_large",
+			"type":"json",
+			"json":[
+                {
+                "primitive":"explosion_at_parent_at_top",
+                "style":"%very_large_explosion%"
+       		    }
+            ]
 		}
 	]
 }

@@ -1,7 +1,7 @@
 {
     "name":"Basic Laser",
     "id":"wep_basic_laser",
-    "inventory_image":"$BLANK",
+    "inventory_image":"item_laser_turret_inventory2",
     "equipped_image":"item_laser_bullet",
     "mount_type":"small",
     "cost":500,
@@ -9,18 +9,22 @@
     "required":{
         "energy":10,
         "enemy_selected":true,
-        "cooldown":0.5
+        "cooldown":1
     },
     "fire_events":[
         {
             "primitive":"render_laser_beam",
             "color":[255,0,0],
-            "duration":2,
+            "duration":0.5,
             "thickness":3
         },
         {
             "primitive":"simple_damage",
             "damage":10
+        },
+        {
+            "primitive":"explosion_at_parent_targeted",
+            "style":"%explosion_red%"
         }
     ],
     "equip":[],

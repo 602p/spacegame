@@ -1,9 +1,9 @@
 from __future__ import division
-import rarity, os, json, serialize, item, assets, random, assets, pygame, math, particles, physics, damage, pygame
+import rarity, os, json, serialize, item, assets, random, assets, pygame, math, particles, physics, damage, pygame, primitives
 from math import cos, sin, radians, degrees
 from rotutil import *
 from logging import debug, info, warning, error, critical
-from jsonutil import get_expanded_json
+from jsonutil import get_expanded_json, dget
 
 def init(root):
 	if not 'ship_factories' in dir(root):
@@ -190,5 +190,5 @@ class Ship(serialize.SerializableObject):
 		self.rigidbody.exert_in_vector(-self.speed*4)
 
 	def die(self):
-		print "ONDIE"
-		self.root.particlemanager.add_particles(particles.make_explosion_cfg(self.root, self.rotated_rect.x, self.rotated_rect.y, self._config["ship_explosion"]))
+		for i in dget(self._config, "ship_die", []):
+			if not primitives.run_primitive(self.root, i["primitive"], i, self): break

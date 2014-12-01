@@ -1,10 +1,10 @@
 from logging import debug, info, warning, error, critical
 
-ju_debug=False
+ju_debug=True
 
 def get_expanded_json(gamedb, json):
 	o=expand_object(gamedb, json)
-	if ju_debug:
+	if ju_debug and o!=json:
 		debug("=================================JSON INITIAL============================")
 		debug(str(json))
 		debug("=================================JSON   FINAL============================")
@@ -35,6 +35,7 @@ def expand_list(db, j):
 
 def expand_string(db, j):
 	if j.startswith("%") and j.endswith("%"):
+		if ju_debug: debug("Replacing node "+j+" with node '"+str(db.get_asset("cfg_"+j.replace("%", '')))+"'")
 		return db.get_asset("cfg_"+j.replace("%", ''))
 	return j
 
