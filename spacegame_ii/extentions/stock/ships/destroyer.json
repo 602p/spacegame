@@ -106,5 +106,6 @@
                 "rarity":100
             }
         ]
-    }
+    },
+    "ship_explosion":"%explosion_ship_large%"
 }

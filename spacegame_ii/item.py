@@ -2,6 +2,7 @@ import pygame, rarity, assets, datetime, os, json, primitives, serialize
 from rotutil import *
 from jsonutil import dget
 from logging import debug, info, warning, error, critical
+from jsonutil import get_expanded_json
 
 def init(root):
 	if not 'item_factories' in dir(root):
@@ -17,7 +18,7 @@ def load_file(root, fname, package_root):
 		load_string(root, f.read(), package_root)
 
 def load_string(root, string, package_root):
-	register_item(root, json.loads(string), package_root)
+	register_item(root, get_expanded_json(root.gamedb, json.loads(string)), package_root)
 
 def register_item(root, config, package_root):
 	root.item_factories[config["id"]]=create_item_factory(root, config, package_root)

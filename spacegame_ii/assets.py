@@ -34,6 +34,10 @@ class GameAssetDatabase:
 			return pygame.sysfont.SysFont(node["sys_name"], s)
 		self.loaders["sysfont"]=load_sysfont
 
+		def load_json(node, basepath):
+			return node["json"]
+		self.loaders["json"]=load_json
+
 	def register_loader(self, func, key):
 		self.loaders["key"]=func
 

@@ -21,7 +21,7 @@
             "impact":[
                 {
                     "primitive":"simple_damage_impact",
-                    "damage":10
+                    "damage":100
                 },
                 {
                     "primitive":"explosion_at_parent_targeted",
@@ -30,9 +30,11 @@
                     "r_max":255,
                     "g_min":0,
                     "g_max":0,
+                    "b_min":0,
+                    "b_max":0,
                     "speed":4,
-                    "time_min":10,
-                    "time_max":25
+                    "time_min":0.1,
+                    "time_max":0.3
                 },
                 {
                     "primitive":"sound_effect",

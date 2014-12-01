@@ -81,7 +81,6 @@ class DamageModel:
 				s.deal_damage(hull)
 		if self.hull<0:
 			self.hull=0
-			self.ship.on_destroy()
 
 	def damage_shields(self, shields):
 		self.shields-=shields
@@ -155,6 +154,9 @@ class DamageModel:
 				self.ship.current_power-=2/self.root.fps
 		if self.ship.current_power<self.ship.reactor_max:
 			self.ship.current_power+=self.ship.reactor_regen*(1/self.root.fps)
+
+	def dead(self):
+		return self.hull==0
 
 	def __call__(self, *args, **kwargs):
 		self.damage(*args, **kwargs)

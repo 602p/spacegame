@@ -3,6 +3,7 @@ import rarity, os, json, serialize, item, assets, random, assets, pygame, math, 
 from math import cos, sin, radians, degrees
 from rotutil import *
 from logging import debug, info, warning, error, critical
+from jsonutil import get_expanded_json
 
 def init(root):
 	if not 'ship_factories' in dir(root):
@@ -18,7 +19,7 @@ def load_file(root, fname, package_root):
 		load_string(root, f.read(), package_root)
 
 def load_string(root, string, package_root):
-	register_ship(root, json.loads(string), package_root)
+	register_ship(root, get_expanded_json(root.gamedb, json.loads(string)), package_root)
 
 def register_ship(root, config, package_root):
 	root.ship_factories[config["id"]]=create_ship_factory(root, config, package_root)
@@ -52,13 +53,14 @@ class ShipFactory:
 		self.max_speed=config["max_speed"]
 		self.turn_rate=config["turn_rate"]
 		self.systems=config["systems"]
+		self.config=config
 
 		debug("Loaded ship '"+self.id_string)
 
 	def __call__(self, x=0, y=0, with_equip=1):
 		s = Ship(self.root, self.image, self.id_string, self.name, self.hull, self.mass, self.cost, self.cargo,\
 			self.start_speed, self.reactor_max, self.reactor_regen, self.hardpoints, self.engine_sources, self.shields,
-			self.rarity, self.max_speed, self.turn_rate, self.systems, x, y)
+			self.rarity, self.max_speed, self.turn_rate, self.systems, self.config, x, y)
 		if with_equip:
 			for i in self.start_equip:
 				s.inventory.append(item.create_item(self.root, i["item_name"], s, i["equipped"]))
@@ -66,7 +68,7 @@ class ShipFactory:
 
 class Ship(serialize.SerializableObject):
 	def __init__(self, root, image, id_string, name, hull, mass, cost, cargo, start_speed, reactor_max,
-		reactor_regen, hardpoints, engine_sources, shields, rarity, max_speed, turn_rate, systems, x, y):
+		reactor_regen, hardpoints, engine_sources, shields, rarity, max_speed, turn_rate, systems, config, x, y):
 		self.root=root
 
 		self.image=image
@@ -85,6 +87,8 @@ class Ship(serialize.SerializableObject):
 		self.currshields=shields
 		self.max_speed=max_speed
 		self.turn_rate=turn_rate
+
+		self._config=config
 
 		self.damage=damage.DamageModel(self, hull, shields)
 		self.damage.load_systems(systems)
@@ -155,9 +159,11 @@ class Ship(serialize.SerializableObject):
 		self.rigidbody.update_in_seconds(time)
 		self.rigidbody.mass=self.get_mass()
 
-		
+		if self.damage.dead(): self.kill=True
 
 		self.damage.regen()
+
+		if self.damage.dead(): self.die()
 
 	def render_items(self):
 		for i in self.inventory:
@@ -174,7 +180,7 @@ class Ship(serialize.SerializableObject):
 					x_=self.rigidbody.x+emitter["x"]+random.randint(0,emitter["width"])-random.randint(0,emitter["width"]*2)
 					color=emitter["color"]
 					point=rotate_point(self.rotated_rect.center, [x_, y_], -self.rigidbody.get_angle())
-					self.particlemanager.add_particle(particles.make_floater(point[0], point[1], color))
+					self.particlemanager.add_particle(particles.make_floater(self.root, point[0], point[1], color))
 					c+=1
 
 	def exert_engine(self):
@@ -183,5 +189,6 @@ class Ship(serialize.SerializableObject):
 	def exert_reverse_engine(self):
 		self.rigidbody.exert_in_vector(-self.speed*4)
 
-	def on_destroy(self):
-		pass
+	def die(self):
+		print "ONDIE"
+		self.root.particlemanager.add_particles(particles.make_explosion_cfg(self.root, self.rotated_rect.x, self.rotated_rect.y, self._config["ship_explosion"]))

@@ -1,5 +1,6 @@
 from __future__ import division
 import state, ship, pygame, random, tasks
+from logging import debug, info, warning, error, critical
 
 class RunningGameState(state.State):
 	def first_start(self):
@@ -65,7 +66,10 @@ class RunningGameState(state.State):
 			self.player.exert_reverse_engine()
 		if pygame.key.get_pressed()[pygame.K_SPACE]:
 			self.player.fire_item_in_hardpoint(0)
-		self.entities[1].exert_engine()
+		try:
+			self.entities[1].exert_engine()
+			self.entities[1].rigidbody.rotate(self.entities[1].turn_rate)
+		except BaseException: pass
 
 		for e in pygame.event.get():
 			if e.type==pygame.KEYDOWN:
@@ -80,13 +84,27 @@ class RunningGameState(state.State):
 					pygame.event.post(e)
 
 		self.root.particlemanager.draw(self.root.screen)
-		self.entities[1].rigidbody.rotate(20)
+		
 		update_time=1/self.root.fps
 		for entitiy in reversed(self.entities): #run thru in reverse so player is always on top
 			if not entitiy.kill:
 				entitiy.tick(self.root.screen, update_time)
+		
+		new_entities=[]
+		for e in self.entities:
+			if not e.kill: new_entities.append(e)
 			else:
-				del entitiy
+				try:
+					for e2 in self.entities:
+						if e2.targeted==e:
+							e2.targeted=None
+				except BaseException as e:
+					error("ERROR REMOVING TARGETED")
+					error(e)
+
+		self.entities=[]
+
+		self.entities=new_entities
 		
 		self.root.screen.screen.blit(self.root.gamedb.get_asset("font_standard_small").render("F: "+str(self.root.clock.get_fps()), False, (0,255,255)), (0,600))
 		self.root.screen.screen.blit(self.root.gamedb.get_asset("font_standard_small").render("A: "+str(self.player.rigidbody.get_angle()), False, (0,255,255)), (0,620))
@@ -96,7 +114,9 @@ class RunningGameState(state.State):
 
 		self.player.damage.render_systems_full(self.root.screen.screen, self.root.gamedb.get_asset("font_standard_small"))
 		self.player.damage.render_infobox(self.root.screen.screen, self.root.gamedb.get_asset("font_standard_very_small"), 1150, 50, 0)
-		self.player.targeted.damage.render_infobox(self.root.screen.screen, self.root.gamedb.get_asset("font_standard_very_small"), 1150, 530, 1)
+		
+		if self.player.targeted:
+			self.player.targeted.damage.render_infobox(self.root.screen.screen, self.root.gamedb.get_asset("font_standard_very_small"), 1150, 530, 1)
 
 		self.root.screen.set_offset((self.player.rigidbody.x-(self.root.renderspace_size[0]/2), self.player.rigidbody.y-(self.root.renderspace_size[1]/2)))
 

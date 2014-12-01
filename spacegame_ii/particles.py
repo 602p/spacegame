@@ -1,22 +1,21 @@
 import pygame, random
-
-
+from jsonutil import dget
 
 class Particle(object):
-	def __init__(self, surface, x, y, update, dieoff, collidekill=False):
+	def __init__(self, root, surface, x, y, update, dieoff, collidekill=False):
 		self.dieoff=dieoff
-		self.currtick=0
+		self.start=root.game_time
 		self.x=x
 		self.y=y
 		self.surface=surface
 		self.delete=False
 		self._update=update
 		self.collidekill=collidekill
+		self.root=root
 
 	def update(self):
 		self._update(self)
-		self.currtick+=1
-		if self.currtick==self.dieoff:
+		if self.root.game_time-self.start>self.dieoff:
 			self.delete=True
 
 	def draw(self, surface):
@@ -25,10 +24,10 @@ class Particle(object):
 def _update_float_up(self):
 	self.y-=1
 
-def make_floater(x, y, color):
+def make_floater(r, x, y, color):
 	surf=pygame.Surface((1,1))
 	surf.fill(color)
-	return Particle(surf, x, y, lambda s:0, 15)
+	return Particle(r, surf, x, y, lambda s:0, 0.1)
 
 def make_hitNumber(number, font, x, y):
 	return make_hitText(str(number), font, x, y, (255, 0, 0))
@@ -36,29 +35,42 @@ def make_hitNumber(number, font, x, y):
 def make_hitText(text, font, x, y, color):
 	return Particle(font.render(text, False, color), x, y, _update_float_up, 60)
 
-def make_explosion_slow(x, y, count=200):
+def make_explosion(root, x, y, count=200):
 	i=0
 	ps=[]
 	while i<count:
 		surf=pygame.Surface((2,2))
-		surf.fill((random.randint(200, 255), random.randint(150, 200), 0))
+		surf.fill((random.uniform(200, 255), random.uniform(200, 230), 0))
 		exec("""def move_direction(self):
 	self.x+="""+str((random.random()-random.random())*3)+"""
 	self.y+="""+str((random.random()-random.random())*3))
-		ps.append(Particle(surf, x, y, move_direction, 45, True))
+		ps.append(Particle(root, surf, x, y, move_direction, 45, True))
 		i+=1
 	return ps
 
-def make_gibs(x, y, num=50):
+def make_gibs(root, x, y, num=50):
 	i=0
 	ps=[]
 	while i<=num:
 		surf=pygame.Surface((2,2))
-		surf.fill((random.randint(150, 255), 0, 0))
+		surf.fill((random.uniform(150, 255), 0, 0))
 		exec("""def move_direction(self):
 	self.x+="""+str((random.random()-random.random())*2)+"""
 	self.y+="""+str((random.random()-random.random())*2))
-		ps.append(Particle(surf, x, y, move_direction, random.randint(10,30), True))
+		ps.append(Particle(surf, x, y, move_direction, random.uniform(10,30), True))
+		i+=1
+	return ps
+
+def make_explosion_cfg(r, x, y, n):
+	i=0
+	ps=[]
+	while i<dget(n, "particles", 200):
+		surf=pygame.Surface((int(random.uniform(dget(n, "size_min", 2), dget(n, "size_max", 2))), int(random.uniform(dget(n, "size_min", 2), (dget(n, "size_max", 2))))))
+		surf.fill((random.uniform(dget(n, "r_min", 200), dget(n, "r_max", 255)), random.uniform(dget(n, "g_min", 150), dget(n, "g_max", 200)), random.uniform(dget(n, "b_min", 0), dget(n, "b_max", 0))))
+		exec("""def move_direction(self):
+	self.x+="""+str((random.random()-random.random())*(random.uniform(dget(n, "speed_min", 3), dget(n, "speed_max", 3))))+"""
+	self.y+="""+str((random.random()-random.random())*(random.uniform(dget(n, "speed_min", 3), dget(n, "speed_max", 3)))))
+		ps.append(Particle(r, surf, x, y, move_direction, random.uniform(dget(n, "time_min", 15), dget(n, "time_max", 45)), True))
 		i+=1
 	return ps
 

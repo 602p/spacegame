@@ -37,16 +37,19 @@ class Projectile:
 					for i in self.impact:
 						if not primitives.run_primitive(self.root, i["primitive"], i, self): break
 
-def gen_explosion_from_node_source(n, x, y):
+	def die(self):
+		pass
+
+def gen_explosion_from_node_source(r, n, x, y):
 	i=0
 	ps=[]
 	while i<dget(n, "particles", 200):
 		surf=pygame.Surface((dget(n, "size", 2), dget(n, "size", 2)))
-		surf.fill((random.randint(dget(n, "r_min", 200), dget(n, "r_max", 255)), random.randint(dget(n, "g_min", 150), dget(n, "g_max", 200)), 0))
+		surf.fill((random.uniform(dget(n, "r_min", 200), dget(n, "r_max", 255)), random.uniform(dget(n, "g_min", 150), dget(n, "g_max", 200)), 0))
 		exec("""def move_direction(self):
 	self.x+="""+str((random.random()-random.random())*dget(n, "speed", 3))+"""
 	self.y+="""+str((random.random()-random.random())*dget(n, "speed", 3)))
-		ps.append(Particle(surf, x, y, move_direction, random.randint(dget(n, "time_min", 15), dget(n, "time_max", 45)), True))
+		ps.append(Particle(r, surf, x, y, move_direction, random.uniform(dget(n, "time_min", 0.1), dget(n, "time_max", 0.7)), True))
 		i+=1
 	return ps
 
@@ -67,7 +70,7 @@ def init_primitives(root):
 	primitives.register_primitive(root, "simple_damage_impact", simple_damage_impact)
 
 	def explosion_at_parent_targeted(r, n, p):
-		p.impacted.particlemanager.add_particles(gen_explosion_from_node_source(n, p.rigidbody.x, p.rigidbody.y))
+		p.impacted.particlemanager.add_particles(gen_explosion_from_node_source(r, n, p.rigidbody.x, p.rigidbody.y))
 		return True
 	primitives.register_primitive(root, "explosion_at_parent_targeted", explosion_at_parent_targeted)
 
