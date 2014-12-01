@@ -1,6 +1,7 @@
 from __future__ import division
 import random, pygame, math
 from rotutil import rot_center, aspect_scale
+from jsonutil import dget
 
 system_status=[
 	[" OPTIMAL ",(0,255,0)],
@@ -19,6 +20,8 @@ class DamageSystem:
 		self.effects_destroyed=config["effects_destroyed"]
 		self.health=config["health"]
 		self.threshold=config["threshold_damaged"]
+		self.image_damaged=damage_model.root.gamedb.get_asset(dget(config, "image_damaged", "$BLANK"))
+		self.image_destroyed=damage_model.root.gamedb.get_asset(dget(config, "image_destroyed", "$BLANK"))
 		self.update_olds()
 
 	def update_olds(self):
@@ -97,7 +100,7 @@ class DamageModel:
 			self.systems.append(DamageSystem(self, i)) #Instanciate a DamageSystem
 			self.systems.append(None) #Add a placeholder so there is only a 1/2 chance of damage going to a system
 
-	def render_full(self, screen, font, x=0, y=0):
+	def render_systems_full(self, screen, font, x=0, y=0):
 		"""Render a full view of system damage status
 		screen - surface to render on
 		font - font to use
@@ -134,6 +137,16 @@ class DamageModel:
 		if show_distance==1:
 			r=font.render("Target Distance:"+str(int(targetdistance)),False, (255,255,255))
 			screen.blit(r, (x+50-(r.get_width()/2),y-40+(r.get_height()/2)))
+		#Render subsystem icons
+		ox=0
+		for i in self.systems:
+			if i:
+				if i.status==1:
+					screen.blit(i.image_damaged, (x+ox, y+140))
+					ox+=16
+				if i.status==2:
+					screen.blit(i.image_destroyed, (x+ox, y+140))
+					ox+=16
 
 	def regen(self):
 		if self.shields<self.maxshields:

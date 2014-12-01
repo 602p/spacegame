@@ -37,6 +37,52 @@ def interdict_ok(root, title, content, button="ACCEPT", titlecolor=(255,255,255)
 	while not pygame.QUIT in [e.type for e in pygame.event.get()] and run:
 		if pygame.mouse.get_pressed()[0]:
 			if ok_collide.collidepoint(pygame.mouse.get_pos()):
-				return
+				return True
+		root.clock.tick()
+		pygame.display.flip()
+
+def interdict_yn(root, title, content, buttont="YES", buttonf="NO", titlecolor=(255,255,255), textcolor=(0,0,0), buttoncolort=(0,0,255), buttoncolorf=(0,0,255)):
+	debug("Starting interdict_yn")
+	debug("T:"+title)
+	debug("C:"+content)
+	debug("BT:"+buttont)
+	debug("BF:"+buttonf)
+	screen=root.screen.screen
+	x=350
+	y=150
+	gamedb=root.gamedb
+
+	width=600
+	offset=20
+
+	wrapped=textwrap.wrap(content, 48)
+	titlerender=gamedb.get_asset("font_standard_large").render(title, 1, titlecolor)
+	buttonrendert=gamedb.get_asset("font_standard_large").render(buttont, 1, buttoncolort)	
+	buttonrenderf=gamedb.get_asset("font_standard_large").render(buttonf, 1, buttoncolorf)	
+
+	screen.blit(gamedb.get_asset("uia_yn_dialog"), (x,y))
+	screen.blit(titlerender, (x+5,y+30))
+	screen.blit(buttonrendert, (x+58,y+314))
+	screen.blit(buttonrenderf, (x+406,y+314))
+
+	t_collide=pylygon.polygon.Polygon([(x+25,y+308), (x+191, y+308), (x+191,y+356), (x+72, y+356)])
+	f_collide=pylygon.polygon.Polygon([(x+405,y+308), (x+570, y+308), (x+405,y+356), (x+525, y+356)])
+	#pygame.draw.rect(screen, (255,0,0), ok_collide.get_rect())
+
+	i=y+60
+	for l in wrapped:
+		line=gamedb.get_asset("font_sys_mono").render(l, 1, textcolor)
+		try:
+			screen.blit(line, (x+5,i))
+		except TypeError: pass
+		i+=20
+
+	run=1
+	while not pygame.QUIT in [e.type for e in pygame.event.get()] and run:
+		if pygame.mouse.get_pressed()[0]:
+			if t_collide.collidepoint(pygame.mouse.get_pos()):
+				return True
+			if f_collide.collidepoint(pygame.mouse.get_pos()):
+				return False
 		root.clock.tick()
 		pygame.display.flip()

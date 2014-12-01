@@ -35,4 +35,4 @@ def load_plugins(root, dirn):
 				if funcname.upper().startswith("INIT"):
 					debug("Run init '"+dirn+"/"+fname+"'::"+funcname)
 					if eval("module_temp."+funcname+"(root)")==False:
-						print "Loading of '"+funcname+"' from '"+fname+"' in '"+dirn+"' failed: False"
+						warning( "Loading of '"+funcname+"' from '"+fname+"' in '"+dirn+"' failed: False")

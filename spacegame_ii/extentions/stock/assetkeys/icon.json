@@ -1,0 +1,24 @@
+{
+	"assets":[
+		{
+			"name":"image_icon_engine_red",
+			"path":"image/icon/engine-transparent-red.png",
+			"type":"image"
+		},
+		{
+			"name":"image_icon_engine_yellow",
+			"path":"image/icon/engine-transparent-yellow.png",
+			"type":"image"
+		},
+		{
+			"name":"image_icon_thrusters_red",
+			"path":"image/icon/steering-transparent-red.png",
+			"type":"image"
+		},
+		{
+			"name":"image_icon_thrusters_yellow",
+			"path":"image/icon/steering-transparent-yellow.png",
+			"type":"image"
+		}
+	]
+}

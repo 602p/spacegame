@@ -71,7 +71,7 @@ while run:
 			elif e.key == pygame.K_ESCAPE:
 				root.state_manager.goto_state("game_paused")
 			elif e.key == pygame.K_3:
-				interdiction_gui.interdict_ok(root, "TEST_TITLE", "text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text ")
+				print interdiction_gui.interdict_yn(root, "TEST_TITLE", "text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text ")
 			else:
 				pygame.event.post(e)
 		else:

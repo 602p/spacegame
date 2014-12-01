@@ -20,7 +20,9 @@
             "effects_damaged":[0.5, 0.5],
             "effects_destroyed":[0.1, 0.1],
             "health":10,
-            "threshold_damaged":6
+            "threshold_damaged":6,
+            "image_damaged":"image_icon_engine_yellow",
+            "image_destroyed":"image_icon_engine_red"
         },
         {
             "name":"THRUSTERS",
@@ -28,7 +30,9 @@
             "effects_damaged":[0.6],
             "effects_destroyed":[0.2],
             "health":10,
-            "threshold_damaged":6
+            "threshold_damaged":6,
+            "image_damaged":"image_icon_thrusters_yellow",
+            "image_destroyed":"image_icon_thrusters_red"
         }
     ],
     "hardpoints":[

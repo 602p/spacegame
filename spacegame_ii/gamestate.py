@@ -94,7 +94,7 @@ class RunningGameState(state.State):
 		self.root.screen.screen.blit(self.root.gamedb.get_asset("font_standard_small").render("X: "+str(self.player.rigidbody.x), False, (0,255,255)), (0,680))
 		self.root.screen.screen.blit(self.root.gamedb.get_asset("font_standard_small").render("Y: "+str(self.player.rigidbody.y), False, (0,255,255)), (0,660))	
 
-		self.player.damage.render_full(self.root.screen.screen, self.root.gamedb.get_asset("font_standard_small"))
+		self.player.damage.render_systems_full(self.root.screen.screen, self.root.gamedb.get_asset("font_standard_small"))
 		self.player.damage.render_infobox(self.root.screen.screen, self.root.gamedb.get_asset("font_standard_very_small"), 1150, 50, 0)
 		self.player.targeted.damage.render_infobox(self.root.screen.screen, self.root.gamedb.get_asset("font_standard_very_small"), 1150, 530, 1)
 
@@ -122,7 +122,5 @@ class RunningGamePausedState(state.State):
 		self.root.screen.screen.blit(self.petr, ((self.root.renderspace_size[0]/2)-(self.petr.get_width()/2), 250))
 		for e in pygame.event.get():
 			if e.type==pygame.KEYDOWN:
-				print "a"
 				if e.key==pygame.K_RETURN:
-					print "b"
 					self.state_manager.goto_state("game")
