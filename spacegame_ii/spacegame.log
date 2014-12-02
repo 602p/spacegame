@@ -1,71 +1,53 @@
-[2014-12-01 08:08:36,388] DEBUG: Logging Started
-[2014-12-01 08:08:36,982] DEBUG: Load package 'extentions/stock'====================================================
-[2014-12-01 08:08:36,983] DEBUG: Load plugin 'extentions/stock/plugins/beam_laser.py'
-[2014-12-01 08:08:36,983] DEBUG: Run init 'extentions/stock/plugins/beam_laser.py'::init_primitives
-[2014-12-01 08:08:36,983] DEBUG: Load plugin 'extentions/stock/plugins/projectiles.py'
-[2014-12-01 08:08:36,983] DEBUG: Run init 'extentions/stock/plugins/projectiles.py'::init_primitives
-[2014-12-01 08:08:36,984] DEBUG: Load assetkey 'extentions/stock/assetkeys/explosions.json'----
-[2014-12-01 08:08:36,984] DEBUG: Load node [extentions/stock/assetkeys/explosions.json::extentions/stock/]: {u'json': {u'b_max': 0, u'r_min': 255, u'particles': 200, u'r_max': 255, u'g_max': 0, u'time_max': 1, u'b_min': 0, u'g_min': 0, u'speed': 4, u'time_min': 0.1}, u'type': u'json', u'name': u'cfg_explosion_red'}
-[2014-12-01 08:08:36,986] DEBUG: Load node [extentions/stock/assetkeys/explosions.json::extentions/stock/]: {u'json': {u'b_max': 0, u'speed_max': 46, u'speed_min': 22, u'r_min': 200, u'size_max': 50, u'particles': 1000, u'size_min': 10, u'r_max': 255, u'g_max': 100, u'time_max': 1.1, u'b_min': 0, u'g_min': 50, u'time_min': 0.1}, u'type': u'json', u'name': u'cfg_explosion_ship_large'}
-[2014-12-01 08:08:36,986] DEBUG: Load assetkey 'extentions/stock/assetkeys/font.json'----
-[2014-12-01 08:08:36,987] DEBUG: Load node [extentions/stock/assetkeys/font.json::extentions/stock/]: {u'path': u'ui/modular/kenvector_future_thin.ttf', u'type': u'font', u'name': u'font_standard', u'size': 20}
-[2014-12-01 08:08:36,989] DEBUG: Load node [extentions/stock/assetkeys/font.json::extentions/stock/]: {u'path': u'ui/modular/kenvector_future_thin.ttf', u'type': u'font', u'name': u'font_standard_large', u'size': 30}
-[2014-12-01 08:08:36,990] DEBUG: Load node [extentions/stock/assetkeys/font.json::extentions/stock/]: {u'path': u'ui/modular/kenvector_future_thin.ttf', u'type': u'font', u'name': u'font_standard_small', u'size': 15}
-[2014-12-01 08:08:36,990] DEBUG: Load node [extentions/stock/assetkeys/font.json::extentions/stock/]: {u'path': u'ui/modular/kenvector_future_thin.ttf', u'type': u'font', u'name': u'font_standard_very_small', u'size': 10}
-[2014-12-01 08:08:37,003] DEBUG: Load node [extentions/stock/assetkeys/font.json::extentions/stock/]: {u'sys_name': u'monospace', u'type': u'sysfont', u'name': u'font_sys_mono', u'size': 20}
-[2014-12-01 08:08:37,003] DEBUG: Load assetkey 'extentions/stock/assetkeys/icon.json'----
-[2014-12-01 08:08:37,006] DEBUG: Load node [extentions/stock/assetkeys/icon.json::extentions/stock/]: {u'path': u'image/icon/engine-transparent-red.png', u'type': u'image', u'name': u'image_icon_engine_red'}
-[2014-12-01 08:08:37,006] DEBUG: Load node [extentions/stock/assetkeys/icon.json::extentions/stock/]: {u'path': u'image/icon/engine-transparent-yellow.png', u'type': u'image', u'name': u'image_icon_engine_yellow'}
-[2014-12-01 08:08:37,006] DEBUG: Load node [extentions/stock/assetkeys/icon.json::extentions/stock/]: {u'path': u'image/icon/steering-transparent-red.png', u'type': u'image', u'name': u'image_icon_thrusters_red'}
-[2014-12-01 08:08:37,006] DEBUG: Load node [extentions/stock/assetkeys/icon.json::extentions/stock/]: {u'path': u'image/icon/steering-transparent-yellow.png', u'type': u'image', u'name': u'image_icon_thrusters_yellow'}
-[2014-12-01 08:08:37,006] DEBUG: Load assetkey 'extentions/stock/assetkeys/items.json'----
-[2014-12-01 08:08:37,007] DEBUG: Load node [extentions/stock/assetkeys/items.json::extentions/stock/]: {u'path': u'image/items/red_laser_projectile.png', u'type': u'image', u'name': u'item_laser_bullet'}
-[2014-12-01 08:08:37,007] DEBUG: Load node [extentions/stock/assetkeys/items.json::extentions/stock/]: {u'path': u'image/items/red_laser_turret.png', u'type': u'image', u'name': u'item_laser_turret'}
-[2014-12-01 08:08:37,009] DEBUG: Load assetkey 'extentions/stock/assetkeys/ships.json'----
-[2014-12-01 08:08:37,009] DEBUG: Load node [extentions/stock/assetkeys/ships.json::extentions/stock/]: {u'path': u'image/ships/4-5.png', u'type': u'image', u'name': u'ship_cargo_tt'}
-[2014-12-01 08:08:37,012] DEBUG: Load node [extentions/stock/assetkeys/ships.json::extentions/stock/]: {u'path': u'image/ships/4-3.png', u'type': u'image', u'name': u'ship_destroyer_tt'}
-[2014-12-01 08:08:37,015] DEBUG: Load node [extentions/stock/assetkeys/ships.json::extentions/stock/]: {u'path': u'image/ships/1-1.png', u'type': u'image', u'name': u'ship_alien_tt'}
-[2014-12-01 08:08:37,015] DEBUG: Load assetkey 'extentions/stock/assetkeys/sound.json'----
-[2014-12-01 08:08:37,025] DEBUG: Load node [extentions/stock/assetkeys/sound.json::extentions/stock/]: {u'volume': 1, u'path': u'sound/explode-1.ogg', u'type': u'sound', u'name': u'sound_explode1'}
-[2014-12-01 08:08:37,025] DEBUG: Load assetkey 'extentions/stock/assetkeys/ui_assembled.json'----
-[2014-12-01 08:08:37,026] DEBUG: Load node [extentions/stock/assetkeys/ui_assembled.json::extentions/stock/]: {u'path': u'ui/assembled/metalPanel.png', u'type': u'image', u'name': u'uia_metal_panel'}
-[2014-12-01 08:08:37,043] DEBUG: Load node [extentions/stock/assetkeys/ui_assembled.json::extentions/stock/]: {u'path': u'ui/OKDialog.png', u'type': u'image', u'name': u'uia_ok_dialog'}
-[2014-12-01 08:08:37,059] DEBUG: Load node [extentions/stock/assetkeys/ui_assembled.json::extentions/stock/]: {u'path': u'ui/YNDialog.png', u'type': u'image', u'name': u'uia_yn_dialog'}
-[2014-12-01 08:08:37,061] DEBUG: Load item_dir 'extentions/stock/items'
-[2014-12-01 08:08:37,061] DEBUG: Load item_file 'extentions/stock/items/laser.json' from 'extentions/stock/items'
-[2014-12-01 08:08:37,062] DEBUG: Loaded item 'wep_basic_laser
-[2014-12-01 08:08:37,062] DEBUG: Load item_file 'extentions/stock/items/laser_proj.json' from 'extentions/stock/items'
-[2014-12-01 08:08:37,062] DEBUG: Loaded item 'wep_proj_laser
-[2014-12-01 08:08:37,062] DEBUG: Load ship_dir 'extentions/stock/ships'
-[2014-12-01 08:08:37,063] DEBUG: Load ship_file 'extentions/stock/ships/alien.json' from 'extentions/stock/ships'
-[2014-12-01 08:08:37,063] DEBUG: Loaded ship 'alien_transport_test
-[2014-12-01 08:08:37,063] DEBUG: Load ship_file 'extentions/stock/ships/destroyer.json' from 'extentions/stock/ships'
-[2014-12-01 08:08:37,065] DEBUG: Loaded ship 'destroyer_transport_test
-[2014-12-01 08:08:37,065] DEBUG: Load ship_file 'extentions/stock/ships/example.json' from 'extentions/stock/ships'
-[2014-12-01 08:08:37,065] DEBUG: Loaded ship 'cargo_transport_test
-[2014-12-01 08:16:35,536] ERROR: ERROR REMOVING TARGETED
-[2014-12-01 08:16:35,536] ERROR: Projectile instance has no attribute 'targeted'
-[2014-12-01 08:16:36,098] ERROR: ERROR REMOVING TARGETED
-[2014-12-01 08:16:36,098] ERROR: Projectile instance has no attribute 'targeted'
-[2014-12-01 08:16:36,614] ERROR: ERROR REMOVING TARGETED
-[2014-12-01 08:16:36,614] ERROR: Projectile instance has no attribute 'targeted'
-[2014-12-01 08:16:37,105] ERROR: ERROR REMOVING TARGETED
-[2014-12-01 08:16:37,105] ERROR: Projectile instance has no attribute 'targeted'
-[2014-12-01 08:16:48,854] ERROR: ERROR REMOVING TARGETED
-[2014-12-01 08:16:48,855] ERROR: Projectile instance has no attribute 'targeted'
-[2014-12-01 08:16:54,812] ERROR: ERROR REMOVING TARGETED
-[2014-12-01 08:16:54,812] ERROR: Projectile instance has no attribute 'targeted'
-[2014-12-01 08:17:17,394] ERROR: ERROR REMOVING TARGETED
-[2014-12-01 08:17:17,394] ERROR: Projectile instance has no attribute 'targeted'
-[2014-12-01 08:17:19,477] ERROR: ERROR REMOVING TARGETED
-[2014-12-01 08:17:19,477] ERROR: Projectile instance has no attribute 'targeted'
-[2014-12-01 08:17:21,042] ERROR: ERROR REMOVING TARGETED
-[2014-12-01 08:17:21,042] ERROR: Projectile instance has no attribute 'targeted'
-[2014-12-01 08:17:22,328] ERROR: ERROR REMOVING TARGETED
-[2014-12-01 08:17:22,328] ERROR: Projectile instance has no attribute 'targeted'
-[2014-12-01 08:17:22,697] ERROR: ERROR REMOVING TARGETED
-[2014-12-01 08:17:22,697] ERROR: Projectile instance has no attribute 'targeted'
-[2014-12-01 08:17:22,697] ERROR: ERROR REMOVING TARGETED
-[2014-12-01 08:17:22,697] ERROR: Projectile instance has no attribute 'targeted'
-[2014-12-01 08:17:23,676] ERROR: ERROR REMOVING TARGETED
-[2014-12-01 08:17:23,676] ERROR: Projectile instance has no attribute 'targeted'
+[2014-12-02 10:31:09,000] DEBUG: Logging Started
+[2014-12-02 10:31:10,276] DEBUG: Load package 'extentions/stock'====================================================
+[2014-12-02 10:31:10,278] DEBUG: Load plugin 'extentions/stock/plugins/beam_laser.py'
+[2014-12-02 10:31:10,278] DEBUG: Run init 'extentions/stock/plugins/beam_laser.py'::init_primitives
+[2014-12-02 10:31:10,279] DEBUG: Load plugin 'extentions/stock/plugins/projectiles.py'
+[2014-12-02 10:31:10,279] DEBUG: Run init 'extentions/stock/plugins/projectiles.py'::init_primitives
+[2014-12-02 10:31:10,279] DEBUG: Load assetkey 'extentions/stock/assetkeys/explosions.json'----
+[2014-12-02 10:31:10,279] DEBUG: Load node [extentions/stock/assetkeys/explosions.json::extentions/stock/]: {u'json': {u'b_max': 0, u'r_min': 255, u'particles': 200, u'r_max': 255, u'g_max': 0, u'time_max': 1, u'b_min': 0, u'g_min': 0, u'speed': 4, u'time_min': 0.1}, u'type': u'json', u'name': u'cfg_explosion_red'}
+[2014-12-02 10:31:10,279] DEBUG: Load node [extentions/stock/assetkeys/explosions.json::extentions/stock/]: {u'json': {u'b_max': 0, u'speed_max': 46, u'speed_min': 22, u'r_min': 200, u'size_max': 50, u'particles': 1000, u'size_min': 10, u'r_max': 255, u'g_max': 100, u'time_max': 1.1, u'b_min': 0, u'g_min': 50, u'time_min': 0.1}, u'type': u'json', u'name': u'cfg_explosion_ship_large'}
+[2014-12-02 10:31:10,279] DEBUG: Load assetkey 'extentions/stock/assetkeys/font.json'----
+[2014-12-02 10:31:10,295] DEBUG: Load node [extentions/stock/assetkeys/font.json::extentions/stock/]: {u'path': u'ui/modular/kenvector_future_thin.ttf', u'type': u'font', u'name': u'font_standard', u'size': 20}
+[2014-12-02 10:31:10,296] DEBUG: Load node [extentions/stock/assetkeys/font.json::extentions/stock/]: {u'path': u'ui/modular/kenvector_future_thin.ttf', u'type': u'font', u'name': u'font_standard_large', u'size': 30}
+[2014-12-02 10:31:10,296] DEBUG: Load node [extentions/stock/assetkeys/font.json::extentions/stock/]: {u'path': u'ui/modular/kenvector_future_thin.ttf', u'type': u'font', u'name': u'font_standard_small', u'size': 15}
+[2014-12-02 10:31:10,296] DEBUG: Load node [extentions/stock/assetkeys/font.json::extentions/stock/]: {u'path': u'ui/modular/kenvector_future_thin.ttf', u'type': u'font', u'name': u'font_standard_very_small', u'size': 10}
+[2014-12-02 10:31:10,311] DEBUG: Load node [extentions/stock/assetkeys/font.json::extentions/stock/]: {u'sys_name': u'monospace', u'type': u'sysfont', u'name': u'font_sys_mono', u'size': 20}
+[2014-12-02 10:31:10,311] DEBUG: Load assetkey 'extentions/stock/assetkeys/icon.json'----
+[2014-12-02 10:31:10,312] DEBUG: Load node [extentions/stock/assetkeys/icon.json::extentions/stock/]: {u'path': u'image/icon/engine-transparent-red.png', u'type': u'image', u'name': u'image_icon_engine_red'}
+[2014-12-02 10:31:10,312] DEBUG: Load node [extentions/stock/assetkeys/icon.json::extentions/stock/]: {u'path': u'image/icon/engine-transparent-yellow.png', u'type': u'image', u'name': u'image_icon_engine_yellow'}
+[2014-12-02 10:31:10,312] DEBUG: Load node [extentions/stock/assetkeys/icon.json::extentions/stock/]: {u'path': u'image/icon/steering-transparent-red.png', u'type': u'image', u'name': u'image_icon_thrusters_red'}
+[2014-12-02 10:31:10,313] DEBUG: Load node [extentions/stock/assetkeys/icon.json::extentions/stock/]: {u'path': u'image/icon/steering-transparent-yellow.png', u'type': u'image', u'name': u'image_icon_thrusters_yellow'}
+[2014-12-02 10:31:10,313] DEBUG: Load assetkey 'extentions/stock/assetkeys/items.json'----
+[2014-12-02 10:31:10,315] DEBUG: Load node [extentions/stock/assetkeys/items.json::extentions/stock/]: {u'path': u'image/items/red_laser_projectile.png', u'type': u'image', u'name': u'item_laser_bullet'}
+[2014-12-02 10:31:10,315] DEBUG: Load node [extentions/stock/assetkeys/items.json::extentions/stock/]: {u'path': u'image/items/red_laser_turret.png', u'type': u'image', u'name': u'item_laser_turret'}
+[2014-12-02 10:31:10,315] DEBUG: Load assetkey 'extentions/stock/assetkeys/ships.json'----
+[2014-12-02 10:31:10,318] DEBUG: Load node [extentions/stock/assetkeys/ships.json::extentions/stock/]: {u'path': u'image/ships/4-5.png', u'type': u'image', u'name': u'ship_cargo_tt'}
+[2014-12-02 10:31:10,321] DEBUG: Load node [extentions/stock/assetkeys/ships.json::extentions/stock/]: {u'path': u'image/ships/4-3.png', u'type': u'image', u'name': u'ship_destroyer_tt'}
+[2014-12-02 10:31:10,323] DEBUG: Load node [extentions/stock/assetkeys/ships.json::extentions/stock/]: {u'path': u'image/ships/1-1.png', u'type': u'image', u'name': u'ship_alien_tt'}
+[2014-12-02 10:31:10,323] DEBUG: Load assetkey 'extentions/stock/assetkeys/sound.json'----
+[2014-12-02 10:31:10,334] DEBUG: Load node [extentions/stock/assetkeys/sound.json::extentions/stock/]: {u'volume': 1, u'path': u'sound/explode-1.ogg', u'type': u'sound', u'name': u'sound_explode1'}
+[2014-12-02 10:31:10,334] DEBUG: Load assetkey 'extentions/stock/assetkeys/ui_assembled.json'----
+[2014-12-02 10:31:10,335] DEBUG: Load node [extentions/stock/assetkeys/ui_assembled.json::extentions/stock/]: {u'path': u'ui/assembled/metalPanel.png', u'type': u'image', u'name': u'uia_metal_panel'}
+[2014-12-02 10:31:10,351] DEBUG: Load node [extentions/stock/assetkeys/ui_assembled.json::extentions/stock/]: {u'path': u'ui/OKDialog.png', u'type': u'image', u'name': u'uia_ok_dialog'}
+[2014-12-02 10:31:10,367] DEBUG: Load node [extentions/stock/assetkeys/ui_assembled.json::extentions/stock/]: {u'path': u'ui/YNDialog.png', u'type': u'image', u'name': u'uia_yn_dialog'}
+[2014-12-02 10:31:10,368] DEBUG: Load item_dir 'extentions/stock/items'
+[2014-12-02 10:31:10,368] DEBUG: Load item_file 'extentions/stock/items/laser.json' from 'extentions/stock/items'
+[2014-12-02 10:31:10,368] DEBUG: Loaded item 'wep_basic_laser
+[2014-12-02 10:31:10,369] DEBUG: Load item_file 'extentions/stock/items/laser_proj.json' from 'extentions/stock/items'
+[2014-12-02 10:31:10,371] DEBUG: Loaded item 'wep_proj_laser
+[2014-12-02 10:31:10,371] DEBUG: Load ship_dir 'extentions/stock/ships'
+[2014-12-02 10:31:10,371] DEBUG: Load ship_file 'extentions/stock/ships/alien.json' from 'extentions/stock/ships'
+[2014-12-02 10:31:10,371] DEBUG: Loaded ship 'alien_transport_test
+[2014-12-02 10:31:10,371] DEBUG: Load ship_file 'extentions/stock/ships/destroyer.json' from 'extentions/stock/ships'
+[2014-12-02 10:31:10,372] DEBUG: Loaded ship 'destroyer_transport_test
+[2014-12-02 10:31:10,374] DEBUG: Load ship_file 'extentions/stock/ships/example.json' from 'extentions/stock/ships'
+[2014-12-02 10:31:10,374] DEBUG: Loaded ship 'cargo_transport_test
+[2014-12-02 10:31:18,861] ERROR: ERROR REMOVING TARGETED
+[2014-12-02 10:31:18,861] ERROR: Projectile instance has no attribute 'targeted'
+[2014-12-02 10:31:19,421] ERROR: ERROR REMOVING TARGETED
+[2014-12-02 10:31:19,423] ERROR: Projectile instance has no attribute 'targeted'
+[2014-12-02 10:31:20,072] ERROR: ERROR REMOVING TARGETED
+[2014-12-02 10:31:20,072] ERROR: Projectile instance has no attribute 'targeted'
+[2014-12-02 10:31:20,072] ERROR: ERROR REMOVING TARGETED
+[2014-12-02 10:31:20,072] ERROR: Projectile instance has no attribute 'targeted'
