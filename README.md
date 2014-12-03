@@ -17,3 +17,6 @@ To start, open up your favorite command prompt, move over to the folder containi
 `python test_state.py`
 
 Use the up arrow key to throttle up, down arrow key to throttle down/go into reverse/brake and the left and right arrow keys to turn left and right, respectively.
+
+
+When you have a hang of the movement controls, you want to select with your mouse a weapon. Laser #1 is a projectile, and goes in a straight line. Laser #2 is a beam, and automatically targets your target. Missile #1 bypasses the shield, doing massive amounts of damage and it homes in on your target.
