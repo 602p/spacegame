@@ -1,5 +1,5 @@
 from __future__ import division
-import rarity, os, json, serialize, item, assets, random, assets, pygame, math, particles, physics, damage, pygame, primitives
+import rarity, os, json, serialize, item, assets, random, assets, pygame, math, particles, physics, damage, pygame, primitives, ai
 from math import cos, sin, radians, degrees
 from rotutil import *
 from logging import debug, info, warning, error, critical
@@ -27,8 +27,8 @@ def register_ship(root, config, package_root):
 def create_ship_factory(root, config, package_root):
 	return ShipFactory(root, package_root, config)
 
-def create_ship(root, id_, x=0, y=0, with_equip=1):
-	return root.ship_factories[id_](x, y, with_equip)
+def create_ship(root, id_, x=0, y=0, with_equip=1, ai=True):
+	return root.ship_factories[id_](x, y, with_equip, ai)
 
 class ShipFactory:
 	def __init__(self, root, package_root, config):
@@ -57,10 +57,10 @@ class ShipFactory:
 
 		debug("Loaded ship '"+self.id_string)
 
-	def __call__(self, x=0, y=0, with_equip=1):
+	def __call__(self, x=0, y=0, with_equip=1, ai=True):
 		s = Ship(self.root, self.image, self.id_string, self.name, self.hull, self.mass, self.cost, self.cargo,\
 			self.start_speed, self.reactor_max, self.reactor_regen, self.hardpoints, self.engine_sources, self.shields,
-			self.rarity, self.max_speed, self.turn_rate, self.systems, self.config, x, y)
+			self.rarity, self.max_speed, self.turn_rate, self.systems, self.config, x, y, use_ai=ai)
 		if with_equip:
 			for i in self.start_equip:
 				s.inventory.append(item.create_item(self.root, i["item_name"], s, i["equipped"]))
@@ -68,7 +68,7 @@ class ShipFactory:
 
 class Ship(serialize.SerializableObject):
 	def __init__(self, root, image, id_string, name, hull, mass, cost, cargo, start_speed, reactor_max,
-		reactor_regen, hardpoints, engine_sources, shields, rarity, max_speed, turn_rate, systems, config, x, y):
+		reactor_regen, hardpoints, engine_sources, shields, rarity, max_speed, turn_rate, systems, config, x, y, use_ai=True):
 		self.root=root
 
 		self.image=image.copy() #Make a copy so we dont contaminate the gdb
@@ -101,6 +101,10 @@ class Ship(serialize.SerializableObject):
 		self.kill=False
 
 		self.can_be_hit=True
+
+		self.use_ai=use_ai
+		if self.use_ai:
+			self.ai=ai.AIController(self, config["ai"])
 
 	def get_inventory_mass(self):
 		m=0
@@ -164,6 +168,9 @@ class Ship(serialize.SerializableObject):
 		self.damage.regen()
 
 		if self.damage.dead(): self.die()
+
+		if self.use_ai:
+			self.ai.update()
 
 	def render_items(self):
 		for i in self.inventory:

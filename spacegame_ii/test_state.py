@@ -1,6 +1,6 @@
 from __future__ import division
 from logging import debug, info, warning, error, critical
-import logging, sys, traceback, datetime
+import logging, sys, traceback, datetime, ai
 logging.basicConfig(filemode='w', filename='spacegame.log',level=logging.DEBUG, format='[%(asctime)s] %(levelname)s: %(message)s')
 debug("Logging Started")
 import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader, assets, pyconsole, interdiction_gui
@@ -30,6 +30,7 @@ ship.init(root)
 item.init(root)
 primitives.init(root)
 tasks.init(root)
+ai.init(root)
 tasks.add_group(root, "render_last")
 root.particlemanager=particles.ParticleManager()
 root.screen=scrollingscreen

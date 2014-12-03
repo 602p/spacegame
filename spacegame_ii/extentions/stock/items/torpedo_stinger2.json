@@ -49,5 +49,12 @@
                 "rarity":100
             }
         ]
-    }
+    },
+    "ai_hints":[
+        {
+            "name":"constrain_by_system_damage",
+            "search_key":"max_speed",
+            "above":"destroyed"
+        }
+    ]
 }

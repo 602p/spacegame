@@ -69,6 +69,7 @@
         }
     ],
     "ship_die":"%explosion_ship_large%",
+    "ai":"%ai_test%",
     "engine_sources":[
         {
             "x":9,

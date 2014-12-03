@@ -1,0 +1,22 @@
+{
+	"assets":[
+		{
+			"name":"cfg_ai_test",
+			"type":"json",
+			"json":{
+                "ai_subcontrollers":[
+                    {
+                        "controller":"select_player"
+                    },
+                    {
+                        "controller":"point_at_selected"
+                    },
+                    {
+                        "controller":"approach_selected",
+                        "trail_distance":500
+                    }
+                ]
+       		}
+		}
+    ]
+}

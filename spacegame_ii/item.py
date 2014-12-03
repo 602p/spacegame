@@ -1,4 +1,4 @@
-import pygame, rarity, assets, datetime, os, json, primitives, serialize
+import pygame, rarity, assets, datetime, os, json, primitives, serialize, ai
 from rotutil import *
 from jsonutil import dget
 from logging import debug, info, warning, error, critical
@@ -50,18 +50,19 @@ class ItemFactory:
 		self.passive_dequip=json_dict["dequip"]
 		self.fire_events=json_dict["fire_events"]
 		self.root=root
+		self.config=json_dict
 
 		debug("Loaded item '"+self.id)
 
 	def __call__(self, parent, equipped=-1):
 		return Item(self.root, self.id, self.name, self.cost, self.mass, self.inventory_image, self.equipped_image,
 			self.fire_required, self.hardpoint, self.rarity, self.passive_equip,
-			self.passive_dequip, self.fire_events, equipped, parent)
+			self.passive_dequip, self.fire_events, equipped, parent, self.config)
 
 
 class Item(serialize.SerializableObject):
 	def __init__(self, root, id_str, name, cost, mass, inventory_image, equipped_image, fire_required,
-		hardpoint, rarity, passive_equip, passive_dequip, fire_events, equipped, parent):
+		hardpoint, rarity, passive_equip, passive_dequip, fire_events, equipped, parent, config):
 		self.cost=cost
 		self.name=name
 		self.root=root
@@ -76,6 +77,14 @@ class Item(serialize.SerializableObject):
 		self.rarity=rarity
 		self.fire_required=fire_required
 		self.parent=parent
+		self._config=config
+
+		self.ai_hints=[]
+
+		if "ai_hints" in config:
+			for i in config["ai_hints"]:
+				if ai.has_ai_hint(self.root, i["name"]):
+					self.ai_hints.append(ai.get_ai_hint(self.root, i["name"])(self, i))
 
 		self.equipped=equipped
 

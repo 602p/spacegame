@@ -4,7 +4,7 @@ from logging import debug, info, warning, error, critical
 
 class RunningGameState(state.State):
 	def first_start(self):
-		self.entities=[ship.create_ship(self.root, "cargo_transport_test", 100, 100)]
+		self.entities=[ship.create_ship(self.root, "cargo_transport_test", 100, 100, ai=False)]
 		self.player=self.entities[0]
 		self.entities.append(ship.create_ship(self.root, "destroyer_transport_test", 100, 100))
 		# for i in xrange(0,10):
@@ -70,10 +70,10 @@ class RunningGameState(state.State):
 			self.player.exert_reverse_engine()
 		if pygame.key.get_pressed()[pygame.K_SPACE]:
 			self.player.fire_item_in_hardpoint(self.player.selected_wep)
-		try:
-			self.entities[1].exert_engine()
-			self.entities[1].rigidbody.rotate(self.entities[1].turn_rate)
-		except BaseException: pass
+		# try:
+		# 	self.entities[1].exert_engine()
+		# 	self.entities[1].rigidbody.rotate(self.entities[1].turn_rate)
+		# except BaseException: pass
 
 		for e in pygame.event.get():
 			if e.type==pygame.KEYDOWN:
