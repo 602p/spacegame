@@ -3,7 +3,9 @@ from logging import debug, info, warning, error, critical
 import logging, sys, traceback, datetime, ai
 logging.basicConfig(filemode='w', filename='spacegame.log',level=logging.DEBUG, format='[%(asctime)s] %(levelname)s: %(message)s')
 debug("Logging Started")
-import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader, assets, pyconsole, interdiction_gui
+import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader
+import assets, pyconsole, interdiction_gui
+
 
 def credits():
 	print("Spacegame was made by:")

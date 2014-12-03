@@ -9,7 +9,7 @@
     "required":{
         "energy":40,
         "enemy_selected":true,
-        "cooldown":0.5
+        "cooldown":3
     },
     "fire_events":[
         {
@@ -19,7 +19,7 @@
             "homing":true,
             "turnrate":160,
             "velocity":150,
-            "maxspeed":650,
+            "maxspeed":400,
             "accel":500,
             "impact":[
                 {

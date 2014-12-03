@@ -102,6 +102,8 @@ class Ship(serialize.SerializableObject):
 
 		self.can_be_hit=True
 
+		self.targeted=None
+
 		self.use_ai=use_ai
 		if self.use_ai:
 			self.ai=ai.AIController(self, config["ai"])
@@ -155,8 +157,8 @@ class Ship(serialize.SerializableObject):
 		self.particlemanager.update()
 		self.particlemanager.draw(self.root.screen)
 
-		if self.rigidbody.get_magnitude()<0:
-			self.rigidbody.set_magnitude(0)
+		if self.rigidbody.get_magnitude()<-self.max_speed/8:
+			self.rigidbody.set_magnitude(-self.max_speed/8)
 		if self.rigidbody.get_magnitude()>self.max_speed:
 			self.rigidbody.set_magnitude(self.max_speed)
 		

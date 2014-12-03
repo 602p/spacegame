@@ -4,7 +4,7 @@
 			"name":"cfg_explosion_red",
 			"type":"json",
 			"json":{
-                "particles":200,
+                "particles":20,
                 "r_min":255,
                 "r_max":255,
                 "g_min":0,
@@ -12,6 +12,8 @@
                 "b_min":0,
                 "b_max":0,
                 "speed":4,
+                "size_min":5,
+                "size_max":10,
                 "time_min":0.1,
                 "time_max":1
        		}

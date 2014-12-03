@@ -4,9 +4,9 @@ from jsonutil import dget
 from particles import Particle
 
 class Projectile:
-	def __init__(self, image, root, parent, lifetime, homing, velocity, impact, maxspeed, accel, particlestyle={"particles":0}, turnrate=60):
-		self.rigidbody=physics.RigidBody2D(1, parent.get_center()[0], parent.get_center()[1],
-			physics.Vector2d(velocity, parent.parent.rigidbody.get_angle()))
+	def __init__(self, image, root, parent, lifetime, homing, velocity, impact, maxspeed, accel, particlestyle={"particles":0}, turnrate=60, offset_min=0, offset_max=0):
+		self.rigidbody=physics.RigidBody2D(1, parent.get_center()[0]+random.uniform(offset_min, offset_max),
+		    parent.get_center()[1]+random.uniform(offset_min, offset_max),physics.Vector2d(velocity, parent.parent.rigidbody.get_angle()))
 		self.homing=homing
 		self.impact=impact
 		self.lifetime=lifetime
@@ -82,8 +82,12 @@ def gen_explosion_from_node_source(r, n, x, y):
 
 def init_primitives(root):
 	def fire_projectile(r, n, p):
-		r.state_manager.states["game"].entities.append(Projectile(r.gamedb.get_asset(n["image"]), r,
-			p, n["lifetime"], n["homing"], n["velocity"], n["impact"], n["maxspeed"], n["accel"], dget(n, "particlestyle", {"particles":0}), dget(n, "turnrate", 60)))
+		i=0
+		while i!=dget(n, "number", 1):
+			r.state_manager.states["game"].entities.append(Projectile(r.gamedb.get_asset(n["image"]), r,
+				p, n["lifetime"], n["homing"], n["velocity"], n["impact"], n["maxspeed"], n["accel"], dget(n, "particlestyle", {"particles":0}), dget(n, "turnrate", 60),
+				dget(n, "offset_min", 0), dget(n, "offset_max", 0)))
+			i+=1
 		return True
 	primitives.register_primitive(root, "fire_projectile", fire_projectile)
 
@@ -102,7 +106,7 @@ def init_primitives(root):
 	primitives.register_primitive(root, "system_damage_impact", system_damage_impact)
 
 	def explosion_at_parent(r, n, p):
-		p.impacted.particlemanager.add_particles(gen_explosion_from_node_source(r, n["style"], p.rigidbody.x, p.rigidbody.y))
+		p.impacted.particlemanager.add_particles(particles.make_explosion_cfg(r, p.rigidbody.x, p.rigidbody.y, n["style"]))
 		return True
 	primitives.register_primitive(root, "explosion_at_parent_impact", explosion_at_parent)
 

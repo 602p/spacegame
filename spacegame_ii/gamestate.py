@@ -1,18 +1,14 @@
 from __future__ import division
-import state, ship, pygame, random, tasks, overlay_gui, interdiction_gui, sys, math
+import state, ship, pygame, random, tasks, overlay_gui, interdiction_gui, sys, math, parralax
 from logging import debug, info, warning, error, critical
 
 class RunningGameState(state.State):
 	def first_start(self):
 		self.entities=[ship.create_ship(self.root, "cargo_transport_test", 100, 100, ai=False)]
 		self.player=self.entities[0]
-		self.entities.append(ship.create_ship(self.root, "destroyer_transport_test", 100, 100))
 		# for i in xrange(0,10):
 		# 	self.entities.append(ship.create_ship(self.root, "cargo_transport_test", random.randint(-300,300), random.randint(-300,300)))
-		self.player.targeted=self.entities[1]
-		self.entities[1].targeted=self.player
-		self.entities[1].rigidbody.x=0
-		self.entities[1].rigidbody.y=0
+
 		self.stars=pygame.transform.scale(pygame.image.load("stars-1.png").convert_alpha(), (500,500))
 		nebulae=[
 			pygame.image.load("extentions/stock/image/bg-elements/nebula-1.png").convert_alpha(),
@@ -45,18 +41,24 @@ class RunningGameState(state.State):
 			self.generated.append([[random.randint(-8000,8000), random.randint(-6000,6000)],nebulae[random.randint(0,len(nebulae)-1)]])
 		for i in range(random.randint(5,10)):
 			self.generated.append([[random.randint(-8000,8000), random.randint(-6000,6000)],planets[random.randint(0,len(planets)-1)]])
-		self.entities[1].rigidbody.x=0
-		self.entities[1].rigidbody.y=0
 
 		self.player.selected_wep=0
+
+		self.parralax_scroller=parralax.ParralaxStarfieldScroller(
+			self.root.renderspace_size,
+			[
+				parralax.StarfieldLayer(20, (255,255,255), 2, -0.5),
+				parralax.StarfieldLayer(30, (255,255,255), 2, -1),
+				parralax.StarfieldLayer(40, (255,255,255), 2, -2)
+			]
+		)
 	def start(self):
 		pass
 	def update_and_render(self):
 		self.root.screen.screen.fill((0,0,0))
+		self.parralax_scroller.render(self.root.screen.screen)
+
 		self.root.particlemanager.update()
-		for y in range(-9000,9000,self.stars.get_height()):
-			for x in range(-9000,9000,self.stars.get_width()):
-				self.root.screen.blit(self.stars, (x,y))
 		for n in self.generated:
 			self.root.screen.blit(n[1], n[0])
 
@@ -93,6 +95,12 @@ class RunningGameState(state.State):
 					self.player.selected_wep+=1
 					if self.player.selected_wep==len(self.player.hardpoints):
 						self.player.selected_wep=0
+				if e.key == pygame.K_e:
+					self.entities.append(ship.create_ship(self.root, "destroyer_transport_test", 1000, 1000))
+					self.entities[-1].targeted=self.player
+					self.entities[-1].rigidbody.x=0
+					self.entities[-1].rigidbody.y=0
+					self.player.targeted=self.entities[-1]
 				else:
 					pygame.event.post(e)
 			else:
@@ -150,6 +158,7 @@ class RunningGameState(state.State):
 			self.player.targeted.damage.render_infobox(self.root.screen.screen, self.root.gamedb.get_asset("font_standard_very_small"), 1150, 530, 1)
 
 		self.root.screen.set_offset((self.player.rigidbody.x-(self.root.renderspace_size[0]/2), self.player.rigidbody.y-(self.root.renderspace_size[1]/2)))
+		self.parralax_scroller.move_to(self.player.rigidbody.x, self.player.rigidbody.y)
 
 		tasks.run_group(self.root, "render_last")
 

@@ -7,9 +7,9 @@
     "cost":500,
     "mass":1,
     "required":{
-        "energy":20,
+        "energy":60,
         "enemy_selected":true,
-        "cooldown":0.5
+        "cooldown":2
     },
     "fire_events":[
         {
@@ -17,14 +17,17 @@
             "image":"item_missile1_bullet",
             "lifetime":45,
             "homing":true,
-            "turnrate":200,
+            "turnrate":150,
             "velocity":150,
             "maxspeed":700,
             "accel":500,
+            "number":6,
+            "offset_min":-30,
+            "offset_max":30,
             "impact":[
                 {
                     "primitive":"system_damage_impact",
-                    "damage":2,
+                    "damage":1,
                     "system_key":"max_speed"
                 },
                 {

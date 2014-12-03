@@ -1,7 +1,7 @@
 {
 	"assets":[
 		{
-			"name":"cfg_ai_test",
+			"name":"cfg_ai_fighter",
 			"type":"json",
 			"json":{
                 "ai_subcontrollers":[
@@ -12,8 +12,8 @@
                         "controller":"point_at_selected"
                     },
                     {
-                        "controller":"approach_selected",
-                        "trail_distance":500
+                        "controller":"follow_selected",
+                        "trail_distance":350
                     }
                 ]
        		}
