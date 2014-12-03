@@ -164,4 +164,7 @@ pip-log.txt
 
 #Log
 
+spacegame_ii/spacegame.log
 spacegame_ii/*.log
+*.log
+.log
