@@ -47,9 +47,11 @@ class RunningGameState(state.State):
 		self.parralax_scroller=parralax.ParralaxStarfieldScroller(
 			self.root.renderspace_size,
 			[
+				parralax.StarfieldLayer(30, (255,255,255), 2, -0.25),
 				parralax.StarfieldLayer(20, (255,255,255), 2, -0.5),
 				parralax.StarfieldLayer(30, (255,255,255), 2, -1),
-				parralax.StarfieldLayer(40, (255,255,255), 2, -2)
+				parralax.StarfieldLayer(40, (255,255,255), 2, -2),
+				parralax.StarfieldLayer(50, (255,255,255), 2, -4)
 			]
 		)
 	def start(self):
