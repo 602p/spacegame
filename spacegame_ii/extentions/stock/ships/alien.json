@@ -7,12 +7,12 @@
     "image":"ship_alien_tt",
     "cost":2200,
     "cargo":1000,
-    "start_speed":160,
-    "reactor_max":100,
-    "reactor_regen":5,
+    "start_speed":500,
+    "reactor_max":200,
+    "reactor_regen":10,
     "shields":150,
-    "max_speed":8,
-    "turn_rate":4,
+    "max_speed":99999,
+    "turn_rate":90,
     "systems":[],
     "hardpoints":[
         {
@@ -30,7 +30,12 @@
             "rotation":180
         }
     ],
-    "start_equip":[],
+    "start_equip":[
+        {
+            "item_name":"x_wep_thanh",
+            "equipped":0
+        }
+    ],
     "engine_sources":[
         {
             "x":20,

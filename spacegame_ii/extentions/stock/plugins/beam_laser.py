@@ -11,12 +11,12 @@ def init_primitives(root):
 				pass
 		tasks.add_task(r, "render_last", tasks.Task(r, _internal, n["duration"], (n, p)))
 		return True
-	primitives.register_primitive(root, "render_laser_beam", test)
+	primitives.register_primitive(root, "render_laser_beam_targeted", test)
 
 	def test2(r, n, p):
 		p.parent.targeted.damage(n["damage"])
 		return True
-	primitives.register_primitive(root, "simple_damage", test2)
+	primitives.register_primitive(root, "simple_damage_targeted", test2)
 
 	def explosion_at_parent(r, n, p):
 		p.parent.targeted.particlemanager.add_particles(particles.make_explosion_cfg(r, p.parent.targeted.rotated_rect.center[0], p.parent.targeted.rotated_rect.center[1], n["style"]))

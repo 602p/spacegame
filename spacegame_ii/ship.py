@@ -71,7 +71,7 @@ class Ship(serialize.SerializableObject):
 		reactor_regen, hardpoints, engine_sources, shields, rarity, max_speed, turn_rate, systems, config, x, y):
 		self.root=root
 
-		self.image=image
+		self.image=image.copy() #Make a copy so we dont contaminate the gdb
 		self.id_string=id_string
 		self.name=name
 		self.mass=mass

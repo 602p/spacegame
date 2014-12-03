@@ -1,5 +1,5 @@
 from __future__ import division
-import state, ship, pygame, random, tasks, overlay_gui, interdiction_gui, sys
+import state, ship, pygame, random, tasks, overlay_gui, interdiction_gui, sys, math
 from logging import debug, info, warning, error, critical
 
 class RunningGameState(state.State):
@@ -7,6 +7,8 @@ class RunningGameState(state.State):
 		self.entities=[ship.create_ship(self.root, "cargo_transport_test", 100, 100)]
 		self.player=self.entities[0]
 		self.entities.append(ship.create_ship(self.root, "destroyer_transport_test", 100, 100))
+		# for i in xrange(0,10):
+		# 	self.entities.append(ship.create_ship(self.root, "cargo_transport_test", random.randint(-300,300), random.randint(-300,300)))
 		self.player.targeted=self.entities[1]
 		self.entities[1].targeted=self.player
 		self.entities[1].rigidbody.x=0
@@ -52,8 +54,8 @@ class RunningGameState(state.State):
 	def update_and_render(self):
 		self.root.screen.screen.fill((0,0,0))
 		self.root.particlemanager.update()
-		for y in range(-6000,6000,self.stars.get_height()):
-			for x in range(-8000,8000,self.stars.get_width()):
+		for y in range(-9000,9000,self.stars.get_height()):
+			for x in range(-9000,9000,self.stars.get_width()):
 				self.root.screen.blit(self.stars, (x,y))
 		for n in self.generated:
 			self.root.screen.blit(n[1], n[0])
@@ -120,14 +122,17 @@ class RunningGameState(state.State):
 				self.root.particlemanager.update()
 				self.root.particlemanager.draw(self.root.screen)
 				i+=1
-			interdiction_gui.interdict_ok(self.root, "GAME OVER", "You have died. Were playing "+self.player.name+" ("+self.player.id_string+"). Killed by TODO. Better luck next time :(", "QUIT")
-			pygame.quit()
-			sys.exit()
+			if not interdiction_gui.interdict_yn(self.root, "GAME OVER", "You have died. Were playing "+self.player.name+" ("+self.player.id_string+"). Killed by TODO. Better luck next time :(", "RESET", "QUIT"):
+				pygame.quit()
+				sys.exit()
+			else:
+				self.root.state_manager.states["game"].first_start()
 
 		self.entities=[]
 
 		self.entities=new_entities
 
+		#print self.player.rigidbody._vector.angle-math.degrees(math.atan2(self.player.rigidbody.y-self.player.targeted.rigidbody.y, self.player.targeted.rigidbody.x-self.player.rigidbody.x))
 
 		self.root.screen.screen.blit(self.root.gamedb.get_asset("font_standard_small").render("T: "+str(self.root.game_time), False, (0,255,255)), (0,580))
 		self.root.screen.screen.blit(self.root.gamedb.get_asset("font_standard_small").render("F: "+str(self.root.clock.get_fps()), False, (0,255,255)), (0,600))

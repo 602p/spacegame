@@ -66,13 +66,13 @@ class Item(serialize.SerializableObject):
 		self.name=name
 		self.root=root
 		self.id_str=id_str
-		self.inventory_image=inventory_image
+		self.inventory_image=inventory_image.copy() #Make a copy so we dont contaminate the gdb
 		self.mass=mass
 		self.hardpoint=hardpoint
 		self.passive_equip=passive_equip
 		self.passive_dequip=passive_dequip
 		self.fire_events=fire_events
-		self.equipped_image=equipped_image
+		self.equipped_image=equipped_image.copy() #Make a copy so we dont contaminate the gdb
 		self.rarity=rarity
 		self.fire_required=fire_required
 		self.parent=parent

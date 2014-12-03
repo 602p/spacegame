@@ -19,6 +19,21 @@
 			"name":"item_laser_turret_inventory2",
 			"path":"image/items/laser_cannon2_inv.png",
 			"type":"image"
+		},
+		{
+			"name":"x_image_dick",
+			"path":"image/items/dick.png",
+			"type":"image"
+		},
+		{
+			"name":"item_missile1_bullet",
+			"path":"image/items/missile.png",
+			"type":"image"
+		},
+		{
+			"name":"item_missile1_turret",
+			"path":"image/items/missile_icon.jpg",
+			"type":"image"
 		}
 	]
 }

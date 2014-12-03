@@ -12,7 +12,7 @@
     "reactor_regen":5,
     "shields":100,
     "max_speed":300,
-    "turn_rate":3,
+    "turn_rate":18,
     "systems":[
         {
             "name":"ENGINES",
@@ -60,11 +60,11 @@
     ],
     "start_equip":[
         {
-            "item_name":"wep_proj_laser",
+            "item_name":"wep_torpedo_stinger1",
             "equipped":0
         },
         {
-            "item_name":"wep_proj_laser",
+            "item_name":"wep_torpedo_stinger1",
             "equipped":1
         }
     ],

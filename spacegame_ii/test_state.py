@@ -1,6 +1,6 @@
 from __future__ import division
 from logging import debug, info, warning, error, critical
-import logging, sys, traceback
+import logging, sys, traceback, datetime
 logging.basicConfig(filemode='w', filename='spacegame.log',level=logging.DEBUG, format='[%(asctime)s] %(levelname)s: %(message)s')
 debug("Logging Started")
 import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader, assets, pyconsole, interdiction_gui
@@ -14,6 +14,7 @@ def credits():
 	print("Misc. assets from Opengameart.org")
 
 pygame.init()
+debug("Pygame started")
 
 renderspace_size=(1300,700)
 
@@ -36,9 +37,13 @@ root.state_manager=state.StateManager(root)
 root.console = pyconsole.Console(screen,(0,0,1300,200),localsx=locals())
 root.gamedb=assets.GameAssetDatabase()
 
+debug("Loaded all SG extentions")
+
 root.renderspace_size=renderspace_size
 
 extention_loader.load_all_packages(root, 'extentions')
+
+debug("Loaded all packages")
 
 root.state_manager.add_state(gamestate.RunningGameState(), "game")
 root.state_manager.add_state(gamestate.RunningGamePausedState(), "game_paused")
@@ -46,15 +51,23 @@ root.state_manager.goto_state("game")
 root.game_time=0
 g=root.state_manager.states["game"]
 
+debug("StateManager initilized")
+
 root.clock=pygame.time.Clock()
 
 pygame.event.set_blocked([pygame.KEYUP, pygame.MOUSEMOTION, pygame.MOUSEBUTTONDOWN, pygame.MOUSEBUTTONUP,
 	pygame.VIDEORESIZE, pygame.VIDEOEXPOSE, pygame.ACTIVEEVENT])
 
-fps_log=[1]
 fps_log_enable=0
+fps_surf=pygame.Surface((1300,300))
+fps_ofps=0
+fps_osps=0
+fps_xo=0
+fps_last=datetime.datetime.now()
+fps_sps=0
+fps_last_gt=0
 
-def logfps():
+def tfl():
 	global fps_log_enable
 	fps_log_enable=not fps_log_enable
 
@@ -87,8 +100,6 @@ while run:
 		root.fps=999
 	else:
 		root.fps=root.clock.get_fps()
-	
-	
 
 	if pygame.event.peek(pygame.QUIT):run=0
 	root.console.process_input()
@@ -98,23 +109,27 @@ while run:
 		exc_type, exc_value, exc_traceback = sys.exc_info()
 		error("================ROOT ERROR=====================")
 		for i in traceback.format_exception(exc_type, exc_value, exc_traceback): error(i)
-		if not interdiction_gui.interdict_yn(root, "ERROR", "Error in state_manager.run_tick. WARNING: IF YOU CONTINUE GAME MAY CORRUPT OF CONTINUE TO ERROR. Error in log; please submit! Crash datum:"+" "*100+str(e), "RESUME", "QUIT"):
+		if not interdiction_gui.interdict_yn(root, "ERROR", "Error in state_manager.run_tick. WARNING: IF YOU CONTINUE GAME MAY CORRUPT OR CONTINUE TO ERROR. Error in log; please submit! Crash datum:"+" "*100+str(e), "RESUME", "QUIT"):
 			sys.exit()
 
 	if fps_log_enable:
-		fps_log.append(int(root.fps))
-		if len(fps_log)==renderspace_size[0]:
-			fps_log=[0]
-		pygame.draw.line(root.screen.screen, (255,0,0), (0, 400), (renderspace_size[0],400))
-		pygame.draw.line(root.screen.screen, (0,0,255), (0, 340), (renderspace_size[0],340))
-		pygame.draw.line(root.screen.screen, (0,255,0), (0, 300), (renderspace_size[0],300))
-		c=0
-		for i in fps_log:
-			c+=1
-			if len(fps_log)>1:
-				pygame.draw.line(root.screen.screen, (0,255,255), (c-1, 400-fps_log[c-2]), (c, 400-i))
+		if datetime.datetime.now()-fps_last>datetime.timedelta(seconds=1):
+			fps_last=datetime.datetime.now()
+			fps_sps=root.game_time-fps_last_gt
+			fps_last_gt=root.game_time
+			pygame.draw.line(fps_surf, (0,255,255), (fps_xo-1, 400-fps_osps*100), (fps_xo, 400-fps_sps*100))
+			fps_osps=fps_sps
+		# if fps_xo>1300:
+		# 	fps_surf.fill((0,0,0))
+		# 	pygame.draw.line(fps_surf, (255,0,0), (0, 60), (1300,60))
+		# 	pygame.draw.line(fps_surf, (0,0,255), (0, 40), (1300,40))
+		# 	pygame.draw.line(fps_surf, (0,255,0), (0, 0), (1300,0))
+		# pygame.draw.line(fps_surf, (0,255,255), (fps_xo-1, 400-fps_ofps), (fps_xo, 400-root.fps))
 		root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("FPS: "+str(root.fps), False, (0,255,255)), (0,410))
-		root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("FPS_AVG: "+str(sum(fps_log)/len(fps_log)), False, (0,255,255)), (0,420))
+		root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("S/S: "+str(fps_sps)+"/1", False, (0,255,255)), (0,420))
+		#root.screen.screen.blit(fps_surf, (0,200))
+		# fps_xo+=1
+		# fps_ofps=root.fps
 
 	root.console.draw()
 	pygame.display.flip()

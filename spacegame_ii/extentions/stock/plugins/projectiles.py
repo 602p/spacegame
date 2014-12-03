@@ -1,10 +1,10 @@
-import primitives, physics, assets, pygame, random
+import primitives, physics, assets, pygame, random, math, cmath
 from rotutil import rot_center
 from jsonutil import dget
 from particles import Particle
 
 class Projectile:
-	def __init__(self, image, root, parent, lifetime, homing, velocity, impact):
+	def __init__(self, image, root, parent, lifetime, homing, velocity, impact, maxspeed, accel, particlestyle={"particles":0}, turnrate=60):
 		self.rigidbody=physics.RigidBody2D(1, parent.get_center()[0], parent.get_center()[1],
 			physics.Vector2d(velocity, parent.parent.rigidbody.get_angle()))
 		self.homing=homing
@@ -13,11 +13,18 @@ class Projectile:
 		self.currtime=0
 		self.image=image
 		self.mask=pygame.mask.from_surface(self.image)
+		self.particlemanager=particles.ParticleManager()
 		self.kill=False
 		self.root=root
 		self.start=self.root.game_time
 		self.parent=parent
 		self.name="PROJECTILE"
+		self.maxspeed=maxspeed
+		self.accel=accel
+		self.particlestyle=particlestyle
+		self.turnrate=turnrate
+		if self.homing:
+			self.targeted=self.parent.parent.targeted
 
 		self.can_be_hit=False
 
@@ -27,6 +34,24 @@ class Projectile:
 		screen.blit(self.rotated_image, (self.rigidbody.x, self.rigidbody.y))
 		self.rotated_mask=pygame.mask.from_surface(self.rotated_image)
 		self.rigidbody.update_in_seconds(time)
+		self.rigidbody.exert_in_vector(self.accel, cap=self.maxspeed)
+		self.particlemanager.update()
+		self.particlemanager.draw(self.root.screen)
+		self.particlemanager.add_particles(particles.make_explosion_cfg(self.root, self.rotated_rect.center[0], self.rotated_rect.center[1], self.particlestyle))
+
+		if self.homing and self.targeted:
+			rel_angle=math.degrees(math.atan2(self.targeted.rotated_rect.center[1]-self.rotated_rect.center[1],
+			 -(self.targeted.rotated_rect.center[0]-self.rotated_rect.center[0])))+90
+			delta_angle=math.degrees(math.atan2(
+				math.sin(math.radians(rel_angle)-math.radians(self.rigidbody.get_angle())),
+				math.cos(math.radians(rel_angle)-math.radians(self.rigidbody.get_angle()))
+			))
+			if delta_angle>0:
+				self.rigidbody.rotate(self.turnrate)
+			if delta_angle<0:
+				self.rigidbody.rotate(-self.turnrate)
+
+
 		if self.root.game_time-self.start>self.lifetime:
 			self.kill=True
 		for i in self.root.state_manager.states["game"].entities:
@@ -56,7 +81,7 @@ def gen_explosion_from_node_source(r, n, x, y):
 def init_primitives(root):
 	def fire_projectile(r, n, p):
 		r.state_manager.states["game"].entities.append(Projectile(r.gamedb.get_asset(n["image"]), r,
-			p, n["lifetime"], n["homing"], n["velocity"], n["impact"]))
+			p, n["lifetime"], n["homing"], n["velocity"], n["impact"], n["maxspeed"], n["accel"], dget(n, "particlestyle", {"particles":0}), dget(n, "turnrate", 60)))
 		return True
 	primitives.register_primitive(root, "fire_projectile", fire_projectile)
 
@@ -72,7 +97,7 @@ def init_primitives(root):
 	def explosion_at_parent(r, n, p):
 		p.impacted.particlemanager.add_particles(gen_explosion_from_node_source(r, n["style"], p.rigidbody.x, p.rigidbody.y))
 		return True
-	primitives.register_primitive(root, "explosion_at_parent", explosion_at_parent)
+	primitives.register_primitive(root, "explosion_at_parent_impact", explosion_at_parent)
 
 	def sound_effect(r, n, p):
 		r.gamedb.get_asset(n["effect"]).play()

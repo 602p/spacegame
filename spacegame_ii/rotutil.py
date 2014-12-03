@@ -21,7 +21,8 @@ class ScrollingWorldManager:
 		self.offset_x=offset_x
 		self.offset_y=offset_y
 	def blit(self, image, coords):
-		if coords[0]>self.offset_x-3000 and coords[0]<self.offset_x+3000 and coords[1]>self.offset_y-3000 and coords[1]<self.offset_y+3000:
+		if coords[0]-self.offset_x<3000 and coords[1]-self.offset_y<3000:
+			#print 1
 			self.screen.blit(image, (coords[0]-self.offset_x, coords[1]-self.offset_y))
 	def set_offset(self, offset):
 		self.offset_x=offset[0]
@@ -57,3 +58,13 @@ def aspect_scale(img,(bx,by)):
 	        sy = by
 
 	return pygame.transform.scale(img, (int(sx),int(sy)))
+
+def get_angle(x1, x2, y1, y2):
+	delta_angle=math.degrees(math.atan2(y2-y1, -(x2-x1)))+90
+	return delta_angle
+
+def get_rel_angle(delta_angle, self_angle):
+	return math.degrees(math.atan2(
+			math.sin(math.radians(delta_angle)-math.radians(self_angle)),
+			math.cos(math.radians(delta_angle)-math.radians(self_angle))
+		))

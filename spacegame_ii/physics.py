@@ -381,8 +381,10 @@ class RigidBody2D:
 	def set_magnitude(self, m):
 		self._vector.magnitude=m
 
-	def exert_in_vector(self, force):
+	def exert_in_vector(self, force, cap=999999):
 		self._vector.add_raw(self.get_accel(force))
+		if self._vector.magnitude>cap:
+			self._vector.magnitude=cap
 
 	def exert_in_x(self, force):
 		self._vector.add_x(self.get_accel(force))
@@ -395,7 +397,7 @@ class RigidBody2D:
 		if self._vector.angle>360:
 			self.set_angle(self._vector.angle-360)
 		elif self._vector.angle<0:
-			self.set_angle(360-abs(self._vector.angle))
+			self.set_angle(360+self._vector.angle)
 
 	def set_angle(self, angle):
 		self._vector.angle=angle

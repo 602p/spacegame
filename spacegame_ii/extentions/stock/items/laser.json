@@ -13,13 +13,13 @@
     },
     "fire_events":[
         {
-            "primitive":"render_laser_beam",
+            "primitive":"render_laser_beam_targeted",
             "color":[255,0,0],
             "duration":0.5,
             "thickness":3
         },
         {
-            "primitive":"simple_damage",
+            "primitive":"simple_damage_targeted",
             "damage":10
         },
         {
