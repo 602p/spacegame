@@ -1,4 +1,4 @@
-import pygame, textwrap, pylygon
+import pygame, textwrap
 from logging import debug, info, warning, error, critical
 
 def interdict_ok(root, title, content, button="ACCEPT", titlecolor=(255,255,255), textcolor=(0,0,0), buttoncolor=(0,0,255)):
@@ -22,7 +22,7 @@ def interdict_ok(root, title, content, button="ACCEPT", titlecolor=(255,255,255)
 	screen.blit(titlerender, (x+5,y+30))
 	screen.blit(buttonrender, (x+58,y+314))
 
-	ok_collide=pylygon.polygon.Polygon([(x+25,y+308), (x+191, y+308), (x+191,y+356), (x+72, y+356)])
+	ok_collide=pygame.Rect(x+25, y+308, 170, 50)#pylygon.polygon.Polygon([(x+25,y+308), (x+191, y+308), (x+191,y+356), (x+72, y+356)])
 	#pygame.draw.rect(screen, (255,0,0), ok_collide.get_rect())
 
 	i=y+60
@@ -65,9 +65,8 @@ def interdict_yn(root, title, content, buttont="YES", buttonf="NO", titlecolor=(
 	screen.blit(buttonrendert, (x+58,y+314))
 	screen.blit(buttonrenderf, (x+406,y+314))
 
-	t_collide=pylygon.polygon.Polygon([(x+25,y+308), (x+191, y+308), (x+191,y+356), (x+72, y+356)])
-	f_collide=pylygon.polygon.Polygon([(x+405,y+308), (x+570, y+308), (x+405,y+356), (x+525, y+356)])
-	#pygame.draw.rect(screen, (255,0,0), ok_collide.get_rect())
+	t_collide=pygame.Rect(x+25, y+308, 170, 50)#pylygon.polygon.Polygon([(x+25,y+308), (x+191, y+308), (x+191,y+356), (x+72, y+356)])
+	f_collide=pygame.Rect(x+404, y+308, 170, 50)
 
 	i=y+60
 	for l in wrapped:

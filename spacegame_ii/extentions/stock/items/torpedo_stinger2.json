@@ -1,13 +1,13 @@
 {
-    "name":"Stinger Mk1 Torpedo",
-    "id":"wep_torpedo_stinger1",
+    "name":"Stinger Mk2 Torpedo",
+    "id":"wep_torpedo_stinger2",
     "inventory_image":"item_missile1_turret",
     "equipped_image":"item_laser_turret",
     "mount_type":"small",
     "cost":500,
     "mass":1,
     "required":{
-        "energy":40,
+        "energy":20,
         "enemy_selected":true,
         "cooldown":0.5
     },
@@ -15,16 +15,16 @@
         {
             "primitive":"fire_projectile",
             "image":"item_missile1_bullet",
-            "lifetime":25,
+            "lifetime":45,
             "homing":true,
-            "turnrate":160,
+            "turnrate":200,
             "velocity":150,
-            "maxspeed":650,
+            "maxspeed":700,
             "accel":500,
             "impact":[
                 {
                     "primitive":"simple_damage_impact",
-                    "damage":40,
+                    "damage":10,
                     "peirce":0.9
                 },
                 {
@@ -36,7 +36,7 @@
                     "effect":"sound_explode1"
                 }
             ],
-            "particlestyle":"%fiery_trail_thick%"
+            "particlestyle":"%fiery_trail_thin%"
         }
     ],
     "equip":[],

@@ -79,8 +79,9 @@ class RunningGameState(state.State):
 			if e.type==pygame.KEYDOWN:
 				if e.key == pygame.K_1:
 					self.player.damage(1)
-				if e.key == pygame.K_2:
+				if e.key == pygame.K_q:
 					self.entities[1].fire_item_in_hardpoint(0)
+				if e.key == pygame.K_w:
 					self.entities[1].fire_item_in_hardpoint(1)
 				if e.key == pygame.K_4:
 					raise IndexError("Test error")

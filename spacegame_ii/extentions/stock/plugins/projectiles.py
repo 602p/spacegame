@@ -1,5 +1,5 @@
 import primitives, physics, assets, pygame, random, math, cmath
-from rotutil import rot_center
+from rotutil import rot_center, get_angle, get_rel_angle
 from jsonutil import dget
 from particles import Particle
 
@@ -40,12 +40,14 @@ class Projectile:
 		self.particlemanager.add_particles(particles.make_explosion_cfg(self.root, self.rotated_rect.center[0], self.rotated_rect.center[1], self.particlestyle))
 
 		if self.homing and self.targeted:
-			rel_angle=math.degrees(math.atan2(self.targeted.rotated_rect.center[1]-self.rotated_rect.center[1],
-			 -(self.targeted.rotated_rect.center[0]-self.rotated_rect.center[0])))+90
-			delta_angle=math.degrees(math.atan2(
-				math.sin(math.radians(rel_angle)-math.radians(self.rigidbody.get_angle())),
-				math.cos(math.radians(rel_angle)-math.radians(self.rigidbody.get_angle()))
-			))
+			# rel_angle=math.degrees(math.atan2(self.targeted.rotated_rect.center[1]-self.rotated_rect.center[1],
+			#  -(self.targeted.rotated_rect.center[0]-self.rotated_rect.center[0])))+90
+			# delta_angle=math.degrees(math.atan2(
+			# 	math.sin(math.radians(rel_angle)-math.radians(self.rigidbody.get_angle())),
+			# 	math.cos(math.radians(rel_angle)-math.radians(self.rigidbody.get_angle()))
+			# ))
+			delta_angle=get_rel_angle(get_angle(self.rotated_rect.center[0], self.targeted.rotated_rect.center[0],
+				self.rotated_rect.center[1], self.targeted.rotated_rect.center[1]), self.rigidbody.get_angle())
 			if delta_angle>0:
 				self.rigidbody.rotate(self.turnrate)
 			if delta_angle<0:
