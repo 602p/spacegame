@@ -1,8 +1,8 @@
 {
-    "name":"Stinger Mk2 Torpedo",
+    "name":"Stinger Mk2 Missile",
     "id":"wep_torpedo_stinger2",
     "inventory_image":"item_missile1_turret",
-    "equipped_image":"item_laser_turret",
+    "equipped_image":"item_missile_turret",
     "mount_type":"small",
     "cost":500,
     "mass":1,

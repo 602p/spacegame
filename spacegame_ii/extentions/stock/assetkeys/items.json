@@ -34,6 +34,16 @@
 			"name":"item_missile1_turret",
 			"path":"image/items/missile_icon.jpg",
 			"type":"image"
+		},
+		{
+			"name":"item_missile_turret",
+			"path":"image/items/missile_turret.png",
+			"type":"image"
+		},
+		{
+			"name":"item_big_torpedo_bullet",
+			"path":"image/items/torpedo.png",
+			"type":"image"
 		}
 	]
 }

@@ -74,7 +74,7 @@ def tfl():
 	global fps_log_enable
 	fps_log_enable=not fps_log_enable
 
-run=True
+run=True;
 
 eventclear_tick=0
 
@@ -90,8 +90,6 @@ while run:
 				root.console.set_active()
 			elif e.key == pygame.K_ESCAPE:
 				root.state_manager.goto_state("game_paused")
-			elif e.key == pygame.K_3:
-				print interdiction_gui.interdict_yn(root, "TEST_TITLE", "text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text ")
 			else:
 				pygame.event.post(e)
 		else:

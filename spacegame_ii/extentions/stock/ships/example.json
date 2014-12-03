@@ -1,17 +1,23 @@
 {
     "name":"Cargo Transport",
     "id":"cargo_transport_test",
-    "hull":50,
-    "shields":50,
-    "mass":20,
     "image":"ship_cargo_tt",
+    
+    "mass":20,
     "cost":2200,
     "cargo":20,
+
     "start_speed":2400,
-    "reactor_max":100,
-    "reactor_regen":4,
     "max_speed":600,
     "turn_rate":360,
+
+    "reactor_max":100,
+    "reactor_regen":4,
+
+    "hull":50,
+    "shields":50,
+    "shield_regen":2,
+
     "systems":[
         {
             "name":"ENGINES",
@@ -21,7 +27,8 @@
             "health":10,
             "threshold_damaged":6,
             "image_damaged":"image_icon_engine_yellow",
-            "image_destroyed":"image_icon_engine_red"
+            "image_destroyed":"image_icon_engine_red",
+            "regen":0.1
         },
         {
             "name":"THRUSTERS",
@@ -31,7 +38,8 @@
             "health":10,
             "threshold_damaged":6,
             "image_damaged":"image_icon_thrusters_yellow",
-            "image_destroyed":"image_icon_thrusters_red"
+            "image_destroyed":"image_icon_thrusters_red",
+            "regen":0.1
         }
     ],
     "hardpoints":[
@@ -60,11 +68,11 @@
             "equipped":0
         },
         {
-            "item_name":"wep_basic_laser",
+            "item_name":"wep_torpedo_stinger1",
             "equipped":1
         },
         {
-            "item_name":"wep_torpedo_stinger1",
+            "item_name":"wep_torpedo_stinger2",
             "equipped":2
         }
     ],

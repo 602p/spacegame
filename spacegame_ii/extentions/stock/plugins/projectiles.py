@@ -1,10 +1,10 @@
 import primitives, physics, assets, pygame, random, math, cmath
-from rotutil import rot_center, get_angle, get_rel_angle
+from rotutil import rot_center, get_angle, get_rel_angle, rotate_point
 from jsonutil import dget
 from particles import Particle
 
 class Projectile:
-	def __init__(self, image, root, parent, lifetime, homing, velocity, impact, maxspeed, accel, particlestyle={"particles":0}, turnrate=60, offset_min=0, offset_max=0):
+	def __init__(self, image, root, parent, lifetime, homing, velocity, impact, maxspeed, accel, particlestyle={"particles":0}, turnrate=60, offset_min=0, offset_max=0, cfg={}):
 		self.rigidbody=physics.RigidBody2D(1, parent.get_center()[0]+random.uniform(offset_min, offset_max),
 		    parent.get_center()[1]+random.uniform(offset_min, offset_max),physics.Vector2d(velocity, parent.parent.rigidbody.get_angle()))
 		self.homing=homing
@@ -27,6 +27,7 @@ class Projectile:
 			self.targeted=self.parent.parent.targeted
 
 		self.can_be_hit=False
+		self.config=cfg
 
 	def tick(self, screen, time):
 		self.currtime+=time
@@ -37,7 +38,15 @@ class Projectile:
 		self.rigidbody.exert_in_vector(self.accel, cap=self.maxspeed)
 		self.particlemanager.update()
 		self.particlemanager.draw(self.root.screen)
-		self.particlemanager.add_particles(particles.make_explosion_cfg(self.root, self.rotated_rect.center[0], self.rotated_rect.center[1], self.particlestyle))
+		x_=self.rotated_rect.centerx
+		y_=self.rotated_rect.centery
+		if "particle_offset" in self.config.keys():
+			print "upo"
+			x_, y_ = rotate_point(self.rotated_rect.center, (
+				self.config["particle_offset"][0]+self.rigidbody.x, self.config["particle_offset"][1]+self.rigidbody.y) ,
+				-self.rigidbody.get_angle())
+
+		self.particlemanager.add_particles(particles.make_explosion_cfg(self.root, x_, y_, self.particlestyle))
 
 		if self.homing and self.targeted:
 			# rel_angle=math.degrees(math.atan2(self.targeted.rotated_rect.center[1]-self.rotated_rect.center[1],
@@ -86,7 +95,7 @@ def init_primitives(root):
 		while i!=dget(n, "number", 1):
 			r.state_manager.states["game"].entities.append(Projectile(r.gamedb.get_asset(n["image"]), r,
 				p, n["lifetime"], n["homing"], n["velocity"], n["impact"], n["maxspeed"], n["accel"], dget(n, "particlestyle", {"particles":0}), dget(n, "turnrate", 60),
-				dget(n, "offset_min", 0), dget(n, "offset_max", 0)))
+				dget(n, "offset_min", 0), dget(n, "offset_max", 0), n))
 			i+=1
 		return True
 	primitives.register_primitive(root, "fire_projectile", fire_projectile)

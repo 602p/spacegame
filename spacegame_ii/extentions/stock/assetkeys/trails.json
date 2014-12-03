@@ -21,17 +21,36 @@
             "name":"cfg_fiery_trail_thick",
             "type":"json",
             "json":{
-                "particles":10,
+                "particles":15,
                 "r_min":230,
                 "r_max":255,
                 "g_min":100,
                 "g_max":200,
                 "b_min":0,
                 "b_max":0,
-                "speed_min":0.5,
-                "speed_max":1,
+                "speed_min":0.1,
+                "speed_max":0.5,
                 "time_min":0.2,
                 "time_max":0.4
+            }
+        },
+        {
+            "name":"cfg_fiery_trail_thick_wide",
+            "type":"json",
+            "json":{
+                "particles":30,
+                "r_min":230,
+                "r_max":255,
+                "g_min":100,
+                "g_max":200,
+                "b_min":0,
+                "b_max":0,
+                "speed_min":0.1,
+                "speed_max":0.3,
+                "time_min":0.2,
+                "time_max":0.4,
+                "offset_min":0,
+                "offset_max":4
             }
         }
     ]

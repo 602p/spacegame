@@ -1,30 +1,30 @@
 {
-    "name":"Stinger Mk1 Missile",
-    "id":"wep_torpedo_stinger1",
+    "name":"Carnivore Mk1 Torpedo",
+    "id":"wep_torpedo_carnivore1",
     "inventory_image":"item_missile1_turret",
     "equipped_image":"item_missile_turret",
     "mount_type":"small",
     "cost":500,
     "mass":1,
     "required":{
-        "energy":40,
-        "enemy_selected":true,
-        "cooldown":3
+        "energy":1,
+        "enemy_selected":false,
+        "cooldown":1
     },
     "fire_events":[
         {
             "primitive":"fire_projectile",
-            "image":"item_missile1_bullet",
+            "image":"item_big_torpedo_bullet",
             "lifetime":25,
-            "homing":true,
-            "turnrate":160,
-            "velocity":150,
-            "maxspeed":400,
-            "accel":500,
+            "homing":false,
+            "velocity":20,
+            "maxspeed":200,
+            "accel":100,
+            "particle_offset":[0,0],
             "impact":[
                 {
                     "primitive":"simple_damage_impact",
-                    "damage":40,
+                    "damage":60,
                     "peirce":0.9
                 },
                 {
@@ -36,7 +36,7 @@
                     "effect":"sound_explode1"
                 }
             ],
-            "particlestyle":"%fiery_trail_thick%"
+            "particlestyle":"%fiery_trail_thick_wide%"
         }
     ],
     "equip":[],

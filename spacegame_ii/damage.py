@@ -19,7 +19,9 @@ class DamageSystem:
 		self.effects_damaged=config["effects_damaged"]
 		self.effects_destroyed=config["effects_destroyed"]
 		self.health=config["health"]
+		self.maxhealth=self.health
 		self.threshold=config["threshold_damaged"]
+		self.regen_const=config["regen"]
 		self.image_damaged=damage_model.root.gamedb.get_asset(dget(config, "image_damaged", "$BLANK"))
 		self.image_destroyed=damage_model.root.gamedb.get_asset(dget(config, "image_destroyed", "$BLANK"))
 		self.update_olds()
@@ -33,17 +35,20 @@ class DamageSystem:
 
 	def deal_damage(self, damage):
 		self.health-=damage
-		if self.health<=0 and self.status!=2:
+		if self.health<=1 and self.status!=2:
 			self.reset()
-			self.health=0
 			self.do_destroyed()
-		elif self.health<self.threshold and self.health>0 and self.status!=1:
+			if self.health<=0:
+				self.health=0
+		elif self.health<self.threshold and self.health>1 and self.status!=1:
 			self.reset()
 			self.do_damaged()
 		elif self.status!=0 and self.health>self.threshold:
 			self.reset()
 		if self.health<=0:
 			self.health=0
+		if self.health>=self.maxhealth:
+			self.health=self.maxhealth
 
 	def do_damaged(self):
 		for i in self.attributes:
@@ -62,6 +67,9 @@ class DamageSystem:
 
 	def get_descriptor(self):
 		return (self.name+":"+system_status[self.status][0]+" ["+str(int(self.health))+"]",system_status[self.status][1])
+
+	def regen(self):
+		self.deal_damage(-self.regen_const/self.damage_model.ship.root.fps)
 
 class DamageModel:
 	def __init__(self, ship, hull=1, shields=0):
@@ -149,11 +157,14 @@ class DamageModel:
 
 	def regen(self):
 		if self.shields<self.maxshields:
-			if self.ship.current_power>2:
-				self.shields+=2/self.root.fps
-				self.ship.current_power-=2/self.root.fps
+			if self.ship.current_power>self.ship.config["shield_regen"]:
+				self.shields+=self.ship.config["shield_regen"]/self.root.fps
+				self.ship.current_power-=self.ship.config["shield_regen"]/self.root.fps
 		if self.ship.current_power<self.ship.reactor_max:
 			self.ship.current_power+=self.ship.reactor_regen*(1/self.root.fps)
+		for system in self.systems:
+			if system:
+				system.regen()
 
 	def dead(self):
 		return self.hull==0

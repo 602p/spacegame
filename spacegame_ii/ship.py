@@ -88,7 +88,7 @@ class Ship(serialize.SerializableObject):
 		self.max_speed=max_speed
 		self.turn_rate=turn_rate
 
-		self._config=config
+		self.config=config
 
 		self.damage=damage.DamageModel(self, hull, shields)
 		self.damage.load_systems(systems)
@@ -199,5 +199,5 @@ class Ship(serialize.SerializableObject):
 		self.rigidbody.exert_in_vector(-self.speed*4)
 
 	def die(self):
-		for i in dget(self._config, "ship_die", []):
+		for i in dget(self.config, "ship_die", []):
 			if not primitives.run_primitive(self.root, i["primitive"], i, self): break
