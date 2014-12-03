@@ -160,3 +160,16 @@ class DamageModel:
 
 	def __call__(self, *args, **kwargs):
 		self.damage(*args, **kwargs)
+
+	def damage_system(self, damage, search_name=None, search_key=None):
+		if search_name:
+			for i in self.systems:
+				if i:
+					if search_name.upper() in i.name.upper():
+						i.deal_damage(damage)
+		elif search_key:
+			for i in self.systems:
+				if i:
+					for e in i.attributes:
+						if search_key.upper() in e.upper():
+							i.deal_damage(damage)

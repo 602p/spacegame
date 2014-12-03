@@ -23,9 +23,9 @@
             "accel":500,
             "impact":[
                 {
-                    "primitive":"simple_damage_impact",
-                    "damage":10,
-                    "peirce":0.9
+                    "primitive":"system_damage_impact",
+                    "damage":2,
+                    "system_key":"max_speed"
                 },
                 {
                     "primitive":"explosion_at_parent_impact",

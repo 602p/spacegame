@@ -96,6 +96,11 @@ def init_primitives(root):
 		return True
 	primitives.register_primitive(root, "simple_damage_impact", simple_damage_impact)
 
+	def system_damage_impact(r, n, p):
+		p.impacted.damage.damage_system(n["damage"], dget(n, "system_name", None), dget(n, "system_key", None))
+		return True
+	primitives.register_primitive(root, "system_damage_impact", system_damage_impact)
+
 	def explosion_at_parent(r, n, p):
 		p.impacted.particlemanager.add_particles(gen_explosion_from_node_source(r, n["style"], p.rigidbody.x, p.rigidbody.y))
 		return True
