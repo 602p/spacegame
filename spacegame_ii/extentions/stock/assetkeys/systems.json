@@ -13,7 +13,7 @@
                     "threshold_damaged":6,
                     "image_damaged":"image_icon_engine_yellow",
                     "image_destroyed":"image_icon_engine_red",
-                    "regen":0.2
+                    "regen":0.1
                 },
                 {
                     "name":"THRUSTERS",
@@ -24,7 +24,7 @@
                     "threshold_damaged":6,
                     "image_damaged":"image_icon_thrusters_yellow",
                     "image_destroyed":"image_icon_thrusters_red",
-                    "regen":0.2
+                    "regen":0.1
                 }
             ]
         }

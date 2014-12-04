@@ -59,5 +59,6 @@
             "search_key":"max_speed",
             "above":"destroyed"
         }
-    ]
+    ],
+    "ai_priority":1
 }

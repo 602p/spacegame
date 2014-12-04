@@ -56,8 +56,26 @@ class FollowSelected(ai.AIControllerUpdateNode):
 		else:
 			self.ship.exert_reverse_engine()
 
+class ConstrainByShipAttribute(ai.AIItemHint):
+	def get_suggested(self, ai):
+		attr=eval("ai.ship.targeted."+self.config["attribute"])
+		if "exactly" in self.config.keys():
+			if attr==self.config["exactly"]:
+				return True
+
+		if "below" in self.config.keys():
+			if attr<self.config["below"]:
+				return True
+
+		if "above" in self.config.keys():
+			if attr>self.config["above"]:
+				return True
+		return False
+
+
 def init_ais(root):
 	ai.add_update_node(root, "select_player", SelectPlayer)
 	ai.add_update_node(root, "point_at_selected", PointAtSelected)
-	ai.add_hint_node(root, "constrain_by_system_damage", ConstrainByDamageSystemStatus)
 	ai.add_update_node(root, "follow_selected", FollowSelected)
+	ai.add_hint_node(root, "constrain_by_system_damage", ConstrainByDamageSystemStatus)
+	ai.add_hint_node(root, "constrain_by_attribute_status", ConstrainByShipAttribute)

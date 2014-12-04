@@ -1,4 +1,5 @@
-from logging import debug, info, warning, error, critical
+from logging import debug, info, warning, error
+from jsonutil import dget
 
 def init(root):
 	root.ai_hint_keys={}
@@ -49,6 +50,7 @@ class AIController:
 
 		if self.can_fire:
 			i=0
+			priorities={}
 			while i!=len(self.ship.hardpoints): #for each item equipped
 				if self.ship.get_item_in_hardpoint(i):
 					fire=True
@@ -56,8 +58,10 @@ class AIController:
 						if not hint.get_suggested(self): #check if any of the AIItemHints disagree
 							fire = False
 					if fire:
-						self.ship.get_item_in_hardpoint(i).fire() #then fire
+						priorities[i]=dget(self.ship.get_item_in_hardpoint(i)._config, "ai_priority", 5)
 				i+=1
+			for i in sorted(priorities, key=lambda hardpoint: priorities[hardpoint]):
+				self.ship.get_item_in_hardpoint(i).fire() #then fire
 				
 
 	def enable(self):
