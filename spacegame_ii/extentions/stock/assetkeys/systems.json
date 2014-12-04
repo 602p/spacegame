@@ -1,0 +1,32 @@
+{
+    "assets":[
+        {
+            "name":"cfg_systems_standard",
+            "type":"json",
+            "json":[
+                {
+                    "name":"ENGINES",
+                    "attributes":["max_speed", "speed"],
+                    "effects_damaged":[0.5, 0.5],
+                    "effects_destroyed":[0.1, 0.1],
+                    "health":10,
+                    "threshold_damaged":6,
+                    "image_damaged":"image_icon_engine_yellow",
+                    "image_destroyed":"image_icon_engine_red",
+                    "regen":0.2
+                },
+                {
+                    "name":"THRUSTERS",
+                    "attributes":["turn_rate"],
+                    "effects_damaged":[0.6],
+                    "effects_destroyed":[0.2],
+                    "health":10,
+                    "threshold_damaged":6,
+                    "image_damaged":"image_icon_thrusters_yellow",
+                    "image_destroyed":"image_icon_thrusters_red",
+                    "regen":0.2
+                }
+            ]
+        }
+    ]
+}
