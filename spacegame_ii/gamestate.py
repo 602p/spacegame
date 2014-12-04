@@ -8,38 +8,13 @@ class RunningGameState(state.State):
 		self.player=self.entities[0]
 		# for i in xrange(0,10):
 		# 	self.entities.append(ship.create_ship(self.root, "cargo_transport_test", random.randint(-300,300), random.randint(-300,300)))
-
-		nebulae=[
-			pygame.image.load("extentions/stock/image/bg-elements/nebula-1.png").convert_alpha(),
-			pygame.image.load("extentions/stock/image/bg-elements/nebula-2.png").convert_alpha(),
-			pygame.image.load("extentions/stock/image/bg-elements/nebula-3.png").convert_alpha()
-		]
-		planets=[
-			pygame.image.load("extentions/stock/image/planets/planet-1.png").convert_alpha(),
-			pygame.image.load("extentions/stock/image/planets/planet-2.png").convert_alpha(),
-			pygame.image.load("extentions/stock/image/planets/planet-3.png").convert_alpha(),
-			pygame.image.load("extentions/stock/image/planets/planet-4.png").convert_alpha(),
-			pygame.image.load("extentions/stock/image/planets/planet-5.png").convert_alpha(),
-			pygame.image.load("extentions/stock/image/planets/planet-6.png").convert_alpha(),
-			pygame.image.load("extentions/stock/image/planets/planet-7.png").convert_alpha(),
-			pygame.image.load("extentions/stock/image/planets/planet-8.png").convert_alpha(),
-			pygame.image.load("extentions/stock/image/planets/planet-9.png").convert_alpha(),
-			pygame.image.load("extentions/stock/image/planets/planet-10.png").convert_alpha(),
-			pygame.image.load("extentions/stock/image/planets/planet-11.png").convert_alpha(),
-			pygame.image.load("extentions/stock/image/planets/planet-12.png").convert_alpha(),
-			pygame.image.load("extentions/stock/image/planets/planet-13.png").convert_alpha(),
-			pygame.image.load("extentions/stock/image/planets/planet-14.png").convert_alpha(),
-			pygame.image.load("extentions/stock/image/planets/planet-15.png").convert_alpha(),
-			pygame.image.load("extentions/stock/image/planets/planet-16.png").convert_alpha(),
-		]
-
 		self.generated=[]
 
 		random.seed(0)
 		for i in range(random.randint(30,60)):
-			self.generated.append([[random.randint(-8000,8000), random.randint(-6000,6000)],nebulae[random.randint(0,len(nebulae)-1)]])
+			self.generated.append([[random.randint(-8000,8000), random.randint(-6000,6000)], random.sample(self.root.gamedb.get_startswith("bg_nebula"), 1)[0]])
 		for i in range(random.randint(5,10)):
-			self.generated.append([[random.randint(-8000,8000), random.randint(-6000,6000)],planets[random.randint(0,len(planets)-1)]])
+			self.generated.append([[random.randint(-8000,8000), random.randint(-6000,6000)], random.sample(self.root.gamedb.get_startswith("bg_planet"), 1)[0]])
 
 		self.player.selected_wep=0
 
@@ -48,7 +23,7 @@ class RunningGameState(state.State):
 			[
 				parralax.StarfieldLayer(20, (255,255,255), 2, -1.25),
 				parralax.StarfieldLayer(30, (225,225,225), 2, -1.5),
-				parralax.StarfieldLayer(40, (200,200,200), 2, -1),
+				parralax.StarfieldLayer(40, (200,200,200), 3, -1),
 				parralax.StarfieldLayer(40, (150,150,150), 2, -2)
 			]
 		)

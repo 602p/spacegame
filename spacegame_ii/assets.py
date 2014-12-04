@@ -90,5 +90,12 @@ class GameAssetDatabase:
 	def get_asset(self, key):
 		return self.assets[key]
 
+	def get_startswith(self, key):
+		r=[]
+		for i in self.assets.keys():
+			if i.startswith(key):
+				r.append(self.assets[i])
+		return r
+
 	def __call__(self, key):
 		return self.get_asset(key)
