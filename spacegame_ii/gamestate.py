@@ -9,7 +9,6 @@ class RunningGameState(state.State):
 		# for i in xrange(0,10):
 		# 	self.entities.append(ship.create_ship(self.root, "cargo_transport_test", random.randint(-300,300), random.randint(-300,300)))
 
-		self.stars=pygame.transform.scale(pygame.image.load("stars-1.png").convert_alpha(), (500,500))
 		nebulae=[
 			pygame.image.load("extentions/stock/image/bg-elements/nebula-1.png").convert_alpha(),
 			pygame.image.load("extentions/stock/image/bg-elements/nebula-2.png").convert_alpha(),
@@ -47,8 +46,8 @@ class RunningGameState(state.State):
 		self.parralax_scroller=parralax.ParralaxStarfieldScroller(
 			self.root.renderspace_size,
 			[
-				parralax.StarfieldLayer(20, (255,255,255), 2, -0.25),
-				parralax.StarfieldLayer(30, (225,225,225), 2, -0.5),
+				parralax.StarfieldLayer(20, (255,255,255), 2, -1.25),
+				parralax.StarfieldLayer(30, (225,225,225), 2, -1.5),
 				parralax.StarfieldLayer(40, (200,200,200), 2, -1),
 				parralax.StarfieldLayer(40, (150,150,150), 2, -2)
 			]
@@ -154,6 +153,9 @@ class RunningGameState(state.State):
 		self.player.damage.render_systems_full(self.root.screen.screen, self.root.gamedb.get_asset("font_standard_small"))
 		self.player.damage.render_infobox(self.root.screen.screen, self.root.gamedb.get_asset("font_standard_very_small"), 1150, 50, 0)
 		overlay_gui.render_wepbar(self.root, self, self.player, 186, 632)
+
+		if self.player.targeted:
+			overlay_gui.render_rangefinder(self.root, self.player, [self.player.targeted.rotated_rect.centerx, self.player.targeted.rotated_rect.centery])
 		
 		if self.player.targeted:
 			self.player.targeted.damage.render_infobox(self.root.screen.screen, self.root.gamedb.get_asset("font_standard_very_small"), 1150, 530, 1)

@@ -1,0 +1,34 @@
+{
+	"assets":[
+		{
+			"name":"uio_arrowred_topleft",
+			"path":"image/icon/arrowred/arrowtopleft.png",
+			"type":"image"
+		},
+		{
+			"name":"uio_arrowred_topright",
+			"path":"image/icon/arrowred/arrowtopright.png",
+			"type":"image"
+		},
+		{
+			"name":"uio_arrowred_bottomleft",
+			"path":"image/icon/arrowred/arrowbottomleft.png",
+			"type":"image"
+		},
+		{
+			"name":"uio_arrowred_bottomright",
+			"path":"image/icon/arrowred/arrowbottomright.png",
+			"type":"image"
+		},
+		{
+			"name":"uio_arrowred_up",
+			"path":"image/icon/arrowred/arrowup.png",
+			"type":"image"
+		},
+		{
+			"name":"uio_arrow_transparentred_up",
+			"path":"image/icon/arrowup_transparent.png",
+			"type":"image"
+		}
+	]
+}

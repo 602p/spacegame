@@ -31,6 +31,15 @@ class ScrollingWorldManager:
 		pygame.draw.line(self.screen, color, (start[0]-self.offset_x, start[1]-self.offset_y),(end[0]-self.offset_x, end[1]-self.offset_y), thickness)
 	def draw_rect(self, color, rect, width):
 		pygame.draw.rect(self.screen, color, ((rect.x-self.offset_x, rect.y-self.offset_y),rect.size), width)
+	def clamp(self, rect):
+		rect2=rect.copy()
+		rect2.x-=self.offset_x
+		rect2.y-=self.offset_y
+		rect2.clamp_ip(self.screen.get_rect())
+		return rect2
+	def blit_clamped(self, image, rect):
+		rect2=self.clamp(rect)
+		self.screen.blit(image, rect2)
 
 def aspect_scale(img,(bx,by)):
 	""" Scales 'img' to fit into box bx/by.

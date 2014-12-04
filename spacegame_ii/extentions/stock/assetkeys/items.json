@@ -44,6 +44,11 @@
 			"name":"item_big_torpedo_bullet",
 			"path":"image/items/torpedo.png",
 			"type":"image"
+		},
+		{
+			"name":"test_dot",
+			"path":"image/reddot.png",
+			"type":"image"
 		}
 	]
 }
