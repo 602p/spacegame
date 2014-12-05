@@ -29,7 +29,6 @@ def register_primitive(root, name, primitive):
 	root.primitives_list[name]=primitive
 
 def get_primitive(root, name, config):
-	debug("Getting primitive "+name)
 	if name in root.primitives_list.keys():
 		return root.primitives_list[name](root, config)
 	else:
