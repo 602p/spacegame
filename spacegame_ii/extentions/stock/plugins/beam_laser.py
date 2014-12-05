@@ -1,7 +1,8 @@
 import primitives, tasks, particles
+from jsonutil import dget
 
-def init_primitives(root):
-	def test(r, n, p):
+class RenderLaserBeamPrimitive(primitives.BasePrimitive):
+	def run_in_item(self, item):
 		def _internal(t, r):
 			p=t.data[1]
 			n=t.data[0]
@@ -9,21 +10,45 @@ def init_primitives(root):
 				r.screen.draw_line(n["color"], p.get_center(), p.parent.targeted.rotated_rect.center, n["thickness"])
 			except BaseException:
 				pass
-		tasks.add_task(r, "render_last", tasks.Task(r, _internal, n["duration"], (n, p)))
-		return True
-	primitives.register_primitive(root, "render_laser_beam_targeted", test)
+		tasks.add_task(self.root, "render_last", tasks.Task(self.root, _internal, self.config["duration"], (self.config, item)))
 
-	def test2(r, n, p):
-		p.parent.targeted.damage(n["damage"])
-		return True
-	primitives.register_primitive(root, "simple_damage_targeted", test2)
+class ExplosionAtPrimitive(primitives.BasePrimitive):
+	def run_in_item(self, item):
+		if dget(self.config, "root", False):
+			self.root.particlemanager.add_particles(particles.make_explosion_cfg(self.root,
+				item.parent.rotated_rect.center[0], item.parent.rotated_rect.center[1], self.config["style"]))
+		else:
+			item.parent.particlemanager.add_particles(particles.make_explosion_cfg(self.root,
+				item.parent.rotated_rect.center[0], item.parent.rotated_rect.center[1], self.config["style"]))
 
-	def explosion_at_parent(r, n, p):
-		p.parent.targeted.particlemanager.add_particles(particles.make_explosion_cfg(r, p.parent.targeted.rotated_rect.center[0], p.parent.targeted.rotated_rect.center[1], n["style"]))
-		return True
-	primitives.register_primitive(root, "explosion_at_parent_targeted", explosion_at_parent)
+	def run_in_impact(self, item, impacted):
+		if dget(self.config, "root", False):
+			self.root.particlemanager.add_particles(particles.make_explosion_cfg(self.root,
+				impacted.rotated_rect.center[0], impacted.rotated_rect.center[1], self.config["style"]))
+		else:
+			impacted.particlemanager.add_particles(particles.make_explosion_cfg(self.root,
+				impacted.rotated_rect.center[0], impacted.rotated_rect.center[1], self.config["style"]))
 
-	def explosion_at_parent_rootmanager(r, n, p):
-		r.particlemanager.add_particles(particles.make_explosion_cfg(r, p.rotated_rect.center[0], p.rotated_rect.center[1], n["style"]))
-		return True
-	primitives.register_primitive(root, "explosion_at_parent_at_top", explosion_at_parent_rootmanager)
+	def run_in_ship(self, ship):
+		if dget(self.config, "root", False):
+			self.root.particlemanager.add_particles(particles.make_explosion_cfg(self.root,
+				ship.rotated_rect.center[0], ship.rotated_rect.center[1], self.config["style"]))
+		else:
+			ship.particlemanager.add_particles(particles.make_explosion_cfg(self.root,
+				ship.rotated_rect.center[0], ship.rotated_rect.center[1], self.config["style"]))
+
+class ExplosionAtTargetedPrimitive(primitives.BasePrimitive):
+	def run_in_item(self, item):
+		if dget(self.config, "root", False):
+			self.root.particlemanager.add_particles(particles.make_explosion_cfg(self.root,
+				item.parent.targeted.rotated_rect.center[0], item.parent.targeted.rotated_rect.center[1], self.config["style"]))
+		else:
+			p.parent.targeted.particlemanager.add_particles(particles.make_explosion_cfg(self.root,
+				item.parent.targeted.rotated_rect.center[0], item.parent.targeted.rotated_rect.center[1], self.config["style"]))
+
+def init_primitives(root):
+	primitives.register_primitive(root, "render_laser_beam_targeted", RenderLaserBeamPrimitive)
+
+	primitives.register_primitive(root, "explosion_at_parent", ExplosionAtPrimitive)
+
+	primitives.register_primitive(root, "explosion_at_parent_targeted", ExplosionAtTargetedPrimitive)

@@ -69,57 +69,54 @@ class Projectile:
 			if i != self.parent.parent and i.can_be_hit:
 				if i.rotated_mask.overlap(self.mask, (self.rotated_rect.x-i.rotated_rect.x,self.rotated_rect.y-i.rotated_rect.y)):
 					self.kill=True
-					self.impacted=i
-					for i in self.impact:
-						if not primitives.run_primitive(self.root, i["primitive"], i, self): break
+					primitives.do_group_for_impact(self.root, self.impact, self.parent, i)
 
 	def die(self):
 		pass
 
-def gen_explosion_from_node_source(r, n, x, y):
-	i=0
-	ps=[]
-	while i<dget(n, "particles", 200):
-		surf=pygame.Surface((dget(n, "size", 2), dget(n, "size", 2)))
-		surf.fill((random.uniform(dget(n, "r_min", 200), dget(n, "r_max", 255)), random.uniform(dget(n, "g_min", 150), dget(n, "g_max", 200)), 0))
-		exec("""def move_direction(self):
-	self.x+="""+str((random.random()-random.random())*dget(n, "speed", 3))+"""
-	self.y+="""+str((random.random()-random.random())*dget(n, "speed", 3)))
-		ps.append(Particle(r, surf, x, y, move_direction, random.uniform(dget(n, "time_min", 0.1), dget(n, "time_max", 0.7)), True))
-		i+=1
-	return ps
-
-def init_primitives(root):
-	def fire_projectile(r, n, p):
+class FireProjectilePrimitive(primitives.BasePrimitive):
+	def run_in_item(self, item):
+		n=self.config
+		r=self.root
 		i=0
 		while i!=dget(n, "number", 1):
 			r.state_manager.states["game"].entities.append(Projectile(r.gamedb.get_asset(n["image"]), r,
-				p, n["lifetime"], n["homing"], n["velocity"], n["impact"], n["maxspeed"], n["accel"], dget(n, "particlestyle", {"particles":0}), dget(n, "turnrate", 60),
+				item, n["lifetime"], n["homing"], n["velocity"], n["impact"], n["maxspeed"], n["accel"], dget(n, "particlestyle", {"particles":0}), dget(n, "turnrate", 60),
 				dget(n, "offset_min", 0), dget(n, "offset_max", 0), n))
 			i+=1
-		return True
-	primitives.register_primitive(root, "fire_projectile", fire_projectile)
 
-	def simple_damage_impact(r, n, p):
-		if "peirce" in n:
-			peirce=n["peirce"]
-		else:
-			peirce=0
-		p.impacted.damage(n["damage"], peirce)
-		return True
-	primitives.register_primitive(root, "simple_damage_impact", simple_damage_impact)
+class SimpleDamagePrimitive(primitives.BasePrimitive):
+	def do(root, target):
+		target.damage(root.config["damage"], dget(root.config, "peirce", 0))
 
-	def system_damage_impact(r, n, p):
-		p.impacted.damage.damage_system(n["damage"], dget(n, "system_name", None), dget(n, "system_key", None))
-		return True
-	primitives.register_primitive(root, "system_damage_impact", system_damage_impact)
+	def run_in_item(self, item):
+		self.do(item.parent.targeted)
 
-	def explosion_at_parent(r, n, p):
-		p.impacted.particlemanager.add_particles(particles.make_explosion_cfg(r, p.rigidbody.x, p.rigidbody.y, n["style"]))
-		return True
-	primitives.register_primitive(root, "explosion_at_parent_impact", explosion_at_parent)
+	def run_in_impact(self, item, impacted):
+		self.do(impacted)
 
-	def sound_effect(r, n, p):
-		r.gamedb.get_asset(n["effect"]).play()
-		return True
-	primitives.register_primitive(root, "sound_effect", sound_effect)
+class SystemDamagePrimitive(primitives.BasePrimitive):
+	def run_in_impact(self, item, impacted):
+		impacted.damage.damage_system(self.config["damage"], dget(self.config, "system_name", None), dget(self.config, "system_key", None))
+
+	def run_in_item(self, item):
+		item.parent.targeted.damage.damage_system(self.config["damage"], dget(self.config, "system_name", None), dget(self.config, "system_key", None))
+
+class PlaySoundEffectPrimitive(primitives.BasePrimitive):
+	def do(self):
+		self.root.gamedb.get_asset(self.config["effect"]).play()
+
+	def run_in_impact(self, item, impacted):
+		self.do()
+
+	def run_in_item(self, item):
+		self.do()
+
+def init_primitives(root):
+	primitives.register_primitive(root, "fire_projectile", FireProjectilePrimitive)
+
+	primitives.register_primitive(root, "simple_damage", SimpleDamagePrimitive)
+
+	primitives.register_primitive(root, "system_damage", SystemDamagePrimitive)
+
+	primitives.register_primitive(root, "sound_effect", PlaySoundEffectPrimitive)

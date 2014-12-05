@@ -1,0 +1,109 @@
+{
+	"name":"Pirate Interdiction",
+	"id":"event_pirate_raid_1",
+
+	"spawn_random":true,
+	"random_chance_hour":0.5,
+
+	"requirements":[
+		{
+			"primitive":"require_weapon_tagged",
+			"tags":[
+				"damage_dealing",
+				"fast"
+			]
+		}
+	],
+
+	"events":[
+		{
+			"primitive":"spawn_ship",
+			"ship_id":"cargo_transport_test",
+			"pos":"random",
+			"random_within_x":[-1000,1000],
+			"random_within_y":[-1000,1000],
+			"internal_id":"pirate",
+			"faction":"neutral",
+			"ai":"%ai_none%",
+			"event_killed":[
+				{
+					"primitive":"relations_effect",
+					"effects":[
+						{
+							"tag":"like_death",
+							"amount":1
+						},
+						{
+							"tag":"hate_death",
+							"amount":-1
+						},
+						{
+							"tag":"like_pirates",
+							"amount":-1
+						},
+						{
+							"tag":"hate_pirates",
+							"amount":1
+						}
+					]
+				}
+			],
+			"event_quarter_hull":[
+				{
+					"event":"popup_yn",
+					"title":"HAIL",
+					"message":"I SURRENDER! Please dont destroy us!! You can have everything we own!",
+					"event_yes":[
+						{
+							"event":"popup_ok",
+							"title":"HAIL",
+							"message":"Thank ye!"
+						},
+						{
+							"primitive":"take_credits",
+							"amount":-1000
+						},
+						{
+							"event":"set_ai",
+							"ship":"pirate",
+							"ai":"%ai_run_away%"
+						}
+					]
+				}
+			]
+		},
+		{
+			"primitive":"popup_yn",
+			"title":"HAIL",
+			"message":"Arr! I am the dread pirate Egg, give me 300 credits to not destroy you!",
+			"event_yes":[
+				{
+					"primitive":"popup_ok",
+					"title":"HAIL",
+					"message":"Thank ye!"
+				},
+				{
+					"primitive":"take_credits",
+					"amount":300
+				},
+				{
+					"primitive":"set_ai",
+					"ship":"pirate",
+					"ai":"%ai_run_away%"
+				}
+			],
+			"event_no":[
+				{
+					"primitive":"popup_ok",
+					"title":"HAIL",
+					"message":"Prepare to die!"
+				},
+				{
+					"primitive":"set_ai",
+					"ship":"pirate",
+					"ai":"%ai_fighter%"
+				}
+			]
+		}
+	]
+}

@@ -17,6 +17,13 @@
                     }
                 ]
        		}
-		}
+		},
+        {
+            "name":"cfg_ai_none",
+            "type":"json",
+            "json":{
+                "ai_subcontrollers":[]
+            }
+        }
     ]
 }

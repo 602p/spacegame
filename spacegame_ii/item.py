@@ -97,16 +97,14 @@ class Item(serialize.SerializableObject):
 		surface.blit(self.inventory_image, (0,0))
 
 	def equip_actions(self):
-		for i in self.passive_equip:
-			if not primitives.run_primitive(self.root, i["primitive"], i, self): break #if the primitive returns false, don't call rest
+		primitives.do_group_for_item(self.root, self.passive_equip, self)
 
 	def equip(self, slot):
 		self.equipped=slot
 		self.equip_actions()
 
 	def dequip_actions(self):
-		for i in self.passive_dequip:
-			if not primitives.run_primitive(self.root, i["primitive"], i, self): break
+		primitives.do_group_for_item(self.root, self.passive_dequip, self)
 
 	def dequip(self):
 		self.equipped=-1
@@ -114,8 +112,7 @@ class Item(serialize.SerializableObject):
 
 	def fire_actions(self):
 		self.last_fired=self.root.game_time
-		for i in self.fire_events:
-			if not primitives.run_primitive(self.root, i["primitive"], i, self): break
+		primitives.do_group_for_item(self.root, self.fire_events, self)
 
 	def can_fire(self):
 		for i in self.fire_required:

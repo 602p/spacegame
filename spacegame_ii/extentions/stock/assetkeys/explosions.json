@@ -42,8 +42,9 @@
 			"type":"json",
 			"json":[
                 {
-                "primitive":"explosion_at_parent_at_top",
-                "style":"%very_large_explosion%"
+                "primitive":"explosion_at_parent",
+                "style":"%very_large_explosion%",
+                "root":true
        		    }
             ]
 		}

@@ -22,11 +22,11 @@
             "accel":0,
             "impact":[
                 {
-                    "primitive":"simple_damage_impact",
+                    "primitive":"simple_damage",
                     "damage":20
                 },
                 {
-                    "primitive":"explosion_at_parent_impact",
+                    "primitive":"explosion_at_parent",
                     "style":"%explosion_red%"
                 },
                 {

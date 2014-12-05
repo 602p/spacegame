@@ -30,7 +30,7 @@ def load_plugins(root, dirn):
 	for fname in os.listdir(dirn):
 		if not ".PYC" in fname.upper():
 			debug("Load plugin '"+dirn+"/"+fname+"'")
-			module_temp = imp.load_source('module', dirn+"/"+fname)
+			module_temp = imp.load_source('dynamicly_loaded_extention', dirn+"/"+fname)
 			for funcname in dir(module_temp):
 				if funcname.upper().startswith("INIT"):
 					debug("Run init '"+dirn+"/"+fname+"'::"+funcname)

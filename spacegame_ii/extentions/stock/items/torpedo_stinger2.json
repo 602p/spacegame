@@ -26,12 +26,12 @@
             "offset_max":30,
             "impact":[
                 {
-                    "primitive":"system_damage_impact",
+                    "primitive":"system_damage",
                     "damage":1,
                     "system_key":"max_speed"
                 },
                 {
-                    "primitive":"explosion_at_parent_impact",
+                    "primitive":"explosion_at_parent",
                     "style":"%explosion_red%"
                 },
                 {
@@ -60,5 +60,12 @@
             "above":"destroyed"
         }
     ],
-    "ai_priority":1
+    "ai_priority":1,
+    "tags":[
+        "anti_fighter",
+        "damage_attribute",
+        "damage_speed",
+        "damage_accel",
+        "fast"
+    ]
 }

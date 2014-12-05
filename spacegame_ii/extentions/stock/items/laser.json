@@ -19,7 +19,7 @@
             "thickness":3
         },
         {
-            "primitive":"simple_damage_targeted",
+            "primitive":"simple_damage",
             "damage":10
         },
         {

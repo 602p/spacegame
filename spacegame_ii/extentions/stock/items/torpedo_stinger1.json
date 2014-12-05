@@ -23,12 +23,12 @@
             "accel":500,
             "impact":[
                 {
-                    "primitive":"simple_damage_impact",
+                    "primitive":"simple_damage",
                     "damage":40,
                     "peirce":0.9
                 },
                 {
-                    "primitive":"explosion_at_parent_impact",
+                    "primitive":"explosion_at_parent",
                     "style":"%explosion_red%"
                 },
                 {
@@ -57,5 +57,11 @@
             "below":350
         }
     ],
-    "ai_priority":10
+    "ai_priority":10,
+    "tags":[
+        "damage_dealing",
+        "peircing",
+        "missile",
+        "homing"
+    ]
 }

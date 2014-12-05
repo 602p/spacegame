@@ -199,5 +199,4 @@ class Ship(serialize.SerializableObject):
 		self.rigidbody.exert_in_vector(-self.speed*4)
 
 	def die(self):
-		for i in dget(self.config, "ship_die", []):
-			if not primitives.run_primitive(self.root, i["primitive"], i, self): break
+		primitives.do_group_for_ship(self.root, dget(self.config, "ship_die", []), self)
