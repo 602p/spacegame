@@ -10,7 +10,7 @@
 			"primitive":"require_weapon_tagged",
 			"tags":[
 				"damage_dealing",
-				"fast"
+				"hits_fast_ships"
 			]
 		}
 	],

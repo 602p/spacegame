@@ -4,7 +4,7 @@
 			"name":"sound_explode1",
 			"path":"sound/explode-1.ogg",
 			"type":"sound",
-			"volume":1
+			"volume":0.25
 		}
 	]
 }
