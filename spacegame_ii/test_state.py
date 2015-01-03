@@ -44,6 +44,11 @@ root.gamedb=assets.GameAssetDatabase()
 root.igconsole = overlay_gui.IngameRenderedConsole(root, 10)
 root.igconsole.enable_debug()
 
+root.settings={
+	"render_particles":True,
+	"render_stars":True
+}
+
 debug("Loaded all SG extentions")
 
 root.renderspace_size=renderspace_size

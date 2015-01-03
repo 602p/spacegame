@@ -373,7 +373,7 @@ class RigidBody2D:
 		return self._vector.y()
 
 	def moving(self):
-		return (abs(self.get_x_vel())+abs(self.get_y_vel()))>1
+		return (abs(self.get_x_vel())+abs(self.get_y_vel()))
 
 	def get_magnitude(self):
 		return self._vector.magnitude

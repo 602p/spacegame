@@ -184,7 +184,7 @@ class Ship(serialize.SerializableObject):
 		if self.rigidbody.moving()>0:
 			for emitter in self.engine_sources:
 				c=0
-				while c!=emitter["density"]+1:
+				while c<emitter["density"]*(self.rigidbody.moving()/self.max_speed):
 					y_=self.rigidbody.y+emitter["y"]+random.randint(0,1)-random.randint(0,2)
 					x_=self.rigidbody.x+emitter["x"]+random.randint(0,emitter["width"])-random.randint(0,emitter["width"]*2)
 					color=emitter["color"]
