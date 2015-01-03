@@ -7,5 +7,7 @@ class StoryEntity:
 	#Relations
 	#Factions
 	#Triggers
-	#
+	#Attached ships
+	#Inventory
+	#Currency 
 	pass

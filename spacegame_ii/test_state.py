@@ -46,7 +46,7 @@ root.console = pyconsole.Console(screen,(0,0,1300,200),localsx=locals())
 root.gamedb=assets.GameAssetDatabase()
 
 
-root.igconsole = overlay_gui.IngameRenderedConsole(root, 10)
+root.igconsole = overlay_gui.IngameRenderedConsole(root, 5)
 root.igconsole.enable_debug()
 
 root.settings={
@@ -147,7 +147,7 @@ while run:
 		# fps_ofps=root.fps
 
 	root.console.draw()
-	root.igconsole.render((0,550))
+	root.igconsole.render((0,625))
 	pygame.display.flip()
 	if eventclear_tick==10:
 		pygame.event.clear()

@@ -21,6 +21,8 @@ def render_wepbar(root, state, ship, x, y):
 
 	pygame.draw.rect(screen, (255,0,0), pygame.Rect(x,y,898,67), 2)
 	pygame.draw.rect(screen, (0,255,0), pygame.Rect(x+(ship.selected_wep*64),y,64,66), 2)
+	screen.blit(root.gamedb("font_sys_mono_13").render(ship.get_item_in_hardpoint(ship.selected_wep).name, 0, (0,255,0)),
+		(x+(ship.selected_wep*64),y-16))
 
 def render_rangefinder(root, player, point, color='red'):
 	gamedb=root.gamedb
@@ -65,16 +67,17 @@ class IngameRenderedConsole:
 		self.debug=False
 
 	def render_line(self, line, offset):
-		self.root.gamedb("font_sys_mono").set_bold(line[3])
-		self.root.gamedb("font_sys_mono").set_italic(line[4])
-		self.root.gamedb("font_sys_mono").set_underline(line[5])
-		self.root.screen.screen.blit(self.root.gamedb("font_sys_mono_13").render(
+		f=self.root.gamedb("font_sys_mono_13")
+		f.set_bold(line[3])
+		f.set_italic(line[4])
+		f.set_underline(line[5])
+		self.root.screen.screen.blit(f.render(
 				line[0], False, pygame.Color(*line[1]), pygame.Color(*line[2])
 			)
 		, offset)
-		self.root.gamedb("font_sys_mono").set_bold(False)
-		self.root.gamedb("font_sys_mono").set_italic(False)
-		self.root.gamedb("font_sys_mono").set_underline(False)
+		f.set_bold(False)
+		f.set_italic(False)
+		f.set_underline(False)
 
 	def render(self, position):
 		position=list(position)
@@ -88,7 +91,7 @@ class IngameRenderedConsole:
 			position[0]-2,
 			position[1]-2,
 			self.root.gamedb("font_sys_mono_13").size("A")[0]*50,
-			self.root.gamedb("font_sys_mono_13").size("A")[1]*self.maxlines
+			self.root.gamedb("font_sys_mono_13").size("A")[1]*self.maxlines+4
 			),
 			3
 		)
