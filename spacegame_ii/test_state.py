@@ -6,6 +6,7 @@ debug("Logging Started")
 import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader
 import assets, pyconsole, interdiction_gui, overlay_gui
 
+allowdebug=True
 
 def credits():
 	print("Spacegame was made by:")
@@ -14,6 +15,10 @@ def credits():
 	print("Pyconsole from: John Schank")
 	print("Art assets by MillionthVector (http://millionthvector.blogspot.de)")
 	print("Misc. assets from Opengameart.org")
+
+if allowdebug:
+	def g_spawnship(name, a=True, w=True):
+		g.entities.append(ship.create_ship(root, name, g.player.rigidbody.x, g.player.rigidbody.y, w, a))
 
 pygame.init()
 debug("Pygame started")
@@ -135,8 +140,8 @@ while run:
 		# 	pygame.draw.line(fps_surf, (0,0,255), (0, 40), (1300,40))
 		# 	pygame.draw.line(fps_surf, (0,255,0), (0, 0), (1300,0))
 		# pygame.draw.line(fps_surf, (0,255,255), (fps_xo-1, 400-fps_ofps), (fps_xo, 400-root.fps))
-		root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("FPS: "+str(root.fps), False, (0,255,255)), (0,410))
-		root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("S/S: "+str(fps_sps)+"/1", False, (0,255,255)), (0,420))
+		root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("FPS: "+str(root.fps), False, (0,255,255)), (0,310))
+		root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("S/S: "+str(fps_sps)+"/1", False, (0,255,255)), (0,320))
 		#root.screen.screen.blit(fps_surf, (0,200))
 		# fps_xo+=1
 		# fps_ofps=root.fps
