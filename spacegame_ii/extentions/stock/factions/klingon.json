@@ -1,0 +1,31 @@
+{
+	"id":"klingonempire",
+	"name":"Klingon Empire",
+	"longname":"----",
+	"description":"----",
+	"color":[0,255,0],
+
+	"tags":[
+		"all",
+		"has_any_klingons",
+		"has_many_klingons"
+
+	],
+
+	"join_requirements":[
+		{
+			"primitive":"not_member",
+			"any":[
+				"federation"
+			]
+		}
+	],
+	"leave_requirements":[],
+
+	"join_effects":[],
+	"leave_effects":[],
+
+	"relations":{
+		"federation":-200
+	}
+}

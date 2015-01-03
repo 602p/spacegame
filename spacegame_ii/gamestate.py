@@ -24,7 +24,7 @@ class RunningGameState(state.State):
 				parralax.StarfieldLayer(20, (255,255,255), 2, -1.25),
 				parralax.StarfieldLayer(30, (225,225,225), 2, -1.5),
 				parralax.StarfieldLayer(40, (200,200,200), 3, -1),
-				parralax.StarfieldLayer(40, (150,150,150), 2, -2)
+				parralax.StarfieldLayer(40, (150,150,150), 2, -0.6)
 			]
 		)
 	def start(self):
@@ -54,14 +54,6 @@ class RunningGameState(state.State):
 
 		for e in pygame.event.get():
 			if e.type==pygame.KEYDOWN:
-				if e.key == pygame.K_1:
-					self.player.damage(1)
-				if e.key == pygame.K_q:
-					self.entities[1].fire_item_in_hardpoint(0)
-				if e.key == pygame.K_w:
-					self.entities[1].fire_item_in_hardpoint(1)
-				if e.key == pygame.K_4:
-					raise IndexError("Test error")
 				if e.key == pygame.K_a:
 					self.player.selected_wep-=1
 					if self.player.selected_wep==-1:
@@ -70,7 +62,7 @@ class RunningGameState(state.State):
 					self.player.selected_wep+=1
 					if self.player.selected_wep==len(self.player.hardpoints):
 						self.player.selected_wep=0
-				if e.key == pygame.K_e:
+				if e.key == pygame.K_HOME:
 					self.entities.append(ship.create_ship(self.root, "destroyer_transport_test", 1000, 1000))
 					self.entities[-1].targeted=self.player
 					self.entities[-1].rigidbody.x=0
@@ -103,8 +95,11 @@ class RunningGameState(state.State):
 		if self.player.kill:
 			i=0
 			while i!=200:
+				self.root.screen.screen.fill((0,0,0))
+				self.parralax_scroller.render(self.root.screen.screen)
 				self.root.particlemanager.update()
 				self.root.particlemanager.draw(self.root.screen)
+				pygame.display.flip()
 				i+=1
 			if not interdiction_gui.interdict_yn(self.root, "GAME OVER", "You have died. Were playing "+self.player.name+" ("+self.player.id_string+"). Killed by TODO. Better luck next time :(", "RESET", "QUIT"):
 				pygame.quit()
@@ -118,21 +113,19 @@ class RunningGameState(state.State):
 
 		#print self.player.rigidbody._vector.angle-math.degrees(math.atan2(self.player.rigidbody.y-self.player.targeted.rigidbody.y, self.player.targeted.rigidbody.x-self.player.rigidbody.x))
 
-		self.root.screen.screen.blit(self.root.gamedb.get_asset("font_standard_small").render("T: "+str(self.root.game_time), False, (0,255,255)), (0,580))
-		self.root.screen.screen.blit(self.root.gamedb.get_asset("font_standard_small").render("F: "+str(self.root.clock.get_fps()), False, (0,255,255)), (0,600))
-		self.root.screen.screen.blit(self.root.gamedb.get_asset("font_standard_small").render("A: "+str(self.player.rigidbody.get_angle()), False, (0,255,255)), (0,620))
-		self.root.screen.screen.blit(self.root.gamedb.get_asset("font_standard_small").render("V: "+str(self.player.rigidbody.get_magnitude()), False, (0,255,255)), (0,640))
-		self.root.screen.screen.blit(self.root.gamedb.get_asset("font_standard_small").render("X: "+str(self.player.rigidbody.x), False, (0,255,255)), (0,680))
-		self.root.screen.screen.blit(self.root.gamedb.get_asset("font_standard_small").render("Y: "+str(self.player.rigidbody.y), False, (0,255,255)), (0,660))	
+		self.root.screen.screen.blit(self.root.gamedb.get_asset("font_standard_small").render("T: "+str(self.root.game_time), False, (0,255,255)), (0,580-200))
+		self.root.screen.screen.blit(self.root.gamedb.get_asset("font_standard_small").render("F: "+str(self.root.clock.get_fps()), False, (0,255,255)), (0,600-200))
+		self.root.screen.screen.blit(self.root.gamedb.get_asset("font_standard_small").render("A: "+str(self.player.rigidbody.get_angle()), False, (0,255,255)), (0,620-200))
+		self.root.screen.screen.blit(self.root.gamedb.get_asset("font_standard_small").render("V: "+str(self.player.rigidbody.get_magnitude()), False, (0,255,255)), (0,640-200))
+		self.root.screen.screen.blit(self.root.gamedb.get_asset("font_standard_small").render("X: "+str(self.player.rigidbody.x), False, (0,255,255)), (0,680-200))
+		self.root.screen.screen.blit(self.root.gamedb.get_asset("font_standard_small").render("Y: "+str(self.player.rigidbody.y), False, (0,255,255)), (0,660-200))	
 
 		self.player.damage.render_systems_full(self.root.screen.screen, self.root.gamedb.get_asset("font_standard_small"))
 		self.player.damage.render_infobox(self.root.screen.screen, self.root.gamedb.get_asset("font_standard_very_small"), 1150, 50, 0)
-		overlay_gui.render_wepbar(self.root, self, self.player, 186, 632)
+		overlay_gui.render_wepbar(self.root, self, self.player, 402, 632)
 
 		if self.player.targeted:
 			overlay_gui.render_rangefinder(self.root, self.player, [self.player.targeted.rotated_rect.centerx, self.player.targeted.rotated_rect.centery])
-		
-		if self.player.targeted:
 			self.player.targeted.damage.render_infobox(self.root.screen.screen, self.root.gamedb.get_asset("font_standard_very_small"), 1150, 530, 1)
 
 		self.root.screen.set_offset((self.player.rigidbody.x-(self.root.renderspace_size[0]/2), self.player.rigidbody.y-(self.root.renderspace_size[1]/2)))

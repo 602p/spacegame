@@ -37,7 +37,7 @@ class GameAssetDatabase:
 		self.loaders={}
 		def load_image(node, basepath):
 			debug("Loading image "+node["path"])
-			i=pygame.image.load(basepath+node["path"])
+			i=pygame.image.load(os.path.join(basepath+node["path"]))
 			if "convert_alpha" in node:
 				if not node["convert_alpha"]:
 					return i
@@ -77,9 +77,11 @@ class GameAssetDatabase:
 		self.loaders["key"]=func
 
 	def load_with_loader(self, node, basepath):
-		assert node["type"] in self.loaders, "Loader type '"+node["type"]+"' not defined [GameAssetDatabase]"
-		debug("Loading node using loader:'"+node["type"]+"' to name:'"+node["name"]+"'... [USING INLINE INSERTION]")
-		self.assets[node["name"]]=self.loaders[node["type"]](get_expanded_json(self, node), basepath)
+		try:
+			debug("Loading node using loader:'"+node["type"]+"' to name:'"+node["name"]+"'... [USING INLINE INSERTION]")
+			self.assets[node["name"]]=self.loaders[node["type"]](get_expanded_json(self, node), basepath)
+		except KeyError:
+			error("Loader "+node["type"]+" not found!")
 
 	def load_assetfile(self, path, basepath):
 		data=json.load(open(path))["assets"]

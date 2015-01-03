@@ -1,0 +1,31 @@
+{
+	"id":"federation",
+	"name":"The Federation",
+	"longname":"United Federation Of Planets",
+	"description":"----",
+	"color":[0,0,255],
+
+	"tags":[
+		"all",
+		"has_any_klingons",
+		"has_any_humans",
+		"has_many_humans"
+	],
+
+	"join_requirements":[
+		{
+			"primitive":"not_member",
+			"any":[
+				"klingonempire"
+			]
+		}
+	],
+	"leave_requirements":[],
+
+	"join_effects":[],
+	"leave_effects":[],
+
+	"relations":{
+		"klingonempire":-200
+	}
+}

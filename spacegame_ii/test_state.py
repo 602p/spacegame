@@ -4,7 +4,7 @@ import logging, sys, traceback, datetime, ai
 logging.basicConfig(filemode='w', filename='spacegame.log',level=logging.DEBUG, format='[%(asctime)s] %(levelname)s: %(message)s')
 debug("Logging Started")
 import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader
-import assets, pyconsole, interdiction_gui
+import assets, pyconsole, interdiction_gui, overlay_gui
 
 
 def credits():
@@ -39,6 +39,10 @@ root.screen=scrollingscreen
 root.state_manager=state.StateManager(root)
 root.console = pyconsole.Console(screen,(0,0,1300,200),localsx=locals())
 root.gamedb=assets.GameAssetDatabase()
+
+
+root.igconsole = overlay_gui.IngameRenderedConsole(root, 10)
+root.igconsole.enable_debug()
 
 debug("Loaded all SG extentions")
 
@@ -133,6 +137,7 @@ while run:
 		# fps_ofps=root.fps
 
 	root.console.draw()
+	root.igconsole.render((0,550))
 	pygame.display.flip()
 	if eventclear_tick==10:
 		pygame.event.clear()

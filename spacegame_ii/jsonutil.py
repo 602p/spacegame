@@ -30,13 +30,16 @@ def expand_dict(db, j):
 def expand_list(db, j):
 	new=[]
 	for i in j:
-		new.append(expand_object(db, i))
+		if ( type(i)==str or type(i)==unicode ) and ( i.startswith("%+") and i.endswith("%") ):
+			new.extend(expand_string(db, i))
+		else:
+			new.append(expand_object(db, i))
 	return new
 
 def expand_string(db, j):
 	if j.startswith("%") and j.endswith("%"):
-		if ju_debug: debug("Replacing node "+j+" with node '"+str(db.get_asset("cfg_"+j.replace("%", '')))+"'")
-		return db.get_asset("cfg_"+j.replace("%", ''))
+		if ju_debug: debug("Replacing node "+j+" with node '"+str(db.get_asset("cfg_"+j.replace("%", '').replace("+", '')))+"'")
+		return db.get_asset("cfg_"+j.replace("%", '').replace("+", ''))
 	return j
 
 def dget(dictx, att, default, root=None):

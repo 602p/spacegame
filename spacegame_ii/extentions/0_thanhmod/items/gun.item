@@ -22,11 +22,11 @@
             "accel":0,
             "impact":[
                 {
-                    "primitive":"simple_damage_impact",
+                    "primitive":"simple_damage",
                     "damage":1
                 },
                 {
-                    "primitive":"explosion_at_parent_at_top",
+                    "primitive":"explosion_at_parent",
                     "style":{
                         "particles":50,
                         "r_min":255,

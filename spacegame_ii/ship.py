@@ -11,27 +11,27 @@ def init(root):
 
 def load_dir(root, dname):
 	for i in os.listdir(dname):
-		load_file(root, dname+"/"+i, dname)
+		load_file(root, dname+"/"+i)
 
-def load_file(root, fname, package_root):
-	debug("Load ship_file '"+fname+"' from '"+package_root+"'")
+def load_file(root, fname):
+	debug("Load ship_file '"+fname)
 	with open(fname, 'r') as f:
-		load_string(root, f.read(), package_root)
+		load_string(root, f.read())
 
-def load_string(root, string, package_root):
-	register_ship(root, get_expanded_json(root.gamedb, json.loads(string)), package_root)
+def load_string(root, string):
+	register_ship(root, get_expanded_json(root.gamedb, json.loads(string)))
 
-def register_ship(root, config, package_root):
-	root.ship_factories[config["id"]]=create_ship_factory(root, config, package_root)
+def register_ship(root, config):
+	root.ship_factories[config["id"]]=create_ship_factory(root, config)
 
-def create_ship_factory(root, config, package_root):
-	return ShipFactory(root, package_root, config)
+def create_ship_factory(root, config):
+	return ShipFactory(root, config)
 
 def create_ship(root, id_, x=0, y=0, with_equip=1, ai=True):
 	return root.ship_factories[id_](x, y, with_equip, ai)
 
 class ShipFactory:
-	def __init__(self, root, package_root, config):
+	def __init__(self, root, config):
 		self.root=root
 
 		self.image=root.gamedb.get_asset(config["image"])

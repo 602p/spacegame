@@ -1,0 +1,22 @@
+{
+	"id":"test",
+	"name":"Test faction",
+	"longname":"Test developer faction",
+	"description":"Testing faction that allows everything. For developer testing.",
+	"color":[255,0,0],
+
+	"tags":[
+		"test_tag",
+		"dev_faction"
+	],
+
+	"join_requirements":[],
+	"leave_requirements":[],
+
+	"join_effects":[],
+	"leave_effects":[],
+
+	"relations":{
+		
+	}
+}

@@ -10,21 +10,21 @@ def init(root):
 
 def load_dir(root, dname):
 	for i in os.listdir(dname):
-		load_file(root, dname+"/"+i, dname)
+		load_file(root, dname+"/"+i)
 
-def load_file(root, fname, package_root):
-	debug("Load item_file '"+fname+"' from '"+package_root+"'")
+def load_file(root, fname):
+	debug("Load item_file '"+fname)
 	with open(fname, 'r') as f:
-		load_string(root, f.read(), package_root)
+		load_string(root, f.read())
 
-def load_string(root, string, package_root):
-	register_item(root, get_expanded_json(root.gamedb, json.loads(string)), package_root)
+def load_string(root, string):
+	register_item(root, get_expanded_json(root.gamedb, json.loads(string)))
 
-def register_item(root, config, package_root):
-	root.item_factories[config["id"]]=create_item_factory(root, config, package_root)
+def register_item(root, config):
+	root.item_factories[config["id"]]=create_item_factory(root, config)
 
-def create_item_factory(root, config, package_root):
-	return ItemFactory(root, package_root, config)
+def create_item_factory(root, config):
+	return ItemFactory(root, config)
 
 def create_item(root, name, parent, equipped=-1):
 	return root.item_factories[name](parent, equipped)
@@ -36,7 +36,7 @@ def _deserialize_item(root, node, parent):
 	parent.inventory.append(item)
 
 class ItemFactory:
-	def __init__(self, root, package_root, json_dict):
+	def __init__(self, root, json_dict):
 		self.cost=json_dict["cost"]
 		self.id=json_dict["id"]
 		self.name=json_dict["name"]

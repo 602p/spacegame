@@ -18,7 +18,9 @@
     "shields":50,
     "shield_regen":2,
 
-    "systems":"%systems_standard%",
+    "systems":[
+        "%+systems_standard%"
+    ],
     "hardpoints":[
         {
             "size":"small",
@@ -49,7 +51,7 @@
             "equipped":1
         },
         {
-            "item_name":"wep_torpedo_stinger2",
+            "item_name":"x_wep_thanh",
             "equipped":2
         }
     ],

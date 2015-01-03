@@ -23,6 +23,7 @@ class Projectile:
 		self.accel=accel
 		self.particlestyle=particlestyle
 		self.turnrate=turnrate
+		self.targeted = None #So we don't spam the log with "Projectile instance has no attribute 'targeted'""
 		if self.homing:
 			self.targeted=self.parent.parent.targeted
 

@@ -36,14 +36,20 @@ class DamageSystem:
 	def deal_damage(self, damage):
 		self.health-=damage
 		if self.health<=1 and self.status!=2:
+			if not self.damage_model.ship.use_ai:
+				self.damage_model.root.igconsole.post("Your "+self.name+" are now DESTROYED", (0,0,0), (255,0,0), bold=True)
 			self.reset()
 			self.do_destroyed()
 			if self.health<=0:
 				self.health=0
 		elif self.health<self.threshold and self.health>1 and self.status!=1:
+			if not self.damage_model.ship.use_ai:
+				self.damage_model.root.igconsole.post("Your "+self.name+" are now DAMAGED", (0,0,0), (255,127,0), bold=True)
 			self.reset()
 			self.do_damaged()
 		elif self.status!=0 and self.health>self.threshold:
+			if not self.damage_model.ship.use_ai:
+				self.damage_model.root.igconsole.post("Your "+self.name+" are now REPAIRED", (0,0,0), (0,255,0), bold=True)
 			self.reset()
 		if self.health<=0:
 			self.health=0

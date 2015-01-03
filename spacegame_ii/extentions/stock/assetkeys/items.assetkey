@@ -21,11 +21,6 @@
 			"type":"image"
 		},
 		{
-			"name":"x_image_dick",
-			"path":"image/items/dick.png",
-			"type":"image"
-		},
-		{
 			"name":"item_missile1_bullet",
 			"path":"image/items/missile.png",
 			"type":"image"

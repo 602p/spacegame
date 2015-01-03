@@ -1,7 +1,7 @@
 {
     "assets":[
         {
-            "name":"cfg_systems_standard",
+            "name":"cfg_systems_standard_engines",
             "type":"json",
             "json":[
                 {
@@ -14,7 +14,13 @@
                     "image_damaged":"image_icon_engine_yellow",
                     "image_destroyed":"image_icon_engine_red",
                     "regen":0.1
-                },
+                }
+            ]
+        },
+        {
+            "name":"cfg_systems_standard_thrusters",
+            "type":"json",
+            "json":[
                 {
                     "name":"THRUSTERS",
                     "attributes":["turn_rate"],
@@ -26,6 +32,14 @@
                     "image_destroyed":"image_icon_thrusters_red",
                     "regen":0.1
                 }
+            ]
+        },
+        {
+            "name":"cfg_systems_standard",
+            "type":"json",
+            "json":[
+                "%+systems_standard_engines%",
+                "%+systems_standard_thrusters%"
             ]
         }
     ]

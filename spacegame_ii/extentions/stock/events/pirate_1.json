@@ -3,7 +3,15 @@
 	"id":"event_pirate_raid_1",
 
 	"spawn_random":true,
-	"random_chance_hour":0.5,
+	"rarity":{
+        "default":20,
+        "factions":[
+            {
+                "faction":"test",
+                "rarity":100
+            }
+        ]
+    },
 
 	"requirements":[
 		{

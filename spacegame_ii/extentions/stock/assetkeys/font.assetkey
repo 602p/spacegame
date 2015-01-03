@@ -23,6 +23,12 @@
 			"type":"sysfont",
 			"sys_name":"monospace",
 			"size":20
+		},
+		{
+			"name":"font_sys_mono_13",
+			"type":"sysfont",
+			"sys_name":"monospace",
+			"size":13
 		}
 	]
 }
