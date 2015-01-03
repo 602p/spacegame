@@ -28,6 +28,7 @@ def create_ship_factory(root, config):
 	return ShipFactory(root, config)
 
 def create_ship(root, id_, x=0, y=0, with_equip=1, ai=True):
+	debug("Instantiating ship "+id_+" at "+str((x,y,)) + ". w_e: "+str(with_equip)+". u_a: "+str(ai))
 	return root.ship_factories[id_](x, y, with_equip, ai)
 
 class ShipFactory:
@@ -100,6 +101,8 @@ class Ship(serialize.SerializableObject):
 		self.kill=False
 
 		self.can_be_hit=True
+
+		self.selected_wep=0
 
 		self.targeted=None
 

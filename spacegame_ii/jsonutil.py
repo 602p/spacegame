@@ -1,6 +1,6 @@
 from logging import debug, info, warning, error, critical
 
-ju_debug=True
+ju_debug=False
 
 def get_expanded_json(gamedb, json):
 	o=expand_object(gamedb, json)

@@ -32,7 +32,7 @@ class RunningGameState(state.State):
 			]
 		)
 	def start(self):
-		pass
+		info("=================================STARTING GAME STATE==========================")
 	def update_and_render(self):
 		self.root.screen.screen.fill((0,0,0))
 		self.parralax_scroller.render(self.root.screen.screen)
