@@ -26,6 +26,12 @@
 			"type":"image"
 		},
 		{
+			"name":"uio_arrowred_up_small",
+			"path":"image/icon/arrowred/arrowup.png",
+			"type":"image",
+			"scale":[20,20]
+		},
+		{
 			"name":"uio_arrow_transparentred_up",
 			"path":"image/icon/arrowup_transparent.png",
 			"type":"image"

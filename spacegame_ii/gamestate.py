@@ -7,7 +7,7 @@ class RunningGameState(state.State):
 		self.entities=[]
 		self.entities=[
 			ship.create_ship(self.root, "cargo_transport_test", 100, 100, ai=False),
-			ship.create_ship(self.root, "ss_bajor_ds9", 100, 100)
+			ship.create_ship(self.root, "ss_bajor_ds9", 500, 500)
 		]
 		self.player=self.entities[0]
 		# for i in xrange(0,10):
@@ -131,6 +131,8 @@ class RunningGameState(state.State):
 		if self.player.targeted:
 			overlay_gui.render_rangefinder(self.root, self.player, [self.player.targeted.rotated_rect.centerx, self.player.targeted.rotated_rect.centery])
 			self.player.targeted.damage.render_infobox(self.root.screen.screen, self.root.gamedb.get_asset("font_standard_very_small"), 1150, 430, 1)
+
+		overlay_gui.render_rangefinder(self.root, self.player, [self.entities[1].rotated_rect.centerx, self.entities[1].rotated_rect.centery])
 
 		self.root.screen.set_offset((self.player.rigidbody.x-(self.root.renderspace_size[0]/2), self.player.rigidbody.y-(self.root.renderspace_size[1]/2)))
 		self.parralax_scroller.move_to(self.player.rigidbody.x, self.player.rigidbody.y)
