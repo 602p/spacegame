@@ -126,7 +126,7 @@ class RunningGameState(state.State):
 
 		if self.player.targeted:
 			overlay_gui.render_rangefinder(self.root, self.player, [self.player.targeted.rotated_rect.centerx, self.player.targeted.rotated_rect.centery])
-			self.player.targeted.damage.render_infobox(self.root.screen.screen, self.root.gamedb.get_asset("font_standard_very_small"), 1150, 530, 1)
+			self.player.targeted.damage.render_infobox(self.root.screen.screen, self.root.gamedb.get_asset("font_standard_very_small"), 1150, 430, 1)
 
 		self.root.screen.set_offset((self.player.rigidbody.x-(self.root.renderspace_size[0]/2), self.player.rigidbody.y-(self.root.renderspace_size[1]/2)))
 		self.parralax_scroller.move_to(self.player.rigidbody.x, self.player.rigidbody.y)
