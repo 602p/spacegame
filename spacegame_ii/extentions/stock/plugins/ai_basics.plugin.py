@@ -37,7 +37,6 @@ class ConstrainByDamageSystemStatus(ai.AIItemHint):
 				# print "a"+str(translate[self.config["above"]])
 				if system.status<translate[self.config["above"]]:
 					return True
-			print 
 		return False
 
 class FollowSelected(ai.AIControllerUpdateNode):

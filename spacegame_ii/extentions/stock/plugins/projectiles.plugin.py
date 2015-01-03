@@ -42,7 +42,6 @@ class Projectile:
 		x_=self.rotated_rect.centerx
 		y_=self.rotated_rect.centery
 		if "particle_offset" in self.config.keys():
-			print "upo"
 			x_, y_ = rotate_point(self.rotated_rect.center, (
 				self.config["particle_offset"][0]+self.rigidbody.x, self.config["particle_offset"][1]+self.rigidbody.y) ,
 				-self.rigidbody.get_angle())

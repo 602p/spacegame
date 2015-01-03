@@ -1,0 +1,14 @@
+{
+	"assets":[
+		{
+			"name":"image_bajor_planet_crescent",
+			"type":"image",
+			"path":"image/civs/bajor/bajorcrescent.png"
+		},
+		{
+			"name":"image_bajor_teroknor",
+			"type":"image",
+			"path":"image/civs/bajor/teroknorinorbit.jpg"
+		}
+	]
+}

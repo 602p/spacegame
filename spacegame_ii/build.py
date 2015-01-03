@@ -42,10 +42,10 @@ class pygame2exe(py2exe.build_exe.py2exe): #This hack make sure that pygame defa
 class BuildExe:
     def __init__(self):
         #Name of starting .py
-        self.script = "MyApps.py"
+        self.script = "test_state.py"
  
         #Name of program
-        self.project_name = "MyApps"
+        self.project_name = "SpaceGame"
  
         #Project url
         self.project_url = "about:none"
@@ -54,15 +54,15 @@ class BuildExe:
         self.project_version = "0.0"
  
         #License of the program
-        self.license = "MyApps License"
+        self.license = "MIT Expat"
  
         #Auhor of program
-        self.author_name = "Me"
-        self.author_email = "example@example.com"
-        self.copyright = "Copyright (c) 2009 Me."
+        self.author_name = "Louis"
+        self.author_email = "louis@goessling.com"
+        self.copyright = "Copyleft >"
  
         #Description
-        self.project_description = "MyApps Description"
+        self.project_description = "A Game"
  
         #Icon file (None will use pygame default icon)
         self.icon_file = None

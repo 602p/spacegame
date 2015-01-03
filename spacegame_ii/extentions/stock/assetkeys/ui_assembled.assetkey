@@ -1,11 +1,6 @@
 {
 	"assets":[
 		{
-			"name":"uia_metal_panel",
-			"path":"ui/assembled/metalPanel.png",
-			"type":"image"
-		},
-		{
 			"name":"uia_ok_dialog",
 			"path":"ui/OKDialog.png",
 			"type":"image"
