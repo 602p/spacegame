@@ -22,9 +22,20 @@ def expand_object(db, j):
 	return j
 
 def expand_dict(db, j):
+	#Expand all %+s, not ovveriding, then
 	new={}
-	for k in j:
+	for k in filter(lambda x:x.startswith("%+"), j.keys()):
+		if k.startswith("%+") and k.endswith("%"):
+			debug("DICT_EXAND_MODE: Expanding "+k)
+			new.update(db.get_asset("cfg_"+k.replace("%", '').replace("+", '')))
+	#Expand all normal
+	for k in j.keys():
 		new[k]=expand_object(db, j[k])
+	#Expand all %++s with ovveride
+	for k in filter(lambda x:x.startswith("%++"), j.keys()):
+		if k.startswith("%+") and k.endswith("%"):
+			debug("DICT_EXAND_MODE: Expanding "+k)
+			new.update(db.get_asset("cfg_"+k.replace("%", '').replace("+", '')))
 	return new
 
 def expand_list(db, j):

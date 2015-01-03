@@ -1,4 +1,5 @@
 {
+    "%+base_ship%":0,
     "name":"Destroyer test",
     "id":"destroyer_transport_test",
     "source_faction":"test",

@@ -1,4 +1,5 @@
 {
+    "%+base_ship%":0,
     "name":"Cargo Transport",
     "id":"alien_transport_test",
     "source_faction":"test",

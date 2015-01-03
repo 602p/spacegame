@@ -1,4 +1,5 @@
 {
+    "%+base_item%":0,
     "name":"Stinger Mk2 Missile",
     "id":"wep_torpedo_stinger2",
     "inventory_image":"item_missile1_turret",

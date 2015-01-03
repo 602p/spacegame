@@ -1,4 +1,5 @@
 {
+    "%+base_ship%":0,
     "name":"Cargo Transport",
     "id":"cargo_transport_test",
     "image":"ship_cargo_tt",

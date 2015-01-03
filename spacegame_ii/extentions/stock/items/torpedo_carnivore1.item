@@ -1,4 +1,5 @@
 {
+    "%+base_item%":0,
     "name":"Carnivore Mk1 Torpedo",
     "id":"wep_torpedo_carnivore1",
     "inventory_image":"item_missile1_turret",

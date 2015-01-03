@@ -19,6 +19,11 @@
 			"name":"image_icon_thrusters_yellow",
 			"path":"image/icon/steering-transparent-yellow.png",
 			"type":"image"
+		},
+		{
+			"name":"image_empty",
+			"path":"image/empty.bmp",
+			"type":"image"
 		}
 	]
 }
