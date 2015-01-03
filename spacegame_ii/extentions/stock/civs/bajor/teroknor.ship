@@ -1,0 +1,33 @@
+{
+	"%+base_ship%":0,
+	"id":"ss_bajor_ds9",
+	"name":"Deep Space 9",
+    "source_faction":"federation",
+    "hull":1000,
+    "mass":2000,
+    "image":"image_bajor_ds9_orbit",
+    "cost":2200,
+    "cargo":1000,
+    "start_speed":2000,
+    "reactor_max":500,
+    "reactor_regen":50,
+    "shields":500,
+    "max_speed":300,
+    "start_speed":40000,
+    "turn_rate":10,
+    "shield_regen":25,
+    "systems":"%systems_standard%",
+    "ship_die":"%explosion_ship_large%",
+    "ai":{
+    	"ai_subcontrollers":[
+    		{
+    			"controller":"spacestation",
+    			"station_cfg":{
+    				"bg_image":"image_bajor_ds9_splash",
+    				"name":"DEEP SPACE 9",
+    				"font":"font_standard_large"
+    			}
+    		}
+    	]
+    }
+}

@@ -38,10 +38,16 @@ class GameAssetDatabase:
 		def load_image(node, basepath):
 			debug("Loading image "+node["path"])
 			i=pygame.image.load(os.path.join(basepath+node["path"]))
+			ca=1
 			if "convert_alpha" in node:
 				if not node["convert_alpha"]:
-					return i
-			return i.convert_alpha()
+					ca=node["convert_alpha"]
+			if "scale" in node:
+				i=pygame.transform.scale(i, node["scale"])
+			if ca:
+				return i.convert_alpha()
+			else:
+				return i
 		self.loaders["image"]=load_image
 
 		def load_sound(node, basepath):

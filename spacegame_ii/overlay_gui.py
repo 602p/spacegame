@@ -20,9 +20,11 @@ def render_wepbar(root, state, ship, x, y):
 		pygame.draw.line(screen, (255,0,0), (x+xo+64, y+2), (x+xo+64, y+64), 2)
 
 	pygame.draw.rect(screen, (255,0,0), pygame.Rect(x,y,898,67), 2)
-	pygame.draw.rect(screen, (0,255,0), pygame.Rect(x+(ship.selected_wep*64),y,64,66), 2)
-	screen.blit(root.gamedb("font_sys_mono_13").render(ship.get_item_in_hardpoint(ship.selected_wep).name, 0, (0,255,0)),
-		(x+(ship.selected_wep*64),y-16))
+	
+	if ship.get_item_in_hardpoint(ship.selected_wep)!=None:
+		screen.blit(root.gamedb("font_sys_mono_13").render(ship.get_item_in_hardpoint(ship.selected_wep).name, 0, (0,255,0)),
+			(x+(ship.selected_wep*64),y-16))
+		pygame.draw.rect(screen, (0,255,0), pygame.Rect(x+(ship.selected_wep*64),y,64,66), 2)
 
 def render_rangefinder(root, player, point, color='red'):
 	gamedb=root.gamedb

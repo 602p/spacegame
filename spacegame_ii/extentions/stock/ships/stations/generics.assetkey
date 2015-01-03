@@ -1,0 +1,33 @@
+{
+	"assets":[
+		{
+			"name":"cfg_station_cfg_base",
+			"type":"json",
+			"json":{
+				"name":"spacestation",
+				"bg_image":"image_empty",
+				"faction":"",
+				"itemstore":false,
+				"shipstore":false,
+				"pub":false,
+				"pub_gives_quests":false,
+				"repair":false,
+				"triggers":{}
+			}
+		},
+		{
+			"name":"cfg_station_ship_base",
+			"type":"json",
+			"json":{
+				"ai":{
+					"ai_subcontrollers":[
+						{
+							"controller":"spacestation",
+							"station_cfg":"%station_cfg_base%"
+						}
+					]
+				}
+			}
+		}
+	]
+}

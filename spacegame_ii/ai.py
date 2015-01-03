@@ -81,5 +81,8 @@ class AIControllerUpdateNode:
 		self.controller=ai_controller
 		self.config=config
 		self.ship=ai_controller.ship
+		self.init()
+	def init(self):
+		pass
 	def update(self):
 		pass

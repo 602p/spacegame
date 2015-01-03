@@ -35,7 +35,6 @@ class ShipFactory:
 		self.root=root
 
 		self.image=root.gamedb.get_asset(config["image"])
-		self.mask=pygame.mask.from_surface(self.image)
 		self.id_string=config["id"]
 		self.name=config["name"]
 		self.hull=config["hull"]

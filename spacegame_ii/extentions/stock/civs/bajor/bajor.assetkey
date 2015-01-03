@@ -3,12 +3,19 @@
 		{
 			"name":"image_bajor_planet_crescent",
 			"type":"image",
-			"path":"image/civs/bajor/bajorcrescent.png"
+			"path":"civs/bajor/bajorcrescent.png"
 		},
 		{
-			"name":"image_bajor_teroknor",
+			"name":"image_bajor_ds9_splash",
 			"type":"image",
-			"path":"image/civs/bajor/teroknorinorbit.jpg"
+			"path":"civs/bajor/teroknorinorbit.jpg",
+			"scale":[1300,700]
+		},
+		{
+			"name":"image_bajor_ds9_orbit",
+			"type":"image",
+			"path":"civs/bajor/teroknor.png",
+			"scale":[300,300]
 		}
 	]
 }

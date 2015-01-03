@@ -4,7 +4,7 @@ import logging, sys, traceback, datetime, ai
 logging.basicConfig(filemode='w', filename='spacegame.log',level=logging.DEBUG, format='[%(asctime)s] %(levelname)s: %(message)s')
 debug("Logging Started")
 import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader
-import assets, pyconsole, interdiction_gui, overlay_gui
+import assets, pyconsole, interdiction_gui, overlay_gui, spacestations
 
 allowdebug=True
 
@@ -51,8 +51,13 @@ root.igconsole.enable_debug()
 
 root.settings={
 	"render_particles":True,
-	"render_stars":True
+	"render_stars":True,
+	"keybindings":{
+		"interact":101 #K_e
+	}
 }
+
+root.game_time=0
 
 debug("Loaded all SG extentions")
 
@@ -64,8 +69,9 @@ debug("Loaded all packages")
 
 root.state_manager.add_state(gamestate.RunningGameState(), "game")
 root.state_manager.add_state(gamestate.RunningGamePausedState(), "game_paused")
+root.state_manager.add_state(spacestations.SpaceStationState(), "station")
 root.state_manager.goto_state("game")
-root.game_time=0
+
 g=root.state_manager.states["game"]
 
 debug("StateManager initilized")

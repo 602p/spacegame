@@ -4,7 +4,11 @@ from logging import debug, info, warning, error, critical
 
 class RunningGameState(state.State):
 	def first_start(self):
-		self.entities=[ship.create_ship(self.root, "cargo_transport_test", 100, 100, ai=False)]
+		self.entities=[]
+		self.entities=[
+			ship.create_ship(self.root, "cargo_transport_test", 100, 100, ai=False),
+			ship.create_ship(self.root, "ss_bajor_ds9", 100, 100)
+		]
 		self.player=self.entities[0]
 		# for i in xrange(0,10):
 		# 	self.entities.append(ship.create_ship(self.root, "cargo_transport_test", random.randint(-300,300), random.randint(-300,300)))

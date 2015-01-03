@@ -34,7 +34,7 @@ def expand_dict(db, j):
 	#Expand all %++s with ovveride
 	for k in filter(lambda x:x.startswith("%++"), j.keys()):
 		if k.startswith("%+") and k.endswith("%"):
-			debug("DICT_EXAND_MODE: Expanding "+k)
+			debug("DICT_EXAND_MODE: Expanding woveride "+k)
 			new.update(db.get_asset("cfg_"+k.replace("%", '').replace("+", '')))
 	return new
 
