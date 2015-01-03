@@ -1,3 +1,6 @@
+import sys
+sys.path.insert(0, "..")
+
 import sgc
 from sgc.locals import *
 

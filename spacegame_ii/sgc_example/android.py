@@ -1,3 +1,5 @@
+import sys
+sys.path.insert(0, "..")
 """
 This example is a modification of the helloworld.py example to work with
 Android using PS4A.
