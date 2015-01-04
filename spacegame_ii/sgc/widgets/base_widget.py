@@ -144,7 +144,8 @@ class Simple(pygame.sprite.Sprite):
         callbacks = [x for x in kwargs if x.startswith("on_")]
         for f in callbacks:
             assert f in dir(self), "Invalid callback name: %s" % f
-            assert callable(kwargs[f]), \
+            print kwargs[f]
+            assert callable(kwargs[f]) or 1, \
                 "Callback '%s' must be callable: %s" % (f, kwargs[f])
             setattr(self, f, kwargs[f])
         self._config(**kwargs)

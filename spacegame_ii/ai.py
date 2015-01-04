@@ -1,5 +1,6 @@
 from logging import debug, info, warning, error
 from jsonutil import dget
+import traceback, sys
 
 def init(root):
 	root.ai_hint_keys={}
@@ -46,7 +47,8 @@ class AIController:
 				controller.update()
 			except BaseException as e:
 				error("AI ERROR:")
-				error(e)
+				exc_type, exc_value, exc_traceback = sys.exc_info()
+				for i in traceback.format_exception(exc_type, exc_value, exc_traceback): error(i)
 
 		if self.can_fire:
 			i=0

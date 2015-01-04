@@ -98,6 +98,7 @@ class BtnDialog(sgc.Button):
         dialogs[-1].rect.center = screen.rect.center
         dialogs[-1].add()
 btn_dialog = BtnDialog(label="Dialog", pos=(460,200))
+btn_dialog.add()
 
 box_btn = sgc.HBox(widgets=[button, btn_menu, btn_dialog], spacing=70)
 
