@@ -79,8 +79,6 @@ class RunningGameState(state.State):
 					self.entities[-1].rigidbody.y=0
 					self.player.targeted=self.entities[-1]
 				elif e.key == pygame.K_BACKQUOTE: pass #hiding window
-				else:
-					pygame.event.post(e)
 			elif e.type==pygame.VIDEORESIZE:
 				print e
 				print "gsresize"

@@ -29,11 +29,11 @@ def make_floater(r, x, y, color):
 	surf.fill(color)
 	return Particle(r, surf, x, y, lambda s:0, 0.1)
 
-def make_hitNumber(number, font, x, y):
-	return make_hitText(str(number), font, x, y, (255, 0, 0))
+def make_hitNumber(root, number, font, x, y, color=(255,0,0)):
+	return make_hitText(root, str(number), font, x, y, color)
 
-def make_hitText(text, font, x, y, color):
-	return Particle(font.render(text, False, color), x, y, _update_float_up, 60)
+def make_hitText(root, text, font, x, y, color):
+	return Particle(root, font.render(text, False, color), x, y, _update_float_up, 1.5)
 
 def make_explosion(root, x, y, count=200):
 	i=0

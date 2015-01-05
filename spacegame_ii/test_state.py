@@ -35,7 +35,7 @@ class R:pass
 root=R()
 
 root.settings={
-	"render_particles":True,
+	"particles_level":5,
 	"render_stars":True,
 	"keybindings":{
 		"interact":101 #K_e
@@ -109,7 +109,8 @@ eventclear_tick=0
 pygame.mouse.set_cursor(*pygame.cursors.broken_x)
 
 while run:
-	for e in pygame.event.get():
+	events=pygame.event.get()
+	for e in events:
 		
 		if e.type==pygame.QUIT:
 			debug("Shutting Down")
@@ -155,6 +156,7 @@ while run:
 			fps_osps=fps_sps
 		root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("FPS: "+str(root.fps), False, (0,255,255)), (0,310))
 		root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("S/S: "+str(fps_sps)+"/1", False, (0,255,255)), (0,320))
+		root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("LEN(EVENTS): "+str(len(events)), False, (0,255,255)), (0,330))
 
 	root.console.draw()
 	#pygame.draw.line(root.screen.screen, (255,0,0), (0,0), root.renderspace_size, 20)

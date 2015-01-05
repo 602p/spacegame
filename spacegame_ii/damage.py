@@ -1,5 +1,5 @@
 from __future__ import division
-import random, pygame, math
+import random, pygame, math, particles
 from rotutil import rot_center, aspect_scale
 from jsonutil import dget
 
@@ -88,6 +88,9 @@ class DamageModel:
 		self.root=self.ship.root
 
 	def damage_hull(self, hull):
+		if hull>0.1 and self.hull>0:
+			self.ship.particlemanager.add_particle(particles.make_hitNumber(self.root, "-"+str(int(hull)),
+			 self.root.gamedb("font_standard_small"), self.ship.rotated_rect.centerx+random.randint(-30,30), self.ship.rotated_rect.centery+random.randint(-30,30), (255,0,0)))
 		self.hull-=hull
 		if len(self.systems)>0:
 			s=random.sample(self.systems,1)[0]
@@ -97,6 +100,9 @@ class DamageModel:
 			self.hull=0
 
 	def damage_shields(self, shields):
+		if shields>0.1 and self.shields>0:
+			self.ship.particlemanager.add_particle(particles.make_hitNumber(self.root, "-"+str(int(shields)),
+			 self.root.gamedb("font_standard_small"), self.ship.rotated_rect.centerx+random.randint(-30,30), self.ship.rotated_rect.centery+random.randint(-30,30), (0,0,255)))
 		self.shields-=shields
 		if self.shields<0:
 			self.damage_hull(abs(self.shields)*0.8)
