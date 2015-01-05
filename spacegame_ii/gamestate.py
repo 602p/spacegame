@@ -57,40 +57,6 @@ class RunningGameState(state.State):
 			self.player.exert_reverse_engine()
 		if pygame.key.get_pressed()[pygame.K_SPACE]:
 			self.player.fire_item_in_hardpoint(self.player.selected_wep)
-		# try:
-		# 	self.entities[1].exert_engine()
-		# 	self.entities[1].rigidbody.rotate(self.entities[1].turn_rate)
-		# except BaseException: pass
-
-		for e in pygame.event.get():
-			if e.type==pygame.KEYDOWN:
-				if e.key == pygame.K_a:
-					self.player.selected_wep-=1
-					if self.player.selected_wep==-1:
-						self.player.selected_wep=len(self.player.hardpoints)-1
-				elif e.key == pygame.K_s:
-					self.player.selected_wep+=1
-					if self.player.selected_wep==len(self.player.hardpoints):
-						self.player.selected_wep=0
-				elif e.key == pygame.K_HOME:
-					self.entities.append(ship.create_ship(self.root, "destroyer_transport_test", 1000, 1000))
-					self.entities[-1].targeted=self.player
-					self.entities[-1].rigidbody.x=0
-					self.entities[-1].rigidbody.y=0
-					self.player.targeted=self.entities[-1]
-				elif e.key == pygame.K_BACKQUOTE: pass #hiding window
-			elif e.type==pygame.VIDEORESIZE:
-				print e
-				print "gsresize"
-				print
-				debug("GameState resize")
-				self.parralax_scroller.bindall(self.root.renderspace_size)
-			elif e.type==pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
-				for e in self.entities:
-					if self.root.screen.get_t_rect(e.rotated_rect).collidepoint(pygame.mouse.get_pos()):
-						self.player.targeted=e
-			else:
-				pass#pygame.event.post(e)
 
 		self.root.particlemanager.draw(self.root.screen)
 		
@@ -178,6 +144,35 @@ class RunningGameState(state.State):
         #darkenx.set_alpha(128)
         #self.root.background_gamerun_screen.blit(darkenx,(0,0))
 
+	def process_events(self, events):
+		for e in events:
+			if e.type==pygame.KEYDOWN:
+				if e.key == pygame.K_a:
+					self.player.selected_wep-=1
+					if self.player.selected_wep==-1:
+						self.player.selected_wep=len(self.player.hardpoints)-1
+				elif e.key == pygame.K_s:
+					self.player.selected_wep+=1
+					if self.player.selected_wep==len(self.player.hardpoints):
+						self.player.selected_wep=0
+				elif e.key == pygame.K_HOME:
+					self.entities.append(ship.create_ship(self.root, "destroyer_transport_test", 1000, 1000))
+					self.entities[-1].targeted=self.player
+					self.entities[-1].rigidbody.x=0
+					self.entities[-1].rigidbody.y=0
+					self.player.targeted=self.entities[-1]
+				elif e.key == pygame.K_BACKQUOTE: pass #hiding window
+			elif e.type==pygame.VIDEORESIZE:
+				print e
+				print "gsresize"
+				print
+				debug("GameState resize")
+				self.parralax_scroller.bindall(self.root.renderspace_size)
+			elif e.type==pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
+				for e in self.entities:
+					if self.root.screen.get_t_rect(e.rotated_rect).collidepoint(pygame.mouse.get_pos()):
+						self.player.targeted=e
+
 class RunningGamePausedState(state.State):
 	def first_start(self):
 		self.petr=self.root.gamedb.get_asset("font_standard_large").render("PRESS ENTER TO RESUME", 1, (255,255,255))
@@ -188,7 +183,8 @@ class RunningGamePausedState(state.State):
 			self.root.screen.screen.blit(self.root.background_gamerun_screen, (0,0))
 		self.root.screen.screen.blit(self.paused, ((self.root.renderspace_size[0]/2)-(self.paused.get_width()/2), 50))
 		self.root.screen.screen.blit(self.petr, ((self.root.renderspace_size[0]/2)-(self.petr.get_width()/2), 250))
-		for e in pygame.event.get():
+	def process_events(self, events):
+		for e in events:
 			if e.type==pygame.KEYDOWN:
 				if e.key==pygame.K_RETURN:
 					self.state_manager.goto_state("game")

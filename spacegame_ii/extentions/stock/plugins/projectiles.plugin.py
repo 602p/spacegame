@@ -69,7 +69,7 @@ class Projectile:
 			if i != self.parent.parent and i.can_be_hit:
 				if i.rotated_mask.overlap(self.mask, (self.rotated_rect.x-i.rotated_rect.x,self.rotated_rect.y-i.rotated_rect.y)):
 					self.kill=True
-					primitives.do_group_for_impact(self.root, self.impact, self.parent, i)
+					primitives.do_group_for_impact(self.root, self.impact, self.parent, i, self)
 
 	def die(self):
 		pass
@@ -86,17 +86,17 @@ class FireProjectilePrimitive(primitives.BasePrimitive):
 			i+=1
 
 class SimpleDamagePrimitive(primitives.BasePrimitive):
-	def do(root, target):
-		target.damage(root.config["damage"], dget(root.config, "peirce", 0))
+	def do(root, target, px, py):
+		target.damage(root.config["damage"], dget(root.config, "peirce", 0), px, py)
 
 	def run_in_item(self, item):
-		self.do(item.parent.targeted)
+		self.do(item.parent.targeted, None, None)
 
-	def run_in_impact(self, item, impacted):
-		self.do(impacted)
+	def run_in_impact(self, item, impacted, projectile):
+		self.do(impacted, projectile.rotated_rect.centerx, projectile.rotated_rect.centery)
 
 class SystemDamagePrimitive(primitives.BasePrimitive):
-	def run_in_impact(self, item, impacted):
+	def run_in_impact(self, item, impacted, projectile):
 		impacted.damage.damage_system(self.config["damage"], dget(self.config, "system_name", None), dget(self.config, "system_key", None))
 
 	def run_in_item(self, item):
@@ -106,7 +106,7 @@ class PlaySoundEffectPrimitive(primitives.BasePrimitive):
 	def do(self):
 		self.root.gamedb.get_asset(self.config["effect"]).play()
 
-	def run_in_impact(self, item, impacted):
+	def run_in_impact(self, item, impacted, projectile):
 		self.do()
 
 	def run_in_item(self, item):

@@ -42,28 +42,30 @@ class AIController:
 				self.controllers.append(get_ai_update(self.root, subcontroller["controller"])(self, subcontroller)) #And instanciate them
 
 	def update(self):
-		for controller in self.controllers:
-			try:
+		try:
+			for controller in self.controllers:
 				controller.update()
-			except BaseException as e:
-				error("AI ERROR:")
+
+			if self.can_fire:
+				i=0
+				priorities={}
+				while i!=len(self.ship.hardpoints): #for each item equipped
+					if self.ship.get_item_in_hardpoint(i):
+						fire=True
+						for hint in self.ship.get_item_in_hardpoint(i).ai_hints:
+							if not hint.get_suggested(self): #check if any of the AIItemHints disagree
+								fire = False
+							
+						if fire:
+							priorities[i]=dget(self.ship.get_item_in_hardpoint(i)._config, "ai_priority", 5)
+					i+=1
+				for i in sorted(priorities, key=lambda hardpoint: priorities[hardpoint]):
+					self.ship.get_item_in_hardpoint(i).fire() #then fire
+		except BaseException as e:
+			if not (isinstance(e, AttributeError) and "_config" not in str(e)):
+				error("AI ERROR (BASE): " + str(e))
 				exc_type, exc_value, exc_traceback = sys.exc_info()
 				for i in traceback.format_exception(exc_type, exc_value, exc_traceback): error(i)
-
-		if self.can_fire:
-			i=0
-			priorities={}
-			while i!=len(self.ship.hardpoints): #for each item equipped
-				if self.ship.get_item_in_hardpoint(i):
-					fire=True
-					for hint in self.ship.get_item_in_hardpoint(i).ai_hints:
-						if not hint.get_suggested(self): #check if any of the AIItemHints disagree
-							fire = False
-					if fire:
-						priorities[i]=dget(self.ship.get_item_in_hardpoint(i)._config, "ai_priority", 5)
-				i+=1
-			for i in sorted(priorities, key=lambda hardpoint: priorities[hardpoint]):
-				self.ship.get_item_in_hardpoint(i).fire() #then fire
 				
 
 	def enable(self):

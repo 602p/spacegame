@@ -478,17 +478,13 @@ class Console:
 		self.set_pos(self.c_pos + len(strn))
 		return foo
 		
-	def process_input(self):
+	def process_input(self, eventlist):
 		'''\
 		Loop through pygame events and evaluate them
 		'''
 		if not self.active:
 			return;
 		
-		if self.preserve_events:
-			eventlist = pygame.event.get(KEYDOWN)
-		else:
-			eventlist = pygame.event.get()
 		
 		for event in eventlist:
 			if event.type == KEYDOWN:

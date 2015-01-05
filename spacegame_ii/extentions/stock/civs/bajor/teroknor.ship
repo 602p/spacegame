@@ -48,19 +48,106 @@
             "y":400,
             "render_on_top":false,
             "scale":4
+        },
+        {
+            "size":"small",
+            "x":270,
+            "y":400,
+            "render_on_top":false,
+            "scale":2
+        },
+        {
+            "size":"small",
+            "x":530,
+            "y":400,
+            "render_on_top":false,
+            "scale":2
+        },
+        {
+            "size":"small",
+            "x":400,
+            "y":270,
+            "render_on_top":false,
+            "scale":2
+        },
+        {
+            "size":"small",
+            "x":400,
+            "y":530,
+            "render_on_top":false,
+            "scale":2
+        },
+
+        {
+            "size":"small",
+            "x":400,
+            "y":750,
+            "render_on_top":false,
+            "scale":2
+        },
+        {
+            "size":"small",
+            "x":400,
+            "y":50,
+            "render_on_top":false,
+            "scale":2
+        },
+        {
+            "size":"small",
+            "x":750,
+            "y":400,
+            "render_on_top":false,
+            "scale":2
+        },
+        {
+            "size":"small",
+            "x":50,
+            "y":400,
+            "render_on_top":false,
+            "scale":2
         }
     ],
     "start_equip":[
         {
             "item_name":"wep_basic_laser",
             "equipped":0
+        },
+        {
+            "item_name":"wep_basic_laser",
+            "equipped":1
+        },
+        {
+            "item_name":"wep_basic_laser",
+            "equipped":2
+        },
+        {
+            "item_name":"wep_basic_laser",
+            "equipped":3
+        },
+        {
+            "item_name":"wep_basic_laser",
+            "equipped":4
+        },
+
+        {
+            "item_name":"wep_torpedo_stinger1",
+            "equipped":5
+        },
+        {
+            "item_name":"wep_torpedo_stinger1",
+            "equipped":6
+        },
+        {
+            "item_name":"wep_torpedo_stinger1",
+            "equipped":7
+        },
+        {
+            "item_name":"wep_torpedo_stinger1",
+            "equipped":8
         }
     ],
     "ai":{
     	"ai_subcontrollers":[
-            {
-                "controller":"select_player"
-            },
     		{
     			"controller":"spacestation",
     			"station_cfg":{

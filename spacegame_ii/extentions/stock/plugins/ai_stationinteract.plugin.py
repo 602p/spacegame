@@ -5,10 +5,13 @@ class InteractableToEnterStation(ai.AIControllerUpdateNode):
 	def init(self):
 		self.cooldown_last=0
 	def update(self):
+		#print "updated"
 		if pygame.key.get_pressed()[self.controller.root.settings["keybindings"]["interact"]]:
+			#print "pressed"
 			if self.controller.gamestate.player.rotated_mask.overlap(self.ship.rotated_mask,
 					(self.ship.rotated_rect.x-self.controller.gamestate.player.rotated_rect.x,
-					self.ship.rotated_rect.y-self.controller.gamestate.player.rotated_rect.y)) or 1:
+					self.ship.rotated_rect.y-self.controller.gamestate.player.rotated_rect.y)) or 0:
+				#print "collided"
 				if self.controller.gamestate.player.rigidbody.moving()<50:
 					debug("Entering station")
 					self.controller.gamestate.player.rigidbody.set_magnitude(0)

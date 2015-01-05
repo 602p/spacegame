@@ -21,13 +21,13 @@ class ExplosionAtPrimitive(primitives.BasePrimitive):
 			item.parent.particlemanager.add_particles(particles.make_explosion_cfg(self.root,
 				item.parent.rotated_rect.center[0], item.parent.rotated_rect.center[1], self.config["style"]))
 
-	def run_in_impact(self, item, impacted):
+	def run_in_impact(self, item, impacted, projectile):
 		if dget(self.config, "root", False):
 			self.root.particlemanager.add_particles(particles.make_explosion_cfg(self.root,
-				impacted.rotated_rect.center[0], impacted.rotated_rect.center[1], self.config["style"]))
+				projectile.rotated_rect.center[0], projectile.rotated_rect.center[1], self.config["style"]))
 		else:
 			impacted.particlemanager.add_particles(particles.make_explosion_cfg(self.root,
-				impacted.rotated_rect.center[0], impacted.rotated_rect.center[1], self.config["style"]))
+				projectile.rotated_rect.center[0], projectile.rotated_rect.center[1], self.config["style"]))
 
 	def run_in_ship(self, ship):
 		if dget(self.config, "root", False):

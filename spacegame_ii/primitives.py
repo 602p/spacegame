@@ -18,7 +18,7 @@ class BasePrimitive:
 	def run_in_ship(self, ship):
 		pass
 
-	def run_in_impact(self, item, impact):
+	def run_in_impact(self, item, impact, projectile=None):
 		self.run_in_item(item)
 
 	def run_in_trigger(self, trigger, ship=None, item=None, impact=None, event=None):
@@ -47,8 +47,8 @@ def do_for_event(root, name, event, node):
 def do_for_ship(root, name, ship, node):
 	get_primitive(root, name, node).run_in_ship(ship)
 
-def do_for_impact(root, name, item, impacted, node):
-	get_primitive(root, name, node).run_in_impact(item, impacted)
+def do_for_impact(root, name, item, impacted, projectile, node):
+	get_primitive(root, name, node).run_in_impact(item, impacted, projectile)
 
 def do_for_trigger(root, name, trigger, node, ship=None, item=None, impact=None, event=None):
 	get_primitive(root, name, node).run_in_trigger(trigger, ship, item, impact, event)
@@ -61,9 +61,9 @@ def do_group_for_event(root, group, event, key="primitive"):
 	for i in group:
 		do_for_event(root, i[key], event, i)
 
-def do_group_for_impact(root, group, item, impacted, key="primitive"):
+def do_group_for_impact(root, group, item, impacted, projectile=None, key="primitive"):
 	for i in group:
-		do_for_impact(root, i[key], item, impacted, i)
+		do_for_impact(root, i[key], item, impacted, projectile, i)
 
 def do_group_for_ship(root, group, ship, key="primitive"):
 	for i in group:

@@ -42,6 +42,11 @@ class GenericUIInterdictor(state.InterdictingState):
 	def repair_hull(self):
 		self.state_manager.states["game"].player.damage.hull=self.state_manager.states["game"].player.damage.maxhull
 
+	def repair_systems(self):
+		for i in self.state_manager.states["game"].player.damage.systems:
+			if i:
+				i.deal_damage(-10000)
+
 	def start(self):
 		self.widgets={}
 
@@ -57,11 +62,16 @@ class GenericUIInterdictor(state.InterdictingState):
 		b.on_click=self.repair_hull
 		self.add_widget("repairb", b)
 
-	def internal_update(self):
-		for event in pygame.event.get():
-			sgc.event(event)
-		
+		b=sgc.Button(label="Repair Systems", pos=(0,300))
+		b.on_click=self.repair_systems
+		self.add_widget("repairbs", b)
+
+	def internal_update(self):		
 		self.root.screen.screen.blit(self.root.gamedb(self.params["bg_image"]), (0,0))
 		sgc.update(self.root.clock.get_fps())
 
 		self.root.fps=9999
+
+	def process_events(self, events):
+		for event in events:
+			sgc.event(event)

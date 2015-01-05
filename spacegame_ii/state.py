@@ -24,6 +24,8 @@ class StateManager:
 		self.goto_state(state, params)
 	def run_tick(self):
 		self.states[self.current].update_and_render()
+	def process_events(self, events):
+		self.states[self.current].process_events(events)
 
 class State:
 	def __init__(self):
@@ -46,6 +48,8 @@ class State:
 		pass
 	def get_return(self):
 		return -1
+	def process_events(self, events):
+		pass
 
 class InterdictingState(State):
 	def pre_change(self):

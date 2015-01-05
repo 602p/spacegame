@@ -121,14 +121,10 @@ while run:
 			elif e.key == pygame.K_ESCAPE:
 				root.state_manager.goto_state("game_paused")
 		elif e.type==pygame.VIDEORESIZE:
-			print e
-			print "rootresize"
-			print
 			debug("Root resize")
 			root.renderspace_size=e.dict['size']
 			root.screen=rotutil.ScrollingWorldManager(sgc.surface.Screen(root.renderspace_size, pygame.RESIZABLE))
 			#root.screen.rect=((0,0), root.renderspace_size)
-		pygame.event.post(e)
 	root.clock.tick()
 	#pygame.event.pump()
 
@@ -138,8 +134,9 @@ while run:
 		root.fps=root.clock.get_fps()
 
 	if pygame.event.peek(pygame.QUIT):run=0
-	root.console.process_input()
+	root.console.process_input(events)
 	try:
+		root.state_manager.process_events(events)
 		root.state_manager.run_tick()
 	except BaseException as e:
 		exc_type, exc_value, exc_traceback = sys.exc_info()

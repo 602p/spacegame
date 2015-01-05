@@ -87,30 +87,34 @@ class DamageModel:
 		self.systems=[]
 		self.root=self.ship.root
 
-	def damage_hull(self, hull):
+	def damage_hull(self, hull, precise_x=None, precise_y=None):
 		if hull>0.1 and self.hull>0:
+			px=self.ship.rotated_rect.centerx if precise_x==None else precise_x
+			py=self.ship.rotated_rect.centery if precise_y==None else precise_y
 			self.ship.particlemanager.add_particle(particles.make_hitNumber(self.root, "-"+str(int(hull)),
-			 self.root.gamedb("font_standard_small"), self.ship.rotated_rect.centerx+random.randint(-30,30), self.ship.rotated_rect.centery+random.randint(-30,30), (255,0,0)))
+			 self.root.gamedb("font_standard_small"), px+random.randint(-30,30), py+random.randint(-30,30), (255,0,0)))
 		self.hull-=hull
 		if len(self.systems)>0:
 			s=random.sample(self.systems,1)[0]
 			if s:
 				s.deal_damage(hull)
-		if self.hull<0:
+		if self.hull<=0:
 			self.hull=0
 
-	def damage_shields(self, shields):
+	def damage_shields(self, shields, precise_x=None, precise_y=None):
 		if shields>0.1 and self.shields>0:
+			px=self.ship.rotated_rect.centerx if precise_x==None else precise_x
+			py=self.ship.rotated_rect.centery if precise_y==None else precise_y
 			self.ship.particlemanager.add_particle(particles.make_hitNumber(self.root, "-"+str(int(shields)),
-			 self.root.gamedb("font_standard_small"), self.ship.rotated_rect.centerx+random.randint(-30,30), self.ship.rotated_rect.centery+random.randint(-30,30), (0,0,255)))
+			 self.root.gamedb("font_standard_small"), px+random.randint(-30,30), py+random.randint(-30,30), (0,0,255)))
 		self.shields-=shields
-		if self.shields<0:
+		if self.shields<=0:
 			self.damage_hull(abs(self.shields)*0.8)
 			self.shields=0
 
-	def damage(self, damage, peirce=0, source=None):
-		self.damage_shields(damage*(1-peirce))
-		self.damage_hull(damage*peirce)
+	def damage(self, damage, peirce=0, px=None, py=None, source=None):
+		self.damage_shields(damage*(1-peirce), px, py)
+		self.damage_hull(damage*peirce, px, py)
 		self.last_source=None
 
 	def load_systems(self, config):
