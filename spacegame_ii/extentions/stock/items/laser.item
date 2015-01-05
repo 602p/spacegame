@@ -10,7 +10,8 @@
     "required":{
         "energy":10,
         "enemy_selected":true,
-        "cooldown":1
+        "cooldown":1,
+        "distance<":500
     },
     "fire_events":[
         {

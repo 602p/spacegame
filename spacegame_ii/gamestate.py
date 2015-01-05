@@ -89,7 +89,7 @@ class RunningGameState(state.State):
 				self.parralax_scroller.bindall(self.root.renderspace_size)
 			elif e.type==pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
 				for e in self.entities:
-					if e.rotated_rect.collidepoint(pygame.mouse.get_pos()):
+					if self.root.screen.get_t_rect(e.rotated_rect).collidepoint(pygame.mouse.get_pos()):
 						self.player.targeted=e
 			else:
 				pass#pygame.event.post(e)

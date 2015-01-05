@@ -102,9 +102,10 @@ class DamageModel:
 			self.damage_hull(abs(self.shields)*0.8)
 			self.shields=0
 
-	def damage(self, damage, peirce=0):
+	def damage(self, damage, peirce=0, source=None):
 		self.damage_shields(damage*(1-peirce))
 		self.damage_hull(damage*peirce)
+		self.last_source=None
 
 	def load_systems(self, config):
 		"""Takes a list of dicts describing systems and adds them to its internal register.
@@ -131,8 +132,8 @@ class DamageModel:
 		font - font to use
 		x, y - offset of top left corner of minimap BOX, not whole widget"""
 		
-		targetdistancex = abs(self.ship.rigidbody.x - self.ship.root.state_manager.states["game"].player.rigidbody.x)
-		targetdistancey = abs(self.ship.rigidbody.y - self.ship.root.state_manager.states["game"].player.rigidbody.y)
+		targetdistancex = abs(self.ship.rotated_rect.centerx - self.ship.root.state_manager.states["game"].player.rotated_rect.centerx)
+		targetdistancey = abs(self.ship.rotated_rect.centery - self.ship.root.state_manager.states["game"].player.rotated_rect.centery)
 		targetdistance = math.sqrt(targetdistancex**2 + targetdistancey**2)
 		
 		rotated_image, rotated_rect=rot_center(aspect_scale(self.ship.image, (50,50)), pygame.Rect((x+50-(self.ship.image.get_width()/2),y+50-(self.ship.image.get_height()/2)), self.ship.image.get_size()), self.ship.rigidbody.get_angle())

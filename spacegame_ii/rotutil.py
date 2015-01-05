@@ -21,6 +21,12 @@ class ScrollingWorldManager:
 		self.root=root
 		self.offset_x=offset_x
 		self.offset_y=offset_y
+	def get_t_coords(self, pos):
+		return (pos[0]-self.offset_x, pos[1]-self.offset_y)
+	def get_t_rect(self, rect):
+		rect=rect.copy()
+		rect.topleft=self.get_t_coords(rect)
+		return rect
 	def blit(self, image, coords):
 		if self.root.settings["debug"]["overrender"]:self.draw_rect((0,0,255), pygame.Rect(coords, image.get_size()))
 		if (coords[0]-self.offset_x<self.screen.get_size()[0] and coords[1]-self.offset_y<self.screen.get_size()[1]) or 1:

@@ -128,6 +128,12 @@ class Item(serialize.SerializableObject):
 			if i=="cooldown":
 				if self.root.game_time-self.last_fired<self.fire_required[i]:
 					return False
+			if i=="distance<":
+				targetdistancex = abs(self.parent.rotated_rect.centerx - self.parent.targeted.rotated_rect.centerx)
+				targetdistancey = abs(self.parent.rotated_rect.centery - self.parent.targeted.rotated_rect.centery)
+				targetdistance = math.sqrt(targetdistancex**2 + targetdistancey**2)
+				if self.fire_required[i]<targetdistance:
+					return False
 		self.parent.current_power-=dget(self.fire_required,"energy",0)
 		return True
 

@@ -39,12 +39,23 @@ class GenericUIInterdictor(state.InterdictingState):
 	def remove(self):
 		self.del_widget("button")
 
+	def repair_hull(self):
+		self.state_manager.states["game"].player.damage.hull=self.state_manager.states["game"].player.damage.maxhull
+
 	def start(self):
 		self.widgets={}
 
 		b=sgc.Button(label="Remove")
 		b.on_click=self.remove
 		self.add_widget("button", b)
+
+		b=sgc.Button(label="Exit", pos=(0,100))
+		b.on_click=self.finish
+		self.add_widget("button2", b)
+
+		b=sgc.Button(label="Repair Hull", pos=(0,200))
+		b.on_click=self.repair_hull
+		self.add_widget("repairb", b)
 
 	def internal_update(self):
 		for event in pygame.event.get():

@@ -58,6 +58,9 @@
     ],
     "ai":{
     	"ai_subcontrollers":[
+            {
+                "controller":"select_player"
+            },
     		{
     			"controller":"spacestation",
     			"station_cfg":{
