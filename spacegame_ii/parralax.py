@@ -30,6 +30,9 @@ class ParralaxStarfieldScroller:
 	def __init__(self, size, layers):
 		self.layers=layers
 		self.pos=[0,0]
+		self.bindall(size)
+	
+	def bindall(self, size):
 		for layer in self.layers:
 			layer.bind(size)
 

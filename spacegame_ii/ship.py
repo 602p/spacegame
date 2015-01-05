@@ -154,6 +154,7 @@ class Ship(serialize.SerializableObject):
 		self.rotated_image, self.rotated_rect=rot_center(self.image.copy(), pygame.Rect((self.rigidbody.x, self.rigidbody.y), self.image.get_size()), self.rigidbody.get_angle())
 		self.rotated_mask=pygame.mask.from_surface(self.rotated_image)
 		screen.blit(self.rotated_image, (self.rotated_rect.x,self.rotated_rect.y))
+		#screen.draw_rect((0,0,255), self.rotated_rect)
 		self.render_engines()
 		self.render_items()
 		self.particlemanager.update()

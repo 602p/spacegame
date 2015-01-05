@@ -183,6 +183,8 @@ class Simple(pygame.sprite.Sprite):
         if self._label is not None:
             self._label.add(fade=fade)
 
+        return added
+
     def remove(self, fade=True):
         """
         Remove widget from screen.

@@ -31,8 +31,6 @@ class InternalSGCMenu(sgc.Menu):
 		def __init__(self, *args, **kwargs):
 			self.additive_functions=kwargs["__additive_functions"]
 			self.state=kwargs["__state"]
-			global SCREEN
-			SCREEN=self.state.root.screen.screen
 			sgc.Menu.__init__(self, *args, **kwargs)
 		def func_dict(self):
 			v=self.additive_functions
@@ -48,14 +46,18 @@ class GenericUIInterdictor(state.InterdictingState):
 	additive_functions={}
 
 	def start(self):
-		self.menu=InternalSGCMenu(menu=self.params["menucfg"], __additive_functions=self.additive_functions, __state=self)
+		refactored_menu=self.params["menucfg"]
+		refactored_menu[0]="m:"+self.params["name"]
+		self.menu=InternalSGCMenu(menu=refactored_menu, __additive_functions=self.additive_functions, __state=self)
 		self.menu.additive_functions=self.additive_functions
+		self._custom_image=self.root.gamedb(self.params["bg_image"])
 		self.menu.add()
 
 	def internal_update(self):
 		for event in pygame.event.get():
 			sgc.event(event)
-			#print event
+		
+		#self.root.screen.screen.blit(self.root.gamedb(self.params["bg_image"]), (0,0))
+		sgc.update(self.root.clock.get_fps())
 
-		sgc.update(self.root.fps)
 		self.root.fps=9999

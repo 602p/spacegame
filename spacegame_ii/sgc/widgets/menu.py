@@ -66,7 +66,7 @@ class Menu(Simple):
             # Set size to screen size
             if not hasattr(self, "image"):
                 self._create_base_images(get_screen().rect.size)
-                self._images["image"].fill(self._settings["col"])
+                #self._images["image"].fill(self._settings["col"])
 
             menu = kwargs["menu"]
             # If file, read config tuple
@@ -177,7 +177,7 @@ class Menu(Simple):
           fade: ``bool`` False if menu should switch immediately without fading.
 
         """
-        self._old_menu = self._curr_menu if fade else None
+        self._old_menu = self._curr_menu if fade and 0 else None
         self._curr_menu = menu_num
         self._menus[self._curr_menu]._fade = 0
 
@@ -185,19 +185,20 @@ class Menu(Simple):
         menu = self._menus[self._curr_menu]
         menu.update(time)
         self._switch()
-        if self._old_menu is not None:
-            self.image.blit(self._menus[self._old_menu].image, (0,0))
-            menu.image.set_alpha(menu._fade)
-            menu._fade += time / 3.
-            if menu._fade >= 255:
-                menu._fade = None
-                self._old_menu = None
-                menu.image.set_alpha(255)
-            else:
-                transparent = Surface(self.rect.size, SRCALPHA)
-                transparent.fill((255,255,255, menu._fade))
-                menu.image.blit(transparent, (0,0),
-                                special_flags=BLEND_RGBA_MULT)
+        print dir(self)
+        # if self._old_menu is not None:
+        #     self.image.blit(self._menus[self._old_menu].image, (0,0))
+        #     menu.image.set_alpha(menu._fade)
+        #     menu._fade += time / 3.
+        #     if menu._fade >= 255:
+        #         menu._fade = None
+        #         self._old_menu = None
+        #         menu.image.set_alpha(255)
+        #     else:
+        #         transparent = Surface(self.rect.size, SRCALPHA)
+        #         transparent.fill((255,255,255, menu._fade))
+        #         menu.image.blit(transparent, (0,0),
+        #                         special_flags=BLEND_RGBA_MULT)
 
         self.image.blit(menu.image, (0,0))
 

@@ -4,6 +4,9 @@ from logging import debug, info, warning, error, critical
 
 class RunningGameState(state.State):
 	def first_start(self):
+
+		self.g_render_lines=1
+
 		self.entities=[]
 		self.entities=[
 			ship.create_ship(self.root, "cargo_transport_test", 100, 100, ai=False),
@@ -62,20 +65,27 @@ class RunningGameState(state.State):
 					self.player.selected_wep-=1
 					if self.player.selected_wep==-1:
 						self.player.selected_wep=len(self.player.hardpoints)-1
-				if e.key == pygame.K_s:
+				elif e.key == pygame.K_s:
 					self.player.selected_wep+=1
 					if self.player.selected_wep==len(self.player.hardpoints):
 						self.player.selected_wep=0
-				if e.key == pygame.K_HOME:
+				elif e.key == pygame.K_HOME:
 					self.entities.append(ship.create_ship(self.root, "destroyer_transport_test", 1000, 1000))
 					self.entities[-1].targeted=self.player
 					self.entities[-1].rigidbody.x=0
 					self.entities[-1].rigidbody.y=0
 					self.player.targeted=self.entities[-1]
+				elif e.key == pygame.K_BACKQUOTE: pass #hiding window
 				else:
 					pygame.event.post(e)
+			elif e.type==pygame.VIDEORESIZE:
+				print e
+				print "gsresize"
+				print
+				debug("GameState resize")
+				self.parralax_scroller.bindall(self.root.renderspace_size)
 			else:
-					pygame.event.post(e)
+				pass#pygame.event.post(e)
 
 		self.root.particlemanager.draw(self.root.screen)
 		
@@ -83,6 +93,8 @@ class RunningGameState(state.State):
 		for entitiy in reversed(self.entities): #run thru in reverse so player is always on top
 			if not entitiy.kill:
 				entitiy.tick(self.root.screen, update_time)
+				# if self.g_render_lines:
+				# 	self.root.screen.draw_line((255,255,255), (self.player.rigidbody.x, self.player.rigidbody.y), (entitiy.rigidbody.x, entitiy.rigidbody.y), 2)
 		
 		new_entities=[]
 		for e in self.entities:
@@ -129,6 +141,7 @@ class RunningGameState(state.State):
 		overlay_gui.render_wepbar(self.root, self, self.player, 402, 632)
 
 		if self.player.targeted:
+			if self.root.settings["debug"]["raycast"]:self.root.screen.draw_line((255,0,0), (self.player.rigidbody.x, self.player.rigidbody.y), (self.player.targeted.rigidbody.x, self.player.targeted.rigidbody.y), 2)
 			overlay_gui.render_rangefinder(self.root, self.player, [self.player.targeted.rotated_rect.centerx, self.player.targeted.rotated_rect.centery])
 			self.player.targeted.damage.render_infobox(self.root.screen.screen, self.root.gamedb.get_asset("font_standard_very_small"), 1150, 430, 1)
 
@@ -143,6 +156,10 @@ class RunningGameState(state.State):
 		tasks.run_group(self.root, "render_last")
 
 		self.root.game_time+=min(1/max(self.root.fps,0.001),0.1)
+		if self.root.settings["debug"]["raycast"]:
+			for entitiy in reversed(self.entities): #run thru in reverse so player is always on top
+				if not entitiy.kill:
+					self.root.screen.draw_line((255,255,255), (self.player.rigidbody.x, self.player.rigidbody.y), (entitiy.rigidbody.x, entitiy.rigidbody.y), 2)
 	def suspend(self):
 		self.root.background_gamerun_screen=self.root.screen.screen.copy()
 		#darkenx=pygame.Surface(self.root.background_gamerun_screen.get_size())

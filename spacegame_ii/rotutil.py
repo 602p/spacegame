@@ -16,20 +16,21 @@ def rotate_point(centerPoint,point,angle):
 	return temp_point
 
 class ScrollingWorldManager:
-	def __init__(self, screen, offset_x=0, offset_y=0):
+	def __init__(self, root, screen, offset_x=0, offset_y=0):
 		self.screen=screen
+		self.root=root
 		self.offset_x=offset_x
 		self.offset_y=offset_y
 	def blit(self, image, coords):
-		if coords[0]-self.offset_x<3000 and coords[1]-self.offset_y<3000:
-			#print 1
+		if self.root.settings["debug"]["overrender"]:self.draw_rect((0,0,255), pygame.Rect(coords, image.get_size()))
+		if (coords[0]-self.offset_x<self.screen.get_size()[0] and coords[1]-self.offset_y<self.screen.get_size()[1]) or 1:
 			self.screen.blit(image, (coords[0]-self.offset_x, coords[1]-self.offset_y))
 	def set_offset(self, offset):
 		self.offset_x=offset[0]
 		self.offset_y=offset[1]
 	def draw_line(self, color, start, end, thickness=1):
 		pygame.draw.line(self.screen, color, (start[0]-self.offset_x, start[1]-self.offset_y),(end[0]-self.offset_x, end[1]-self.offset_y), thickness)
-	def draw_rect(self, color, rect, width):
+	def draw_rect(self, color, rect, width=0):
 		pygame.draw.rect(self.screen, color, ((rect.x-self.offset_x, rect.y-self.offset_y),rect.size), width)
 	def clamp(self, rect):
 		rect2=rect.copy()

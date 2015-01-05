@@ -62,7 +62,7 @@ title.add()
 # Create input_box
 input_box = sgc.InputBox(label="Input Box", default="default text...")
 input_box.config(pos=(30,120))
-input_box.add(order=0)
+input_box.add()
 # Change colour button, on_click event caught in event loop
 button = sgc.Button(label="Change\ncolour", pos=(40,200))
 # Create FPS counter
@@ -130,6 +130,8 @@ label = sgc.Label(text="This is a selectable label", selectable=True)
 label.rect.midtop = title.rect.midbottom
 label.add()
 
+ds9=pygame.image.load(r"..\extentions\stock\civs\bajor\teroknorinorbit.jpg")
+
 while True:
     time = clock.tick()
     for event in pygame.event.get():
@@ -154,7 +156,7 @@ while True:
             dialogs.remove(widget)
 
     if not screen._opengl:
-        screen.fill(Color("blue"))
+        screen.blit(ds9, (0,0))
     else:
         glClearColor(0,0,1,1)
         glClear(GL_COLOR_BUFFER_BIT)

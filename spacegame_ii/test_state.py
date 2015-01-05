@@ -29,10 +29,25 @@ renderspace_size=(1300,700)
 screen=sgc.surface.Screen(renderspace_size)
 pygame.display.set_caption("Spacegame Alpha")
 
-scrollingscreen=rotutil.ScrollingWorldManager(screen.image)
+
 
 class R:pass
 root=R()
+
+root.settings={
+	"render_particles":True,
+	"render_stars":True,
+	"keybindings":{
+		"interact":101 #K_e
+	},
+	"debug":{
+		"raycast":False,
+		"overrender":False
+	}
+}
+
+
+scrollingscreen=rotutil.ScrollingWorldManager(root, screen.image)
 
 ship.init(root)
 item.init(root)
@@ -50,13 +65,6 @@ root.gamedb=assets.GameAssetDatabase()
 root.igconsole = overlay_gui.IngameRenderedConsole(root, 5)
 root.igconsole.enable_debug()
 
-root.settings={
-	"render_particles":True,
-	"render_stars":True,
-	"keybindings":{
-		"interact":101 #K_e
-	}
-}
 
 root.game_time=0
 
@@ -79,7 +87,7 @@ debug("StateManager initilized")
 
 root.clock=pygame.time.Clock()
 
-pygame.event.set_blocked([pygame.KEYUP,	pygame.VIDEORESIZE, pygame.VIDEOEXPOSE, pygame.ACTIVEEVENT])
+pygame.event.set_blocked([pygame.KEYUP, pygame.VIDEOEXPOSE, pygame.ACTIVEEVENT])
 
 fps_log_enable=0
 fps_surf=pygame.Surface((1300,300))
@@ -101,15 +109,24 @@ eventclear_tick=0
 pygame.mouse.set_cursor(*pygame.cursors.broken_x)
 
 while run:
-
 	for e in pygame.event.get():
+		
 		if e.type==pygame.QUIT:
-			run=0
+			debug("Shutting Down")
+			sys.exit()
 		elif e.type==pygame.KEYDOWN:
 			if e.key == pygame.K_BACKQUOTE and pygame.key.get_mods() & pygame.KMOD_CTRL:
 				root.console.set_active()
 			elif e.key == pygame.K_ESCAPE:
 				root.state_manager.goto_state("game_paused")
+		elif e.type==pygame.VIDEORESIZE:
+			print e
+			print "rootresize"
+			print
+			debug("Root resize")
+			root.renderspace_size=e.dict['size']
+			root.screen=rotutil.ScrollingWorldManager(sgc.surface.Screen(root.renderspace_size, pygame.RESIZABLE))
+			#root.screen.rect=((0,0), root.renderspace_size)
 		pygame.event.post(e)
 	root.clock.tick()
 	#pygame.event.pump()
@@ -135,23 +152,13 @@ while run:
 			fps_last=datetime.datetime.now()
 			fps_sps=root.game_time-fps_last_gt
 			fps_last_gt=root.game_time
-			pygame.draw.line(fps_surf, (0,255,255), (fps_xo-1, 400-fps_osps*100), (fps_xo, 400-fps_sps*100))
 			fps_osps=fps_sps
-		# if fps_xo>1300:
-		# 	fps_surf.fill((0,0,0))
-		# 	pygame.draw.line(fps_surf, (255,0,0), (0, 60), (1300,60))
-		# 	pygame.draw.line(fps_surf, (0,0,255), (0, 40), (1300,40))
-		# 	pygame.draw.line(fps_surf, (0,255,0), (0, 0), (1300,0))
-		# pygame.draw.line(fps_surf, (0,255,255), (fps_xo-1, 400-fps_ofps), (fps_xo, 400-root.fps))
 		root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("FPS: "+str(root.fps), False, (0,255,255)), (0,310))
 		root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("S/S: "+str(fps_sps)+"/1", False, (0,255,255)), (0,320))
-		#root.screen.screen.blit(fps_surf, (0,200))
-		# fps_xo+=1
-		# fps_ofps=root.fps
 
 	root.console.draw()
+	#pygame.draw.line(root.screen.screen, (255,0,0), (0,0), root.renderspace_size, 20)
+	
 	pygame.display.flip()
-	if eventclear_tick==10:
-		pygame.event.clear()
-		eventclear_tick=0
-	eventclear_tick+=1
+
+	
