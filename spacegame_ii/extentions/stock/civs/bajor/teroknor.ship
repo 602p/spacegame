@@ -16,8 +16,46 @@
     "start_speed":40000,
     "turn_rate":10,
     "shield_regen":25,
-    "systems":"%systems_standard%",
+    "systems":[
+        {
+            "name":"THRUSTERS",
+            "attributes":["turn_rate"],
+            "effects_damaged":[0.6],
+            "effects_destroyed":[0.2],
+            "health":100,
+            "threshold_damaged":60,
+            "image_damaged":"image_icon_thrusters_yellow",
+            "image_destroyed":"image_icon_thrusters_red",
+            "regen":0.3
+        },
+        {
+            "name":"ENGINES",
+            "attributes":["max_speed", "speed"],
+            "effects_damaged":[0.5, 0.5],
+            "effects_destroyed":[0.1, 0.1],
+            "health":100,
+            "threshold_damaged":60,
+            "image_damaged":"image_icon_engine_yellow",
+            "image_destroyed":"image_icon_engine_red",
+            "regen":0.3
+        }
+    ],
     "ship_die":"%explosion_ship_large%",
+    "hardpoints":[
+        {
+            "size":"small",
+            "x":400,
+            "y":400,
+            "render_on_top":false,
+            "scale":4
+        }
+    ],
+    "start_equip":[
+        {
+            "item_name":"wep_basic_laser",
+            "equipped":0
+        }
+    ],
     "ai":{
     	"ai_subcontrollers":[
     		{

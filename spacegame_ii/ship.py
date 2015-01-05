@@ -132,6 +132,12 @@ class Ship(serialize.SerializableObject):
 				return i
 		return None
 
+	def find_hardpoint_for_item(self, item):
+		for i in self.hardpoints:
+			if self.get_item_in_hardpoint(self.hardpoints.index(i))==item:
+				return self.hardpoints.index(i)
+		return None
+
 	def equip_item_to_hardpoint(self, item, id_int):
 		if self.get_item_in_hardpoint(id_int)==None:
 			item.equip(id_int)
@@ -151,12 +157,13 @@ class Ship(serialize.SerializableObject):
 		"current_shields":self.currshields}
 
 	def tick(self, screen, time):
+		self.render_items(False)
 		self.rotated_image, self.rotated_rect=rot_center(self.image.copy(), pygame.Rect((self.rigidbody.x, self.rigidbody.y), self.image.get_size()), self.rigidbody.get_angle())
 		self.rotated_mask=pygame.mask.from_surface(self.rotated_image)
 		screen.blit(self.rotated_image, (self.rotated_rect.x,self.rotated_rect.y))
 		#screen.draw_rect((0,0,255), self.rotated_rect)
 		self.render_engines()
-		self.render_items()
+		self.render_items(True)
 		self.particlemanager.update()
 		self.particlemanager.draw(self.root.screen)
 
@@ -177,11 +184,13 @@ class Ship(serialize.SerializableObject):
 		if self.use_ai:
 			self.ai.update()
 
-	def render_items(self):
+	def render_items(self, renderunder_only):
 		for i in self.inventory:
 			if i.equipped!=-1:
-				i.render_equipped(self.image.subsurface(pygame.Rect(( self.hardpoints[i.equipped]["x"]-(i.equipped_image.get_width()/2) ,
-				  self.hardpoints[i.equipped]["y"]-(i.equipped_image.get_height()/2) ), i.equipped_image.get_size() ) ) )
+				if renderunder_only == self.hardpoints[i.equipped].get("render_on_top", True):
+					scaledsize=(i.equipped_image.get_size()[0]*self.hardpoints[i.equipped].get("scale", 1), i.equipped_image.get_size()[0]*self.hardpoints[i.equipped].get("scale", 1))
+					i.render_equipped(self.image.subsurface(pygame.Rect(( self.hardpoints[i.equipped]["x"]-(scaledsize[0]/2) ,
+					  self.hardpoints[i.equipped]["y"]-(scaledsize[1]/2) ), scaledsize ) ), self.hardpoints[i.equipped].get("scale", 1) )
 
 	def render_engines(self):
 		if self.rigidbody.moving()>0:

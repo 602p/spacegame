@@ -12,6 +12,10 @@ class RunningGameState(state.State):
 			ship.create_ship(self.root, "cargo_transport_test", 100, 100, ai=False),
 			ship.create_ship(self.root, "ss_bajor_ds9", 500, 500)
 		]
+
+		self.entities[1].targeted=self.entities[0]
+		self.entities[0].targeted=self.entities[1]
+
 		self.player=self.entities[0]
 		# for i in xrange(0,10):
 		# 	self.entities.append(ship.create_ship(self.root, "cargo_transport_test", random.randint(-300,300), random.randint(-300,300)))

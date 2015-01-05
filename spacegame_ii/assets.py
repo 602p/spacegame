@@ -47,6 +47,8 @@ class GameAssetDatabase:
 				ca=0
 				#i.set_alpha(None)
 				i=i.convert()
+				if node["colorkey"]==-1:
+					node["colorkey"]=i.get_at((0,0))
 				i.set_colorkey(node["colorkey"])
 			if "scale" in node:
 				i=pygame.transform.scale(i, node["scale"])

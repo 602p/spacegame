@@ -7,7 +7,7 @@ class RenderLaserBeamPrimitive(primitives.BasePrimitive):
 			p=t.data[1]
 			n=t.data[0]
 			try:
-				r.screen.draw_line(n["color"], p.get_center(), p.parent.targeted.rotated_rect.center, n["thickness"])
+				r.screen.draw_line(n["color"], t.data[1].get_center(), t.data[1].parent.targeted.rotated_rect.center, n["thickness"])
 			except BaseException:
 				pass
 		tasks.add_task(self.root, "render_last", tasks.Task(self.root, _internal, self.config["duration"], (self.config, item)))
@@ -37,18 +37,7 @@ class ExplosionAtPrimitive(primitives.BasePrimitive):
 			ship.particlemanager.add_particles(particles.make_explosion_cfg(self.root,
 				ship.rotated_rect.center[0], ship.rotated_rect.center[1], self.config["style"]))
 
-class ExplosionAtTargetedPrimitive(primitives.BasePrimitive):
-	def run_in_item(self, item):
-		if dget(self.config, "root", False):
-			self.root.particlemanager.add_particles(particles.make_explosion_cfg(self.root,
-				item.parent.targeted.rotated_rect.center[0], item.parent.targeted.rotated_rect.center[1], self.config["style"]))
-		else:
-			p.parent.targeted.particlemanager.add_particles(particles.make_explosion_cfg(self.root,
-				item.parent.targeted.rotated_rect.center[0], item.parent.targeted.rotated_rect.center[1], self.config["style"]))
-
 def init_primitives(root):
 	primitives.register_primitive(root, "render_laser_beam_targeted", RenderLaserBeamPrimitive)
 
 	primitives.register_primitive(root, "explosion_at_parent", ExplosionAtPrimitive)
-
-	primitives.register_primitive(root, "explosion_at_parent_targeted", ExplosionAtTargetedPrimitive)

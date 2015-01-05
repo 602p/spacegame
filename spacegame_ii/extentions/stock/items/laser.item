@@ -24,8 +24,13 @@
             "damage":10
         },
         {
-            "primitive":"explosion_at_parent_targeted",
-            "style":"%explosion_red%"
+            "primitive":"run_with_targeted_as_ship",
+            "sudo_primitives":[
+                {
+                    "primitive":"explosion_at_parent",
+                    "style":"%explosion_red%"
+                }
+            ]
         }
     ],
     "equip":[],

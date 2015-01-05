@@ -90,8 +90,11 @@ class Item(serialize.SerializableObject):
 
 		self.last_fired=0
 
-	def render_equipped(self, surface):
-		surface.blit(self.equipped_image, (0,0))
+	def render_equipped(self, surface, scale=1):
+		surface.blit(pygame.transform.scale(self.equipped_image, (
+			self.equipped_image.get_width()*scale,
+			self.equipped_image.get_height()*scale
+			)), (0,0))
 
 	def render_inventory(self, surface):
 		surface.blit(self.inventory_image, (0,0))

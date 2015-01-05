@@ -16,7 +16,7 @@
 			"type":"image",
 			"path":"civs/bajor/teroknor.png",
 			"scale":[800,800],
-			"colorkey":[255,0,0]
+			"colorkey":-1
 		}
 	]
 }

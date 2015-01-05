@@ -27,19 +27,17 @@
             "size":"small",
             "x":16,
             "y":14,
-            "render_on_top":true
-        },
-        {
-            "size":"small_utility",
-            "x":16,
-            "y":60,
             "render_on_top":false
         },
         {
             "size":"small_utility",
             "x":16,
-            "y":40,
-            "render_on_top":false
+            "y":60
+        },
+        {
+            "size":"small_utility",
+            "x":16,
+            "y":40
         }
     ],
     "start_equip":[
