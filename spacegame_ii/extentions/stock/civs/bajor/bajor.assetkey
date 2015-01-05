@@ -15,7 +15,8 @@
 			"name":"image_bajor_ds9_orbit",
 			"type":"image",
 			"path":"civs/bajor/teroknor.png",
-			"scale":[300,300]
+			"scale":[800,800],
+			"colorkey":[255,0,0]
 		}
 	]
 }

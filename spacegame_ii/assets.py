@@ -42,6 +42,12 @@ class GameAssetDatabase:
 			if "convert_alpha" in node:
 				if not node["convert_alpha"]:
 					ca=node["convert_alpha"]
+			elif "colorkey" in node:
+				print "converet"
+				ca=0
+				#i.set_alpha(None)
+				i=i.convert()
+				i.set_colorkey(node["colorkey"])
 			if "scale" in node:
 				i=pygame.transform.scale(i, node["scale"])
 			if ca:

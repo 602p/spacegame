@@ -26,7 +26,7 @@ debug("Pygame started")
 
 renderspace_size=(1300,700)
 
-screen=sgc.surface.Screen(renderspace_size)
+screen=sgc.surface.Screen(renderspace_size, pygame.DOUBLEBUF)
 pygame.display.set_caption("Spacegame Alpha")
 
 
