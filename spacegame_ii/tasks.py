@@ -9,7 +9,7 @@ def add_group(root, tag):
 
 def add_task(root, tag, task):
 	if not tag in root.tasks_index:
-		root.tasks_index[tag]=[]
+		add_group(root, tag)
 	root.tasks_index[tag].append(task)
 
 def run_group(root, tag):

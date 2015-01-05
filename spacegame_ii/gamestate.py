@@ -13,8 +13,7 @@ class RunningGameState(state.State):
 			ship.create_ship(self.root, "ss_bajor_ds9", 500, 500)
 		]
 
-		self.entities[1].targeted=self.entities[0]
-		self.entities[0].targeted=self.entities[1]
+		#self.entities[0].targeted=self.entities[1]
 
 		self.player=self.entities[0]
 		# for i in xrange(0,10):
@@ -88,18 +87,28 @@ class RunningGameState(state.State):
 				print
 				debug("GameState resize")
 				self.parralax_scroller.bindall(self.root.renderspace_size)
+			elif e.type==pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
+				for e in self.entities:
+					if e.rotated_rect.collidepoint(pygame.mouse.get_pos()):
+						self.player.targeted=e
 			else:
 				pass#pygame.event.post(e)
 
 		self.root.particlemanager.draw(self.root.screen)
 		
+		locked_by=0
 		update_time=1/self.root.fps
 		for entitiy in reversed(self.entities): #run thru in reverse so player is always on top
 			if not entitiy.kill:
 				entitiy.tick(self.root.screen, update_time)
+				if entitiy.targeted==self.player and isinstance(entitiy, ship.Ship):
+					locked_by+=1
 				# if self.g_render_lines:
 				# 	self.root.screen.draw_line((255,255,255), (self.player.rigidbody.x, self.player.rigidbody.y), (entitiy.rigidbody.x, entitiy.rigidbody.y), 2)
-		
+		if locked_by>0:
+			self.root.screen.screen.blit(self.root.gamedb("font_standard_small").render("LOCKED BY "+str(locked_by)+" SHIPS!", 0, (255,0,0)), (150,0))
+
+
 		new_entities=[]
 		for e in self.entities:
 			if not e.kill: new_entities.append(e)
@@ -122,8 +131,8 @@ class RunningGameState(state.State):
 				pygame.display.flip()
 				i+=1
 			if not interdiction_gui.interdict_yn(self.root, "GAME OVER", "You have died. Were playing "+self.player.name+" ("+self.player.id_string+"). Killed by TODO. Better luck next time :(", "RESET", "QUIT"):
-				pygame.quit()
 				sys.exit()
+				pygame.quit()
 			else:
 				self.root.state_manager.states["game"].first_start()
 
@@ -151,7 +160,7 @@ class RunningGameState(state.State):
 
 
 		self.root.igconsole.render((0,625))
-		overlay_gui.render_rangefinder(self.root, self.player, [self.entities[1].rotated_rect.centerx, self.entities[1].rotated_rect.centery])
+		#overlay_gui.render_rangefinder(self.root, self.player, [self.entities[1].rotated_rect.centerx, self.entities[1].rotated_rect.centery])
 
 
 		self.root.screen.set_offset((self.player.rigidbody.x-(self.root.renderspace_size[0]/2), self.player.rigidbody.y-(self.root.renderspace_size[1]/2)))
