@@ -1,0 +1,11 @@
+{
+	"assets":[
+		{
+			"name":"large_black_bg",
+			"type":"image",
+			"path":"image/black.png",
+			"convert_alpha":false,
+			"scale":[1300,700]
+		}
+	]
+}

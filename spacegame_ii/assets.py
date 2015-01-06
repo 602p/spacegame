@@ -55,7 +55,7 @@ class GameAssetDatabase:
 			if ca:
 				return i.convert_alpha()
 			else:
-				return i
+				return i.convert()
 		self.loaders["image"]=load_image
 
 		def load_sound(node, basepath):

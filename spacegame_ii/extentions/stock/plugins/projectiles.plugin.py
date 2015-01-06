@@ -29,12 +29,22 @@ class Projectile:
 
 		self.can_be_hit=False
 		self.config=cfg
+		self.oldangle=-100000
+
+		self.rerotate()
+		self.rotated_mask=pygame.mask.from_surface(self.rotated_image)
+
+	def rerotate(self):
+		self.rotated_image, self.rotated_rect=rot_center(self.image.copy(), pygame.Rect((self.rigidbody.x, self.rigidbody.y), self.image.get_size()), self.rigidbody.get_angle())
 
 	def tick(self, screen, time):
 		self.currtime+=time
-		self.rotated_image, self.rotated_rect=rot_center(self.image.copy(), pygame.Rect((self.rigidbody.x, self.rigidbody.y), self.image.get_size()), self.rigidbody.get_angle())
+		
+		if int(self.oldangle)!=self.rigidbody.get_angle():
+			self.rerotate()
+			self.oldangle=self.rigidbody.get_angle()
 		screen.blit(self.rotated_image, (self.rigidbody.x, self.rigidbody.y))
-		self.rotated_mask=pygame.mask.from_surface(self.rotated_image)
+
 		self.rigidbody.update_in_seconds(time)
 		self.rigidbody.exert_in_vector(self.accel, cap=self.maxspeed)
 		self.particlemanager.update()

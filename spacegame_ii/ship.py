@@ -106,6 +106,9 @@ class Ship(serialize.SerializableObject):
 
 		self.targeted=None
 
+		self.lastangle=0
+		self.rerotate()
+
 		self.use_ai=use_ai
 		if self.use_ai:
 			self.ai=ai.AIController(self, config["ai"])
@@ -156,10 +159,15 @@ class Ship(serialize.SerializableObject):
 		return {"__deserialize_handler__":"ship", "ship_id":self.id_string, "inventory":inv, "current_hull":self.currhull,
 		"current_shields":self.currshields}
 
-	def tick(self, screen, time):
-		self.render_items(False)
+	def rerotate(self):
 		self.rotated_image, self.rotated_rect=rot_center(self.image.copy(), pygame.Rect((self.rigidbody.x, self.rigidbody.y), self.image.get_size()), self.rigidbody.get_angle())
 		self.rotated_mask=pygame.mask.from_surface(self.rotated_image)
+
+	def tick(self, screen, time):
+		self.render_items(False)
+		if int(self.lastangle)!=self.rigidbody.get_angle():
+			self.rerotate()
+			self.lastangle=self.rigidbody.get_angle()
 		screen.blit(self.rotated_image, (self.rotated_rect.x,self.rotated_rect.y))
 		#screen.draw_rect((0,0,255), self.rotated_rect)
 		self.render_engines()
