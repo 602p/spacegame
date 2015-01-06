@@ -8,7 +8,7 @@
     "image":"ship_destroyer_tt",
     "cost":2200,
     "cargo":1000,
-    "start_speed":500,
+    "start_speed":800,
     "reactor_max":100,
     "reactor_regen":5,
     "shields":100,
