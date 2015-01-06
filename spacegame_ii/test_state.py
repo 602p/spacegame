@@ -54,7 +54,6 @@ item.init(root)
 primitives.init(root)
 tasks.init(root)
 ai.init(root)
-tasks.add_group(root, "render_last")
 root.particlemanager=particles.ParticleManager()
 root.screen=scrollingscreen
 root.state_manager=state.StateManager(root)

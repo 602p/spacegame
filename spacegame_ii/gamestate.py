@@ -5,17 +5,7 @@ from logging import debug, info, warning, error, critical
 class RunningGameState(state.State):
 	def first_start(self):
 
-		self.g_render_lines=1
-
-		self.entities=[]
-		self.entities=[
-			ship.create_ship(self.root, "cargo_transport_test", 100, 100, ai=False),
-			ship.create_ship(self.root, "ss_bajor_ds9", 500, 500)
-		]
-
-		#self.entities[0].targeted=self.entities[1]
-
-		self.player=self.entities[0]
+		
 		# for i in xrange(0,10):
 		# 	self.entities.append(ship.create_ship(self.root, "cargo_transport_test", random.randint(-300,300), random.randint(-300,300)))
 		self.generated=[]
@@ -26,7 +16,7 @@ class RunningGameState(state.State):
 		for i in range(random.randint(5,10)):
 			self.generated.append([[random.randint(-8000,8000), random.randint(-6000,6000)], random.sample(self.root.gamedb.get_startswith("bg_planet"), 1)[0]])
 
-		self.player.selected_wep=0
+		
 
 		self.parralax_scroller=parralax.ParralaxStarfieldScroller(
 			self.root.renderspace_size,
@@ -37,6 +27,18 @@ class RunningGameState(state.State):
 				parralax.StarfieldLayer(40, (150,150,150), 2, -0.6)
 			]
 		)
+
+		self.entities=[]
+		self.entities=[
+			ship.create_ship(self.root, "cargo_transport_test", 100, 100, ai=False),
+			ship.create_ship(self.root, "ss_bajor_ds9", 500, 500)
+		]
+
+
+		#self.entities[0].targeted=self.entities[1]
+
+		self.player=self.entities[0]
+		self.player.selected_wep=0
 	def start(self):
 		info("=================================STARTING GAME STATE==========================")
 	def update_and_render(self):
@@ -63,6 +65,7 @@ class RunningGameState(state.State):
 		
 		locked_by=0
 		update_time=1/self.root.fps
+		tasks.run_group(self.root, "render_before_entities")
 		for entitiy in reversed(self.entities): #run thru in reverse so player is always on top
 			if not entitiy.kill:
 				entitiy.tick(self.root.screen, update_time)

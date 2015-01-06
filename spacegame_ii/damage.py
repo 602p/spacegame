@@ -152,9 +152,10 @@ class DamageModel:
 		pygame.draw.rect(screen, (255,0,0), pygame.Rect(x,y+100,(self.hull/self.maxhull)*100,20))
 		r=font.render("HUL:"+str(int(self.hull))+"/"+str(int(self.maxhull)), False, (100,255,255))
 		screen.blit(r, (x+50-(r.get_width()/2),y+100+10-(r.get_height()/2)))
-		pygame.draw.rect(screen, (0,0,255), pygame.Rect(x,y-20,(self.shields/self.maxshields)*100,20))
-		r=font.render("SHL:"+str(int(self.shields))+"/"+str(int(self.maxshields)), False, (0,175,175))
-		screen.blit(r, (x+50-(r.get_width()/2),y-20+(r.get_height()/2)))
+		if self.maxshields>0:
+			pygame.draw.rect(screen, (0,0,255), pygame.Rect(x,y-20,(self.shields/self.maxshields)*100,20))
+			r=font.render("SHL:"+str(int(self.shields))+"/"+str(int(self.maxshields)), False, (0,175,175))
+			screen.blit(r, (x+50-(r.get_width()/2),y-20+(r.get_height()/2)))
 		pygame.draw.rect(screen, (0,255,0), pygame.Rect(x,y+120,(self.ship.current_power/self.ship.reactor_max)*100,20))
 		r=font.render("PWR:"+str(int(self.ship.current_power))+"/"+str(int(self.ship.reactor_max)), False, (0,175,175))
 		screen.blit(r, (x+50-(r.get_width()/2),y+120+10-(r.get_height()/2)))

@@ -107,11 +107,21 @@ class Ship(serialize.SerializableObject):
 		self.targeted=None
 
 		self.lastangle=0
-		self.rerotate()
 
 		self.use_ai=use_ai
 		if self.use_ai:
 			self.ai=ai.AIController(self, config["ai"])
+
+		root.fps=9999
+		self.rerotate()
+		self.tick(root.screen, 0.1)
+		self.rigidbody.rotate(0.1)
+		self.rerotate()
+		self.tick(root.screen, 0.1)
+		self.rigidbody.rotate(0.1)
+		self.rerotate()
+		self.tick(root.screen, 0.1)
+		self.rigidbody.rotate(0.1)
 
 	def get_inventory_mass(self):
 		m=0
@@ -165,13 +175,14 @@ class Ship(serialize.SerializableObject):
 
 	def tick(self, screen, time):
 		self.render_items(False)
+		
+		#screen.draw_rect((0,0,255), self.rotated_rect)
+		self.render_engines()
+		self.render_items(True)
 		if int(self.lastangle)!=self.rigidbody.get_angle():
 			self.rerotate()
 			self.lastangle=self.rigidbody.get_angle()
 		screen.blit(self.rotated_image, (self.rotated_rect.x,self.rotated_rect.y))
-		#screen.draw_rect((0,0,255), self.rotated_rect)
-		self.render_engines()
-		self.render_items(True)
 		self.particlemanager.update()
 		self.particlemanager.draw(self.root.screen)
 

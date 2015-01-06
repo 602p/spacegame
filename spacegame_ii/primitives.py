@@ -29,14 +29,16 @@ def init(root):
 		root.primitives_list={}
 
 def register_primitive(root, name, primitive):
+	debug("Registering primitive "+name+" ("+str(primitive)+")")
 	root.primitives_list[name]=primitive
 
 def get_primitive(root, name, config):
 	if name in root.primitives_list.keys():
+		debug("getting primitive "+name)
 		return root.primitives_list[name](root, config)
 	else:
 		warning("WARNING: PRIMITIVE '"+str(name)+"' NOT DEFINED [TERMINATES PRIMITIVE CHAIN]")
-		return BasePrimitive()
+		return BasePrimitive(root, config)
 
 def do_for_item(root, name, item, node):
 	get_primitive(root, name, node).run_in_item(item)

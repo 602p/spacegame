@@ -22,31 +22,145 @@
             "name":"cfg_very_large_explosion",
             "type":"json",
             "json":{
-                "particles":1000,
+                "particles":600,
                 "r_min":200,
                 "r_max":255,
                 "g_min":50,
                 "g_max":100,
                 "b_min":0,
                 "b_max":0,
-                "speed_min":22,
-                "speed_max":46,
+                "speed_min":12,
+                "speed_max":24,
                 "time_min":0.1,
                 "time_max":1.1,
+                "size_min":8,
+                "size_max":25
+            }
+        },
+        {
+            "name":"cfg_station_explosion",
+            "type":"json",
+            "json":{
+                "particles":1200,
+                "r_min":200,
+                "r_max":255,
+                "g_min":50,
+                "g_max":100,
+                "b_min":0,
+                "b_max":0,
+                "speed_min":20,
+                "speed_max":50,
+                "time_min":0.1,
+                "time_max":1.5,
                 "size_min":10,
                 "size_max":50
             }
         },
 		{
-			"name":"cfg_explosion_ship_large",
-			"type":"json",
-			"json":[
+            "name":"cfg_explosion_ship_large",
+            "type":"json",
+            "json":[
                 {
                 "primitive":"explosion_at_parent",
                 "style":"%very_large_explosion%",
                 "root":true
-       		    }
+                }
             ]
-		}
+        },
+        {
+            "name":"cfg_explosion_spacestation",
+            "type":"json",
+            "json":[
+                {
+                    "primitive":"explosion_at_parent",
+                    "style":"%station_explosion%",
+                    "root":true
+                },
+                {
+                    "primitive":"afterimage",
+                    "time":5
+                },
+                {
+                    "primitive":"delayed_sound_effect",
+                    "sound":"sound_explode1",
+                    "time":3
+                },
+                {
+                    "primitive":"delayed_explosion_at_parent_randomized",
+                    "time":3,
+                    "style":"%station_explosion%"
+                },
+                {
+                    "primitive":"delayed_sound_effect",
+                    "sound":"sound_explode1",
+                    "time":3.2
+                },
+                {
+                    "primitive":"delayed_explosion_at_parent_randomized",
+                    "time":3.2,
+                    "style":"%station_explosion%"
+                },
+                {
+                    "primitive":"delayed_sound_effect",
+                    "sound":"sound_explode1",
+                    "time":2.7
+                },
+                {
+                    "primitive":"delayed_explosion_at_parent_randomized",
+                    "time":2.7,
+                    "style":"%station_explosion%"
+                },
+                {
+                    "primitive":"delayed_sound_effect",
+                    "sound":"sound_explode1",
+                    "time":1
+                },
+                {
+                    "primitive":"delayed_explosion_at_parent_randomized",
+                    "time":1,
+                    "style":"%station_explosion%"
+                },
+                {
+                    "primitive":"delayed_sound_effect",
+                    "sound":"sound_explode1",
+                    "time":4
+                },
+                {
+                    "primitive":"delayed_explosion_at_parent_randomized",
+                    "time":4,
+                    "style":"%station_explosion%"
+                },
+                {
+                    "primitive":"delayed_sound_effect",
+                    "sound":"sound_explode1",
+                    "time":4.5
+                },
+                {
+                    "primitive":"delayed_explosion_at_parent_randomized",
+                    "time":4.5,
+                    "style":"%station_explosion%"
+                },
+                {
+                    "primitive":"delayed_sound_effect",
+                    "sound":"sound_explode1",
+                    "time":5
+                },
+                {
+                    "primitive":"delayed_explosion_at_parent_randomized",
+                    "time":5,
+                    "style":"%station_explosion%"
+                },
+                {
+                    "primitive":"delayed_sound_effect",
+                    "sound":"sound_explode1",
+                    "time":1.5
+                },
+                {
+                    "primitive":"delayed_explosion_at_parent_randomized",
+                    "time":1.5,
+                    "style":"%station_explosion%"
+                }
+            ]
+        }
 	]
 }
