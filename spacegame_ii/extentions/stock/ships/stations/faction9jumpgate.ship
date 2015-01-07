@@ -1,0 +1,60 @@
+{
+	"%+base_ship%":0,
+	"id":"ss_f9_jumpgate",
+	"name":"Faction 9 JumpGate",
+    "source_faction":"_9",
+    "hull":500,
+    "mass":2000,
+    "image":"image_ss_f9_jumpgate",
+    "cost":2200,
+    "cargo":1000,
+    "start_speed":2000,
+    "reactor_max":500,
+    "reactor_regen":50,
+    "shields":1000,
+    "max_speed":300,
+    "start_speed":40000,
+    "turn_rate":10,
+    "shield_regen":25,
+
+    "render_rotation":false,
+
+    "systems":[
+        {
+            "name":"THRUSTERS",
+            "attributes":["turn_rate"],
+            "effects_damaged":[0.6],
+            "effects_destroyed":[0.2],
+            "health":100,
+            "threshold_damaged":60,
+            "image_damaged":"image_icon_thrusters_yellow",
+            "image_destroyed":"image_icon_thrusters_red",
+            "regen":0.3
+        },
+        {
+            "name":"ENGINES",
+            "attributes":["max_speed", "speed"],
+            "effects_damaged":[0.5, 0.5],
+            "effects_destroyed":[0.1, 0.1],
+            "health":100,
+            "threshold_damaged":60,
+            "image_damaged":"image_icon_engine_yellow",
+            "image_destroyed":"image_icon_engine_red",
+            "regen":0.3
+        }
+    ],
+    "ship_die":"%explosion_spacestation%",
+    "ai":{
+    	"ai_subcontrollers":[
+    		{
+    			"controller":"spacestation",
+    			"station_cfg":{
+    				"bg_image":"large_black_bg",
+    				"name":"DEEP SPACE 9",
+    				"font":"font_standard_large",
+                    "menucfg":"%sgcui_test%"
+    			}
+    		}
+    	]
+    }
+}

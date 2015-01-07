@@ -43,7 +43,7 @@ class GameAssetDatabase:
 				if not node["convert_alpha"]:
 					ca=node["convert_alpha"]
 			elif "colorkey" in node:
-				print "converet"
+				#print "converet"
 				ca=0
 				#i.set_alpha(None)
 				i=i.convert()

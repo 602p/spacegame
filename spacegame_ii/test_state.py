@@ -38,7 +38,7 @@ root.settings={
 	"graphics":{
 		"render_stars":True,
 		"no_render_clipping":False,
-		"target_fps":60
+		"target_fps":0
 	},
 	"keybindings":{
 		"interact":101 #K_e
