@@ -43,7 +43,7 @@ PYTHON = 2
 path = os.path.abspath(os.path.dirname(__file__))
 font_path = os.path.join(path, "fonts")
 img_path = os.path.join(path, "images")
-cfg_path = os.path.join(path, "pyconsole.cfg")
+cfg_path = "pyconsole.cfg"
 
 
 re_token = re.compile(r"""[\"].*?[\"]|[\{].*?[\}]|[\(].*?[\)]|[\[].*?[\]]|\S+""")

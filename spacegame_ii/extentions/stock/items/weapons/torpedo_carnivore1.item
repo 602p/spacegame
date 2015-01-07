@@ -10,7 +10,7 @@
     "required":{
         "energy":1,
         "enemy_selected":false,
-        "cooldown":1
+        "cooldown":0.2
     },
     "fire_events":[
         {
@@ -37,7 +37,9 @@
                     "effect":"sound_explode1"
                 }
             ],
-            "particlestyle":"%fiery_trail_thick_wide%"
+            "particlestyle":{
+				"particles":0
+			}
         }
     ],
     "equip":[],
