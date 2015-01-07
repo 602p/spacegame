@@ -1,33 +1,6 @@
 {
 	"assets":[
 		{
-			"name":"sgcui_test",
-			"type":"json",
-			"json":{
-				"bg_image":"large_black_bg",
-				"defaults":{
-					"color":[255,255,255]
-				},
-				"widgets":[
-					{
-						"type":"Button",
-						"label":"Exit",
-						"pos":[0,650],
-						"controllers":[
-							{
-								"controller":"exit_state"
-							}
-						]
-					},
-					{
-						"type":"Switch",
-						"label":"Test",
-						"pos":[0,0]
-					}
-				]
-			}
-		},
-		{
 			"name":"sgcui_settings",
 			"type":"json",
 			"json":{
