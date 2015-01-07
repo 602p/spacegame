@@ -12,7 +12,7 @@ class InteractableToEnterStation(ai.AIControllerUpdateNode):
 					(self.ship.rotated_rect.x-self.controller.gamestate.player.rotated_rect.x,
 					self.ship.rotated_rect.y-self.controller.gamestate.player.rotated_rect.y)) or 0:
 				#print "collided"
-				if self.controller.gamestate.player.rigidbody.moving()<50:
+				if self.controller.gamestate.player.rigidbody.moving()<self.config.get("max_speed", 75):
 					debug("Entering station")
 					self.controller.gamestate.player.rigidbody.set_magnitude(0)
 					self.controller.root.state_manager.start_interdicting("generic_ui", self.config["station_cfg"])

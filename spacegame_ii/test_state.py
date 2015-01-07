@@ -24,17 +24,15 @@ if allowdebug:
 pygame.init()
 debug("Pygame started")
 
-renderspace_size=(1300,700)
-
-screen=sgc.surface.Screen(renderspace_size, pygame.DOUBLEBUF, 16)
-pygame.display.set_caption("Spacegame Alpha")
-
-
-
 class R:pass
 root=R()
 
 serialize.load_settings(root)
+
+renderspace_size=root.settings["graphics"]["window_size"]
+
+screen=sgc.surface.Screen(renderspace_size, pygame.DOUBLEBUF, root.settings["graphics"]["color_depth"])
+pygame.display.set_caption("Spacegame Alpha")
 
 scrollingscreen=rotutil.ScrollingWorldManager(root, screen.image)
 

@@ -153,6 +153,7 @@
     	"ai_subcontrollers":[
     		{
     			"controller":"spacestation",
+                "max_speed":99999,
     			"station_cfg":{
     				"bg_image":"image_bajor_ds9_splash",
     				"name":"DEEP SPACE 9",
