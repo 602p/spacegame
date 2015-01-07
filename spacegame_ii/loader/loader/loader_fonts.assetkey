@@ -1,0 +1,10 @@
+{
+	"assets":[
+		{
+			"name":"LOADER_font_mono",
+			"type":"sysfont",
+			"sys_name":"monospace",
+			"size":20
+		}
+	]
+}

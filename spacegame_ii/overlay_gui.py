@@ -47,14 +47,16 @@ def render_rangefinder(root, player, point, color='red'):
 
 class IngameRenderedConsole:
 	#Line tuple is (text, color, bgcolor, bold, italics, underline)
-	def __init__(self, root, lines=10):
+	def __init__(self, root, lines=10, width=50, font="font_sys_mono_13"):
 		self.root=root
 		self.lines=[]
 		self.enabled=True
 		self.debug=False
 		self.maxlines=lines
+		self.width=width
+		self.font=font
 
-		self.post("Console Started", (0,255,0))
+		self.post("Console Started")
 
 	def enable(self):
 		self.enabled=True
@@ -69,7 +71,7 @@ class IngameRenderedConsole:
 		self.debug=False
 
 	def render_line(self, line, offset):
-		f=self.root.gamedb("font_sys_mono_13")
+		f=self.root.gamedb(self.font)
 		f.set_bold(line[3])
 		f.set_italic(line[4])
 		f.set_underline(line[5])
@@ -85,22 +87,22 @@ class IngameRenderedConsole:
 		position=list(position)
 		pygame.draw.rect(self.root.screen.screen, (0,0,0), pygame.Rect(
 			position,
-			(self.root.gamedb("font_sys_mono_13").size("A")[0]*50,
-			self.root.gamedb("font_sys_mono_13").size("A")[1]*self.maxlines)
+			(self.root.gamedb(self.font).size("A")[0]*self.width,
+			self.root.gamedb(self.font).size("A")[1]*self.maxlines)
 			)
 		)
 		pygame.draw.rect(self.root.screen.screen, (255,255,255), pygame.Rect(
 			position[0]-2,
 			position[1]-2,
-			self.root.gamedb("font_sys_mono_13").size("A")[0]*50,
-			self.root.gamedb("font_sys_mono_13").size("A")[1]*self.maxlines+4
+			self.root.gamedb(self.font).size("A")[0]*self.width,
+			self.root.gamedb(self.font).size("A")[1]*self.maxlines+4
 			),
 			3
 		)
 		if self.enabled:
-			for l in reversed(self.lines):
+			for l in self.lines:
 				self.render_line(l, position)
-				position[1]+=self.root.gamedb("font_sys_mono_13").size(l[0])[1]
+				position[1]+=self.root.gamedb(self.font).size(l[0])[1]
 
 	def post(self, text, color=(255,255,255,255), bg=(0,0,0,0), bold=False, italic=False, underline=False, debugmsg=False):
 		debug("Posting message: "+text)

@@ -74,7 +74,11 @@ debug("Loaded all SG extentions")
 
 root.renderspace_size=renderspace_size
 
-extention_loader.load_all_packages(root, 'extentions')
+info("Loading loader packages")
+extention_loader.load_all_packages(root, 'loader')
+info("Loading core packages")
+root.loader_renderer=overlay_gui.IngameRenderedConsole(root, root.renderspace_size[1]/root.gamedb("LOADER_font_mono").size("A")[1], 200, "LOADER_font_mono")
+extention_loader.load_all_packages(root, 'extentions', root.loader_renderer)
 
 debug("Loaded all packages")
 

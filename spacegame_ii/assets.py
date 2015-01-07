@@ -1,4 +1,4 @@
-import os, pygame, json
+import os, pygame, json, extention_loader
 from logging import debug, info, warning, error, critical
 from jsonutil import get_expanded_json
 
@@ -90,18 +90,19 @@ class GameAssetDatabase:
 	def register_loader(self, func, key):
 		self.loaders["key"]=func
 
-	def load_with_loader(self, node, basepath):
+	def load_with_loader(self, node, basepath, console=None):
 		try:
 			debug("Loading node using loader:'"+node["type"]+"' to name:'"+node["name"]+"'... [USING INLINE INSERTION]")
 			self.assets[node["name"]]=self.loaders[node["type"]](get_expanded_json(self, node), basepath)
 		except KeyError:
 			error("Loader "+node["type"]+" not found!")
+			if console: extention_loader.post_and_flip(console, "ASSETKEY ERROR! NO LOADER '"+str(node["type"])+"'", color=(255,0,0), bold=1)
 
-	def load_assetfile(self, path, basepath):
+	def load_assetfile(self, path, basepath, console=None):
 		data=json.load(open(path))["assets"]
 		for i in data:
 			debug("Load node ["+basepath+"::"+path+"]: INDEX "+str(data.index(i)))
-			self.load_with_loader(i, basepath)
+			self.load_with_loader(i, basepath, console)
 			
 	def get_asset(self, key):
 		return self.assets[key]
