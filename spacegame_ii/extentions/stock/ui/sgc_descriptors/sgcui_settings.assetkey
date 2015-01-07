@@ -1,108 +1,205 @@
 {
 	"assets":[
 		{
-			"name":"sgcui_settings",
+			"name":"sgcui_test",
 			"type":"json",
 			"json":{
 				"bg_image":"large_black_bg",
 				"defaults":{
-					"font":"font_standard_small",
-					"color":[255,255,255],
-					"on_label_col":[255,255,255],
-					"off_label_col":[255,255,255]
+					"color":[255,255,255]
 				},
 				"widgets":[
 					{
 						"type":"Button",
-						"text":"Exit",
-						"position":"lowerleft",
-						"action":"exit_state"
+						"label":"Exit",
+						"pos":[0,650],
+						"controllers":[
+							{
+								"controller":"exit_state"
+							}
+						]
+					},
+					{
+						"type":"Switch",
+						"label":"Test",
+						"pos":[0,0]
+					}
+				]
+			}
+		},
+		{
+			"name":"sgcui_settings",
+			"type":"json",
+			"json":{
+				"bg_image":"settings_bg",
+				"defaults":{
+					"fade":false
+				},
+				"widgets":[
+					{
+						"type":"Button",
+						"label":"Exit",
+						"pos":[0,650],
+						"label_font":"$font_standard_small",
+						"controllers":[
+							{
+								"controller":"exit_state"
+							}
+						]
 					},
 					{
 						"type":"Button",
-						"text":"Apply",
-						"position":"lowerleft",
-						"position_offset":[100,0],
-						"action":"json_bindings",
-						"bindings":{
-							"render":"graphics:render_stars",
-							"renderclipping":"graphics:no_render_clipping",
-							"fps":"graphics:target_fps",
-							"raycast":"debug:raycast",
-							"overrender":"debug:overrender",
-							"interact":"keybindings:interact"
-						}
+						"label":"Apply",
+						"pos":[120,650],
+						"label_font":"$font_standard_small",
+						"controllers":[
+							{
+								"controller":"json_bindings",
+								"bindings":{
+									"render":"graphics:render_stars",
+									"renderclipping":"graphics:no_render_clipping",
+									"fps":"graphics:target_fps",
+									"raycast":"debug:raycast",
+									"overrender":"debug:overrender",
+									"interact":"keybindings:interact"
+								}
+							}
+						]
 					},
 					{
 						"type":"HBox",
-						"position":"topleft",
+						"pos":[0,0],
 						"spacing":100,
 						"widgets":[
 							{
 								"type":"VBox",
-								"color":[0,0,100],
+								"col":[0,0,100],
 								"widgets":[
 									{
 										"type":"Label",
 										"text":"Graphics Settings",
-										"font":"font_standard"
+										"font":"$font_standard_20"
 									},
 									{
-										"type":"Switch",
-										"label":"Render Stars",
-										"id":"render"
+										"type":"HBox",
+										"widgets":[
+											{
+												"type":"Switch",
+												"id":"renderstars",
+												"state":true
+											},
+											{
+												"type":"Label",
+												"text":"Render Stars",
+												"col":[255,255,255],
+												"font":"$font_standard_small"
+											}
+										]
 									},
 									{
-										"type":"Switch",
-										"label":"Disable Render Clipping",
-										"id":"renderclipping"
+										"type":"HBox",
+										"widgets":[
+											{
+												"type":"Switch",
+												"id":"clipping"
+											},
+											{
+												"type":"Label",
+												"text":"Disable Render Clipping",
+												"col":[255,255,255],
+												"font":"$font_standard_small"
+											}
+										]
 									},
 									{
-										"type":"InputBox",
-										"label":"Target FPS (0 for unlimited)",
-										"id":"fps"
+										"type":"HBox",
+										"widgets":[
+											{
+												"type":"InputBox",
+												"id":"tfps",
+												"text":"60"
+											},
+											{
+												"type":"Label",
+												"text":"Target FPS (0=unlimited)",
+												"col":[255,255,255],
+												"font":"$font_standard_small"										
+											}
+										]
 									}
 								]
 							},
 							{
 								"type":"VBox",
-								"color":[100,0,0],
+								"col":[100,0,0],
 								"widgets":[
 									{
 										"type":"Label",
 										"text":"Debug Settings",
-										"font":"font_standard"
+										"font":"$font_standard_20"
 									},
 									{
-										"type":"Switch",
-										"label":"Raycast",
-										"id":"raycast"
+										"type":"HBox",
+										"widgets":[
+											{
+												"type":"Switch",
+												"id":"raycast"
+											},
+											{
+												"type":"Label",
+												"text":"Raycasting",
+												"col":[255,255,255],
+												"font":"$font_standard_small"
+											}
+										]
 									},
 									{
-										"type":"Switch",
-										"label":"Overrender Rects",
-										"id":"overrender"
+										"type":"HBox",
+										"widgets":[
+											{
+												"type":"Switch",
+												"id":"overrender"
+											},
+											{
+												"type":"Label",
+												"text":"Overrender Rects",
+												"col":[255,255,255],
+												"font":"$font_standard_small"
+											}
+										]
 									}
 								]
 							},
 							{
 								"type":"VBox",
-								"color":[0,100,0],
+								"col":[0,100,0],
 								"widgets":[
 									{
 										"type":"Label",
 										"text":"Key Settings",
-										"font":"font_standard"
+										"font":"$font_standard_20"
 									},
 									{
 										"type":"Label",
 										"text":"You MUST use pygame key IDs!",
-										"color":[255,0,0]
+										"color":[255,0,0],
+										"font":"$font_standard_small"
 									},
 									{
-										"type":"InputBox",
-										"label":"Station Interact",
-										"id":"interact"
+										"type":"HBox",
+										"widgets":[
+											{
+												"type":"InputBox",
+												"id":"k_interact",
+												"text":"111"
+											},
+											{
+												"type":"Label",
+												"text":"Interact",
+												"col":[255,255,255],
+												"font":"$font_standard_small"
+											}
+										]
 									}
 								]
 							}

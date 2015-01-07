@@ -1,7 +1,7 @@
 from __future__ import division
 from logging import debug, info, warning, error, critical
 import logging, sys, traceback, datetime, ai
-logging.basicConfig(filemode='w', filename='spacegame.log',level=logging.DEBUG, format='[%(asctime)s] %(levelname)s: %(message)s')
+logging.basicConfig(filemode='w', filename='spacegame.log',level=logging.DEBUG, format='[%(asctime)s] %(levelname)s\t: %(message)s')
 debug("Logging Started")
 import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader
 import assets, pyconsole, interdiction_gui, overlay_gui, ui_states
@@ -41,6 +41,8 @@ item.init(root)
 primitives.init(root)
 tasks.init(root)
 ai.init(root)
+
+
 root.particlemanager=particles.ParticleManager()
 root.screen=scrollingscreen
 root.state_manager=state.StateManager(root)
@@ -112,7 +114,7 @@ while run:
 			if e.key == pygame.K_BACKQUOTE and pygame.key.get_mods() & pygame.KMOD_CTRL:
 				root.console.set_active()
 			elif e.key == pygame.K_ESCAPE:
-				root.state_manager.goto_state("game_paused")
+				root.state_manager.start_interdicting("generic_ui", root.gamedb("sgcui_settings"))
 		elif e.type==pygame.VIDEORESIZE:
 			debug("Root resize")
 			root.renderspace_size=e.dict['size']
