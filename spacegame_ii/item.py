@@ -63,7 +63,7 @@ class ItemFactory:
 class Item(serialize.SerializableObject):
 	def __init__(self, root, id_str, name, cost, mass, inventory_image, equipped_image, fire_required,
 		hardpoint, rarity, passive_equip, passive_dequip, fire_events, equipped, parent, config):
-		self.cost=cost
+		self.costper=cost
 		self.name=name
 		self.root=root
 		self.id_str=id_str
@@ -99,8 +99,26 @@ class Item(serialize.SerializableObject):
 			)), (0,0))
 		#print "re"
 
-	def render_inventory(self, surface):
+	def get_inventory_image(self):
+		surface=pygame.Surface((64,64))
 		surface.blit(self.inventory_image, (0,0))
+		font=self.root.gamedb("font_sys_mono")
+		font.set_bold(1)
+		surface.blit(font.render(str(self.count), 0, (0,0,255)), (0,0))
+		#print "a"
+		if "item" in self.fire_required.keys():
+			#print "b"
+			none=1
+			for item in self.parent.inventory:
+				#print "c"
+				if item.id_str==self.fire_required["item"]:
+					none=0
+					#print "r"
+					surface.blit(font.render("("+str(item.count)+")", 0, (0,255,0)), (20,0))
+			if none:
+				surface.blit(font.render("(0)", 0, (255,0,0)), (20,0))
+		font.set_bold(0)
+		return surface
 
 	def equip_actions(self):
 		primitives.do_group_for_item(self.root, self.passive_equip, self)
@@ -137,17 +155,41 @@ class Item(serialize.SerializableObject):
 				targetdistance = math.sqrt(targetdistancex**2 + targetdistancey**2)
 				if self.fire_required[i]<targetdistance:
 					return False
+			if i=="item":
+				g=1
+				for item in self.parent.inventory:
+					if item.id_str==self.fire_required[i]:
+						g=0
+				if g: return False
 		self.parent.current_power-=dget(self.fire_required,"energy",0)
 		return True
 
 	def fire(self):
 		if self.can_fire():
+			if "item" in self.fire_required.keys():
+				for item in self.parent.inventory:
+					if item.id_str==self.fire_required["item"]:
+						item.consume_one()
 			self.fire_actions()
 	
 	def save_to_config_node(self):
-		return {"__deserialize_handler__":"item", "id":self.id_str, "equipped":self.equipped}
+		return {"__deserialize_handler__":"item", "id":self.id_str, "equipped":self.equipped, "count":self.count}
 
 	def get_center(self):
 		if self.equipped>-1:
 			return rotate_point(self.parent.rotated_rect.center, [self.parent.rigidbody.x+self.parent.hardpoints[self.equipped]["x"],
 			 self.parent.rigidbody.y+self.parent.hardpoints[self.equipped]["y"]], -self.parent.rigidbody.get_angle())
+
+	def consume_one(self):
+		self.count-=1
+		#debug("Consuming one "+self.id_str)
+		if self.count<1:
+			#debug("Consumed all. Deleting")
+			self.dequip()
+			del self.parent.inventory[self.parent.inventory.index(self)]
+
+	def get_cost_all(self):
+		return self.cost*self.count
+
+	def get_cost_one(self):
+		return self.cost

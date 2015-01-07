@@ -19,7 +19,7 @@ def load_all_packages(root, dirn, console=None):
 		post_and_flip(console, "Loaded "+str(len(root.gamedb.assets))+" assets")
 		post_and_flip(console, "Loaded "+str(len(root.item_factories))+" items")
 		post_and_flip(console, "Loaded "+str(len(root.ship_factories))+" ships")
-	time.sleep(2.5)
+		time.sleep(2.5)
 
 def findall(dirn, pattern):
 	matches=[]

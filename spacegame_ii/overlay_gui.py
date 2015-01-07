@@ -10,7 +10,7 @@ def render_wepbar(root, state, ship, x, y):
 	for i in ship.hardpoints:
 		e=ship.get_item_in_hardpoint(ship.hardpoints.index(i))
 		if e:
-			screen.blit(e.inventory_image, (x+xo, y+2))
+			screen.blit(e.get_inventory_image(), (x+xo, y+2))
 		if pygame.mouse.get_pressed()[0] and pygame.Rect(x+xo, y+2, 64, 64).collidepoint(pygame.mouse.get_pos()):
 			ship.selected_wep=ship.hardpoints.index(i)
 		xo+=64
@@ -56,7 +56,7 @@ class IngameRenderedConsole:
 		self.width=width
 		self.font=font
 
-		self.post("Console Started")
+		#self.post("Console Started")
 
 	def enable(self):
 		self.enabled=True

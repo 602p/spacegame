@@ -5,7 +5,7 @@ class AfterImagePrimitive(primitives.BasePrimitive):
 	def run_in_ship(self, ship):
 		def _internal(t, r):
 			r.screen.blit(t.data[1], t.data[0])
-		tasks.add_task(self.root, "render_before_entities", tasks.Task(self.root, _internal, self.config["time"], (ship.rotated_rect.copy(), ship.rotated_image.copy())))
+		tasks.add_task(self.root, "render_before_particles", tasks.Task(self.root, _internal, self.config["time"], (ship.rotated_rect.copy(), ship.rotated_image.copy())))
 
 class DelayedExplosionPrimitive(primitives.BasePrimitive):
 	def run_in_ship(self, ship):

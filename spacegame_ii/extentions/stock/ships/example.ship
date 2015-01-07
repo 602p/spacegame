@@ -43,11 +43,6 @@
             "size":"inventory",
             "x":16,
             "y":40
-        },
-        {
-            "size":"inventory",
-            "x":16,
-            "y":40
         }
     ],
     "start_equip":[

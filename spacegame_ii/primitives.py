@@ -34,7 +34,7 @@ def register_primitive(root, name, primitive):
 
 def get_primitive(root, name, config):
 	if name in root.primitives_list.keys():
-		debug("getting primitive "+name)
+		#debug("getting primitive "+name)
 		return root.primitives_list[name](root, config)
 	else:
 		warning("WARNING: PRIMITIVE '"+str(name)+"' NOT DEFINED [TERMINATES PRIMITIVE CHAIN]")

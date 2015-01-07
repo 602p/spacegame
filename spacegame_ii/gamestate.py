@@ -63,6 +63,7 @@ class RunningGameState(state.State):
 		if pygame.key.get_pressed()[pygame.K_SPACE]:
 			self.player.fire_item_in_hardpoint(self.player.selected_wep)
 
+		tasks.run_group(self.root, "render_before_particles")
 		self.root.particlemanager.draw(self.root.screen)
 		
 		locked_by=0
