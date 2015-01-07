@@ -39,8 +39,8 @@
 			"json":{
 				"name":"UNSET",
 				"id":"UNSET",
-				"inventory_image":"image_empty",
-				"inventory_image":"image_empty",
+				"inventory_image":"$BLANK",
+				"equipped_image":"$BLANK",
 				"mount_type":"UNSET",
 				"cost":1,
 				"mass":1,
@@ -54,7 +54,8 @@
 				},
 				"ai_hints":[],
 				"ai_priority":-1,
-				"tags":[]
+				"tags":[],
+				"count":1
 			}
 		}
 	]

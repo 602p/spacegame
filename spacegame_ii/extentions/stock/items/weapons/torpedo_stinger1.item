@@ -1,6 +1,6 @@
 {
     "%+base_item%":0,
-    "name":"Stinger Mk1 Missile",
+    "name":"Stinger Mk1 Missile Launcher",
     "id":"wep_torpedo_stinger1",
     "inventory_image":"item_missile1_turret",
     "equipped_image":"item_missile_turret",
@@ -10,7 +10,8 @@
     "required":{
         "energy":40,
         "enemy_selected":true,
-        "cooldown":3
+        "cooldown":3,
+        "item":"ammo_torpedo_stinger1"
     },
     "fire_events":[
         {

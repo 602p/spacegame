@@ -1,0 +1,10 @@
+{
+	"%+base_item%":0,
+	"id":"ammo_torpedo_stinger1",
+	"name":"Stinger MK1 Torpedo",
+	"inventory_image":"item_ammo_torpedo_stinger1",
+	"mount_types":"inventory",
+	"mass":0.1,
+	"cost":100,
+	"count":10
+}

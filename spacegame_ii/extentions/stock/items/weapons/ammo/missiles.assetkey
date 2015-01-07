@@ -1,0 +1,10 @@
+{
+	"assets":[
+		{
+			"name":"item_ammo_torpedo_stinger1",
+			"type":"image",
+			"path":"items/weapons/ammo/genericmissile.png",
+			"colorkey":[255,255,255]
+		}
+	]
+}

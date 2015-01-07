@@ -79,6 +79,8 @@ class Item(serialize.SerializableObject):
 		self.parent=parent
 		self._config=config
 
+		self.count=config.get("count", 1)
+
 		self.ai_hints=[]
 
 		if "ai_hints" in config:

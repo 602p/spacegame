@@ -38,6 +38,16 @@
             "size":"small_utility",
             "x":16,
             "y":40
+        },
+        {
+            "size":"inventory",
+            "x":16,
+            "y":40
+        },
+        {
+            "size":"inventory",
+            "x":16,
+            "y":40
         }
     ],
     "start_equip":[
@@ -52,6 +62,10 @@
         {
             "item_name":"wep_torpedo_carnivore1",
             "equipped":2
+        },
+        {
+            "item_name":"ammo_torpedo_stinger1",
+            "equipped":3
         }
     ],
     "ship_die":"%explosion_ship_large%",

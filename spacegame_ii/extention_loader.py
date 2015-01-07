@@ -14,8 +14,12 @@ def load_all_packages(root, dirn, console=None):
 	info("Loading Ships")
 	if console: post_and_flip(console, "VVV   Compiling Ships   VVV", bold=1, color=(0,255,0))
 	load_ships(root, dirn, console)
-	if console: post_and_flip(console, "LOADING FINISHED!", bold=1, italic=1, color=(0,255,0))
-	time.sleep(1.2)
+	if console:
+		post_and_flip(console, "LOADING FINISHED!", bold=1, italic=1, color=(0,255,0))
+		post_and_flip(console, "Loaded "+str(len(root.gamedb.assets))+" assets")
+		post_and_flip(console, "Loaded "+str(len(root.item_factories))+" items")
+		post_and_flip(console, "Loaded "+str(len(root.ship_factories))+" ships")
+	time.sleep(2.5)
 
 def findall(dirn, pattern):
 	matches=[]
