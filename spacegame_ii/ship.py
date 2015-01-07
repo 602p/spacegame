@@ -112,16 +112,10 @@ class Ship(serialize.SerializableObject):
 		if self.use_ai:
 			self.ai=ai.AIController(self, config["ai"])
 
-		root.fps=9999
+		self.render_items()
 		self.rerotate()
-		self.tick(root.screen, 0.1)
-		self.rigidbody.rotate(0.1)
-		self.rerotate()
-		self.tick(root.screen, 0.1)
-		self.rigidbody.rotate(0.1)
-		self.rerotate()
-		self.tick(root.screen, 0.1)
-		self.rigidbody.rotate(0.1)
+
+		self.rotated_in_flight=0
 
 	def get_inventory_mass(self):
 		m=0
@@ -170,19 +164,21 @@ class Ship(serialize.SerializableObject):
 		"current_shields":self.currshields}
 
 	def rerotate(self):
-		self.rotated_image, self.rotated_rect=rot_center(self.image.copy(), pygame.Rect((self.rigidbody.x, self.rigidbody.y), self.image.get_size()), self.rigidbody.get_angle())
+		self.rotated_image, self.rotated_rect=rot_center(self.image, pygame.Rect((self.rigidbody.x, self.rigidbody.y), self.image.get_size()), self.rigidbody.get_angle())
 		self.rotated_mask=pygame.mask.from_surface(self.rotated_image)
 
-	def tick(self, screen, time):
-		self.render_items(False)
+	def tick(self, screen, time, ovveride_norotate=False):
 		
 		#screen.draw_rect((0,0,255), self.rotated_rect)
-		self.render_engines()
-		self.render_items(True)
-		if int(self.lastangle)!=self.rigidbody.get_angle():
+		
+		self.render_items()
+		if self.config.get("render_rotation", True) or ovveride_norotate or self.rotated_in_flight==0:
 			self.rerotate()
-			self.lastangle=self.rigidbody.get_angle()
+			self.rotated_in_flight=1
+			#self.rotated_image, delete=rot_center(self.image, pygame.Rect((self.rigidbody.x, self.rigidbody.y), self.image.get_size()), self.rigidbody.get_angle())
+
 		screen.blit(self.rotated_image, (self.rotated_rect.x,self.rotated_rect.y))
+		self.render_engines()
 		self.particlemanager.update()
 		self.particlemanager.draw(self.root.screen)
 
@@ -203,13 +199,12 @@ class Ship(serialize.SerializableObject):
 		if self.use_ai:
 			self.ai.update()
 
-	def render_items(self, renderunder_only):
+	def render_items(self, render_top=True):
 		for i in self.inventory:
 			if i.equipped!=-1:
-				if renderunder_only == self.hardpoints[i.equipped].get("render_on_top", True):
-					scaledsize=(i.equipped_image.get_size()[0]*self.hardpoints[i.equipped].get("scale", 1), i.equipped_image.get_size()[0]*self.hardpoints[i.equipped].get("scale", 1))
-					i.render_equipped(self.image.subsurface(pygame.Rect(( self.hardpoints[i.equipped]["x"]-(scaledsize[0]/2) ,
-					  self.hardpoints[i.equipped]["y"]-(scaledsize[1]/2) ), scaledsize ) ), self.hardpoints[i.equipped].get("scale", 1) )
+				scaledsize=(i.equipped_image.get_size()[0]*self.hardpoints[i.equipped].get("scale", 1), i.equipped_image.get_size()[0]*self.hardpoints[i.equipped].get("scale", 1))
+				i.render_equipped(self.image.subsurface(pygame.Rect(( self.hardpoints[i.equipped]["x"]-(scaledsize[0]/2) ,
+				  self.hardpoints[i.equipped]["y"]-(scaledsize[1]/2) ), scaledsize ) ), self.hardpoints[i.equipped].get("scale", 1) )
 
 	def render_engines(self):
 		if self.rigidbody.moving()>0:

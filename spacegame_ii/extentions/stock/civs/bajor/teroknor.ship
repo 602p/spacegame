@@ -16,6 +16,9 @@
     "start_speed":40000,
     "turn_rate":10,
     "shield_regen":25,
+
+    "render_rotation":false,
+
     "systems":[
         {
             "name":"THRUSTERS",

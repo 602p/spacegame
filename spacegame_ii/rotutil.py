@@ -29,7 +29,7 @@ class ScrollingWorldManager:
 		return rect
 	def blit(self, image, coords):
 		if self.root.settings["debug"]["overrender"]:self.draw_rect((0,0,255), pygame.Rect(coords, image.get_size()))
-		if (coords[0]-self.offset_x<self.screen.get_size()[0] and coords[1]-self.offset_y<self.screen.get_size()[1]) and (coords[0]-self.offset_x > -800 and coords[1]-self.offset_y>-800) or 1:
+		if (coords[0]-self.offset_x<self.screen.get_size()[0] and coords[1]-self.offset_y<self.screen.get_size()[1]) and (coords[0]-self.offset_x > -800 and coords[1]-self.offset_y>-800) or self.root.settings["graphics"]["no_render_clipping"]:
 			self.screen.blit(image, (coords[0]-self.offset_x, coords[1]-self.offset_y))
 	def set_offset(self, offset):
 		self.offset_x=offset[0]

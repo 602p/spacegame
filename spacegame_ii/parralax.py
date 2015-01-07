@@ -15,8 +15,9 @@ class StarfieldLayer:
 
 	def render(self, surface, (xpos, ypos)):
 		i=0
+		random.seed(413)
 		while i!=self.density:
-			random.seed(i*20)
+			#
 			pos=(random.uniform(0, self.size[0]), random.uniform(0, self.size[1]))
 			surface.blit(self.particle_surface,
 				(

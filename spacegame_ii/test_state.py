@@ -26,7 +26,7 @@ debug("Pygame started")
 
 renderspace_size=(1300,700)
 
-screen=sgc.surface.Screen(renderspace_size, pygame.DOUBLEBUF)
+screen=sgc.surface.Screen(renderspace_size, pygame.DOUBLEBUF, 16)
 pygame.display.set_caption("Spacegame Alpha")
 
 
@@ -35,14 +35,17 @@ class R:pass
 root=R()
 
 root.settings={
-	"particles_level":5,
-	"render_stars":True,
+	"graphics":{
+		"render_stars":True,
+		"no_render_clipping":False,
+		"target_fps":0
+	},
 	"keybindings":{
 		"interact":101 #K_e
 	},
 	"debug":{
 		"raycast":False,
-		"overrender":False
+		"overrender":False		
 	}
 }
 
@@ -103,6 +106,9 @@ def tfl():
 
 run=True;
 
+def flip_screen():
+	pygame.display.flip()
+
 eventclear_tick=0
 
 pygame.mouse.set_cursor(*pygame.cursors.broken_x)
@@ -124,7 +130,7 @@ while run:
 			root.renderspace_size=e.dict['size']
 			root.screen=rotutil.ScrollingWorldManager(sgc.surface.Screen(root.renderspace_size, pygame.RESIZABLE))
 			#root.screen.rect=((0,0), root.renderspace_size)
-	root.clock.tick()
+	root.clock.tick(root.settings["graphics"]["target_fps"])
 	#pygame.event.pump()
 
 	if root.clock.get_fps()<1:
@@ -157,6 +163,6 @@ while run:
 	root.console.draw()
 	#pygame.draw.line(root.screen.screen, (255,0,0), (0,0), root.renderspace_size, 20)
 	
-	pygame.display.flip()
+	flip_screen()
 
 	

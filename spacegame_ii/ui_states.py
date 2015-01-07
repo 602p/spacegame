@@ -23,7 +23,14 @@ if p:
 import sgc
 from sgc.locals import *
 
-from sgc.__init__ import __version__ as ver_no
+
+
+
+
+# Each widget gets a controller that has some bindings thru a binding layer to some number of components
+# Each component is a stateful object and has hooks for on_click etc
+# Components get references to root, GenericUIInterdictor, and it's bound widget.
+
 
 class GenericUIInterdictor(state.InterdictingState):
 	def add_widget(self, n, w):
@@ -75,3 +82,7 @@ class GenericUIInterdictor(state.InterdictingState):
 	def process_events(self, events):
 		for event in events:
 			sgc.event(event)
+
+	def suspend(self):
+		for i in self.widgets.keys():
+			self.del_widget(i)

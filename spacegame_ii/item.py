@@ -95,6 +95,7 @@ class Item(serialize.SerializableObject):
 			self.equipped_image.get_width()*scale,
 			self.equipped_image.get_height()*scale
 			)), (0,0))
+		print "re"
 
 	def render_inventory(self, surface):
 		surface.blit(self.inventory_image, (0,0))

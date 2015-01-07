@@ -1,0 +1,115 @@
+{
+	"assets":[
+		{
+			"name":"sgcui_settings",
+			"type":"json",
+			"json":{
+				"bg_image":"large_black_bg",
+				"defaults":{
+					"font":"font_standard_small",
+					"color":[255,255,255],
+					"on_label_col":[255,255,255],
+					"off_label_col":[255,255,255]
+				},
+				"widgets":[
+					{
+						"type":"Button",
+						"text":"Exit",
+						"position":"lowerleft",
+						"action":"exit_state"
+					},
+					{
+						"type":"Button",
+						"text":"Apply",
+						"position":"lowerleft",
+						"position_offset":[100,0],
+						"action":"json_bindings",
+						"bindings":{
+							"render":"graphics:render_stars",
+							"renderclipping":"graphics:no_render_clipping",
+							"fps":"graphics:target_fps",
+							"raycast":"debug:raycast",
+							"overrender":"debug:overrender",
+							"interact":"keybindings:interact"
+						}
+					},
+					{
+						"type":"HBox",
+						"position":"topleft",
+						"spacing":100,
+						"widgets":[
+							{
+								"type":"VBox",
+								"color":[0,0,100],
+								"widgets":[
+									{
+										"type":"Label",
+										"text":"Graphics Settings",
+										"font":"font_standard"
+									},
+									{
+										"type":"Switch",
+										"label":"Render Stars",
+										"id":"render"
+									},
+									{
+										"type":"Switch",
+										"label":"Disable Render Clipping",
+										"id":"renderclipping"
+									},
+									{
+										"type":"InputBox",
+										"label":"Target FPS (0 for unlimited)",
+										"id":"fps"
+									}
+								]
+							},
+							{
+								"type":"VBox",
+								"color":[100,0,0],
+								"widgets":[
+									{
+										"type":"Label",
+										"text":"Debug Settings",
+										"font":"font_standard"
+									},
+									{
+										"type":"Switch",
+										"label":"Raycast",
+										"id":"raycast"
+									},
+									{
+										"type":"Switch",
+										"label":"Overrender Rects",
+										"id":"overrender"
+									}
+								]
+							},
+							{
+								"type":"VBox",
+								"color":[0,100,0],
+								"widgets":[
+									{
+										"type":"Label",
+										"text":"Key Settings",
+										"font":"font_standard"
+									},
+									{
+										"type":"Label",
+										"text":"You MUST use pygame key IDs!",
+										"color":[255,0,0]
+									},
+									{
+										"type":"InputBox",
+										"label":"Station Interact",
+										"id":"interact"
+									}
+								]
+							}
+						]
+					}
+				]
+			}
+		}
+	]
+}

@@ -44,7 +44,8 @@ class RunningGameState(state.State):
 	def update_and_render(self):
 		#self.root.screen.screen.fill((0,0,0))
 		self.root.screen.screen.blit(self.root.gamedb("large_black_bg"), (0,0))
-		self.parralax_scroller.render(self.root.screen.screen)
+		if self.root.settings["graphics"]["render_stars"]:
+			self.parralax_scroller.render(self.root.screen.screen)
 
 		self.root.particlemanager.update()
 		for n in self.generated:
