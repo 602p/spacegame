@@ -5,7 +5,7 @@ logging.basicConfig(filemode='w', filename='spacegame.log',level=logging.DEBUG, 
 debug("Logging Started")
 import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader
 import assets, pyconsole, interdiction_gui, overlay_gui, ui_states
-import sgc
+import sgc, serialize
 
 allowdebug=True
 
@@ -34,22 +34,7 @@ pygame.display.set_caption("Spacegame Alpha")
 class R:pass
 root=R()
 
-root.settings={
-	"graphics":{
-		"render_stars":True,
-		"no_render_clipping":False,
-		"target_fps":0,
-		"loader_screen":False
-	},
-	"keybindings":{
-		"interact":101 #K_e
-	},
-	"debug":{
-		"raycast":False,
-		"overrender":False		
-	}
-}
-
+serialize.load_settings(root)
 
 scrollingscreen=rotutil.ScrollingWorldManager(root, screen.image)
 
