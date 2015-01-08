@@ -7,7 +7,7 @@ class StateManager:
 	def add_state(self, state, key):
 		self.states[key]=state
 		self.states[key].bind(self)
-	def goto_state(self, key, params=None):
+	def goto_state(self, key, params=123):
 		self.states[key].pre_change()
 		if self.current!="":
 			self.states[self.current].suspend()
@@ -54,6 +54,7 @@ class State:
 class InterdictingState(State):
 	def pre_change(self):
 		self.last=self.state_manager.current
+		self.last_params=self.state_manager.states[self.state_manager.current].params
 		self.done=False
 		self.return_value=-1
 
@@ -68,7 +69,7 @@ class InterdictingState(State):
 		if not self.done:
 			self.internal_update()
 		else:
-			self.state_manager.goto_state(self.last)
+			self.state_manager.goto_state(self.last, self.last_params)
 
 	def internal_update(self):
 		pass

@@ -5,9 +5,6 @@
 			"type":"json",
 			"json":{
 				"bg_image":"settings_bg",
-				"defaults":{
-					"fade":false
-				},
 				"widgets":[
 					{
 						"type":"Button",
@@ -51,7 +48,7 @@
 									{
 										"type":"Label",
 										"text":"Graphics Settings",
-										"font":"$font_standard_20"
+										"font":"$font_standard_large"
 									},
 									{
 										"type":"HBox",
@@ -90,11 +87,29 @@
 											{
 												"type":"InputBox",
 												"id":"tfps",
-												"text":"60"
+												"text":"60",
+												"max_chars":10
 											},
 											{
 												"type":"Label",
 												"text":"Target FPS (0=unlimited)",
+												"col":[255,255,255],
+												"font":"$font_standard_small"										
+											}
+										]
+									},
+									{
+										"type":"HBox",
+										"widgets":[
+											{
+												"type":"InputBox",
+												"id":"colordepth",
+												"text":"16",
+												"max_chars":10
+											},
+											{
+												"type":"Label",
+												"text":"Color Depth (req restart)",
 												"col":[255,255,255],
 												"font":"$font_standard_small"										
 											}
@@ -109,7 +124,7 @@
 									{
 										"type":"Label",
 										"text":"Debug Settings",
-										"font":"$font_standard_20"
+										"font":"$font_standard_large"
 									},
 									{
 										"type":"HBox",
@@ -150,12 +165,12 @@
 									{
 										"type":"Label",
 										"text":"Key Settings",
-										"font":"$font_standard_20"
+										"font":"$font_standard_large"
 									},
 									{
 										"type":"Label",
 										"text":"You MUST use pygame key IDs!",
-										"color":[255,0,0],
+										"col":[255,0,0],
 										"font":"$font_standard_small"
 									},
 									{

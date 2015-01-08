@@ -79,7 +79,7 @@ debug("StateManager initilized")
 
 root.clock=pygame.time.Clock()
 
-pygame.event.set_blocked([pygame.KEYUP, pygame.VIDEOEXPOSE, pygame.ACTIVEEVENT])
+pygame.event.set_blocked([pygame.VIDEOEXPOSE, pygame.ACTIVEEVENT])
 
 fps_log_enable=0
 fps_surf=pygame.Surface((1300,300))
@@ -113,8 +113,6 @@ while run:
 		elif e.type==pygame.KEYDOWN:
 			if e.key == pygame.K_BACKQUOTE and pygame.key.get_mods() & pygame.KMOD_CTRL:
 				root.console.set_active()
-			elif e.key == pygame.K_ESCAPE:
-				root.state_manager.start_interdicting("generic_ui", root.gamedb("sgcui_settings"))
 		elif e.type==pygame.VIDEORESIZE:
 			debug("Root resize")
 			root.renderspace_size=e.dict['size']

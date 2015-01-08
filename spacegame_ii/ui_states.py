@@ -94,6 +94,7 @@ class GenericUIInterdictor(state.InterdictingState):
 
 	def del_widget(self, n):
 		self.widgets[n].remove()
+		del self.widgets[n]
 
 	def get_widget(self, n):
 		return self.widgets[n]
@@ -153,9 +154,10 @@ class GenericUIInterdictor(state.InterdictingState):
 		self.widget_controllers={
 			"exit_state":ExitStateWidgetController
 		}
+		self.widgets={}
 
 	def start(self):
-		self.widgets={}
+		self.clear_widgets()
 		self.construct_screen()
 
 	def internal_update(self):		
@@ -169,6 +171,9 @@ class GenericUIInterdictor(state.InterdictingState):
 		for event in events:
 			sgc.event(event)
 
-	def suspend(self):
+	def clear_widgets(self):
 		for i in self.widgets.keys():
 			self.del_widget(i)
+
+	def suspend(self):
+		self.clear_widgets()

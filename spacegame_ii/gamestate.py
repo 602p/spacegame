@@ -162,6 +162,8 @@ class RunningGameState(state.State):
 					self.player.selected_wep+=1
 					if self.player.selected_wep==len(self.player.hardpoints):
 						self.player.selected_wep=0
+				elif e.key == pygame.K_ESCAPE:
+					self.root.state_manager.start_interdicting("generic_ui", self.root.gamedb("sgcui_settings"))
 				elif e.key == pygame.K_HOME:
 					self.entities.append(ship.create_ship(self.root, "destroyer_transport_test", 1000, 1000))
 					self.entities[-1].targeted=self.player
