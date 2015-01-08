@@ -39,6 +39,7 @@ class WidgetController:
 
 	def bind(self, interface):
 		self.interface=interface
+		self.root=interface.root
 
 	def on_click(self):
 		pass
@@ -123,6 +124,21 @@ class WidgetAbstractionInterface:
 			i.on_start()
 
 class GenericUIInterdictor(state.InterdictingState):
+	def _init(self):
+		self.widget_constructors={
+			"Button":sgc.Button,
+			"HBox":CompoundWidgetWrapper(sgc.HBox, self),
+			"VBox":CompoundWidgetWrapper(sgc.VBox, self),
+			"Label":sgc.Label,
+			"Switch":sgc.Switch,
+			"InputBox":sgc.InputBox
+		}
+		self.widget_controllers={
+			"exit_state":ExitStateWidgetController,
+			"json_settings_get":JSONSettingsBindingsGet,
+			"json_settings_set":JSONSettingsBindingsSet
+		}
+		
 	def add_widget(self, n, w):
 		self.widgets[n]=w
 		self.widgets[n].add()
@@ -180,19 +196,6 @@ class GenericUIInterdictor(state.InterdictingState):
 			self.create_widget(widget_cfg)
 
 	def first_start(self):
-		self.widget_constructors={
-			"Button":sgc.Button,
-			"HBox":CompoundWidgetWrapper(sgc.HBox, self),
-			"VBox":CompoundWidgetWrapper(sgc.VBox, self),
-			"Label":sgc.Label,
-			"Switch":sgc.Switch,
-			"InputBox":sgc.InputBox
-		}
-		self.widget_controllers={
-			"exit_state":ExitStateWidgetController,
-			"json_settings_get":JSONSettingsBindingsGet,
-			"json_settings_set":JSONSettingsBindingsSet
-		}
 		self.widgets={}
 
 	def start(self):

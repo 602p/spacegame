@@ -74,3 +74,6 @@ class HookableExtention:
 
 	def event_state(self, state, event):
 		pass
+
+	def last_load(self):
+		pass

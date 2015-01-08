@@ -178,9 +178,9 @@ class RunningGameState(state.State):
 				debug("GameState resize")
 				self.parralax_scroller.bindall(self.root.renderspace_size)
 			elif e.type==pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
-				for e in self.entities:
-					if self.root.screen.get_t_rect(e.rotated_rect).collidepoint(pygame.mouse.get_pos()):
-						self.player.targeted=e
+				for entitiy in self.entities:
+					if self.root.screen.get_t_rect(entitiy.rotated_rect).collidepoint(pygame.mouse.get_pos()):
+						self.player.targeted=entitiy
 			for ext in self.root.extentions:
 				self.root.extentions[ext].event_state("game", e)
 

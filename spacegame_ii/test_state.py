@@ -103,6 +103,10 @@ eventclear_tick=0
 
 pygame.mouse.set_cursor(*pygame.cursors.broken_x)
 
+info("Doing last plugin init...")
+for ext in root.extentions:
+	root.extentions[ext].last_load()
+
 while run:
 	events=pygame.event.get()
 

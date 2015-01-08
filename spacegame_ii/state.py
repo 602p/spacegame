@@ -34,6 +34,9 @@ class State:
 		self.state_manager=statemgr
 		self.root=statemgr.root
 		self.params=None
+		self._init()
+	def _init(self):
+		pass
 	def set_params(self, params):
 		self.params=params
 	def pre_change(self):
