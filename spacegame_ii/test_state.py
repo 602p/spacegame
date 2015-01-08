@@ -41,6 +41,7 @@ item.init(root)
 primitives.init(root)
 tasks.init(root)
 ai.init(root)
+ui_states.init(root)
 
 
 root.particlemanager=particles.ParticleManager()
@@ -70,7 +71,7 @@ debug("Loaded all packages")
 
 root.state_manager.add_state(gamestate.RunningGameState(), "game")
 root.state_manager.add_state(gamestate.RunningGamePausedState(), "game_paused")
-root.state_manager.add_state(ui_states.GenericUIInterdictor(), "generic_ui")
+root.state_manager.factories["generic_ui"]=state.InterdictingStateFactory(ui_states.GenericUIInterdictor)
 root.state_manager.goto_state("game")
 
 g=root.state_manager.states["game"]
@@ -122,6 +123,8 @@ while run:
 		elif e.type==pygame.KEYDOWN:
 			if e.key == pygame.K_BACKQUOTE and pygame.key.get_mods() & pygame.KMOD_CTRL:
 				root.console.set_active()
+			elif e.key == pygame.K_ESCAPE:
+				root.state_manager.start_interdicting("generic_ui", root.gamedb("sgcui_settings"))
 		elif e.type==pygame.VIDEORESIZE:
 			debug("Root resize")
 			root.renderspace_size=e.dict['size']
@@ -144,8 +147,7 @@ while run:
 		exc_type, exc_value, exc_traceback = sys.exc_info()
 		error("================ROOT ERROR=====================")
 		for i in traceback.format_exception(exc_type, exc_value, exc_traceback): error(i)
-		if not interdiction_gui.interdict_yn(root, "ERROR", "Error in state_manager.run_tick. WARNING: IF YOU CONTINUE GAME MAY CORRUPT OR CONTINUE TO ERROR. Error in log; please submit! Crash datum:"+" "*100+str(e), "RESUME", "QUIT"):
-			sys.exit()
+		ui_states.interdict_yn(root, "StateMGR Error", "ERROR in state_manager.run_tick. Game my corrupt if continued...%n"+str(e), "Continue", "Quit", callback_n=lambda s:pygame.quit())
 
 	if fps_log_enable:
 		if datetime.datetime.now()-fps_last>datetime.timedelta(seconds=1):

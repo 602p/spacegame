@@ -157,8 +157,7 @@
     			"station_cfg":{
     				"bg_image":"image_bajor_ds9_splash",
     				"name":"DEEP SPACE 9",
-    				"font":"font_standard_large",
-                    "menucfg":"%sgcui_test%"
+    				"font":"font_standard_large"
     			}
     		}
     	]

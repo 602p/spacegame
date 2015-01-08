@@ -1,0 +1,139 @@
+{
+	"assets":[
+		{
+			"name":"sgcui_modalok",
+			"type":"json",
+			"json":{
+				"widgets":[
+					{
+						"type":"Button",
+						"label":"REPLACE_ME",
+						"id":"replace_button",
+						"label_col":[0, 0, 0],
+						"col":[0,255,0],
+						"surf":[400,40],
+						"pos":[450, 500],
+						"order":-100,
+						"controllers":[
+							{
+								"controller":"call_state_callback",
+								"callback_name":"callback"
+							},
+							{
+								"controller":"exit_state"
+							}
+						]
+					},
+					{
+						"type":"VBox",
+						"col":[127, 127, 127],
+						"pos":[450, 200],
+						"surf":[400,300],
+						"widgets":[
+							{
+								"type":"Label",
+								"font":"$font_standard_large",
+								"text":"REPLACE_ME",
+								"id":"replace_title",
+								"col":[0, 0, 0]
+							},
+							{
+								"type":"Label",
+								"font":"$font_sys_mono_13",
+								"text":"REPLACE_ME",
+								"id":"replace_body",
+								"col":[0, 0, 0]
+							}
+						]
+					}
+				]
+			}
+		},
+
+		{
+			"name":"sgcui_modalyn",
+			"type":"json",
+			"json":{
+				"widgets":[
+					{
+						"type":"HBox",
+						"pos":[450, 500],
+						"order":-100,
+						"widgets":[
+							{
+								"type":"Button",
+								"label":"REPLACE_ME",
+								"id":"replace_button_yes",
+								"label_col":[0, 0, 0],
+								"col":[0,255,0],
+								"surf":[190,40],
+								"controllers":[
+									{
+										"controller":"call_state_callback",
+										"callback_name":"callback_y"
+									},
+									{
+										"controller":"exit_state",
+										"value":true
+									}
+								]
+							},
+							{
+								"type":"Button",
+								"label":"REPLACE_ME",
+								"id":"replace_button_no",
+								"label_col":[0, 0, 0],
+								"col":[255,0,0],
+								"surf":[190,40],
+								"controllers":[
+									{
+										"controller":"call_state_callback",
+										"callback_name":"callback_n"
+									},
+									{
+										"controller":"exit_state",
+										"value":false
+									}
+								]
+							}
+						]
+					},
+					{
+						"type":"VBox",
+						"col":[127, 127, 127],
+						"pos":[450, 200],
+						"surf":[400,300],
+						"widgets":[
+							{
+								"type":"Label",
+								"font":"$font_standard_large",
+								"text":"REPLACE_ME",
+								"id":"replace_title",
+								"col":[0, 0, 0]
+							},
+							{
+								"type":"Label",
+								"font":"$font_sys_mono_13",
+								"text":"REPLACE_ME",
+								"id":"replace_body",
+								"col":[0, 0, 0]
+							},
+							{
+								"type":"Label",
+								"font":"$font_standard_large",
+								"text":" ",
+								"col":[0, 0, 0]
+							},
+							{
+								"type":"Label",
+								"font":"$font_standard_large",
+								"text":" ",
+								"col":[0, 0, 0]
+							}
+						]
+					}
+				]
+			}
+		}
+	]
+}

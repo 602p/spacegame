@@ -1,9 +1,12 @@
+import random
+from logging import debug, info, warning, error, critical
 
 class StateManager:
 	def __init__(self, root):
 		self.root=root
 		self.current=""
 		self.states={}
+		self.factories={}
 	def add_state(self, state, key):
 		self.states[key]=state
 		self.states[key].bind(self)
@@ -17,11 +20,12 @@ class StateManager:
 			self.states[key]._initilized=True
 		self.states[key].set_params(params)
 		self.states[key].start()
-	def start_interdicting(self, state, params, callback=lambda s, a:0, callback_args=None):
-		def packed_callback(self):
-			callback(self, callback_args)
-		self.states[state].callback=packed_callback
-		self.goto_state(state, params)
+	def start_interdicting(self, state, params):
+		_temp_state=state+"_built"+str(random.randint(0, 900000))
+		self.add_state(self.factories[state](), _temp_state)
+		debug("Temporary state created as "+_temp_state)
+		self.goto_state(_temp_state, params)
+		return self.states[_temp_state]
 	def run_tick(self):
 		self.states[self.current].update_and_render()
 	def process_events(self, events):
@@ -56,10 +60,15 @@ class State:
 
 class InterdictingState(State):
 	def pre_change(self):
-		self.last=self.state_manager.current
-		self.last_params=self.state_manager.states[self.state_manager.current].params
-		self.done=False
-		self.return_value=-1
+		if not 'last' in dir(self):
+			debug("starting interdicting state...")
+			self.last=self.state_manager.current
+			debug("captured last state as "+self.last)
+			self.last_params=self.state_manager.states[self.state_manager.current].params
+			self.done=False
+			self.return_value=-1
+		else:
+			debug("old state already captured.")
 
 	def finish(self, value=-1):
 		self.done=True
@@ -77,3 +86,10 @@ class InterdictingState(State):
 	def internal_update(self):
 		pass
 
+class InterdictingStateFactory:
+	def __init__(self, type_):
+		self.type_=type_
+
+	def __call__(self):
+		debug("[InterdictingStateFactory] Instanciating a "+str(self.type_))
+		return self.type_()

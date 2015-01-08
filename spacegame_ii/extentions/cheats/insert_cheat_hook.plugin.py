@@ -13,9 +13,9 @@ class CheatHook(extention_loader.HookableExtention):
 					self.root.state_manager.start_interdicting("generic_ui", self.root.gamedb("x_cheats_gui"))
 	def last_load(self):
 		debug("Adding WidgetControllers")
-		self.root.state_manager.states["generic_ui"].widget_controllers["xcheat_repair_player"]=RepairPlayerShip
-		self.root.state_manager.states["generic_ui"].widget_controllers["xcheat_mirror_player_collideability"]=MirrorPlayerCollideability
-		self.root.state_manager.states["generic_ui"].widget_controllers["xcheat_add_item"]=CreateItem
+		self.root.widget_controllers["xcheat_repair_player"]=RepairPlayerShip
+		self.root.widget_controllers["xcheat_mirror_player_collideability"]=MirrorPlayerCollideability
+		self.root.widget_controllers["xcheat_add_item"]=CreateItem
 
 class RepairPlayerShip(ui_states.WidgetController):
 	def on_click(self):

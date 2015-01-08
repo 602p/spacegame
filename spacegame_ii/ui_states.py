@@ -1,35 +1,68 @@
-import state, sgc, pygame, uidict, serialize
+import state, sgc, pygame, uidict, serialize, textwrap
 from logging import debug, info, warning, error, critical
 import os
-import sys
-import random
+import sys,random,pygame,uidict,sgc
 
-import pygame
 from pygame.locals import *
-try:
-    from OpenGL.GL import *
-except: pass
-
-import sgc
 from sgc.locals import *
 
+def init(root):
+	root.widget_constructors={
+		"Button":sgc.Button,
+		"HBox":CompoundWidgetWrapper(sgc.HBox),
+		"VBox":CompoundWidgetWrapper(sgc.VBox),
+		"Label":sgc.Label,
+		"Switch":sgc.Switch,
+		"InputBox":sgc.InputBox,
+		"Container":sgc.Container
+	}
+	root.widget_controllers={
+		"exit_state":ExitStateWidgetController,
+		"json_settings_get":JSONSettingsBindingsGet,
+		"json_settings_set":JSONSettingsBindingsSet,
+		"call_state_callback":CallbackCaller
+	}
+
+def interdict_ok(root, title="NOT_SET", text="NOT_SET", button="NOT_SET", callback=lambda s:0, wrap=48, key="sgcui_modalok"):
+	text_=textwrap.wrap(text, wrap)
+	text=""
+	for l in text_:
+		text+="\n"+l.replace("%n", "\n")
+	state=root.state_manager.start_interdicting("generic_ui", root.gamedb(key))
+	state.widgets["replace_title"].config(text=title)
+	state.widgets["replace_body"].config(text=text)
+	state.widgets["replace_button"].config(label=button)
+	state.callback=callback
+
+def interdict_yn(root, title="NOT_SET", text="NOT_SET", button_y="NOT_SET", button_n="NOT_SET",callback_y=lambda s:0, callback_n=lambda s:0, wrap=48, key="sgcui_modalyn"):
+	text_=textwrap.wrap(text, wrap)
+	text=""
+	for l in text_:
+		text+="\n"+l.replace("%n", "\n")
+	state=root.state_manager.start_interdicting("generic_ui", root.gamedb(key))
+	state.widgets["replace_title"].config(text=title)
+	state.widgets["replace_body"].config(text=text)
+	state.widgets["replace_button_yes"].config(label=button_y)
+	state.widgets["replace_button_no"].config(label=button_n)
+	state.callback_y=callback_y
+	state.callback_n=callback_n
+	return state
 
 # Each widget gets a controller that has some bindings thru a binding layer to some number of components
 # Each component is a stateful object and has hooks for on_click etc
 # Components get references to root, GenericUIInterdictor, and it's bound widget.
 
 class CompoundWidgetWrapper:
-	def __init__(self, type_, interdictor, key_in="widgets", key_out="widgets"):
+	def __init__(self, type_, key_in="widgets", key_out="widgets"):
 		self.type_=type_
 		self.key_in=key_in
 		self.key_out=key_out
-		self.interdictor=interdictor
 
 	def __call__(self, *args, **kwargs):
 		widgets_list=kwargs[self.key_in]
 		widget_objs=[]
 		for widget in widgets_list:
-			widget_objs.append(self.interdictor.create_widget(widget, True, False))
+			widget_objs.append(kwargs["__interdictor"].create_widget(widget, True, False))
 		kwargs[self.key_out]=widget_objs
 		return self.type_(*args, **kwargs)
 
@@ -89,6 +122,9 @@ class JSONSettingsBindingsGet(WidgetController):
 	def on_start(self):
 		self.on_click()
 
+class CallbackCaller(WidgetController):
+	def on_click(self):
+		exec "self.state."+self.config["callback_name"]+"(self.state)"
 
 class WidgetAbstractionInterface:
 	def __init__(self, widget, state, root):
@@ -126,25 +162,6 @@ class WidgetAbstractionInterface:
 			i.on_start()
 
 class GenericUIInterdictor(state.InterdictingState):
-	def _init(self):
-		self.widget_constructors={
-			"Button":sgc.Button,
-			"HBox":CompoundWidgetWrapper(sgc.HBox, self),
-			"VBox":CompoundWidgetWrapper(sgc.VBox, self),
-			"Label":sgc.Label,
-			"Switch":sgc.Switch,
-			"InputBox":sgc.InputBox
-		}
-		self.widget_controllers={
-			"exit_state":ExitStateWidgetController,
-			"json_settings_get":JSONSettingsBindingsGet,
-			"json_settings_set":JSONSettingsBindingsSet
-		}
-		
-	def add_widget(self, n, w):
-		self.widgets[n]=w
-		self.widgets[n].add()
-
 	def del_widget(self, n):
 		self.widgets[n].remove()
 		del self.widgets[n]
@@ -166,15 +183,16 @@ class GenericUIInterdictor(state.InterdictingState):
 			return node
 
 		config_=process_inserts(config, self.root.gamedb)
+		config_["__interdictor"]=self
 
-		if config_["type"] in self.widget_constructors.keys():
-			debug("Creating a '"+config_["type"]+"'")
-			widget=self.widget_constructors[config_["type"]](**config_)
+		if config_["type"] in self.root.widget_constructors.keys():
+			#debug("Creating a '"+config_["type"]+"'")
+			widget=self.root.widget_constructors[config_["type"]](**config_)
 			widget.wai=WidgetAbstractionInterface(widget, self, self.root)
 			for controller_cfg in config_.get("controllers",[]):
-				if controller_cfg["controller"] in self.widget_controllers.keys():
-					debug("--Binding '"+controller_cfg["controller"]+"' to it")
-					controller_obj=self.widget_controllers[controller_cfg["controller"]](controller_cfg)
+				if controller_cfg["controller"] in self.root.widget_controllers.keys():
+					#debug("--Binding '"+controller_cfg["controller"]+"' to it")
+					controller_obj=self.root.widget_controllers[controller_cfg["controller"]](controller_cfg)
 					widget.wai.add_controller(controller_obj)
 				else:
 					error("--CONTROLLER "+controller_cfg["controller"]+" NOT FOUND!")
@@ -184,7 +202,7 @@ class GenericUIInterdictor(state.InterdictingState):
 				else:
 					self.widgets[hash(widget)]= widget
 			if add_screen:
-				widget.add()
+				widget.add(order=config_.get("order",None))
 			return widget
 		else:
 			error("WIDGET '"+config_["type"]+"' NOT FOUND")
@@ -198,17 +216,21 @@ class GenericUIInterdictor(state.InterdictingState):
 			self.create_widget(widget_cfg)
 
 	def first_start(self):
+		debug("Started a new ui state, creating widgets")
 		self.widgets={}
 
 	def start(self):
+		debug("Cleaning old widgets...")
 		self.clear_widgets()
+		debug("Building new screen")
 		self.construct_screen()
 		#print self.widgets
 		for i in self.widgets.keys():
 			self.widgets[i].wai.on_start()
 
 	def internal_update(self):		
-		self.root.screen.screen.blit(self.root.gamedb(self.params["bg_image"]), (0,0))
+		if "bg_image" in self.params.keys():
+			self.root.screen.screen.blit(self.root.gamedb(self.params["bg_image"]), (0,0))
 		sgc.update(self.root.clock.get_fps())
 		for i in self.widgets.keys():
 			self.widgets[i].wai.on_tick()
