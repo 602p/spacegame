@@ -40,6 +40,8 @@ class WidgetController:
 	def bind(self, interface):
 		self.interface=interface
 		self.root=interface.root
+		self.widget=interface.widget
+		self.state=interface.state
 
 	def on_click(self):
 		pass

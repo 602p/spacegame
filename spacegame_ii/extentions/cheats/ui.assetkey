@@ -33,11 +33,20 @@
 										"font":"$font_standard_large"
 									},
 									{
-										"type":"Button",
-										"label":"Repair Ship",
-										"controllers":[
+										"type":"HBox",
+										"widgets":[
 											{
-												"controller":"repair_player"
+												"type":"Button",
+												"label":"Repair Ship",
+												"controllers":[
+													{
+														"controller":"xcheat_repair_player"
+													}
+												]
+											},
+											{
+												"type":"Label",
+												"text":"Repair hull\nAnd subsystems"
 											}
 										]
 									},
@@ -62,7 +71,8 @@
 												"widgets":[
 													{
 														"type":"InputBox",
-														"id":"item_slot"
+														"id":"item_slot",
+														"text":"-1"
 													},
 													{
 														"type":"Label",
@@ -75,7 +85,8 @@
 												"widgets":[
 													{
 														"type":"InputBox",
-														"id":"item_count"
+														"id":"item_count",
+														"text":"1"
 													},
 													{
 														"type":"Label",
@@ -84,8 +95,49 @@
 												]
 											},
 											{
+												"type":"HBox",
+												"widgets":[
+													{
+														"type":"Switch",
+														"id":"item_delete",
+														"text":"1"
+													},
+													{
+														"type":"Label",
+														"text":"Delete old\nitem in slot"
+													}
+												]
+											},
+											{
 												"type":"Button",
-												"label":"Add Item"
+												"label":"Add Item",
+												"controllers":[
+													{
+														"controller":"xcheat_add_item",
+														"id":"item_id",
+														"equip":"item_slot",
+														"count":"item_count",
+														"delete_old":"item_delete"
+													}
+												]
+											}
+										]
+									},
+									{
+										"type":"HBox",
+										"widgets":[
+											{
+												"type":"Switch",
+												"state":true,
+												"controllers":[
+													{
+														"controller":"xcheat_mirror_player_collideability"
+													}
+												]
+											},
+											{
+												"type":"Label",
+												"text":"Allow projectiles to\ncollide with you"
 											}
 										]
 									}
