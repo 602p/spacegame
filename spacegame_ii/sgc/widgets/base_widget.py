@@ -45,7 +45,7 @@ class Simple(pygame.sprite.Sprite):
     _settings_default = {}
 
     _fade = None  # Alpha level when fading
-    _fade_up = True
+    _fade_up = False
     _custom_image = False
     _custom_extra = ()
     _label = None
@@ -154,7 +154,7 @@ class Simple(pygame.sprite.Sprite):
         """Widgets should overload for custom widget configuration."""
         pass
 
-    def add(self, order=None, fade=True, focus=False):
+    def add(self, order=None, fade=False, focus=False):
         """
         Add widget to screen.
 
@@ -182,7 +182,7 @@ class Simple(pygame.sprite.Sprite):
         if self._label is not None:
             self._label.add(fade=fade)
 
-    def remove(self, fade=True):
+    def remove(self, fade=False):
         """
         Remove widget from screen.
 
