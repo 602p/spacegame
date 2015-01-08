@@ -174,6 +174,7 @@ class SelectableText:
             self._blink = not self._blink
 
     def _event_modify_text(self, event):
+        #print "called modify"
         """
         Handles events for editable text (e.g. input box).
 
@@ -201,7 +202,10 @@ class SelectableText:
                     self._text.pop(self._cursor_pos)
                     self._calc_chars()
             elif event.unicode:
-                if event.mod & KMOD_CTRL:
+                #print "is unicode"
+                #print event.mod
+                #print event.mod & KMOD_CTRL
+                if event.mod & KMOD_RCTRL:
                     if event.key == K_v:  # Paste
                         text = pygame.scrap.get(SCRAP_TEXT)
                         if text:
@@ -231,6 +235,7 @@ class SelectableText:
                         self._delete_selection()
                     # Insert new character
                     if len(self._text) < self._settings["max_chars"]:
+                        #print "inserting"
                         self._text.insert(self._cursor_pos, event.unicode)
                         self._calc_chars()
                         self._cursor_pos += 1

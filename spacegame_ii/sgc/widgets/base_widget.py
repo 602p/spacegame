@@ -144,8 +144,7 @@ class Simple(pygame.sprite.Sprite):
         callbacks = [x for x in kwargs if x.startswith("on_")]
         for f in callbacks:
             assert f in dir(self), "Invalid callback name: %s" % f
-            print kwargs[f]
-            assert callable(kwargs[f]) or 1, \
+            assert callable(kwargs[f]), \
                 "Callback '%s' must be callable: %s" % (f, kwargs[f])
             setattr(self, f, kwargs[f])
         self._config(**kwargs)
@@ -182,8 +181,6 @@ class Simple(pygame.sprite.Sprite):
         # Add any associated label
         if self._label is not None:
             self._label.add(fade=fade)
-
-        return added
 
     def remove(self, fade=True):
         """

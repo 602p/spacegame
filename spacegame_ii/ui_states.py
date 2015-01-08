@@ -1,4 +1,4 @@
-import state, sgc, pygame
+import state, sgc, pygame, uidict, serialize
 from logging import debug, info, warning, error, critical
 import os
 import sys
@@ -29,7 +29,7 @@ class CompoundWidgetWrapper:
 		widgets_list=kwargs[self.key_in]
 		widget_objs=[]
 		for widget in widgets_list:
-			widget_objs.append(self.interdictor.create_widget(widget, False))
+			widget_objs.append(self.interdictor.create_widget(widget, True, False))
 		kwargs[self.key_out]=widget_objs
 		return self.type_(*args, **kwargs)
 
@@ -52,11 +52,42 @@ class WidgetController:
 	def on_tick(self):
 		pass
 
+	def on_start(self):
+		pass
+
 class ExitStateWidgetController(WidgetController):
 	def on_click(self):
 		self.interface.state.finish(self.config.get("value", None))
 
-class WidgetInterfaceAbstractor:
+class JSONSettingsBindingsSet(WidgetController):
+	def on_click(self):
+		wrapper=uidict.UIDict(self.interface.root.settings)
+		for key_id in self.config["bindings"].keys():
+			if type(wrapper[self.config["bindings"][key_id]]) == bool:
+				wrapper[self.config["bindings"][key_id]]=self.interface.state.widgets[key_id].state
+			if type(wrapper[self.config["bindings"][key_id]]) == int:
+				wrapper[self.config["bindings"][key_id]]=int(self.interface.state.widgets[key_id].text)
+			if type(wrapper[self.config["bindings"][key_id]]) == str:
+				wrapper[self.config["bindings"][key_id]]=self.interface.state.widgets[key_id].text
+		serialize.save_settings(self.interface.root)
+
+class JSONSettingsBindingsGet(WidgetController):
+	def on_click(self):
+		serialize.load_settings(self.interface.root)
+		wrapper=uidict.UIDict(self.interface.root.settings)
+		for key_id in self.config["bindings"].keys():
+			if type(wrapper[self.config["bindings"][key_id]]) == bool:
+				self.interface.state.widgets[key_id].config(state=wrapper[self.config["bindings"][key_id]])
+			if type(wrapper[self.config["bindings"][key_id]]) == int:
+				self.interface.state.widgets[key_id].config(text=str(wrapper[self.config["bindings"][key_id]]), max_chars=999)
+			if type(wrapper[self.config["bindings"][key_id]]) == str:
+				self.interface.state.widgets[key_id].config(text=wrapper[self.config["bindings"][key_id]], max_chars=999)
+
+	def on_start(self):
+		self.on_click()
+
+
+class WidgetAbstractionInterface:
 	def __init__(self, widget, state, root):
 		self.widget=widget
 		self.state=state
@@ -87,6 +118,10 @@ class WidgetInterfaceAbstractor:
 		for i in self.controllers:
 			i.on_tick()
 
+	def on_start(self):
+		for i in self.controllers:
+			i.on_start()
+
 class GenericUIInterdictor(state.InterdictingState):
 	def add_widget(self, n, w):
 		self.widgets[n]=w
@@ -99,7 +134,7 @@ class GenericUIInterdictor(state.InterdictingState):
 	def get_widget(self, n):
 		return self.widgets[n]
 
-	def create_widget(self, config, add=1):
+	def create_widget(self, config, add_dict=1, add_screen=1):
 		config_=self.default_config.copy()
 		config_.update(config)
 
@@ -117,7 +152,7 @@ class GenericUIInterdictor(state.InterdictingState):
 		if config_["type"] in self.widget_constructors.keys():
 			debug("Creating a '"+config_["type"]+"'")
 			widget=self.widget_constructors[config_["type"]](**config_)
-			widget.wai=WidgetInterfaceAbstractor(widget, self, self.root)
+			widget.wai=WidgetAbstractionInterface(widget, self, self.root)
 			for controller_cfg in config_.get("controllers",[]):
 				if controller_cfg["controller"] in self.widget_controllers.keys():
 					debug("--Binding '"+controller_cfg["controller"]+"' to it")
@@ -125,11 +160,13 @@ class GenericUIInterdictor(state.InterdictingState):
 					widget.wai.add_controller(controller_obj)
 				else:
 					error("--CONTROLLER "+controller_cfg["controller"]+" NOT FOUND!")
-			if add:
+			if add_dict:
 				if "id" in config_:
-					self.add_widget(config_["id"], widget)
+					self.widgets[config_["id"]]= widget
 				else:
-					self.add_widget(hash(widget), widget)
+					self.widgets[hash(widget)]= widget
+			if add_screen:
+				widget.add()
 			return widget
 		else:
 			error("WIDGET '"+config_["type"]+"' NOT FOUND")
@@ -152,13 +189,18 @@ class GenericUIInterdictor(state.InterdictingState):
 			"InputBox":sgc.InputBox
 		}
 		self.widget_controllers={
-			"exit_state":ExitStateWidgetController
+			"exit_state":ExitStateWidgetController,
+			"json_settings_get":JSONSettingsBindingsGet,
+			"json_settings_set":JSONSettingsBindingsSet
 		}
 		self.widgets={}
 
 	def start(self):
 		self.clear_widgets()
 		self.construct_screen()
+		#print self.widgets
+		for i in self.widgets.keys():
+			self.widgets[i].wai.on_start()
 
 	def internal_update(self):		
 		self.root.screen.screen.blit(self.root.gamedb(self.params["bg_image"]), (0,0))

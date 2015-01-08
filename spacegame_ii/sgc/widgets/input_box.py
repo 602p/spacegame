@@ -37,7 +37,7 @@ class InputBox(Simple, SelectableText):
                          "col_selection": (118, 45, 215),
                          "col_focus": (255,255,255),
                          "col_focus_not": (200,200,200), "max_chars": 80,
-                         "repeat_begin": 300, "repeat_interval": 30}
+                         "repeat_begin": 600, "repeat_interval": 600}
 
     _text_offset = _text_pos = 6
 
@@ -108,6 +108,7 @@ class InputBox(Simple, SelectableText):
 
     def _event(self, event):
         """Update text field based on input."""
+        #print "GOT EVENT!"
         self._event_select_text(event)
         self._event_modify_text(event)
         if event.type == KEYDOWN:
@@ -138,7 +139,7 @@ class InputBox(Simple, SelectableText):
             self._draw_selection(self.image, 5, self.rect.h - 9)
         # Draw text when switching to non-focused state
         else:
-            if self._text:  # Blit input text into box...
+            if self._text or 1:  # Blit input text into box...
                 text = Simple(Font["mono"].render(self.text, True, (70,70,70)))
             else:  # ...or default text if empty.
                 text = Simple(Font["mono"].render(self._settings["default"],

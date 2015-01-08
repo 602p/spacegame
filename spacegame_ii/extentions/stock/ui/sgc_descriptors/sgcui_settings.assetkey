@@ -1,6 +1,20 @@
 {
 	"assets":[
 		{
+			"name":"cfg_sgcui_settings_jsonbindings",
+			"type":"json",
+			"json":{
+				"renderstars":"graphics:render_stars",
+				"renderclipping":"graphics:no_render_clipping",
+				"tfps":"graphics:target_fps",
+				"raycast":"debug:raycast",
+				"overrender":"debug:overrender",
+				"k_interact":"keybindings:interact",
+				"colordepth":"graphics:color_depth",
+				"loader":"graphics:loader_screen"
+			}
+		},
+		{
 			"name":"sgcui_settings",
 			"type":"json",
 			"json":{
@@ -24,15 +38,12 @@
 						"label_font":"$font_standard_small",
 						"controllers":[
 							{
-								"controller":"json_bindings",
-								"bindings":{
-									"render":"graphics:render_stars",
-									"renderclipping":"graphics:no_render_clipping",
-									"fps":"graphics:target_fps",
-									"raycast":"debug:raycast",
-									"overrender":"debug:overrender",
-									"interact":"keybindings:interact"
-								}
+								"controller":"json_settings_set",
+								"bindings":"%sgcui_settings_jsonbindings%"
+							},
+							{
+								"controller":"json_settings_get",
+								"bindings":"%sgcui_settings_jsonbindings%"
 							}
 						]
 					},
@@ -55,8 +66,7 @@
 										"widgets":[
 											{
 												"type":"Switch",
-												"id":"renderstars",
-												"state":true
+												"id":"renderstars"
 											},
 											{
 												"type":"Label",
@@ -71,7 +81,7 @@
 										"widgets":[
 											{
 												"type":"Switch",
-												"id":"clipping"
+												"id":"renderclipping"
 											},
 											{
 												"type":"Label",
@@ -86,9 +96,7 @@
 										"widgets":[
 											{
 												"type":"InputBox",
-												"id":"tfps",
-												"text":"60",
-												"max_chars":10
+												"id":"tfps"
 											},
 											{
 												"type":"Label",
@@ -103,9 +111,7 @@
 										"widgets":[
 											{
 												"type":"InputBox",
-												"id":"colordepth",
-												"text":"16",
-												"max_chars":10
+												"id":"colordepth"
 											},
 											{
 												"type":"Label",
@@ -155,6 +161,21 @@
 												"font":"$font_standard_small"
 											}
 										]
+									},
+									{
+										"type":"HBox",
+										"widgets":[
+											{
+												"type":"Switch",
+												"id":"loader"
+											},
+											{
+												"type":"Label",
+												"text":"Show Loader (req restart)",
+												"col":[255,255,255],
+												"font":"$font_standard_small"
+											}
+										]
 									}
 								]
 							},
@@ -178,8 +199,7 @@
 										"widgets":[
 											{
 												"type":"InputBox",
-												"id":"k_interact",
-												"text":"111"
+												"id":"k_interact"
 											},
 											{
 												"type":"Label",

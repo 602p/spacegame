@@ -96,14 +96,14 @@ def update(time):
         """Blit extra images, handle transparency fades and blit to screen."""
         copy = w.image.copy()
         # Blit extra images onto copy
-        # for img in map(lambda x: w._images[x], w._extra_images):
-        #     if img._show:
-        #         copy.blit(img.image, img.rect)
+        for img in map(lambda x: w._images[x], w._extra_images):
+            if img._show:
+                copy.blit(img.image, img.rect)
         # Blend transparent surface when fading and blit to screen.
-        # if w._fade is not None:
-        #     transparent = pygame.surface.Surface(w.rect.size, SRCALPHA)
-        #     transparent.fill((255,255,255, w._fade))
-        #     copy.blit(transparent, (0,0), special_flags=BLEND_RGBA_MULT)
+        if w._fade is not None:
+            transparent = pygame.surface.Surface(w.rect.size, SRCALPHA)
+            transparent.fill((255,255,255, w._fade))
+            copy.blit(transparent, (0,0), special_flags=BLEND_RGBA_MULT)
         return copy
 
     if SCREEN._opengl:

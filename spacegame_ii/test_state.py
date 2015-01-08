@@ -105,6 +105,11 @@ pygame.mouse.set_cursor(*pygame.cursors.broken_x)
 
 while run:
 	events=pygame.event.get()
+
+	for ext in root.extentions:
+		for e in events:
+			root.extentions[ext].event_root(events)
+
 	for e in events:
 		
 		if e.type==pygame.QUIT:

@@ -181,6 +181,8 @@ class RunningGameState(state.State):
 				for e in self.entities:
 					if self.root.screen.get_t_rect(e.rotated_rect).collidepoint(pygame.mouse.get_pos()):
 						self.player.targeted=e
+			for ext in self.root.extentions:
+				self.root.extentions[ext].event_state("game", e)
 
 class RunningGamePausedState(state.State):
 	def first_start(self):

@@ -2,6 +2,7 @@ import os, item, ship, serialize, primitives, imp, json, fnmatch, pygame, time
 from logging import debug, info, warning, error, critical
 
 def load_all_packages(root, dirn, console=None):
+	root.extentions={}
 	info("Loading Plugins")
 	if console: post_and_flip(console, "VVV   Loading Plugins   VVV", bold=1, color=(0,255,0))
 	load_plugins(root, dirn, console)
@@ -66,3 +67,10 @@ def post_and_flip(console, *args, **kwargs):
 	pygame.event.get()
 	pygame.display.flip()
 	#time.sleep(0.005)
+
+class HookableExtention:
+	def event_root(self, event):
+		pass
+
+	def event_state(self, state, event):
+		pass
