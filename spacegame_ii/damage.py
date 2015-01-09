@@ -207,3 +207,8 @@ class DamageModel:
 					for e in i.attributes:
 						if search_key.upper() in e.upper():
 							return i
+
+	def rebuild_systems(self):
+		for i in self.systems:
+			if i:
+				i.update_olds()

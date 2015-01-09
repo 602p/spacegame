@@ -58,6 +58,12 @@ class GameAssetDatabase:
 				return i.convert()
 		self.loaders["image"]=load_image
 
+		def load_image(node, basepath):
+			debug("Loading cursor "+node["path"])
+			i=pygame.image.load(os.path.join(basepath+node["path"]))
+			return [i.convert_alpha(), node.get("hotspot", (0,0))]
+		self.loaders["gfxcursor"]=load_image
+
 		def load_sound(node, basepath):
 			debug("Loading sound "+node["path"])
 			i=pygame.mixer.Sound(basepath+node["path"])

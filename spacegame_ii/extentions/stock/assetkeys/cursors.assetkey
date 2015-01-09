@@ -1,0 +1,10 @@
+{
+	"assets":[
+		{
+			"type":"gfxcursor",
+			"name":"cursor_triangle_glow",
+			"path":"ui/crosshairs/crosshair_glow_triangletarget.png",
+			"hotspot":[21,18]
+		}
+	]
+}

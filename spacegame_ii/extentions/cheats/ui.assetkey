@@ -142,6 +142,122 @@
 										]
 									}
 								]
+							},
+							{
+								"type":"VBox",
+								"col":[0,100,0],
+								"spacing":40,
+								"widgets":[
+									{
+										"type":"Label",
+										"text":"Attribute Cheats",
+										"font":"$font_standard_large"
+									},
+									{
+										"type":"HBox",
+										"widgets":[
+											{
+												"type":"Combo",
+												"id":"target",
+												"values":[
+													"player.*",
+													"player.inventory[*]",
+													"player.hardpoints[*]",
+													"state_manager.*",
+													"gamestate.*",
+													"root.*"
+												],
+												"selection":0
+											},
+											{
+												"type":"Label",
+												"text":"Editor Target"
+											}
+										]
+									},
+									{
+										"type":"HBox",
+										"widgets":[
+											{
+												"type":"InputBox",
+												"id":"attrname"
+											},
+											{
+												"type":"Label",
+												"text":"Attribute Name"
+											}
+										]
+									},
+									{
+										"type":"HBox",
+										"widgets":[
+											{
+												"type":"InputBox",
+												"id":"attrvalue"
+											},
+											{
+												"type":"Label",
+												"text":"Attribute Value"
+											}
+										]
+									},
+									{
+										"type":"HBox",
+										"widgets":[
+											{
+												"type":"Switch",
+												"id":"setint"
+											},
+											{
+												"type":"Label",
+												"text":"Eval() Value"
+											}
+										]
+									},
+									{
+										"type":"HBox",
+										"widgets":[
+											{
+												"type":"Button",
+												"label":"Get Attr",
+												"label_col":[255,255,255],
+												"controllers":[
+													{
+														"controller":"xcheat_get_attribute",
+														"attr_name":"attrname",
+														"attr_value":"attrvalue",
+														"attr_target":"target"
+													}
+												]
+											},
+											{
+												"type":"Button",
+												"label":"Set Attr",
+												"label_col":[255,255,255],
+												"controllers":[
+													{
+														"controller":"xcheat_set_attribute",
+														"attr_name":"attrname",
+														"attr_value":"attrvalue",
+														"attr_eval":"setint",
+														"attr_target":"target"
+													}
+												]
+											}
+										]
+									},
+									{
+										"type":"Button",
+										"label":"Rebuild DamageSystems",
+										"label_col":[255,255,255],
+										"surf":[240,50],
+										"controllers":[
+											{
+												"controller":"xcheat_rebuild_systems"
+											}
+										]
+									}
+								]
 							}
 						]
 					}

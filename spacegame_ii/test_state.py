@@ -5,14 +5,14 @@ logging.basicConfig(filemode='w', filename='spacegame.log',level=logging.DEBUG, 
 debug("Logging Started")
 import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader
 import assets, pyconsole, interdiction_gui, overlay_gui, ui_states
-import sgc, serialize
+import sgc, serialize, gfxcursor
 
 allowdebug=True
 
 def credits():
 	print("Spacegame was made by:")
 	print("Creator/Main Coder: Louis Goessling")
-	print("Idea Generator/Artist/Some Code: Sebastian Waterhouse")
+	print("Idea Generator/Artist/Some Code: Sebastian Waterouse")
 	print("Pyconsole from: John Schank")
 	print("Art assets by MillionthVector (http://millionthvector.blogspot.de)")
 	print("Misc. assets from Opengameart.org")
@@ -35,6 +35,7 @@ screen=sgc.surface.Screen(renderspace_size, pygame.DOUBLEBUF, root.settings["gra
 pygame.display.set_caption("Spacegame Alpha")
 
 scrollingscreen=rotutil.ScrollingWorldManager(root, screen.image)
+root.screen=scrollingscreen
 
 ship.init(root)
 item.init(root)
@@ -43,9 +44,10 @@ tasks.init(root)
 ai.init(root)
 ui_states.init(root)
 
+root.gfxcursor=gfxcursor.GfxCursor(root, root.screen.screen)
 
 root.particlemanager=particles.ParticleManager()
-root.screen=scrollingscreen
+
 root.state_manager=state.StateManager(root)
 root.console = pyconsole.Console(screen.image,(0,0,1300,200),localsx=locals())
 root.gamedb=assets.GameAssetDatabase()
@@ -102,11 +104,11 @@ def flip_screen():
 
 eventclear_tick=0
 
-pygame.mouse.set_cursor(*pygame.cursors.broken_x)
-
 info("Doing last plugin init...")
 for ext in root.extentions:
 	root.extentions[ext].last_load()
+
+root.gfxcursor.setCursorFromAsset("cursor_triangle_glow")
 
 while run:
 	events=pygame.event.get()
@@ -129,6 +131,8 @@ while run:
 			debug("Root resize")
 			root.renderspace_size=e.dict['size']
 			root.screen=rotutil.ScrollingWorldManager(sgc.surface.Screen(root.renderspace_size, pygame.RESIZABLE))
+		elif e.type==pygame.MOUSEMOTION:
+			root.gfxcursor.update(e)
 	root.clock.tick(root.settings["graphics"]["target_fps"])
 	#pygame.event.pump()
 
@@ -160,6 +164,8 @@ while run:
 
 	root.console.draw()
 	#pygame.draw.line(root.screen.screen, (255,0,0), (0,0), root.renderspace_size, 20)
+
+	root.gfxcursor.show()
 	
 	flip_screen()
 

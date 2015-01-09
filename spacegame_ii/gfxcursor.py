@@ -27,18 +27,20 @@ That's it. Have fun with your new funky cursors.
 """
 
 import pygame
+from logging import debug, info, warning, error, critical
 
 class GfxCursor:
     """
     Replaces the normal pygame cursor with any bitmap cursor
     """
 
-    def __init__(self,surface,cursor=None,hotspot=(0,0)):
+    def __init__(self,root,surface,cursor=None,hotspot=(0,0)):
         """
         surface = Global surface to draw on
         cursor  = surface of cursor (needs to be specified when enabled!)
         hotspot = the hotspot for your cursor
         """
+        self.root    = root
         self.surface = surface
         self.enabled = 0
         self.cursor  = None
@@ -58,6 +60,7 @@ class GfxCursor:
         if not self.cursor or self.enabled: return
         pygame.mouse.set_visible(0)
         self.enabled = 1
+        debug("Enabling the GfxCursor")
 
     def disable(self):
         """
@@ -73,6 +76,7 @@ class GfxCursor:
         Set a new cursor surface
         """
         if not cursor: return
+        debug("Setting GfxCursor")
         self.cursor = cursor
         self.hide()
         self.show()
@@ -83,6 +87,20 @@ class GfxCursor:
             (pos[0],pos[1],self.cursor.get_width(),self.cursor.get_height()))
 
         self.offset = hotspot
+
+    def setCursorFromAsset(self, asset=None):
+        debug("Setting GfxCursor from asset '"+str(asset)+"'")
+        if asset==None:
+            self.enabled=0
+            pygame.mouse.set_visible(True)
+            self.disable()
+        else:
+            debug("True, enabling...")
+            self.enabled=1
+            pygame.mouse.set_visible(False)
+            self.enable()
+            tagged_image=self.root.gamedb(asset)
+            self.setCursor(tagged_image[0], tagged_image[1])
 
     def setHotspot(self,pos):
         """

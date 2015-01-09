@@ -16,6 +16,9 @@ class CheatHook(extention_loader.HookableExtention):
 		self.root.widget_controllers["xcheat_repair_player"]=RepairPlayerShip
 		self.root.widget_controllers["xcheat_mirror_player_collideability"]=MirrorPlayerCollideability
 		self.root.widget_controllers["xcheat_add_item"]=CreateItem
+		self.root.widget_controllers["xcheat_set_attribute"]=SetPlayerAttribute
+		self.root.widget_controllers["xcheat_get_attribute"]=GetPlayerAttribute
+		self.root.widget_controllers["xcheat_rebuild_systems"]=RebuildSystems
 
 class RepairPlayerShip(ui_states.WidgetController):
 	def on_click(self):
@@ -39,6 +42,48 @@ class CreateItem(ui_states.WidgetController):
 		myitem = item.create_item(self.root, self.state.widgets[self.config["id"]].text, self.root.state_manager.states["game"].player, int(self.state.widgets[self.config["equip"]].text))
 		myitem.count=int(self.state.widgets[self.config["count"]].text)
 		self.root.state_manager.states["game"].player.inventory.append(myitem)
+
+class SetPlayerAttribute(ui_states.WidgetController):
+	def on_click(self):
+		data=self.state.widgets[self.config["attr_value"]].text
+		if self.state.widgets[self.config["attr_eval"]].state:
+			data=eval(data)
+		target=self.state.widgets[self.config["attr_target"]].selection
+		if target==0:
+			setattr(self.root.state_manager.states["game"].player, self.state.widgets[self.config["attr_name"]].text, data)
+		elif target==1:
+			self.root.state_manager.states["game"].player.inventory[int(self.state.widgets[self.config["attr_name"]].text)]=data
+		elif target==2:
+			self.root.state_manager.states["game"].player.hardpoints[int(self.state.widgets[self.config["attr_name"]].text)]=data
+		elif target==3:
+			setattr(self.root.state_manager, self.state.widgets[self.config["attr_name"]].text, data)
+		elif target==4:
+			setattr(self.root.state_manager.states["game"], self.state.widgets[self.config["attr_name"]].text, data)
+		elif target==5:
+			setattr(self.root, self.state.widgets[self.config["attr_name"]].text, data)
+		
+		
+
+class GetPlayerAttribute(ui_states.WidgetController):
+	def on_click(self):
+		target=self.state.widgets[self.config["attr_target"]].selection
+		if target==0:
+			data=getattr(self.root.state_manager.states["game"].player, self.state.widgets[self.config["attr_name"]].text)
+		elif target==1:
+			data=self.root.state_manager.states["game"].player.inventory[int(self.state.widgets[self.config["attr_name"]].text)]
+		elif target==2:
+			data=self.root.state_manager.states["game"].player.hardpoints[int(self.state.widgets[self.config["attr_name"]].text)]
+		elif target==3:
+			data=getattr(self.root.state_manager, self.state.widgets[self.config["attr_name"]].text)
+		elif target==4:
+			data=getattr(self.root.state_manager.states["game"], self.state.widgets[self.config["attr_name"]].text)
+		elif target==5:
+			data=getattr(self.root, self.state.widgets[self.config["attr_name"]].text)
+		self.state.widgets[self.config["attr_value"]].config(text=str(data))
+
+class RebuildSystems(ui_states.WidgetController):
+	def on_click(self):
+		self.root.state_manager.states["game"].player.damage.rebuild_systems()
 
 def init_inject(root, console):
 	info("Injecting the CheatHook")

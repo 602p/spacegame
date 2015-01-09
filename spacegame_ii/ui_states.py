@@ -14,7 +14,8 @@ def init(root):
 		"Label":sgc.Label,
 		"Switch":sgc.Switch,
 		"InputBox":sgc.InputBox,
-		"Container":sgc.Container
+		"Container":sgc.Container,
+		"Combo":sgc.Combo
 	}
 	root.widget_controllers={
 		"exit_state":ExitStateWidgetController,
