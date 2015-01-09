@@ -1,0 +1,35 @@
+{
+	"assets":[
+		{
+			"name":"cfg_default_spacestation_ui",
+			"type":"json",
+			"json":{
+				"widgets":[
+					{
+						"type":"Label",
+						"pos":[0,0],
+						"font":"$font_standard_large",
+						"text":"Welcome to %(station_name)s"
+					},
+					{
+						"type":"Switch",
+						"pos":[0,100],
+						"label":"LEL MEMES",
+						"label_col":[255,255,255]
+					},
+					{
+						"type":"Button",
+						"label":"Exit",
+						"pos":[0,650],
+						"label_font":"$font_standard_small",
+						"controllers":[
+							{
+								"controller":"exit_state"
+							}
+						]
+					}
+				]
+			}
+		}
+	]
+}

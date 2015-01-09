@@ -5,6 +5,18 @@
 			"path":"sound/explode-1.ogg",
 			"type":"sound",
 			"volume":0.25
+		},
+		{
+			"name":"sound_shoot1_4",
+			"path":"sound/shoot4.ogg",
+			"type":"sound",
+			"volume":1
+		},
+		{
+			"name":"sound_laser1_1",
+			"path":"sound/Laser.wav",
+			"type":"sound",
+			"volume":0.75
 		}
 	]
 }

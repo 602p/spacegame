@@ -40,6 +40,7 @@ class CreateItem(ui_states.WidgetController):
 		myitem.count=int(self.state.widgets[self.config["count"]].text)
 		self.root.state_manager.states["game"].player.inventory.append(myitem)
 
-def init_inject(root):
+def init_inject(root, console):
 	info("Injecting the CheatHook")
+	extention_loader.safepost(console, "[cheats:insert_cheat_hook]: Injecting the CheatHook", color=(0,255,255), bold=1)
 	root.extentions["cheathook"]=CheatHook(root)

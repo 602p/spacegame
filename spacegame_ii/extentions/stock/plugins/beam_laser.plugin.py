@@ -37,7 +37,7 @@ class ExplosionAtPrimitive(primitives.BasePrimitive):
 			ship.particlemanager.add_particles(particles.make_explosion_cfg(self.root,
 				ship.rotated_rect.center[0], ship.rotated_rect.center[1], self.config["style"]))
 
-def init_primitives(root):
+def init_primitives(root,console):
 	primitives.register_primitive(root, "render_laser_beam_targeted", RenderLaserBeamPrimitive)
 
 	primitives.register_primitive(root, "explosion_at_parent", ExplosionAtPrimitive)

@@ -6,6 +6,12 @@
 			"path":"image/ships/9-7_cc.png",
 			"colorkey":[255,0,0],
 			"scale":[1000,1000]
+		},
+		{
+			"name":"image_jumpgate_bg",
+			"type":"image",
+			"path":"image/jumpgate.jpg",
+			"scale":[1300,700]
 		}
 	]
 }

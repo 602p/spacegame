@@ -1,0 +1,10 @@
+{
+	"assets":[
+		{
+			"name":"x_sound_mousedown",
+			"path":"Holo.wav",
+			"type":"sound",
+			"volume":3.75
+		}
+	]
+}

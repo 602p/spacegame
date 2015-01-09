@@ -47,13 +47,12 @@
     "ai":{
     	"ai_subcontrollers":[
     		{
-    			"controller":"spacestation",
-    			"station_cfg":{
-    				"bg_image":"large_black_bg",
-    				"name":"DEEP SPACE 9",
-    				"font":"font_standard_large"
-    			}
-    		}
+                "controller":"spacestation",
+                "max_speed":100,
+                "bg_image":"image_jumpgate_bg",
+                "name":"F9 Jumpgate",
+                "ui_config":"%default_spacestation_ui%"
+            }
     	]
     }
 }

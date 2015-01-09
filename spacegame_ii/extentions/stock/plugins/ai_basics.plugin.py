@@ -72,7 +72,7 @@ class ConstrainByShipAttribute(ai.AIItemHint):
 		return False
 
 
-def init_ais(root):
+def init_ais(root, console):
 	ai.add_update_node(root, "select_player", SelectPlayer)
 	ai.add_update_node(root, "point_at_selected", PointAtSelected)
 	ai.add_update_node(root, "follow_selected", FollowSelected)

@@ -1,5 +1,5 @@
 from __future__ import division
-import primitives, particles, random
+import primitives, particles, random, tasks
 
 class AfterImagePrimitive(primitives.BasePrimitive):
 	def run_in_ship(self, ship):
@@ -39,7 +39,7 @@ class DelayedSoundPrimitive(primitives.BasePrimitive):
 	def run_in_impact(self, im, it, ta):
 		self.run()
 
-def init_primitives(root):
+def init_primitives(root, console):
 	primitives.register_primitive(root, "afterimage", AfterImagePrimitive)
 	primitives.register_primitive(root, "delayed_explosion_at_parent_randomized", DelayedExplosionPrimitive)
 	primitives.register_primitive(root, "delayed_sound_effect", DelayedSoundPrimitive)

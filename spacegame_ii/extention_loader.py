@@ -22,6 +22,10 @@ def load_all_packages(root, dirn, console=None):
 		post_and_flip(console, "Loaded "+str(len(root.ship_factories))+" ships")
 		time.sleep(2.5)
 
+def safepost(console, text, bold=0, italic=0, underline=0, color=(255,255,255), bg=(0,0,0), debugmsg=False):
+	if console:
+		console.post(text, bold=bold, italic=italic, underline=underline, color=color, bg=bg, debugmsg=debugmsg)
+
 def findall(dirn, pattern):
 	matches=[]
 	for root, dirnames, filenames in os.walk(dirn):
@@ -53,12 +57,13 @@ def load_ships(root, dirn, console):
 def load_plugin(root, fname, console):
 	if not ".PYC" in fname.upper():
 		debug("Load plugin '"+fname+"'")
-		module_temp = imp.load_source('dynamicly_loaded_extention', fname)
-		for funcname in dir(module_temp):
+		key=fname.replace("\\", "").replace(".", "")
+		exec key+" = imp.load_source('"+key+"', fname)"
+		for funcname in eval("dir("+key+")"):
 			if funcname.upper().startswith("INIT"):
 				debug("Run init '"+fname+"'::"+funcname)
 				if console: post_and_flip(console, "Initilizing Plugin '"+fname+"::"+funcname+"'...", color=(255,255,255))
-				if eval("module_temp."+funcname+"(root)")==False:
+				if eval(key+"."+funcname+"(root, console)")==False:
 					warning( "Loading of '"+funcname+"' from '"+fname+"' in '"+dirn+"' failed: False")
 
 def post_and_flip(console, *args, **kwargs):

@@ -129,7 +129,6 @@ while run:
 			debug("Root resize")
 			root.renderspace_size=e.dict['size']
 			root.screen=rotutil.ScrollingWorldManager(sgc.surface.Screen(root.renderspace_size, pygame.RESIZABLE))
-			#root.screen.rect=((0,0), root.renderspace_size)
 	root.clock.tick(root.settings["graphics"]["target_fps"])
 	#pygame.event.pump()
 

@@ -1,4 +1,4 @@
-import primitives, physics, assets, pygame, random, math, cmath
+import primitives, physics, assets, pygame, random, math, cmath, particles
 from rotutil import rot_center, get_angle, get_rel_angle, rotate_point
 from jsonutil import dget
 from particles import Particle
@@ -122,7 +122,7 @@ class PlaySoundEffectPrimitive(primitives.BasePrimitive):
 	def run_in_item(self, item):
 		self.do()
 
-def init_primitives(root):
+def init_primitives(root, console):
 	primitives.register_primitive(root, "fire_projectile", FireProjectilePrimitive)
 
 	primitives.register_primitive(root, "simple_damage", SimpleDamagePrimitive)
