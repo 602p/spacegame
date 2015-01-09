@@ -1,4 +1,4 @@
-import random
+import random, datetime
 from logging import debug, info, warning, error, critical
 
 class StateManager:
@@ -15,13 +15,13 @@ class StateManager:
 		if self.current!="":
 			self.states[self.current].suspend()
 		self.current=key
+		self.states[key].set_params(params)
 		if not self.states[key]._initilized:
 			self.states[key].first_start()
 			self.states[key]._initilized=True
-		self.states[key].set_params(params)
 		self.states[key].start()
 	def start_interdicting(self, state, params):
-		_temp_state=state+"_built"+str(random.randint(0, 900000))
+		_temp_state=state+"_built"+str(datetime.datetime.now().time().isoformat())
 		self.add_state(self.factories[state](), _temp_state)
 		debug("Temporary state created as "+_temp_state)
 		self.goto_state(_temp_state, params)

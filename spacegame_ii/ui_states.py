@@ -62,7 +62,7 @@ class CompoundWidgetWrapper:
 		widgets_list=kwargs[self.key_in]
 		widget_objs=[]
 		for widget in widgets_list:
-			widget_objs.append(kwargs["__interdictor"].create_widget(widget, True, False))
+			widget_objs.append(kwargs["__interdictor"].create_widget(widget, True, False, True))
 		kwargs[self.key_out]=widget_objs
 		return self.type_(*args, **kwargs)
 
@@ -169,7 +169,7 @@ class GenericUIInterdictor(state.InterdictingState):
 	def get_widget(self, n):
 		return self.widgets[n]
 
-	def create_widget(self, config, add_dict=1, add_screen=1):
+	def create_widget(self, config, add_dict=1, add_screen=1, _is_internal=0):
 		config_=self.default_config.copy()
 		config_.update(config)
 
@@ -188,6 +188,8 @@ class GenericUIInterdictor(state.InterdictingState):
 		if config_["type"] in self.root.widget_constructors.keys():
 			#debug("Creating a '"+config_["type"]+"'")
 			widget=self.root.widget_constructors[config_["type"]](**config_)
+			widget._is_internal=_is_internal
+			widget._json_config=config_
 			widget.wai=WidgetAbstractionInterface(widget, self, self.root)
 			for controller_cfg in config_.get("controllers",[]):
 				if controller_cfg["controller"] in self.root.widget_controllers.keys():
@@ -201,8 +203,8 @@ class GenericUIInterdictor(state.InterdictingState):
 					self.widgets[config_["id"]]= widget
 				else:
 					self.widgets[hash(widget)]= widget
-			if add_screen:
-				widget.add(order=config_.get("order",None))
+			# if add_screen:
+			# 	widget.add(order=config_.get("order",None))
 			return widget
 		else:
 			error("WIDGET '"+config_["type"]+"' NOT FOUND")
@@ -213,19 +215,18 @@ class GenericUIInterdictor(state.InterdictingState):
 		self.default_config=self.params.get("defaults", {})
 		self.bg_image=self.root.gamedb(self.params.get("bg_image", "large_black_bg"))
 		for widget_cfg in self.params["widgets"]:
-			self.create_widget(widget_cfg)
+			self.create_widget(widget_cfg, 1, 0)
 
 	def first_start(self):
 		debug("Started a new ui state, creating widgets")
 		self.widgets={}
-
-	def start(self):
-		debug("Cleaning old widgets...")
-		self.clear_widgets()
 		debug("Building new screen")
 		self.construct_screen()
-		#print self.widgets
+
+	def start(self):
+		debug("ADDing widgets to screen")
 		for i in self.widgets.keys():
+			if not self.widgets[i]._is_internal: self.widgets[i].add(self.widgets[i]._json_config.get("order", None))
 			self.widgets[i].wai.on_start()
 
 	def internal_update(self):		
@@ -241,8 +242,10 @@ class GenericUIInterdictor(state.InterdictingState):
 			sgc.event(event)
 
 	def clear_widgets(self):
+		debug("removing widgets...")
 		for i in self.widgets.keys():
-			self.del_widget(i)
+			if not self.widgets[i]._is_internal: self.widgets[i].remove() #remove from screen, keep cached
 
 	def suspend(self):
+		debug("suspend() called, removing")
 		self.clear_widgets()
