@@ -226,3 +226,9 @@ class Ship(serialize.SerializableObject):
 
 	def die(self):
 		primitives.do_group_for_ship(self.root, dget(self.config, "ship_die", []), self)
+
+	def get_insert_dict(self):
+		return {
+			"id":self.id_string,
+			"name":self.name
+		}

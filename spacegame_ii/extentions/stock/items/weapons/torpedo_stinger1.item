@@ -15,6 +15,10 @@
     },
     "fire_events":[
         {
+            "primitive":"postmsg",
+            "text":"A %(ship:name)s fired a %(item:name)s"
+        },
+        {
             "primitive":"fire_projectile",
             "image":"item_missile1_bullet",
             "lifetime":25,

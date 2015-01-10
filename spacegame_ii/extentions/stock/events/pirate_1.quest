@@ -13,7 +13,7 @@
         ]
     },
 
-	"requirements":[
+	"spawn_requirements":[
 		{
 			"primitive":"require_weapon_tagged",
 			"tags":[
@@ -84,6 +84,8 @@
 			"primitive":"popup_yn",
 			"title":"HAIL",
 			"message":"Arr! I am the dread pirate Egg, give me 300 credits to not destroy you!",
+			"button_y":"Agree",
+			"button_n":"Never!",
 			"event_yes":[
 				{
 					"primitive":"popup_ok",

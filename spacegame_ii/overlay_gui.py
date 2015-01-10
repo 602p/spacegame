@@ -113,3 +113,14 @@ class IngameRenderedConsole:
 				del self.lines[0]
 		else:
 			debug("Policy did not allow for message posting")
+
+	def postd(self, cfg, format_dict):
+		self.post(
+			cfg.get("text", "") % format_dict,
+			cfg.get("color", (255,255,255,255)),
+			cfg.get("bg", (0,0,0)),
+			cfg.get("bold", False),
+			cfg.get("italic", False),
+			cfg.get("underline", False),
+			cfg.get("debug", False)
+		)
