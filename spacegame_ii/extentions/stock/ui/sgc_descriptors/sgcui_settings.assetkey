@@ -11,7 +11,8 @@
 				"overrender":"debug:overrender",
 				"k_interact":"keybindings:interact",
 				"colordepth":"graphics:color_depth",
-				"loader":"graphics:loader_screen"
+				"loader":"graphics:loader_screen",
+				"gfxcursor":"graphics:gfxcursor"
 			}
 		},
 		{
@@ -81,11 +82,11 @@
 										"widgets":[
 											{
 												"type":"Switch",
-												"id":"renderclipping"
+												"id":"gfxcursor"
 											},
 											{
 												"type":"Label",
-												"text":"Disable Render Clipping",
+												"text":"Enable Fancy Cursor (req restart)",
 												"col":[255,255,255],
 												"font":"$font_standard_small"
 											}
@@ -172,6 +173,21 @@
 											{
 												"type":"Label",
 												"text":"Show Loader (req restart)",
+												"col":[255,255,255],
+												"font":"$font_standard_small"
+											}
+										]
+									},
+									{
+										"type":"HBox",
+										"widgets":[
+											{
+												"type":"Switch",
+												"id":"renderclipping"
+											},
+											{
+												"type":"Label",
+												"text":"Disable Render Clipping",
 												"col":[255,255,255],
 												"font":"$font_standard_small"
 											}
