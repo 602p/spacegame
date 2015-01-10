@@ -1,0 +1,22 @@
+{
+	"id":"sebastianmod_meatballfed",
+	"name":"Meatball Federation",
+	"longname":"Meatball Federation of Meatballia",
+	"description":"The Meatball Federation is a proud race, but very peculiar to all other aliens. The Meatball Federation has remained undiscovered... Until now.",
+	"color":[202,40,0],
+
+	"tags":[
+		"has_any_meatballs",
+		"has_many_meatballs"
+	],
+
+	"join_requirements":[],
+	"leave_requirements":[],
+
+	"join_effects":[],
+	"leave_effects":[],
+
+	"relations":{
+		
+	}
+}
