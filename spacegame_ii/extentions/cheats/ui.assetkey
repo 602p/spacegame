@@ -161,8 +161,6 @@
 												"id":"target",
 												"values":[
 													"player.*",
-													"player.inventory[*]",
-													"player.hardpoints[*]",
 													"state_manager.*",
 													"gamestate.*",
 													"root.*"

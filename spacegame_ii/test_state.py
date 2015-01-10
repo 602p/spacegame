@@ -108,7 +108,7 @@ info("Doing last plugin init...")
 for ext in root.extentions:
 	root.extentions[ext].last_load()
 
-root.gfxcursor.setCursorFromAsset("cursor_triangle_glow")
+if root.settings["graphics"]["gfxcursor"]:root.gfxcursor.setCursorFromAsset("cursor_triangle_glow")
 
 while run:
 	events=pygame.event.get()
