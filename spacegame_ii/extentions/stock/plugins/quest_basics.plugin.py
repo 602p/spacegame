@@ -20,7 +20,7 @@ class PostIGConsoleMessage(primitives.BasePrimitive):
 	def run_in_event(self, event):
 		self.root.igconsole.postd(self.config, event.get_insert_dict())
 	def run_in_item(self, item):
-		print "printing"
+		#print "printing"
 		map_dict=item.get_insert_dict()
 		iid=item.get_insert_dict()
 		for key in iid.keys():
