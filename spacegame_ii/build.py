@@ -62,7 +62,7 @@ class BuildExe:
         self.copyright = "Copyleft >"
  
         #Description
-        self.project_description = "A Game"
+        self.project_description = "SpaceGame!"
  
         #Icon file (None will use pygame default icon)
         self.icon_file = None
@@ -163,6 +163,15 @@ class BuildExe:
         
         if os.path.isdir('build'): #Clean up build dir
             shutil.rmtree('build')
+
+        try:
+            os.remove("spacegame.exe")
+        except BaseException as e:
+            print "Can't remove spacegame.exe"
+            print e
+        shutil.copyfile("dist/test_state.exe", "spacegame.exe")
+        if os.path.isdir('dist'): #Clean up dist dir
+            shutil.rmtree('dist')
  
 if __name__ == '__main__':
     if operator.lt(len(sys.argv), 2):

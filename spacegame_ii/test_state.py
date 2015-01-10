@@ -158,7 +158,7 @@ while run:
 			fps_sps=root.game_time-fps_last_gt
 			fps_last_gt=root.game_time
 			fps_osps=fps_sps
-		root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("FPS: "+str(root.fps), False, (0,255,255)), (0,310))
+		root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("FPS: "+str(root.clock.get_fps()), False, (0,255,255)), (0,310))
 		root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("S/S: "+str(fps_sps)+"/1", False, (0,255,255)), (0,320))
 		root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("LEN(EVENTS): "+str(len(events)), False, (0,255,255)), (0,330))
 
