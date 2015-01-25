@@ -55,6 +55,7 @@ class IngameRenderedConsole:
 		self.maxlines=lines
 		self.width=width
 		self.font=font
+		self.debug_to_console=False
 
 		#self.post("Console Started")
 
@@ -105,18 +106,18 @@ class IngameRenderedConsole:
 				position[1]+=self.root.gamedb(self.font).size(l[0])[1]
 
 	def post(self, text, color=(255,255,255,255), bg=(0,0,0,0), bold=False, italic=False, underline=False, debugmsg=False):
-		debug("Posting message: "+text)
+		if self.debug_to_console:debug("Posting message: "+text)
 		if not debugmsg or self.debug:
-			debug("Message posted")
+			if self.debug_to_console:debug("Message posted")
 			self.lines.append((text, color, bg, bold, italic, underline))
 			if len(self.lines)>self.maxlines:
 				del self.lines[0]
 		else:
-			debug("Policy did not allow for message posting")
+			if self.debug_to_console:debug("Policy did not allow for message posting")
 
-	def postd(self, cfg, format_dict):
+	def postd(self, cfg, formatter):
 		self.post(
-			cfg.get("text", "") % format_dict,
+			formatter.format_string(cfg.get("text", "")),
 			cfg.get("color", (255,255,255,255)),
 			cfg.get("bg", (0,0,0)),
 			cfg.get("bold", False),

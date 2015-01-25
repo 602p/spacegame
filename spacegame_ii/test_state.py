@@ -5,7 +5,7 @@ logging.basicConfig(filemode='w', filename='spacegame.log',level=logging.DEBUG, 
 debug("Logging Started")
 import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader
 import assets, pyconsole, interdiction_gui, overlay_gui, ui_states
-import sgc, serialize, gfxcursor
+import sgc, serialize, gfxcursor, formatting
 
 allowdebug=True
 
@@ -26,6 +26,7 @@ debug("Pygame started")
 
 class R:pass
 root=R()
+root.formatter=formatting.Formatter({"gameroot":root})
 
 serialize.load_settings(root)
 
@@ -52,10 +53,8 @@ root.state_manager=state.StateManager(root)
 root.console = pyconsole.Console(screen.image,(0,0,1300,200),localsx=locals())
 root.gamedb=assets.GameAssetDatabase()
 
-
 root.igconsole = overlay_gui.IngameRenderedConsole(root, 5)
 root.igconsole.enable_debug()
-
 
 root.game_time=0
 

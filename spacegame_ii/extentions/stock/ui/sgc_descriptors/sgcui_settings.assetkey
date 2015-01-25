@@ -45,6 +45,12 @@
 							{
 								"controller":"json_settings_get",
 								"bindings":"%sgcui_settings_jsonbindings%"
+							},
+							{
+								"controller":"popup_ok",
+								"title":"Success",
+								"body":"Settings Succesfully Applied",
+								"button":"OK"
 							}
 						]
 					},

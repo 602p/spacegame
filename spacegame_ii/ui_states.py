@@ -21,21 +21,49 @@ def init(root):
 		"exit_state":ExitStateWidgetController,
 		"json_settings_get":JSONSettingsBindingsGet,
 		"json_settings_set":JSONSettingsBindingsSet,
-		"call_state_callback":CallbackCaller
+		"call_state_callback":CallbackCaller,
+		"popup_ok":PopupInterdictorController
 	}
 
 def interdict_ok(root, title="NOT_SET", text="NOT_SET", button="NOT_SET", callback=lambda s:0, wrap=48, key="sgcui_modalok"):
+	debug("Calling UI_STATES::INTERDICT_OK...")
+	debug("title="+title)
+	debug("text="+text)
+	debug("button="+button)
+	debug("wrap="+str(wrap))
+	debug("style="+key)
 	text_=textwrap.wrap(text, wrap)
 	text=""
 	for l in text_:
 		text+="\n"+l.replace("%n", "\n")
 	state=root.state_manager.start_interdicting("generic_ui", root.gamedb(key))
+	#print state.widgets.keys()
 	state.widgets["replace_title"].config(text=title)
 	state.widgets["replace_body"].config(text=text)
 	state.widgets["replace_button"].config(label=button)
 	state.callback=callback
 
+def interdict_ok_node(root, config, callback=lambda s:0):
+	if "body" in config.keys() and "text" not in config.keys():
+		config["text"]=config["body"]
+	interdict_ok(
+		root,
+		config.get("title","UNSET (interdict_ok_node)"),
+		config.get("text","UNSET (interdict_ok_node)"),
+		config.get("button","UNSET (interdict_ok_node)"),
+		callback,
+		config.get("wrap",48),
+		config.get("key","sgcui_modalok")
+	)
+
 def interdict_yn(root, title="NOT_SET", text="NOT_SET", button_y="NOT_SET", button_n="NOT_SET",callback_y=lambda s:0, callback_n=lambda s:0, wrap=48, key="sgcui_modalyn"):
+	debug("Calling UI_STATES::INTERDICT_YN...")
+	debug("title="+title)
+	debug("text="+text)
+	debug("button_y="+button_y)
+	debug("button_n="+button_n)
+	debug("wrap="+str(wrap))
+	debug("style="+key)
 	text_=textwrap.wrap(text, wrap)
 	text=""
 	for l in text_:
@@ -126,6 +154,14 @@ class JSONSettingsBindingsGet(WidgetController):
 class CallbackCaller(WidgetController):
 	def on_click(self):
 		exec "self.state."+self.config["callback_name"]+"(self.state)"
+
+class PopupInterdictorController(WidgetController):
+	def _call(self):
+		interdict_ok_node(self.root, self.config)
+
+	def on_click(self): self._call()
+	def on_enter(self): self._call()
+	def on_switch(self): self._call()
 
 class WidgetAbstractionInterface:
 	def __init__(self, widget, state, root):

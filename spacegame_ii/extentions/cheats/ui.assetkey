@@ -118,6 +118,12 @@
 														"equip":"item_slot",
 														"count":"item_count",
 														"delete_old":"item_delete"
+													},
+													{
+														"controller":"popup_ok",
+														"title":"Success",
+														"body":"Item Successfully Added",
+														"button":"OK"
 													}
 												]
 											}
@@ -239,6 +245,12 @@
 														"attr_value":"attrvalue",
 														"attr_eval":"setint",
 														"attr_target":"target"
+													},
+													{
+														"controller":"popup_ok",
+														"title":"Success",
+														"body":"Attribute Succesfully Set",
+														"button":"OK"
 													}
 												]
 											}
@@ -252,6 +264,12 @@
 										"controllers":[
 											{
 												"controller":"xcheat_rebuild_systems"
+											},
+											{
+												"controller":"popup_ok",
+												"title":"Success",
+												"body":"Rebuilt!",
+												"button":"OK"
 											}
 										]
 									}
