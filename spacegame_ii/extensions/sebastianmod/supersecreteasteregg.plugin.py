@@ -1,4 +1,4 @@
-import extention_loader, pygame
+import time
 import extention_loader, pygame, ui_states, item
 from logging import debug, info, warning, error, critical
 
@@ -12,6 +12,8 @@ class supersecreteasteregg(extention_loader.HookableExtention):
 			if event.type==pygame.KEYDOWN:
 				if event.key==SECRET_KEY:
 					print("Success!")
+					time.sleep(1)
+					print("Alas, the GUI was broken. To work on later.")
 
 def init_inject(root, console):
 	info("Injecting the SecretHook")
