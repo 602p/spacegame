@@ -62,7 +62,7 @@ root.igconsole.enable_debug()
 
 root.game_time=0
 
-debug("Loaded all SG extentions")
+debug("Loaded all SG extensions")
 
 root.renderspace_size=renderspace_size
 
@@ -81,7 +81,7 @@ root.state_manager.goto_state("game")
 
 g=root.state_manager.states["game"]
 
-debug("StateManager initilized")
+debug("StateManager initialized")
 
 root.clock=pygame.time.Clock()
 

@@ -40,8 +40,8 @@ def findall(dirn, pattern):
 def load_assetkeys(root, dirn, console):
 	for rootn, dirnames, filenames in os.walk(dirn):
 		for filename in fnmatch.filter(filenames, "*.assetkey"):
-			if console: post_and_flip(console, "Loading Assetkey '"+os.path.join(rootn, filename)+"'...", color=(255,255,255))
 			root.gamedb.load_assetfile(os.path.join(rootn, filename), rootn.split("\\")[0]+"\\"+rootn.split("\\")[1]+"\\", console)
+	root.gamedb.process_delayed_load(console)
 
 def load_plugins(root, dirn, console):
 	for rn in findall(dirn, "*.plugin.py"):

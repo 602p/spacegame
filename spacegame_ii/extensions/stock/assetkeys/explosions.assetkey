@@ -1,4 +1,5 @@
 {
+    "require":["cfg_explosion3"],
 	"assets":[
 		{
 			"name":"cfg_explosion_red",

@@ -35,6 +35,8 @@ class GameAssetDatabase:
 	def __init__(self):
 		self.assets={"$BLANK":pygame.Surface((0,0))}
 		self.loaders={}
+		self.delayed_load_nodes=[]
+		self.loaded_nodes=[]
 		def load_image(node, basepath):
 			debug("Loading image "+node["path"])
 			i=pygame.image.load(os.path.join(basepath+node["path"]))
@@ -111,11 +113,39 @@ class GameAssetDatabase:
 			if console: extention_loader.post_and_flip(console, "ASSETKEY ERROR! KeyError: '"+traceback.format_exception(exc_type, exc_value, exc_traceback)[-1]+"'", color=(255,0,0), bold=1)
 
 	def load_assetfile(self, path, basepath, console=None):
+		if console: extention_loader.post_and_flip(console, "Loading Assetkey '"+path+"'...", color=(255,255,255))
 		debug("Gonna load "+path)
-		data=json.load(open(path))["assets"]
-		for i in data:
-			debug("Load node ["+basepath+"::"+path+"]: INDEX "+str(data.index(i)))
-			self.load_with_loader(i, basepath, console)
+		fullnode=json.load(open(path))
+		data=fullnode["assets"]
+		do_load=1
+		if "require" in fullnode.keys():
+			for i in fullnode["require"]:
+				if i not in self.loaded_nodes:
+					do_load=0
+					debug("(delaying load of "+path+" until after "+i+")")
+					if console: extention_loader.post_and_flip(console, "(delaying load of "+path+" until after "+i+")", bold=1)
+		if do_load:
+			for i in data:
+				debug("Load node ["+basepath+"::"+path+"]: INDEX "+str(data.index(i)))
+				self.load_with_loader(i, basepath, console)
+				self.loaded_nodes.append(i["name"])
+		else:
+			self.delayed_load_nodes.append(fullnode)
+			self.delayed_load_nodes[-1]["__basepath"]=basepath
+			self.delayed_load_nodes[-1]["__path"]=path
+
+	def process_delayed_load(self, console):
+		if console: extention_loader.post_and_flip(console, "Processing delayed_load nodes...", italic=1, color=(255,255,0))
+		self._process_delayed_load(console)
+
+	def _process_delayed_load(self, console):
+		next=self.delayed_load_nodes
+		self.delayed_load_nodes=[]
+		for i in next:
+			debug("Trying delayed load of "+i["__path"])
+			self.load_assetfile(i["__path"], i["__basepath"], console)
+		if len(next)!=0:
+			self._process_delayed_load(console)
 			
 	def get_asset(self, key):
 		return self.assets[key]
