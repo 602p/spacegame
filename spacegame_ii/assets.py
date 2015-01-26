@@ -111,6 +111,7 @@ class GameAssetDatabase:
 			if console: extention_loader.post_and_flip(console, "ASSETKEY ERROR! NO LOADER '"+str(node["type"])+"'", color=(255,0,0), bold=1)
 
 	def load_assetfile(self, path, basepath, console=None):
+		debug("Gonna load "+path)
 		data=json.load(open(path))["assets"]
 		for i in data:
 			debug("Load node ["+basepath+"::"+path+"]: INDEX "+str(data.index(i)))

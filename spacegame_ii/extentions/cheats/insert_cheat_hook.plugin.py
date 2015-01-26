@@ -12,7 +12,7 @@ class CheatHook(extention_loader.HookableExtention):
 				if event.key==KEY_CODE:
 					self.root.state_manager.start_interdicting("generic_ui", self.root.gamedb("x_cheats_gui"))
 	def last_load(self):
-		debug("Adding WidgetControllers")
+		debug("[cheats:insert_cheat_hook]: Adding WidgetControllers")
 		self.root.widget_controllers["xcheat_repair_player"]=RepairPlayerShip
 		self.root.widget_controllers["xcheat_mirror_player_collideability"]=MirrorPlayerCollideability
 		self.root.widget_controllers["xcheat_add_item"]=CreateItem
@@ -80,6 +80,6 @@ class RebuildSystems(ui_states.WidgetController):
 		self.root.state_manager.states["game"].player.damage.rebuild_systems()
 
 def init_inject(root, console):
-	info("Injecting the CheatHook")
+	info("[cheats:insert_cheat_hook]: Injecting the CheatHook")
 	extention_loader.safepost(console, "[cheats:insert_cheat_hook]: Injecting the CheatHook", color=(0,255,255), bold=1)
 	root.extentions["cheathook"]=CheatHook(root)

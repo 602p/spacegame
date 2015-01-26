@@ -1,0 +1,224 @@
+{
+	"assets":[
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_0",
+			"path":"image/animations/explosion3/frame_000.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_1",
+			"path":"image/animations/explosion3/frame_001.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_2",
+			"path":"image/animations/explosion3/frame_002.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_3",
+			"path":"image/animations/explosion3/frame_003.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_4",
+			"path":"image/animations/explosion3/frame_004.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_5",
+			"path":"image/animations/explosion3/frame_005.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_6",
+			"path":"image/animations/explosion3/frame_006.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_7",
+			"path":"image/animations/explosion3/frame_007.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_8",
+			"path":"image/animations/explosion3/frame_008.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_9",
+			"path":"image/animations/explosion3/frame_009.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_10",
+			"path":"image/animations/explosion3/frame_010.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_11",
+			"path":"image/animations/explosion3/frame_011.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_12",
+			"path":"image/animations/explosion3/frame_012.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_13",
+			"path":"image/animations/explosion3/frame_013.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_14",
+			"path":"image/animations/explosion3/frame_014.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_15",
+			"path":"image/animations/explosion3/frame_015.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_16",
+			"path":"image/animations/explosion3/frame_016.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_17",
+			"path":"image/animations/explosion3/frame_017.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_18",
+			"path":"image/animations/explosion3/frame_018.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_19",
+			"path":"image/animations/explosion3/frame_019.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_20",
+			"path":"image/animations/explosion3/frame_020.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_21",
+			"path":"image/animations/explosion3/frame_021.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_22",
+			"path":"image/animations/explosion3/frame_022.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_23",
+			"path":"image/animations/explosion3/frame_023.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_24",
+			"path":"image/animations/explosion3/frame_024.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_25",
+			"path":"image/animations/explosion3/frame_025.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_26",
+			"path":"image/animations/explosion3/frame_026.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_27",
+			"path":"image/animations/explosion3/frame_027.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_28",
+			"path":"image/animations/explosion3/frame_028.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion3_29",
+			"path":"image/animations/explosion3/frame_029.gif"
+		},
+		{
+			"type":"json",
+			"name":"cfg_explosion3",
+			"json":{
+				"sum_duration":1.18,
+				"offset":[128,96],
+				"frames":[
+					["image_explosion3_0", 0.04],
+					["image_explosion3_1", 0.04],
+					["image_explosion3_2", 0.04],
+					["image_explosion3_3", 0.04],
+					["image_explosion3_4", 0.04],
+					["image_explosion3_5", 0.04],
+					["image_explosion3_6", 0.04],
+					["image_explosion3_7", 0.04],
+					["image_explosion3_8", 0.04],
+					["image_explosion3_9", 0.04],
+					["image_explosion3_10", 0.04],
+					["image_explosion3_11", 0.04],
+					["image_explosion3_12", 0.04],
+					["image_explosion3_13", 0.04],
+					["image_explosion3_14", 0.04],
+					["image_explosion3_15", 0.04],
+					["image_explosion3_16", 0.04],
+					["image_explosion3_17", 0.04],
+					["image_explosion3_18", 0.04],
+					["image_explosion3_19", 0.04],
+					["image_explosion3_20", 0.04],
+					["image_explosion3_21", 0.04],
+					["image_explosion3_22", 0.04],
+					["image_explosion3_23", 0.04],
+					["image_explosion3_24", 0.04],
+					["image_explosion3_25", 0.04],
+					["image_explosion3_26", 0.04],
+					["image_explosion3_27", 0.04],
+					["image_explosion3_28", 0.04],
+					["image_explosion3_29", 0.04]
+				]
+			}
+		}
+	]
+}

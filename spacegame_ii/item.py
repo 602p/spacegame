@@ -78,7 +78,6 @@ class Item(serialize.SerializableObject):
 		self.fire_required=fire_required
 		self.parent=parent
 		self._config=config
-		self.config=config
 
 		self.count=config.get("count", 1)
 
@@ -194,3 +193,8 @@ class Item(serialize.SerializableObject):
 
 	def get_cost_one(self):
 		return self.cost
+
+	def get_insert_dict(self):
+		return {
+			"name":self.name
+		}

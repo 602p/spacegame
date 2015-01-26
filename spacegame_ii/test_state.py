@@ -5,17 +5,18 @@ logging.basicConfig(filemode='w', filename='spacegame.log',level=logging.DEBUG, 
 debug("Logging Started")
 import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader
 import assets, pyconsole, interdiction_gui, overlay_gui, ui_states
-import sgc, serialize, gfxcursor, formatting
+import sgc, serialize, gfxcursor, formatting, pyganim
 
 allowdebug=True
 
 def credits():
 	print("Spacegame was made by:")
-	print("Creator/Main Coder: Louis Goessling")
-	print("Idea Generator/Artist/Some Code: Sebastian Waterouse")
-	print("Pyconsole from: John Schank")
-	print("Art assets by MillionthVector (http://millionthvector.blogspot.de)")
-	print("Misc. assets from Opengameart.org")
+	print("\tCreator/Main Coder: Louis Goessling")
+	print("\tIdea Generator/Artist/Some Code: Sebastian Waterouse")
+	print("\tPyconsole from: John Schank")
+	print("\tArt assets by MillionthVector (http://millionthvector.blogspot.de)")
+	print("\tMisc. assets from Opengameart.org")
+	print("\tGFXCursor by Frank Raiser, Pete Shinner")
 
 if allowdebug:
 	def g_spawnship(name, a=True, w=True):
@@ -26,7 +27,8 @@ debug("Pygame started")
 
 class R:pass
 root=R()
-root.formatter=formatting.Formatter({"gameroot":root})
+
+root.formatter=formatting.Formatter({"root":root})
 
 serialize.load_settings(root)
 
@@ -53,8 +55,10 @@ root.state_manager=state.StateManager(root)
 root.console = pyconsole.Console(screen.image,(0,0,1300,200),localsx=locals())
 root.gamedb=assets.GameAssetDatabase()
 
+
 root.igconsole = overlay_gui.IngameRenderedConsole(root, 5)
 root.igconsole.enable_debug()
+
 
 root.game_time=0
 

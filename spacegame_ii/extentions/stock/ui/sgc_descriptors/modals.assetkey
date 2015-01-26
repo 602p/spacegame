@@ -21,6 +21,9 @@
 							},
 							{
 								"controller":"exit_state"
+							},
+							{
+								"controller":"click_on_keypress"
 							}
 						]
 					},

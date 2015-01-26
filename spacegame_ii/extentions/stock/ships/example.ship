@@ -68,16 +68,14 @@
         {
             "x":6,
             "y":68,
-            "density":5,
             "width":3,
-            "color":[255,200,20]
+            "style":"%ship_trail%"
         },
         {
             "x":26,
             "y":68,
-            "density":5,
             "width":3,
-            "color":[255,200,20]
+            "style":"%ship_trail%"
         }
     ],
     "rarity":{

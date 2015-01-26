@@ -1,20 +1,16 @@
 import random
 
-default_rarity={
-	"default":0
-}
-
 class Rarity:
 	def __init__(self, json):
 		self.default=int(json["default"])
-		self.factions=json.get("factions",[])
+		self.factions=json["factions"]
 	def get_for(self, faction_key):
 		for i in self.factions:
 			if i["faction"]==faction_key:
 				return int(i["rarity"])
 		return self.default
-	def should_have(self, faction_key, multiplier=1):
-		if random.randint(0,99) < self.get_for(faction_key)*multiplier:
+	def should_have(self, faction_key):
+		if random.randint(0,99) < self.get_for(faction_key):
 			return True
 		return False
 	def __str__(self, *args, **kwargs):

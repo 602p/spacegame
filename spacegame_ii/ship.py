@@ -207,16 +207,13 @@ class Ship(serialize.SerializableObject):
 				  self.hardpoints[i.equipped]["y"]-(scaledsize[1]/2) ), scaledsize ) ), self.hardpoints[i.equipped].get("scale", 1) )
 
 	def render_engines(self):
-		if self.rigidbody.moving()>0:
+		if self.rigidbody.moving()>self.root.settings["graphics"]["min_trail_speed"]:
 			for emitter in self.engine_sources:
-				c=0
-				while c<emitter["density"]*(self.rigidbody.moving()/self.max_speed):
-					y_=self.rigidbody.y+emitter["y"]+random.randint(0,1)-random.randint(0,2)
-					x_=self.rigidbody.x+emitter["x"]+random.randint(0,emitter["width"])-random.randint(0,emitter["width"]*2)
-					color=emitter["color"]
-					point=rotate_point(self.rotated_rect.center, [x_, y_], -self.rigidbody.get_angle())
-					self.particlemanager.add_particle(particles.make_floater(self.root, point[0], point[1], color))
-					c+=1
+				random.seed(self.root.game_time)					
+				y_=self.rigidbody.y+emitter["y"]
+				x_=self.rigidbody.x+emitter["x"]
+				x_, y_=rotate_point(self.rotated_rect.center, [x_, y_], -self.rigidbody.get_angle())
+				self.particlemanager.add_particles(particles.make_explosion_cfg(self.root, x_, y_, emitter["style"]))
 
 	def exert_engine(self):
 		self.rigidbody.exert_in_vector(self.speed)
@@ -226,3 +223,9 @@ class Ship(serialize.SerializableObject):
 
 	def die(self):
 		primitives.do_group_for_ship(self.root, dget(self.config, "ship_die", []), self)
+
+	def get_insert_dict(self):
+		return {
+			"id":self.id_string,
+			"name":self.name
+		}

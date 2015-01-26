@@ -1,0 +1,68 @@
+{
+	"assets":[
+		{
+			"type":"image",
+			"name":"image_explosion1_0",
+			"path":"image/animations/explosion1/0.png"
+		},
+		{
+			"type":"image",
+			"name":"image_explosion1_1",
+			"path":"image/animations/explosion1/1.png"
+		},
+		{
+			"type":"image",
+			"name":"image_explosion1_2",
+			"path":"image/animations/explosion1/2.png"
+		},
+		{
+			"type":"image",
+			"name":"image_explosion1_3",
+			"path":"image/animations/explosion1/3.png"
+		},
+		{
+			"type":"image",
+			"name":"image_explosion1_4",
+			"path":"image/animations/explosion1/4.png"
+		},
+		{
+			"type":"image",
+			"name":"image_explosion1_5",
+			"path":"image/animations/explosion1/5.png"
+		},
+		{
+			"type":"image",
+			"name":"image_explosion1_6",
+			"path":"image/animations/explosion1/6.png"
+		},
+		{
+			"type":"image",
+			"name":"image_explosion1_7",
+			"path":"image/animations/explosion1/7.png"
+		},
+		{
+			"type":"image",
+			"name":"image_explosion1_8",
+			"path":"image/animations/explosion1/8.png"
+		},
+		{
+			"type":"json",
+			"name":"cfg_explosion1",
+			"json":{
+				"sum_duration":0.85,
+				"offset":[0,0],
+				"frames":[
+					["image_explosion1_0", 0.1],
+					["image_explosion1_1", 0.1],
+					["image_explosion1_2", 0.1],
+					["image_explosion1_3", 0.1],
+					["image_explosion1_4", 0.1],
+					["image_explosion1_5", 0.1],
+					["image_explosion1_6", 0.1],
+					["image_explosion1_7", 0.1],
+					["image_explosion1_8", 0.1]
+				]
+			}
+		}
+	]
+}

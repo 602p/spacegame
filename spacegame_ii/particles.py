@@ -64,14 +64,23 @@ def make_gibs(root, x, y, num=50):
 def make_explosion_cfg(r, x, y, n):
 	i=0
 	ps=[]
-	while i<dget(n, "particles", 200):
-		surf=pygame.Surface((int(random.uniform(dget(n, "size_min", 2), dget(n, "size_max", 2))), int(random.uniform(dget(n, "size_min", 2), (dget(n, "size_max", 2))))))
-		surf.fill((random.uniform(dget(n, "r_min", 200), dget(n, "r_max", 255)), random.uniform(dget(n, "g_min", 150), dget(n, "g_max", 200)), random.uniform(dget(n, "b_min", 0), dget(n, "b_max", 0))))
-		exec("""def move_direction(self):
-	self.x+="""+str((random.random()-random.random())*(random.uniform(dget(n, "speed_min", 3), dget(n, "speed_max", 3))))+"""
-	self.y+="""+str((random.random()-random.random())*(random.uniform(dget(n, "speed_min", 3), dget(n, "speed_max", 3)))))
-		ps.append(Particle(r, surf, x, y, move_direction, random.uniform(dget(n, "time_min", 15), dget(n, "time_max", 45)), True))
-		i+=1
+	pcount=random.randint(dget(n, "particles_min", dget(n, "particles", 200)), dget(n, "particles_max", dget(n, "particles", 200)))
+	if pcount>0:
+		while i<pcount:
+			surf=pygame.Surface((int(random.uniform(dget(n, "size_min", 2), dget(n, "size_max", 2))), int(random.uniform(dget(n, "size_min", 2), (dget(n, "size_max", 2)))))).convert_alpha()
+			surf.fill(
+				pygame.Color(
+					int(random.uniform(dget(n, "r_min", 200), dget(n, "r_max", 255))) ,
+					int(random.uniform(dget(n, "g_min", 150), dget(n, "g_max", 200))) ,
+					int(random.uniform(dget(n, "b_min", 0),   dget(n, "b_max", 0) ) ) ,
+					int(random.uniform(dget(n, "a_min", 255), dget(n, "a_max", 255)))
+				)
+			)
+			exec("""def move_direction(self):
+		self.x+="""+str((random.random()-random.random())*(random.uniform(dget(n, "speed_min", 3), dget(n, "speed_max", 3))))+"""
+		self.y+="""+str((random.random()-random.random())*(random.uniform(dget(n, "speed_min", 3), dget(n, "speed_max", 3)))))
+			ps.append(Particle(r, surf, x+random.uniform(n.get("offset_x_min",0), n.get("offset_x_max",0)), y+random.uniform(n.get("offset_y_min",0), n.get("offset_y_max",0)), move_direction, random.uniform(dget(n, "time_min", 15), dget(n, "time_max", 45)), True))
+			i+=1
 	return ps
 
 class ParticleManager(object):

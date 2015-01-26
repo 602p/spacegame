@@ -72,9 +72,11 @@
             "type":"json",
             "json":[
                 {
-                    "primitive":"explosion_at_parent",
-                    "style":"%station_explosion%",
-                    "root":true
+                    "primitive":"erandom"
+                },
+                {
+                    "primitive":"play_animation",
+                    "style":"%explosion3%"
                 },
                 {
                     "primitive":"afterimage",
@@ -86,9 +88,9 @@
                     "time":3
                 },
                 {
-                    "primitive":"delayed_explosion_at_parent_randomized",
-                    "time":3,
-                    "style":"%station_explosion%"
+                    "primitive":"play_animation_dr",
+                    "style":"%explosion3%",
+                    "time":3.2
                 },
                 {
                     "primitive":"delayed_sound_effect",
@@ -96,9 +98,9 @@
                     "time":3.2
                 },
                 {
-                    "primitive":"delayed_explosion_at_parent_randomized",
-                    "time":3.2,
-                    "style":"%station_explosion%"
+                    "primitive":"play_animation_dr",
+                    "style":"%explosion3%",
+                    "time":2.7
                 },
                 {
                     "primitive":"delayed_sound_effect",
@@ -106,9 +108,9 @@
                     "time":2.7
                 },
                 {
-                    "primitive":"delayed_explosion_at_parent_randomized",
-                    "time":2.7,
-                    "style":"%station_explosion%"
+                    "primitive":"play_animation_dr",
+                    "style":"%explosion3%",
+                    "time":1
                 },
                 {
                     "primitive":"delayed_sound_effect",
@@ -116,9 +118,9 @@
                     "time":1
                 },
                 {
-                    "primitive":"delayed_explosion_at_parent_randomized",
-                    "time":1,
-                    "style":"%station_explosion%"
+                    "primitive":"play_animation_dr",
+                    "style":"%explosion3%",
+                    "time":4
                 },
                 {
                     "primitive":"delayed_sound_effect",
@@ -126,9 +128,9 @@
                     "time":4
                 },
                 {
-                    "primitive":"delayed_explosion_at_parent_randomized",
-                    "time":4,
-                    "style":"%station_explosion%"
+                    "primitive":"play_animation_dr",
+                    "style":"%explosion3%",
+                    "time":4.5
                 },
                 {
                     "primitive":"delayed_sound_effect",
@@ -136,9 +138,9 @@
                     "time":4.5
                 },
                 {
-                    "primitive":"delayed_explosion_at_parent_randomized",
-                    "time":4.5,
-                    "style":"%station_explosion%"
+                    "primitive":"play_animation_dr",
+                    "style":"%explosion3%",
+                    "time":5
                 },
                 {
                     "primitive":"delayed_sound_effect",
@@ -146,9 +148,9 @@
                     "time":5
                 },
                 {
-                    "primitive":"delayed_explosion_at_parent_randomized",
-                    "time":5,
-                    "style":"%station_explosion%"
+                    "primitive":"play_animation_dr",
+                    "style":"%explosion3%",
+                    "time":1.5
                 },
                 {
                     "primitive":"delayed_sound_effect",
@@ -156,9 +158,9 @@
                     "time":1.5
                 },
                 {
-                    "primitive":"delayed_explosion_at_parent_randomized",
-                    "time":1.5,
-                    "style":"%station_explosion%"
+                    "primitive":"play_animation_dr",
+                    "style":"%explosion3%",
+                    "time":3
                 }
             ]
         }

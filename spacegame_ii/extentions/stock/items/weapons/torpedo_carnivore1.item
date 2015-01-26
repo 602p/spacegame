@@ -29,8 +29,8 @@
                     "peirce":0.9
                 },
                 {
-                    "primitive":"explosion_at_parent",
-                    "style":"%explosion_red%"
+                    "primitive":"play_animation",
+                    "style":"%explosion3%"
                 },
                 {
                     "primitive":"sound_effect",

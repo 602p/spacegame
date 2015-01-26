@@ -1,0 +1,116 @@
+{
+	"assets":[
+		{
+			"type":"image",
+			"name":"image_explosion4_0",
+			"path":"image/animations/explosion4/frame_0.gif"
+		},
+		{
+			"type":"image",
+			"name":"image_explosion4_1",
+			"path":"image/animations/explosion4/frame_1.gif"
+		},
+		{
+			"type":"image",
+			"name":"image_explosion4_2",
+			"path":"image/animations/explosion4/frame_2.gif"
+		},
+		{
+			"type":"image",
+			"name":"image_explosion4_3",
+			"path":"image/animations/explosion4/frame_3.gif"
+		},
+		{
+			"type":"image",
+			"name":"image_explosion4_4",
+			"path":"image/animations/explosion4/frame_4.gif"
+		},
+		{
+			"type":"image",
+			"name":"image_explosion4_5",
+			"path":"image/animations/explosion4/frame_5.gif"
+		},
+		{
+			"type":"image",
+			"name":"image_explosion4_6",
+			"path":"image/animations/explosion4/frame_6.gif"
+		},
+		{
+			"type":"image",
+			"name":"image_explosion4_7",
+			"path":"image/animations/explosion4/frame_7.gif"
+		},
+		{
+			"type":"image",
+			"name":"image_explosion4_8",
+			"path":"image/animations/explosion4/frame_8.gif"
+		},
+		{
+			"type":"image",
+			"name":"image_explosion4_9",
+			"path":"image/animations/explosion4/frame_9.gif"
+		},
+		{
+			"type":"image",
+			"name":"image_explosion4_10",
+			"path":"image/animations/explosion4/frame_10.gif"
+		},
+		{
+			"type":"image",
+			"name":"image_explosion4_11",
+			"path":"image/animations/explosion4/frame_11.gif"
+		},
+		{
+			"type":"image",
+			"name":"image_explosion4_12",
+			"path":"image/animations/explosion4/frame_12.gif"
+		},
+		{
+			"type":"image",
+			"name":"image_explosion4_13",
+			"path":"image/animations/explosion4/frame_13.gif"
+		},
+		{
+			"type":"image",
+			"name":"image_explosion4_14",
+			"path":"image/animations/explosion4/frame_14.gif"
+		},
+		{
+			"type":"image",
+			"name":"image_explosion4_15",
+			"path":"image/animations/explosion4/frame_15.gif"
+		},
+		{
+			"type":"image",
+			"name":"image_explosion4_16",
+			"path":"image/animations/explosion4/frame_16.gif"
+		},
+		{
+			"type":"json",
+			"name":"cfg_explosion4",
+			"json":{
+				"sum_duration":1,
+				"offset":[-50,-80],
+				"frames":[
+					["image_explosion4_0", 0.06],
+					["image_explosion4_1", 0.06],
+					["image_explosion4_2", 0.06],
+					["image_explosion4_3", 0.06],
+					["image_explosion4_4", 0.06],
+					["image_explosion4_5", 0.06],
+					["image_explosion4_6", 0.06],
+					["image_explosion4_7", 0.06],
+					["image_explosion4_8", 0.06],
+					["image_explosion4_9", 0.06],
+					["image_explosion4_10", 0.06],
+					["image_explosion4_11", 0.06],
+					["image_explosion4_12", 0.06],
+					["image_explosion4_13", 0.06],
+					["image_explosion4_14", 0.06],
+					["image_explosion4_15", 0.06],
+					["image_explosion4_16", 0.06]
+				]
+			}
+		}
+	]
+}

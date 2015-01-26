@@ -26,22 +26,8 @@
                     "damage":1
                 },
                 {
-                    "primitive":"explosion_at_parent",
-                    "style":{
-                        "particles":50,
-                        "r_min":255,
-                        "r_max":255,
-                        "g_min":255,
-                        "g_max":255,
-                        "b_min":255,
-                        "b_max":255,
-                        "speed_min":3,
-                        "speed_max":6,
-                        "time_min":0.1,
-                        "time_max":1.1,
-                        "size_min":2,
-                        "size_max":2
-                    }
+                    "primitive":"play_animation",
+                    "style":"%explosion2_small%"
                 },
                 {
                     "primitive":"sound_effect",

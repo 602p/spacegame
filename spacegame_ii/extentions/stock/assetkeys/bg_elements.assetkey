@@ -5,11 +5,96 @@
 			"type":"image",
 			"path":"image/bg-elements/nebula-1.png"
 		},
+		{
+			"name":"bg_nebula_2",
+			"type":"image_",
+			"path":"image/bg-elements/nebula-2.png"
+		},
+		{
+			"name":"bg_nebula_3",
+			"type":"image_",
+			"path":"image/bg-elements/nebula-3.png"
+		},
 
 		{
 			"name":"bg_planet_1",
 			"type":"image",
 			"path":"image/planets/planet-1.png"
+		},
+		{
+			"name":"bg_planet_2",
+			"type":"image_",
+			"path":"image/planets/planet-2.png"
+		},
+		{
+			"name":"bg_planet_3",
+			"type":"image_",
+			"path":"image/planets/planet-3.png"
+		},
+		{
+			"name":"bg_planet_4",
+			"type":"image_",
+			"path":"image/planets/planet-4.png"
+		},
+		{
+			"name":"bg_planet_5",
+			"type":"image_",
+			"path":"image/planets/planet-5.png"
+		},
+		{
+			"name":"bg_planet_6",
+			"type":"image_",
+			"path":"image/planets/planet-6.png"
+		},
+		{
+			"name":"bg_planet_7",
+			"type":"image_",
+			"path":"image/planets/planet-7.png"
+		},
+		{
+			"name":"bg_planet_8",
+			"type":"image_",
+			"path":"image/planets/planet-8.png"
+		},
+		{
+			"name":"bg_planet_9",
+			"type":"image_",
+			"path":"image/planets/planet-9.png"
+		},
+		{
+			"name":"bg_planet_10",
+			"type":"image_",
+			"path":"image/planets/planet-10.png"
+		},
+		{
+			"name":"bg_planet_11",
+			"type":"image_",
+			"path":"image/planets/planet-11.png"
+		},
+		{
+			"name":"bg_planet_12",
+			"type":"image_",
+			"path":"image/planets/planet-12.png"
+		},
+		{
+			"name":"bg_planet_13",
+			"type":"image_",
+			"path":"image/planets/planet-13.png"
+		},
+		{
+			"name":"bg_planet_14",
+			"type":"image_",
+			"path":"image/planets/planet-14.png"
+		},
+		{
+			"name":"bg_planet_15",
+			"type":"image_",
+			"path":"image/planets/planet-15.png"
+		},
+		{
+			"name":"bg_planet_16",
+			"type":"image_",
+			"path":"image/planets/planet-16.png"
 		}
 	]
 }

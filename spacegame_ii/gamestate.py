@@ -76,6 +76,7 @@ class RunningGameState(state.State):
 					locked_by+=1
 				# if self.g_render_lines:
 				# 	self.root.screen.draw_line((255,255,255), (self.player.rigidbody.x, self.player.rigidbody.y), (entitiy.rigidbody.x, entitiy.rigidbody.y), 2)
+		tasks.run_group(self.root, "render_after_entities")
 		if locked_by>0:
 			self.root.screen.screen.blit(self.root.gamedb("font_standard_small").render("LOCKED BY "+str(locked_by)+" SHIPS!", 0, (255,0,0)), (150,0))
 

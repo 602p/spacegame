@@ -44,7 +44,7 @@ def do_for_item(root, name, item, node):
 	get_primitive(root, name, node).run_in_item(item)
 
 def do_for_event(root, name, event, node):
-	return get_primitive(root, name, node).run_in_event(event)
+	get_primitive(root, name, node).run_in_event(event)
 
 def do_for_ship(root, name, ship, node):
 	get_primitive(root, name, node).run_in_ship(ship)
@@ -60,11 +60,8 @@ def do_group_for_item(root, group, item, key="primitive"):
 		do_for_item(root, i[key], item, i)
 
 def do_group_for_event(root, group, event, key="primitive"):
-	retval=1
 	for i in group:
-		if not do_for_event(root, i[key], event, i):
-			retval=0
-	return retval
+		do_for_event(root, i[key], event, i)
 
 def do_group_for_impact(root, group, item, impacted, projectile=None, key="primitive"):
 	for i in group:

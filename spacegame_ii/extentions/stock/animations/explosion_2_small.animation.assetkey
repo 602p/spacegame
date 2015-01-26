@@ -1,0 +1,98 @@
+{
+	"assets":[
+		{
+			"type":"image",
+			"scale":[88,88],
+			"name":"image_explosion2_small_0",
+			"path":"image/animations/explosion2/0.png"
+		},
+		{
+			"type":"image",
+			"scale":[88,88],
+			"name":"image_explosion2_small_1",
+			"path":"image/animations/explosion2/1.png"
+		},
+		{
+			"type":"image",
+			"scale":[88,88],
+			"name":"image_explosion2_small_2",
+			"path":"image/animations/explosion2/2.png"
+		},
+		{
+			"type":"image",
+			"scale":[88,88],
+			"name":"image_explosion2_small_3",
+			"path":"image/animations/explosion2/3.png"
+		},
+		{
+			"type":"image",
+			"scale":[88,88],
+			"name":"image_explosion2_small_4",
+			"path":"image/animations/explosion2/4.png"
+		},
+		{
+			"type":"image",
+			"scale":[88,88],
+			"name":"image_explosion2_small_5",
+			"path":"image/animations/explosion2/5.png"
+		},
+		{
+			"type":"image",
+			"scale":[88,88],
+			"name":"image_explosion2_small_6",
+			"path":"image/animations/explosion2/6.png"
+		},
+		{
+			"type":"image",
+			"scale":[88,88],
+			"name":"image_explosion2_small_7",
+			"path":"image/animations/explosion2/7.png"
+		},
+		{
+			"type":"image",
+			"scale":[88,88],
+			"name":"image_explosion2_small_8",
+			"path":"image/animations/explosion2/8.png"
+		},
+		{
+			"type":"image",
+			"scale":[88,88],
+			"name":"image_explosion2_small_9",
+			"path":"image/animations/explosion2/9.png"
+		},
+		{
+			"type":"image",
+			"scale":[88,88],
+			"name":"image_explosion2_small_10",
+			"path":"image/animations/explosion2/10.png"
+		},
+		{
+			"type":"image",
+			"scale":[88,88],
+			"name":"image_explosion2_small_11",
+			"path":"image/animations/explosion2/11.png"
+		},
+		{
+			"type":"json",
+			"name":"cfg_explosion2_small",
+			"json":{
+				"sum_duration":0.59,
+				"offset":[44,44],
+				"frames":[
+					["image_explosion2_small_0", 0.05],
+					["image_explosion2_small_1", 0.05],
+					["image_explosion2_small_2", 0.05],
+					["image_explosion2_small_3", 0.05],
+					["image_explosion2_small_4", 0.05],
+					["image_explosion2_small_5", 0.05],
+					["image_explosion2_small_6", 0.05],
+					["image_explosion2_small_7", 0.05],
+					["image_explosion2_small_8", 0.05],
+					["image_explosion2_small_9", 0.05],
+					["image_explosion2_small_10", 0.05],
+					["image_explosion2_small_11", 0.05]
+				]
+			}
+		}
+	]
+}

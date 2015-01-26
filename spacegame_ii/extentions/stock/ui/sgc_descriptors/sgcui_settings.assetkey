@@ -12,7 +12,8 @@
 				"k_interact":"keybindings:interact",
 				"colordepth":"graphics:color_depth",
 				"loader":"graphics:loader_screen",
-				"gfxcursor":"graphics:gfxcursor"
+				"gfxcursor":"graphics:gfxcursor",
+				"minspeed":"graphics:min_trail_speed"
 			}
 		},
 		{
@@ -49,7 +50,7 @@
 							{
 								"controller":"popup_ok",
 								"title":"Success",
-								"body":"Settings Succesfully Applied",
+								"text":"Settings Applied%n:)",
 								"button":"OK"
 							}
 						]
@@ -127,6 +128,21 @@
 												"font":"$font_standard_small"										
 											}
 										]
+									},
+									{
+										"type":"HBox",
+										"widgets":[
+											{
+												"type":"InputBox",
+												"id":"minspeed"
+											},
+											{
+												"type":"Label",
+												"text":"Min speed for\nengine emissions",
+												"col":[255,255,255],
+												"font":"$font_standard_small"										
+											}
+										]
 									}
 								]
 							},
@@ -138,6 +154,12 @@
 										"type":"Label",
 										"text":"Debug Settings",
 										"font":"$font_standard_large"
+									},
+									{
+										"type":"Label",
+										"text":"MAY BE UNSTABLE!\nOR CAUSE CRASHES!",
+										"col":[255,0,0],
+										"font":"$font_standard_small"
 									},
 									{
 										"type":"HBox",

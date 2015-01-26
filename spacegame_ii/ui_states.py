@@ -22,7 +22,8 @@ def init(root):
 		"json_settings_get":JSONSettingsBindingsGet,
 		"json_settings_set":JSONSettingsBindingsSet,
 		"call_state_callback":CallbackCaller,
-		"popup_ok":PopupInterdictorController
+		"popup_ok":PopupInterdictorController,
+		"click_on_keypress":DoClickEventOnKeypress
 	}
 
 def interdict_ok(root, title="NOT_SET", text="NOT_SET", button="NOT_SET", callback=lambda s:0, wrap=48, key="sgcui_modalok"):
@@ -120,6 +121,9 @@ class WidgetController:
 	def on_start(self):
 		pass
 
+	def on_event(self, e):
+		pass
+
 class ExitStateWidgetController(WidgetController):
 	def on_click(self):
 		self.interface.state.finish(self.config.get("value", None))
@@ -163,6 +167,15 @@ class PopupInterdictorController(WidgetController):
 	def on_enter(self): self._call()
 	def on_switch(self): self._call()
 
+class DoClickEventOnKeypress(WidgetController):
+	def on_event(self, e):
+		#print "e"
+		if e.type==pygame.KEYDOWN:
+			#print "k"
+			if e.key==self.config.get("keycode", pygame.K_RETURN):
+				#print "c"
+				self.interface.state.widgets[self.config.get("widget_id", self.interface.widget._ui_id)].wai.on_click()
+
 class WidgetAbstractionInterface:
 	def __init__(self, widget, state, root):
 		self.widget=widget
@@ -197,6 +210,10 @@ class WidgetAbstractionInterface:
 	def on_start(self):
 		for i in self.controllers:
 			i.on_start()
+
+	def on_event(self, e):
+		for i in self.controllers:
+			i.on_event(e)
 
 class GenericUIInterdictor(state.InterdictingState):
 	def del_widget(self, n):
@@ -236,10 +253,9 @@ class GenericUIInterdictor(state.InterdictingState):
 				else:
 					error("--CONTROLLER "+controller_cfg["controller"]+" NOT FOUND!")
 			if add_dict:
-				if "id" in config_:
-					self.widgets[config_["id"]]= widget
-				else:
-					self.widgets[hash(widget)]= widget
+				key=config_.get("id", hash(widget))
+				self.widgets[key]=widget
+				widget._ui_id=key
 			# if add_screen:
 			# 	widget.add(order=config_.get("order",None))
 			return widget
@@ -270,13 +286,14 @@ class GenericUIInterdictor(state.InterdictingState):
 		if "bg_image" in self.params.keys():
 			self.root.screen.screen.blit(self.root.gamedb(self.params["bg_image"]), (0,0))
 		sgc.update(self.root.clock.get_fps())
-		for i in self.widgets.keys():
-			self.widgets[i].wai.on_tick()
 		self.root.fps=9999
 
 	def process_events(self, events):
 		for event in events:
 			sgc.event(event)
+			for i in self.widgets.keys():
+				self.widgets[i].wai.on_event(event)
+				self.widgets[i].wai.on_tick()
 
 	def clear_widgets(self):
 		debug("removing widgets...")

@@ -16,7 +16,7 @@
     "fire_events":[
         {
             "primitive":"postmsg",
-            "text":"A %(ship:name)s fired a %(item:name)s"
+            "text":"A <@{ship:name}> fired a <@{item:name}>"
         },
         {
             "primitive":"fire_projectile",
@@ -34,8 +34,8 @@
                     "peirce":0.9
                 },
                 {
-                    "primitive":"explosion_at_parent",
-                    "style":"%explosion_red%"
+                    "primitive":"play_animation",
+                    "style":"%explosion2%"
                 },
                 {
                     "primitive":"sound_effect",

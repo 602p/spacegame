@@ -8,21 +8,14 @@
     "cost":500,
     "mass":1,
     "required":{
-        "energy":5,
+        "energy":-1,
         "enemy_selected":false,
-        "cooldown":0.5
+        "cooldown":0.01
     },
     "fire_events":[
         {
-            "primitive":"popup_ok"
-        },
-        {
             "primitive":"sound_effect",
             "effect":"sound_laser1_1"
-        },
-        {
-            "primitive":"postmsg",
-            "text":"<@{ship::name}> fired a[n] <@{item::name}>"
         },
         {
             "primitive":"fire_projectile",
@@ -35,20 +28,15 @@
             "impact":[
                 {
                     "primitive":"simple_damage",
-                    "damage":20
+                    "damage":1
                 },
                 {
-                    "primitive":"explosion_at_parent",
-                    "style":"%explosion_red%"
+                    "primitive":"play_animation",
+                    "style":"%explosion2_small%"
                 },
                 {
                     "primitive":"sound_effect",
                     "effect":"sound_explode1"
-                },
-                {
-                    "primitive":"postmsg",
-                    "text":"<@{projectile_ship::name}>'s <@{item::name}> hit a <@{hit_ship::name}>",
-                    "postany":1
                 }
             ]
         }
