@@ -41,5 +41,5 @@ class DelayedSoundPrimitive(primitives.BasePrimitive):
 
 def init_primitives(root, console):
 	primitives.register_primitive(root, "afterimage", AfterImagePrimitive)
-	primitives.register_primitive(root, "delayed_explosion_at_parent_randomized", DelayedExplosionPrimitive)
+	primitives.register_primitive(root, "explosion_dr", DelayedExplosionPrimitive)
 	primitives.register_primitive(root, "delayed_sound_effect", DelayedSoundPrimitive)

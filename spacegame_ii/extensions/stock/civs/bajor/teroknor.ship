@@ -3,7 +3,7 @@
 	"id":"ss_bajor_ds9",
 	"name":"Deep Space 9",
     "source_faction":"federation",
-    "hull":500,
+    "hull":800,
     "mass":2000,
     "image":"image_bajor_ds9_orbit",
     "cost":2200,

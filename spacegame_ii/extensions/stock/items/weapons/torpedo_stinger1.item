@@ -16,7 +16,7 @@
     "fire_events":[
         {
             "primitive":"postmsg",
-            "text":"A <@{ship:name}> fired a <@{item:name}>"
+            "text":"Message from subsystem: <@{item:parent.damage.search_system(search_key='max_speed').get_descriptor()[0]}> : <-- End message from subsytem"
         },
         {
             "primitive":"fire_projectile",

@@ -32,8 +32,8 @@
                     "system_key":"max_speed"
                 },
                 {
-                    "primitive":"explosion_at_parent",
-                    "style":"%explosion_red%"
+                    "primitive":"play_animation",
+                    "style":"%explosion2_small%"
                 },
                 {
                     "primitive":"sound_effect",

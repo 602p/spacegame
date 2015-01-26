@@ -95,14 +95,18 @@ class Item(serialize.SerializableObject):
 		#self.get_rotated_image()
 
 	def get_rotated_image(self, scale=1):
+		#if "ammo" in self.id_str:print "gri"
 		self.rotated_image, self.rotated_rect=rot_center(pygame.transform.scale(self.equipped_image, (
 			self.equipped_image.get_width()*scale,
 			self.equipped_image.get_height()*scale)),
 		 pygame.Rect(self.get_center(), self.equipped_image.get_size()), self.parent.rigidbody.get_angle())
 
 	def render_equipped(self, surface, hardpoint, scale=1):
-		self.get_rotated_image(scale)
-		surface.blit(self.rotated_image, pygame.Rect(self.get_center(), self.rotated_rect.size))
+
+		if self.equipped!=-1:
+			if "ammo" in self.id_str:print "rq"
+			self.get_rotated_image(scale)
+			surface.blit(self.rotated_image, pygame.Rect(self.get_center(), self.rotated_rect.size))
 		# surface.draw_rect((255,0,0), pygame.Rect(self.get_center(),(2,2)))
 		# surface.draw_rect((0,0,255), self.rotated_rect, 1)
 
@@ -186,10 +190,18 @@ class Item(serialize.SerializableObject):
 
 	def get_center_(self):
 		if self.equipped>-1:
+			#if "ammo" in self.id_str:print "return(equp)"
+			#if "ammo" in self.id_str:print "DOING THING"
 			return rotate_point(self.parent.rotated_rect.center, [self.parent.rigidbody.x+self.parent.hardpoints[self.equipped]["x"],
 			 self.parent.rigidbody.y+self.parent.hardpoints[self.equipped]["y"]], -self.parent.rigidbody.get_angle())
+			#if "ammo" in self.id_str:print "DONE THING"
+		else:
+			#if "ammo" in self.id_str:print "return(else)"
+			return rotate_point(self.parent.rotated_rect.center, [self.parent.rigidbody.x,
+			 self.parent.rigidbody.y], -self.parent.rigidbody.get_angle())
 
 	def get_center(self):
+		#if "ammo" in self.id_str:print "get_center"
 		if "rotated_rect" not in self.__dict__.keys(): self.rotated_rect=pygame.Rect(0,0,0,0)
 		return (self.get_center_()[0]-self.rotated_rect.width/2,self.get_center_()[1]-self.rotated_rect.height/2)
 

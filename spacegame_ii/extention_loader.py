@@ -1,4 +1,4 @@
-import os, item, ship, serialize, primitives, imp, json, fnmatch, pygame, time
+import os, item, ship, serialize, primitives, imp, json, fnmatch, pygame, time, sys
 from logging import debug, info, warning, error, critical
 
 def load_all_packages(root, dirn, console=None):
@@ -28,7 +28,7 @@ def load_all_packages(root, dirn, console=None):
 
 def safepost(console, text, bold=0, italic=0, underline=0, color=(255,255,255), bg=(0,0,0), debugmsg=False):
 	if console:
-		console.post(text, bold=bold, italic=italic, underline=underline, color=color, bg=bg, debugmsg=debugmsg)
+		post_and_flip(console, text, bold=bold, italic=italic, underline=underline, color=color, bg=bg, debugmsg=debugmsg)
 
 def findall(dirn, pattern):
 	matches=[]
@@ -73,7 +73,9 @@ def load_plugin(root, fname, console):
 def post_and_flip(console, *args, **kwargs):
 	console.post(*args, **kwargs)
 	console.render((0,0))
-	pygame.event.get()
+	for i in pygame.event.get():
+		if i.type==pygame.QUIT:
+			sys.exit(1)
 	pygame.display.flip()
 	#time.sleep(0.005)
 

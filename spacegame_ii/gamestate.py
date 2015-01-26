@@ -30,7 +30,7 @@ class RunningGameState(state.State):
 
 		self.entities=[]
 		self.entities=[
-			ship.create_ship(self.root, "terran_defender", 100, 100, ai=False),
+			ship.create_ship(self.root, "cargo_transport_test", 100, 100, ai=False),
 			ship.create_ship(self.root, "ss_bajor_ds9", -100, -100),
 			ship.create_ship(self.root, "ss_f9_jumpgate", -2000, -2000)
 		]

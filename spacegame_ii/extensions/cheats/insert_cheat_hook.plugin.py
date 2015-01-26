@@ -59,8 +59,6 @@ class SetPlayerAttribute(ui_states.WidgetController):
 			target=self.root
 		exec "target."+self.state.widgets[self.config["attr_name"]].text+"=data"
 		
-		
-
 class GetPlayerAttribute(ui_states.WidgetController):
 	def on_click(self):
 		target=self.state.widgets[self.config["attr_target"]].selection

@@ -3,7 +3,9 @@
 		{
 			"name":"x_image_dick",
 			"path":"dick.png",
-			"type":"image"
+			"type":"image",
+			"colorkey":[255,255,255],
+			"scale":[20,20]
 		}
 	]
 }

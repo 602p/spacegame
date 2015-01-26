@@ -26,8 +26,7 @@
         {
             "size":"small",
             "x":16,
-            "y":14,
-            "render_on_top":false
+            "y":14
         },
         {
             "size":"small_utility",
@@ -36,11 +35,6 @@
         },
         {
             "size":"small_utility",
-            "x":16,
-            "y":40
-        },
-        {
-            "size":"inventory",
             "x":16,
             "y":40
         }
@@ -60,7 +54,7 @@
         },
         {
             "item_name":"ammo_torpedo_stinger1",
-            "equipped":3
+            "equipped":-1
         }
     ],
     "ship_die":"%explosion_ship_large%",

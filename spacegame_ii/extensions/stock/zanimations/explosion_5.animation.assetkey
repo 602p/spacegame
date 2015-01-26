@@ -1,0 +1,203 @@
+{
+	"assets":[
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion5_0",
+			"path":"image/animations/explosion5/frame_000.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion5_1",
+			"path":"image/animations/explosion5/frame_001.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion5_3",
+			"path":"image/animations/explosion5/frame_003.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion5_4",
+			"path":"image/animations/explosion5/frame_004.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion5_5",
+			"path":"image/animations/explosion5/frame_005.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion5_6",
+			"path":"image/animations/explosion5/frame_006.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion5_7",
+			"path":"image/animations/explosion5/frame_007.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion5_8",
+			"path":"image/animations/explosion5/frame_008.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion5_9",
+			"path":"image/animations/explosion5/frame_009.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion5_10",
+			"path":"image/animations/explosion5/frame_010.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion5_11",
+			"path":"image/animations/explosion5/frame_011.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion5_12",
+			"path":"image/animations/explosion5/frame_012.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion5_13",
+			"path":"image/animations/explosion5/frame_013.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion5_14",
+			"path":"image/animations/explosion5/frame_014.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion5_15",
+			"path":"image/animations/explosion5/frame_015.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion5_16",
+			"path":"image/animations/explosion5/frame_016.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion5_17",
+			"path":"image/animations/explosion5/frame_017.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion5_18",
+			"path":"image/animations/explosion5/frame_018.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion5_19",
+			"path":"image/animations/explosion5/frame_019.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion5_20",
+			"path":"image/animations/explosion5/frame_020.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion5_21",
+			"path":"image/animations/explosion5/frame_021.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion5_22",
+			"path":"image/animations/explosion5/frame_022.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion5_23",
+			"path":"image/animations/explosion5/frame_023.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion5_24",
+			"path":"image/animations/explosion5/frame_024.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion5_25",
+			"path":"image/animations/explosion5/frame_025.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion5_26",
+			"path":"image/animations/explosion5/frame_026.gif"
+		},
+		{
+			"type":"image",
+			"colorkey":[0,0,0],
+			"name":"image_explosion5_27",
+			"path":"image/animations/explosion5/frame_027.gif"
+		},
+		{
+			"type":"json",
+			"name":"cfg_explosion5",
+			"json":{
+				"sum_duration":1.0,
+				"offset":[128,96],
+				"frames":[
+					["image_explosion5_0", 0.04],
+					["image_explosion5_1", 0.04],
+					["image_explosion5_3", 0.04],
+					["image_explosion5_4", 0.04],
+					["image_explosion5_5", 0.04],
+					["image_explosion5_6", 0.04],
+					["image_explosion5_7", 0.04],
+					["image_explosion5_8", 0.04],
+					["image_explosion5_9", 0.04],
+					["image_explosion5_10", 0.04],
+					["image_explosion5_11", 0.04],
+					["image_explosion5_12", 0.04],
+					["image_explosion5_13", 0.04],
+					["image_explosion5_14", 0.04],
+					["image_explosion5_15", 0.04],
+					["image_explosion5_16", 0.04],
+					["image_explosion5_17", 0.04],
+					["image_explosion5_18", 0.04],
+					["image_explosion5_19", 0.04],
+					["image_explosion5_20", 0.04],
+					["image_explosion5_21", 0.04],
+					["image_explosion5_22", 0.04],
+					["image_explosion5_23", 0.04],
+					["image_explosion5_24", 0.04],
+					["image_explosion5_25", 0.04],
+					["image_explosion5_26", 0.04],
+					["image_explosion5_27", 0.04]
+				]
+			}
+		}
+	]
+}

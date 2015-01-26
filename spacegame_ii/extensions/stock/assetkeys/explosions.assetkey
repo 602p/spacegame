@@ -1,5 +1,5 @@
 {
-    "require":["cfg_explosion3"],
+    "require":["cfg_explosion3", "cfg_explosion5"],
 	"assets":[
 		{
 			"name":"cfg_explosion_red",
@@ -39,6 +39,25 @@
             }
         },
         {
+            "name":"cfg_medium_large_explosion",
+            "type":"json",
+            "json":{
+                "particles":200,
+                "r_min":200,
+                "r_max":255,
+                "g_min":50,
+                "g_max":100,
+                "b_min":0,
+                "b_max":0,
+                "speed_min":8,
+                "speed_max":16,
+                "time_min":0.1,
+                "time_max":1.1,
+                "size_min":8,
+                "size_max":25
+            }
+        },
+        {
             "name":"cfg_station_explosion",
             "type":"json",
             "json":{
@@ -62,9 +81,13 @@
             "type":"json",
             "json":[
                 {
-                "primitive":"explosion_at_parent",
-                "style":"%very_large_explosion%",
-                "root":true
+                    "primitive":"play_animation",
+                    "style":"%explosion5%"
+                },
+                {
+                    "primitive":"explosion_at_parent",
+                    "style":"%medium_large_explosion%",
+                    "root":true
                 }
             ]
         },
@@ -76,8 +99,14 @@
                     "primitive":"erandom"
                 },
                 {
-                    "primitive":"play_animation",
-                    "style":"%explosion3%"
+                    "primitive":"play_animation_dr",
+                    "style":"%explosion5%",
+                    "time":0
+                },
+                {
+                    "primitive":"explosion_dr",
+                    "style":"%medium_large_explosion%",
+                    "time":0
                 },
                 {
                     "primitive":"afterimage",
@@ -90,7 +119,12 @@
                 },
                 {
                     "primitive":"play_animation_dr",
-                    "style":"%explosion3%",
+                    "style":"%explosion5%",
+                    "time":3.2
+                },
+                {
+                    "primitive":"explosion_dr",
+                    "style":"%medium_large_explosion%",
                     "time":3.2
                 },
                 {
@@ -100,7 +134,12 @@
                 },
                 {
                     "primitive":"play_animation_dr",
-                    "style":"%explosion3%",
+                    "style":"%explosion5%",
+                    "time":2.7
+                },
+                {
+                    "primitive":"explosion_dr",
+                    "style":"%medium_large_explosion%",
                     "time":2.7
                 },
                 {
@@ -110,7 +149,12 @@
                 },
                 {
                     "primitive":"play_animation_dr",
-                    "style":"%explosion3%",
+                    "style":"%explosion5%",
+                    "time":1
+                },
+                {
+                    "primitive":"explosion_dr",
+                    "style":"%medium_large_explosion%",
                     "time":1
                 },
                 {
@@ -120,7 +164,12 @@
                 },
                 {
                     "primitive":"play_animation_dr",
-                    "style":"%explosion3%",
+                    "style":"%explosion5%",
+                    "time":4
+                },
+                {
+                    "primitive":"explosion_dr",
+                    "style":"%medium_large_explosion%",
                     "time":4
                 },
                 {
@@ -130,7 +179,12 @@
                 },
                 {
                     "primitive":"play_animation_dr",
-                    "style":"%explosion3%",
+                    "style":"%explosion5%",
+                    "time":4.5
+                },
+                {
+                    "primitive":"explosion_dr",
+                    "style":"%medium_large_explosion%",
                     "time":4.5
                 },
                 {
@@ -140,7 +194,7 @@
                 },
                 {
                     "primitive":"play_animation_dr",
-                    "style":"%explosion3%",
+                    "style":"%explosion5%",
                     "time":5
                 },
                 {
@@ -150,7 +204,12 @@
                 },
                 {
                     "primitive":"play_animation_dr",
-                    "style":"%explosion3%",
+                    "style":"%explosion5%",
+                    "time":1.5
+                },
+                {
+                    "primitive":"explosion_dr",
+                    "style":"%medium_large_explosion%",
                     "time":1.5
                 },
                 {
@@ -160,7 +219,12 @@
                 },
                 {
                     "primitive":"play_animation_dr",
-                    "style":"%explosion3%",
+                    "style":"%explosion5%",
+                    "time":3
+                },
+                {
+                    "primitive":"explosion_dr",
+                    "style":"%medium_large_explosion%",
                     "time":3
                 }
             ]

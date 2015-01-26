@@ -123,7 +123,7 @@ class GameAssetDatabase:
 				if i not in self.loaded_nodes:
 					do_load=0
 					debug("(delaying load of "+path+" until after "+i+")")
-					if console: extention_loader.post_and_flip(console, "(delaying load of "+path+" until after "+i+")", bold=1)
+					if console: extention_loader.post_and_flip(console, "--> Delaying load of "+path+" until after "+i, italic=1, color=(255,255,0))
 		if do_load:
 			for i in data:
 				debug("Load node ["+basepath+"::"+path+"]: INDEX "+str(data.index(i)))
@@ -135,7 +135,7 @@ class GameAssetDatabase:
 			self.delayed_load_nodes[-1]["__path"]=path
 
 	def process_delayed_load(self, console):
-		if console: extention_loader.post_and_flip(console, "Processing delayed_load nodes...", italic=1, color=(255,255,0))
+		if console: extention_loader.post_and_flip(console, "(Processing delayed_load nodes...)", bold=1, color=(255,255,0))
 		self._process_delayed_load(console)
 
 	def _process_delayed_load(self, console):
