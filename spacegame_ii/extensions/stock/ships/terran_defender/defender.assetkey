@@ -1,0 +1,10 @@
+{
+	"assets":[
+		{
+			"type":"image",
+			"path":"ships/terran_defender/defender.png",
+			"name":"img_ship_terran_defender",
+			"scale":[160,167]
+		}
+	]
+}

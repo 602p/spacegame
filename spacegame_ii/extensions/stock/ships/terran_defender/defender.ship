@@ -1,0 +1,79 @@
+{
+    "%+base_ship%":0,
+    "name":"Terran Defender",
+    "id":"terran_defender",
+    "image":"img_ship_terran_defender",
+    
+    "mass":120,
+    "cost":2200,
+    "cargo":80,
+
+    "start_speed":5000,
+    "max_speed":180,
+    "turn_rate":90,
+
+    "reactor_max":100,
+    "reactor_regen":4,
+
+    "hull":200,
+    "shields":300,
+    "shield_regen":2,
+
+    "systems":[
+        "%+systems_standard%"
+    ],
+    "hardpoints":[
+        {
+            "size":"mine",
+            "x":78,
+            "y":107
+        },
+        {
+            "size":"small",
+            "x":78,
+            "y":60
+        }
+    ],
+    "start_equip":[
+        {
+            "item_name":"wep_fed_mine1",
+            "equipped":0
+        }
+    ],
+    "ship_die":"%explosion_ship_large%",
+    "engine_sources":[
+        {
+            "x":18,
+            "y":165,
+            "width":30,
+            "style":"%ship_trail%"
+        },
+        {
+            "x":142,
+            "y":165,
+            "width":30,
+            "style":"%ship_trail%"
+        },
+        {
+            "x":11,
+            "y":165,
+            "width":30,
+            "style":"%ship_trail%"
+        },
+        {
+            "x":149,
+            "y":165,
+            "width":30,
+            "style":"%ship_trail%"
+        }
+    ],
+    "rarity":{
+        "default":20,
+        "factions":[
+            {
+                "faction":"test",
+                "rarity":100
+            }
+        ]
+    }
+}

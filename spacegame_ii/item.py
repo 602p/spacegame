@@ -81,6 +81,7 @@ class Item(serialize.SerializableObject):
 
 		self.count=config.get("count", 1)
 
+
 		self.ai_hints=[]
 
 		if "ai_hints" in config:
@@ -91,13 +92,20 @@ class Item(serialize.SerializableObject):
 		self.equipped=equipped
 
 		self.last_fired=0
+		#self.get_rotated_image()
 
-	def render_equipped(self, surface, scale=1):
-		surface.blit(pygame.transform.scale(self.equipped_image, (
+	def get_rotated_image(self, scale=1):
+		self.rotated_image, self.rotated_rect=rot_center(pygame.transform.scale(self.equipped_image, (
 			self.equipped_image.get_width()*scale,
-			self.equipped_image.get_height()*scale
-			)), (0,0))
-		#print "re"
+			self.equipped_image.get_height()*scale)),
+		 pygame.Rect(self.get_center(), self.equipped_image.get_size()), self.parent.rigidbody.get_angle())
+
+	def render_equipped(self, surface, hardpoint, scale=1):
+		self.get_rotated_image(scale)
+		surface.blit(self.rotated_image, pygame.Rect(self.get_center(), self.rotated_rect.size))
+		# surface.draw_rect((255,0,0), pygame.Rect(self.get_center(),(2,2)))
+		# surface.draw_rect((0,0,255), self.rotated_rect, 1)
+
 
 	def get_inventory_image(self):
 		surface=pygame.Surface((64,64))
@@ -166,19 +174,24 @@ class Item(serialize.SerializableObject):
 
 	def fire(self):
 		if self.can_fire():
+			self.fire_actions()
 			if "item" in self.fire_required.keys():
 				for item in self.parent.inventory:
 					if item.id_str==self.fire_required["item"]:
 						item.consume_one()
-			self.fire_actions()
+			
 	
 	def save_to_config_node(self):
 		return {"__deserialize_handler__":"item", "id":self.id_str, "equipped":self.equipped, "count":self.count}
 
-	def get_center(self):
+	def get_center_(self):
 		if self.equipped>-1:
 			return rotate_point(self.parent.rotated_rect.center, [self.parent.rigidbody.x+self.parent.hardpoints[self.equipped]["x"],
 			 self.parent.rigidbody.y+self.parent.hardpoints[self.equipped]["y"]], -self.parent.rigidbody.get_angle())
+
+	def get_center(self):
+		if "rotated_rect" not in self.__dict__.keys(): self.rotated_rect=pygame.Rect(0,0,0,0)
+		return (self.get_center_()[0]-self.rotated_rect.width/2,self.get_center_()[1]-self.rotated_rect.height/2)
 
 	def consume_one(self):
 		self.count-=1

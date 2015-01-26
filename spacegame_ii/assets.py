@@ -108,7 +108,7 @@ class GameAssetDatabase:
 			exc_type, exc_value, exc_traceback = sys.exc_info()
 			error("================ERROR LOG=====================")
 			for i in traceback.format_exception(exc_type, exc_value, exc_traceback): error(i)
-			if console: extention_loader.post_and_flip(console, "ASSETKEY ERROR! NO LOADER '"+str(node["type"])+"'", color=(255,0,0), bold=1)
+			if console: extention_loader.post_and_flip(console, "ASSETKEY ERROR! KeyError: '"+traceback.format_exception(exc_type, exc_value, exc_traceback)[-1]+"'", color=(255,0,0), bold=1)
 
 	def load_assetfile(self, path, basepath, console=None):
 		debug("Gonna load "+path)

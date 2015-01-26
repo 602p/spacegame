@@ -70,7 +70,7 @@ info("Loading loader packages")
 extention_loader.load_all_packages(root, 'loader')
 info("Loading core packages")
 root.loader_renderer=overlay_gui.IngameRenderedConsole(root, root.renderspace_size[1]/root.gamedb("LOADER_font_mono").size("A")[1], 200, "LOADER_font_mono")
-extention_loader.load_all_packages(root, 'extentions', root.loader_renderer if root.settings["graphics"]["loader_screen"] else None)
+extention_loader.load_all_packages(root, 'extensions', root.loader_renderer if root.settings["graphics"]["loader_screen"] else None)
 
 debug("Loaded all packages")
 

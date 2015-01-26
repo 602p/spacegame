@@ -171,13 +171,14 @@ class Ship(serialize.SerializableObject):
 		
 		#screen.draw_rect((0,0,255), self.rotated_rect)
 		
-		self.render_items()
+		self.render_items(False)
 		if self.config.get("render_rotation", True) or ovveride_norotate or self.rotated_in_flight==0:
 			self.rerotate()
 			self.rotated_in_flight=1
 			#self.rotated_image, delete=rot_center(self.image, pygame.Rect((self.rigidbody.x, self.rigidbody.y), self.image.get_size()), self.rigidbody.get_angle())
 
 		screen.blit(self.rotated_image, (self.rotated_rect.x,self.rotated_rect.y))
+		self.render_items(True)
 		self.render_engines()
 		self.particlemanager.update()
 		self.particlemanager.draw(self.root.screen)
@@ -190,11 +191,11 @@ class Ship(serialize.SerializableObject):
 		self.rigidbody.update_in_seconds(time)
 		self.rigidbody.mass=self.get_mass()
 
-		if self.damage.dead(): self.kill=True
+		if self.damage.dead():
+			self.kill=True
+			self.die()
 
 		self.damage.regen()
-
-		if self.damage.dead(): self.die()
 
 		if self.use_ai:
 			self.ai.update()
@@ -202,9 +203,11 @@ class Ship(serialize.SerializableObject):
 	def render_items(self, render_top=True):
 		for i in self.inventory:
 			if i.equipped!=-1:
-				scaledsize=(i.equipped_image.get_size()[0]*self.hardpoints[i.equipped].get("scale", 1), i.equipped_image.get_size()[0]*self.hardpoints[i.equipped].get("scale", 1))
-				i.render_equipped(self.image.subsurface(pygame.Rect(( self.hardpoints[i.equipped]["x"]-(scaledsize[0]/2) ,
-				  self.hardpoints[i.equipped]["y"]-(scaledsize[1]/2) ), scaledsize ) ), self.hardpoints[i.equipped].get("scale", 1) )
+				if render_top==self.hardpoints[i.equipped].get("render_on_top", True):
+					i.render_equipped(self.root.screen, self.hardpoints[i.equipped], self.hardpoints[i.equipped].get("scale", 1))
+				# scaledsize=(i.equipped_image.get_size()[0]*self.hardpoints[i.equipped].get("scale", 1), i.equipped_image.get_size()[0]*self.hardpoints[i.equipped].get("scale", 1))
+				# i.render_equipped(self.image.subsurface(pygame.Rect(( self.hardpoints[i.equipped]["x"]-(scaledsize[0]/2) ,
+				#   self.hardpoints[i.equipped]["y"]-(scaledsize[1]/2) ), scaledsize ) ), self.hardpoints[i.equipped].get("scale", 1) )
 
 	def render_engines(self):
 		if self.rigidbody.moving()>self.root.settings["graphics"]["min_trail_speed"]:

@@ -1,0 +1,16 @@
+{
+	"assets":[
+		{
+			"name":"img_federation_contact_mine_inventory",
+			"type":"image",
+			"path":"items/weapons/federation_contact_mine/mine.png",
+			"scale":[64,64]
+		},
+		{
+			"name":"img_federation_contact_mine_deployed",
+			"type":"image",
+			"path":"items/weapons/federation_contact_mine/mine.png",
+			"scale":[25,25]
+		}
+	]
+}

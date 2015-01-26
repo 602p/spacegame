@@ -1,0 +1,14 @@
+{
+	"assets":[
+		{
+			"name":"bg_nebula_1",
+			"type":"image",
+			"path":"image/bg-elements/nebula-1.png"
+		},
+		{
+			"name":"bg_planet_1",
+			"type":"image",
+			"path":"image/planets/planet-1.png"
+		}
+	]
+}

@@ -57,28 +57,32 @@
             "y":189,
             "density":5,
             "width":1,
-            "color":[255,100,20]
+            "color":[255,100,20],
+            "style":"%ship_trail%"
         },
         {
             "x":65,
             "y":189,
             "density":5,
             "width":1,
-            "color":[255,100,20]
+            "color":[255,100,20],
+            "style":"%ship_trail%"
         },
         {
             "x":12,
             "y":187,
             "density":5,
             "width":1,
-            "color":[255,100,20]
+            "color":[255,100,20],
+            "style":"%ship_trail%"
         },
         {
             "x":62,
             "y":187,
             "density":5,
             "width":1,
-            "color":[255,100,20]
+            "color":[255,100,20],
+            "style":"%ship_trail%"
         }
     ],
     "rarity":{
