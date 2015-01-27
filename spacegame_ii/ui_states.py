@@ -24,7 +24,8 @@ def init(root):
 		"call_state_callback":CallbackCaller,
 		"popup_ok":PopupInterdictorController,
 		"click_on_keypress":DoClickEventOnKeypress,
-		"start_binder":StartKeyBinder
+		"start_binder":StartKeyBinder,
+		"yn_popup_quit":YNQuitter
 	}
 
 def interdict_ok(root, title="NOT_SET", text="NOT_SET", button="NOT_SET", callback=lambda s:0, wrap=48, key="sgcui_modalok"):
@@ -183,6 +184,10 @@ class StartKeyBinder(WidgetController):
 			os.system("./keymapping.exe")
 		else:
 			os.system("python keymapping.py")
+
+class YNQuitter(WidgetController):
+	def on_click(self):
+		interdict_yn(self.root, "Confirm", "Are you sure you want to quit?", "Don't Quit", "Quit", callback_n=lambda s:pygame.quit())
 
 class WidgetAbstractionInterface:
 	def __init__(self, widget, state, root):

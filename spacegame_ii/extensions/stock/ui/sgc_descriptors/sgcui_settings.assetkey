@@ -56,6 +56,19 @@
 						]
 					},
 					{
+						"type":"Button",
+						"label":"QUIT GAME",
+						"pos":[1150,650],
+						"surf":[150,50],
+						"label_font":"$font_standard_small",
+						"col":[255,0,0],
+						"controllers":[
+							{
+								"controller":"yn_popup_quit"
+							}
+						]
+					},
+					{
 						"type":"HBox",
 						"pos":[0,0],
 						"spacing":100,
@@ -263,6 +276,7 @@
 										"type":"Button",
 										"label":"Start Binder",
 										"label_font":"$font_standard_small",
+										"surf":[200,50],
 										"controllers":[
 											{
 												"controller":"start_binder"
