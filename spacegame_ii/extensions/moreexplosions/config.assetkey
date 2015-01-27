@@ -1,0 +1,19 @@
+{
+	"assets":[
+		{
+			"name":"x_moreexplosions_config",
+			"type":"json",
+			"json":[
+				{
+					"primitive":"sound_effect",
+					"effect":"sound_explode1"
+				},
+				{
+					"primitive":"delayed_sound_effect",
+					"sound":"sound_explode1",
+					"time":0.1
+				}
+			]
+		}
+	]
+}

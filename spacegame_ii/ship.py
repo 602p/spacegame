@@ -1,5 +1,6 @@
 from __future__ import division
-import rarity, os, json, serialize, item, assets, random, assets, pygame, math, particles, physics, damage, pygame, primitives, ai, triggers
+import rarity, os, json, serialize, item, assets, random, assets, pygame, math, particles, physics, damage, pygame, primitives, ai
+from triggers import *
 from math import cos, sin, radians, degrees
 from rotutil import *
 from logging import debug, info, warning, error, critical
@@ -159,9 +160,12 @@ class Ship(serialize.SerializableObject):
 		#self.triggermanager("on_item_dequip", item)
 
 	def fire_item_in_hardpoint(self, id_int):
-		#self.triggermanager("on_hardpoint_fire_attempt", id_int)
+		sg_postevent(UE_FIRE_ATTEMPT, self.root, ship=self, hardpoint=id_int)
 		if self.get_item_in_hardpoint(id_int)!=None:
+			sg_postevent(UE_FIRE_EQUIPPED, self.root, ship=self, hardpoint=id_int)
 			self.get_item_in_hardpoint(id_int).fire()
+		else:
+			sg_postevent(UE_FIRE_UNEQUIPPED, self.root, ship=self, hardpoint=id_int)
 
 	def save_to_config_node(self):
 		inv=[]

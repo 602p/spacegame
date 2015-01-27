@@ -1,5 +1,6 @@
 import random, datetime
 from logging import debug, info, warning, error, critical
+from triggers import *
 
 class StateManager:
 	def __init__(self, root):
@@ -11,6 +12,7 @@ class StateManager:
 		self.states[key]=state
 		self.states[key].bind(self)
 	def goto_state(self, key, params=123):
+		sg_postevent(UE_STATE_CHANGE, self.root, manager=self, oldstate=self.current, newstate=key)
 		self.states[key].pre_change()
 		if self.current!="":
 			self.states[self.current].suspend()

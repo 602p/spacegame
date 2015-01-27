@@ -2,6 +2,7 @@ import primitives, physics, assets, pygame, random, math, cmath, particles
 from rotutil import rot_center, get_angle, get_rel_angle, rotate_point
 from jsonutil import dget
 from particles import Particle
+from triggers import *
 
 class Projectile:
 	def __init__(self, image, root, parent, lifetime, homing, velocity, impact, maxspeed, accel, particlestyle={"particles":0}, turnrate=60, offset_min=0, offset_max=0, cfg={}):
@@ -75,10 +76,12 @@ class Projectile:
 
 		if self.root.game_time-self.start>self.lifetime:
 			self.kill=True
+			sg_postevent(UE_PROJECTILE_TIMEOUT, self.root, projectile=self)
 		for i in self.root.state_manager.states["game"].entities:
 			if i != self.parent.parent and i.can_be_hit:
 				if i.rotated_mask.overlap(self.mask, (self.rotated_rect.x-i.rotated_rect.x,self.rotated_rect.y-i.rotated_rect.y)):
 					self.kill=True
+					sg_postevent(UE_PROJECTILE_IMPACT, self.root, projectile=self, hit=i)
 					primitives.do_group_for_impact(self.root, self.impact, self.parent, i, self)
 
 	def die(self):

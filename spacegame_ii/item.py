@@ -3,6 +3,7 @@ from rotutil import *
 from jsonutil import dget
 from logging import debug, info, warning, error, critical
 from jsonutil import get_expanded_json
+from triggers import *
 
 def init(root):
 	if not 'item_factories' in dir(root):
@@ -178,13 +179,17 @@ class Item(serialize.SerializableObject):
 
 	def fire(self):
 		if self.can_fire():
+			sg_postevent(UE_FIRE_REQUIRE_SUCCESS, self.root, item=self)
+			sg_postevent(UE_BEFORE_FIRE, self.root, item=self)
 			self.fire_actions()
+			sg_postevent(UE_AFTER_FIRE, self.root, item=self)
 			if "item" in self.fire_required.keys():
 				for item in self.parent.inventory:
 					if item.id_str==self.fire_required["item"]:
 						item.consume_one()
+		else:
+			sg_postevent(UE_FIRE_REQUIRE_FAIL, self.root, item=self)
 			
-	
 	def save_to_config_node(self):
 		return {"__deserialize_handler__":"item", "id":self.id_str, "equipped":self.equipped, "count":self.count}
 
