@@ -1,4 +1,4 @@
-import json
+import json, keymapping
 
 def init(root):
 	root.load_modes={}
@@ -26,10 +26,12 @@ def save_object(item):
 def load_from_node(root, node, parent):
 	return root.load_modes[node["__deserialize_handler__"]](root, node, parent)
 
-def save_settings(root, filename="settings.cfg"):
+def save_settings(settings, filename="settings.cfg"):
 	with open(filename, 'w') as fd:
-		json.dump(root.settings, fd, indent=4)
+		json.dump(settings, fd, indent=4)
 
-def load_settings(root, filename="settings.cfg"):
+def load_settings(filename="settings.cfg"):
 	with open(filename, 'r') as fd:
-		root.settings=json.load(fd)
+		o= json.load(fd)
+	o["keybindings"]=keymapping.load_mapping()
+	return o

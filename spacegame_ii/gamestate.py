@@ -52,15 +52,15 @@ class RunningGameState(state.State):
 		for n in self.generated:
 			self.root.screen.blit(n[1], n[0])
 
-		if pygame.key.get_pressed()[pygame.K_LEFT]:
+		if pygame.key.get_pressed()[self.root.settings["keybindings"]["turn_left"]]:
 			self.player.rigidbody.rotate(self.player.turn_rate)
-		if pygame.key.get_pressed()[pygame.K_RIGHT]:
+		if pygame.key.get_pressed()[self.root.settings["keybindings"]["turn_right"]]:
 			self.player.rigidbody.rotate(-self.player.turn_rate)
-		if pygame.key.get_pressed()[pygame.K_UP]:
+		if pygame.key.get_pressed()[self.root.settings["keybindings"]["accelerate"]]:
 			self.player.exert_engine()
-		if pygame.key.get_pressed()[pygame.K_DOWN]:
+		if pygame.key.get_pressed()[self.root.settings["keybindings"]["decelerate"]]:
 			self.player.exert_reverse_engine()
-		if pygame.key.get_pressed()[pygame.K_SPACE]:
+		if pygame.key.get_pressed()[self.root.settings["keybindings"]["fire_item"]]:
 			self.player.fire_item_in_hardpoint(self.player.selected_wep)
 
 		tasks.run_group(self.root, "render_before_particles")
@@ -155,11 +155,11 @@ class RunningGameState(state.State):
 	def process_events(self, events):
 		for e in events:
 			if e.type==pygame.KEYDOWN:
-				if e.key == pygame.K_a:
+				if e.key == self.root.settings["keybindings"]["prev_item"]:
 					self.player.selected_wep-=1
 					if self.player.selected_wep==-1:
 						self.player.selected_wep=len(self.player.hardpoints)-1
-				elif e.key == pygame.K_s:
+				elif e.key == self.root.settings["keybindings"]["next_item"]:
 					self.player.selected_wep+=1
 					if self.player.selected_wep==len(self.player.hardpoints):
 						self.player.selected_wep=0

@@ -9,11 +9,11 @@
 				"tfps":"graphics:target_fps",
 				"raycast":"debug:raycast",
 				"overrender":"debug:overrender",
-				"k_interact":"keybindings:interact",
 				"colordepth":"graphics:color_depth",
 				"loader":"graphics:loader_screen",
 				"gfxcursor":"graphics:gfxcursor",
-				"minspeed":"graphics:min_trail_speed"
+				"minspeed":"graphics:min_trail_speed",
+				"fullscreen":"graphics:fullscreen"
 			}
 		},
 		{
@@ -94,6 +94,21 @@
 											{
 												"type":"Label",
 												"text":"Enable Fancy Cursor (req restart)",
+												"col":[255,255,255],
+												"font":"$font_standard_small"
+											}
+										]
+									},
+									{
+										"type":"HBox",
+										"widgets":[
+											{
+												"type":"Switch",
+												"id":"fullscreen"
+											},
+											{
+												"type":"Label",
+												"text":"Enable Full Screen (req restart)",
 												"col":[255,255,255],
 												"font":"$font_standard_small"
 											}
@@ -229,27 +244,31 @@
 								"widgets":[
 									{
 										"type":"Label",
-										"text":"Key Settings",
+										"text":"Keybindings",
 										"font":"$font_standard_large"
 									},
 									{
 										"type":"Label",
-										"text":"You MUST use pygame key IDs!",
+										"text":"(Must be configured by\nan external tool)",
+										"col":[255,255,255],
+										"font":"$font_standard_small"
+									},
+									{
+										"type":"Label",
+										"text":"WARNING: May not play well\nwith fullscreen",
 										"col":[255,0,0],
 										"font":"$font_standard_small"
 									},
 									{
-										"type":"HBox",
-										"widgets":[
+										"type":"Button",
+										"label":"Start Binder",
+										"controllers":[
 											{
-												"type":"InputBox",
-												"id":"k_interact"
+												"controller":"start_binder"
 											},
 											{
-												"type":"Label",
-												"text":"Interact",
-												"col":[255,255,255],
-												"font":"$font_standard_small"
+												"controller":"json_settings_get",
+												"bindings":"%sgcui_settings_jsonbindings%"
 											}
 										]
 									}

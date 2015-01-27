@@ -23,7 +23,8 @@ def init(root):
 		"json_settings_set":JSONSettingsBindingsSet,
 		"call_state_callback":CallbackCaller,
 		"popup_ok":PopupInterdictorController,
-		"click_on_keypress":DoClickEventOnKeypress
+		"click_on_keypress":DoClickEventOnKeypress,
+		"start_binder":StartKeyBinder
 	}
 
 def interdict_ok(root, title="NOT_SET", text="NOT_SET", button="NOT_SET", callback=lambda s:0, wrap=48, key="sgcui_modalok"):
@@ -138,11 +139,11 @@ class JSONSettingsBindingsSet(WidgetController):
 				wrapper[self.config["bindings"][key_id]]=int(self.interface.state.widgets[key_id].text)
 			if type(wrapper[self.config["bindings"][key_id]]) == str:
 				wrapper[self.config["bindings"][key_id]]=self.interface.state.widgets[key_id].text
-		serialize.save_settings(self.interface.root)
+		serialize.save_settings(self.interface.root.settings)
 
 class JSONSettingsBindingsGet(WidgetController):
 	def on_click(self):
-		serialize.load_settings(self.interface.root)
+		self.interface.root.settings=serialize.load_settings()
 		wrapper=uidict.UIDict(self.interface.root.settings)
 		for key_id in self.config["bindings"].keys():
 			if type(wrapper[self.config["bindings"][key_id]]) == bool:
@@ -175,6 +176,13 @@ class DoClickEventOnKeypress(WidgetController):
 			if e.key==self.config.get("keycode", pygame.K_RETURN):
 				#print "c"
 				self.interface.state.widgets[self.config.get("widget_id", self.interface.widget._ui_id)].wai.on_click()
+
+class StartKeyBinder(WidgetController):
+	def on_click(self):
+		if "keymapping.exe" in os.listdir("."):
+			os.system("./keymapping.exe")
+		else:
+			os.system("python keymapping.py")
 
 class WidgetAbstractionInterface:
 	def __init__(self, widget, state, root):
