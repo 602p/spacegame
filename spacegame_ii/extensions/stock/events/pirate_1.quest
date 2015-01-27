@@ -54,6 +54,9 @@
 							"amount":1
 						}
 					]
+				},
+				{
+					"primitive":"finish_event"
 				}
 			],
 			"event_quarter_hull":[
@@ -75,6 +78,9 @@
 							"event":"set_ai",
 							"ship":"pirate",
 							"ai":"%ai_run_away%"
+						},
+						{
+							"primitive":"finish_event"
 						}
 					]
 				}
@@ -100,6 +106,9 @@
 					"primitive":"set_ai",
 					"ship":"pirate",
 					"ai":"%ai_run_away%"
+				},
+				{
+					"primitive":"finish_event"
 				}
 			],
 			"event_no":[

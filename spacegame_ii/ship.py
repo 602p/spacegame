@@ -1,5 +1,5 @@
 from __future__ import division
-import rarity, os, json, serialize, item, assets, random, assets, pygame, math, particles, physics, damage, pygame, primitives, ai
+import rarity, os, json, serialize, item, assets, random, assets, pygame, math, particles, physics, damage, pygame, primitives, ai, triggers
 from math import cos, sin, radians, degrees
 from rotutil import *
 from logging import debug, info, warning, error, critical
@@ -127,10 +127,13 @@ class Ship(serialize.SerializableObject):
 		return self.get_inventory_mass()+self.mass
 
 	def pick_up(self, item):
+		#self.triggermanager("on_pickup_attempt", item)
 		if self.get_inventory_mass()+item.mass<self.cargo:
 			self.inventory.append(item)
+			#self.triggermanager("on_pickup_success", item)
 			return True
 		else:
+			#self.triggermanager("on_pickup_failure", item)
 			return False
 
 	def get_item_in_hardpoint(self, id_int):
@@ -146,13 +149,17 @@ class Ship(serialize.SerializableObject):
 		return None
 
 	def equip_item_to_hardpoint(self, item, id_int):
+		#self.triggermanager("on_equip_attempt", item, id_int)
 		if self.get_item_in_hardpoint(id_int)==None:
 			item.equip(id_int)
+			#self.triggermanager("on_equip_success", item, id_int)
 
 	def deqip_item_from_hardpoint(self, id_int):
 		item.deqip()
+		#self.triggermanager("on_item_dequip", item)
 
 	def fire_item_in_hardpoint(self, id_int):
+		#self.triggermanager("on_hardpoint_fire_attempt", id_int)
 		if self.get_item_in_hardpoint(id_int)!=None:
 			self.get_item_in_hardpoint(id_int).fire()
 

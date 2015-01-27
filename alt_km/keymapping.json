@@ -1,0 +1,23 @@
+{
+    "naming": {
+        "decelerate": "Decelerate", 
+        "next_item": "Select Next Item", 
+        "interact": "Interact (Eg. Dock to Station)", 
+        "turn_right": "Rotate Right", 
+        "prev_item": "Select Previous Item", 
+        "turn_left": "Rotate Left", 
+        "accelerate": "Accelerate", 
+        "fire_item": "Fire Selected Item"
+    }, 
+    "project_name": "Set Spacegame Keybindings...", 
+    "mapping": {
+        "decelerate": 115, 
+        "next_item": 103, 
+        "interact": 101, 
+        "turn_right": 100, 
+        "prev_item": 102, 
+        "turn_left": 97, 
+        "accelerate": 119, 
+        "fire_item": 32
+    }
+}

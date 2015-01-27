@@ -9,14 +9,15 @@
         "accelerate": "Accelerate", 
         "fire_item": "Fire Selected Item"
     }, 
+    "project_name": "Set Spacegame Keybindings...", 
     "mapping": {
-        "decelerate": 274, 
-        "next_item": 115, 
+        "decelerate": 115, 
+        "next_item": 50, 
         "interact": 101, 
-        "turn_right": 275, 
-        "prev_item": 97, 
-        "turn_left": 276, 
-        "accelerate": 273, 
+        "turn_right": 100, 
+        "prev_item": 49, 
+        "turn_left": 97, 
+        "accelerate": 119, 
         "fire_item": 32
     }
 }

@@ -77,6 +77,7 @@ debug("Loaded all packages")
 root.state_manager.add_state(gamestate.RunningGameState(), "game")
 root.state_manager.add_state(gamestate.RunningGamePausedState(), "game_paused")
 root.state_manager.factories["generic_ui"]=state.InterdictingStateFactory(ui_states.GenericUIInterdictor)
+root.state_manager.factories["keymapper"]=state.InterdictingStateFactory(keymapping.KeyMapperState)
 root.state_manager.goto_state("game")
 
 g=root.state_manager.states["game"]

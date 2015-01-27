@@ -5,3 +5,5 @@ The use of the 'rarity' field is described in rarity_howto.txt
 The field 'ai_priority' is supposed to describe the importance of using this weapon in combat, but is currently broken.
 The fields 'fire_events', 'equip' and 'dequip' are all lists of primitives, described in primitive_howto.txt
 'required' is a dictionary where each item is a limit on when the item can be fired. If 'energy' is defined, the item consumes that much energy when fired. If 'enemy_selected' is True, you need a enemy targeted to fire the item. 'cooldown' limits the firings to be at least that amount apart. 'item' means that firing the item consumes one of those items. 'distance<' means that the target has to be within that number of pixels of the target (requires 'enemy_selected' to be set.)
+
+http://jsonviewer.codeplex.com/

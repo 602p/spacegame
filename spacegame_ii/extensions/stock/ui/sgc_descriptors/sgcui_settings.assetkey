@@ -261,25 +261,21 @@
 										"font":"$font_standard_large"
 									},
 									{
-										"type":"Label",
-										"text":"(Must be configured by\nan external tool)",
-										"col":[255,255,255],
-										"font":"$font_standard_small"
-									},
-									{
-										"type":"Label",
-										"text":"WARNING: May not play well\nwith fullscreen",
-										"col":[255,0,0],
-										"font":"$font_standard_small"
-									},
-									{
 										"type":"Button",
-										"label":"Start Binder",
+										"label":"Start KeyBinder",
 										"label_font":"$font_standard_small",
 										"surf":[200,50],
 										"controllers":[
 											{
-												"controller":"start_binder"
+												"controller":"json_settings_set",
+												"bindings":"%sgcui_settings_jsonbindings%"
+											},
+											{
+												"controller":"json_settings_get",
+												"bindings":"%sgcui_settings_jsonbindings%"
+											},
+											{
+												"controller":"goto_binder"
 											},
 											{
 												"controller":"json_settings_get",

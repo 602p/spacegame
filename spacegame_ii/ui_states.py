@@ -24,7 +24,7 @@ def init(root):
 		"call_state_callback":CallbackCaller,
 		"popup_ok":PopupInterdictorController,
 		"click_on_keypress":DoClickEventOnKeypress,
-		"start_binder":StartKeyBinder,
+		"goto_binder":GotoBinderState,
 		"yn_popup_quit":YNQuitter
 	}
 
@@ -138,7 +138,7 @@ class JSONSettingsBindingsSet(WidgetController):
 				wrapper[self.config["bindings"][key_id]]=self.interface.state.widgets[key_id].state
 			if type(wrapper[self.config["bindings"][key_id]]) == int:
 				wrapper[self.config["bindings"][key_id]]=int(self.interface.state.widgets[key_id].text)
-			if type(wrapper[self.config["bindings"][key_id]]) == str:
+			if isinstance(wrapper[self.config["bindings"][key_id]],basestring):
 				wrapper[self.config["bindings"][key_id]]=self.interface.state.widgets[key_id].text
 		serialize.save_settings(self.interface.root.settings)
 
@@ -147,11 +147,15 @@ class JSONSettingsBindingsGet(WidgetController):
 		self.interface.root.settings=serialize.load_settings()
 		wrapper=uidict.UIDict(self.interface.root.settings)
 		for key_id in self.config["bindings"].keys():
+			#print key_id
 			if type(wrapper[self.config["bindings"][key_id]]) == bool:
+				#print ":is bool"
 				self.interface.state.widgets[key_id].config(state=wrapper[self.config["bindings"][key_id]])
 			if type(wrapper[self.config["bindings"][key_id]]) == int:
+				#print ":is int"
 				self.interface.state.widgets[key_id].config(text=str(wrapper[self.config["bindings"][key_id]]), max_chars=999)
-			if type(wrapper[self.config["bindings"][key_id]]) == str:
+			if isinstance(wrapper[self.config["bindings"][key_id]],basestring):
+				#print ":is string"
 				self.interface.state.widgets[key_id].config(text=wrapper[self.config["bindings"][key_id]], max_chars=999)
 
 	def on_start(self):
@@ -178,12 +182,9 @@ class DoClickEventOnKeypress(WidgetController):
 				#print "c"
 				self.interface.state.widgets[self.config.get("widget_id", self.interface.widget._ui_id)].wai.on_click()
 
-class StartKeyBinder(WidgetController):
+class GotoBinderState(WidgetController):
 	def on_click(self):
-		if "keymapping.exe" in os.listdir("."):
-			os.system("./keymapping.exe")
-		else:
-			os.system("python keymapping.py")
+		self.root.state_manager.start_interdicting("keymapper")
 
 class YNQuitter(WidgetController):
 	def on_click(self):

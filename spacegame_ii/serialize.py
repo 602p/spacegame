@@ -34,5 +34,5 @@ def save_settings(settings, filename="settings.cfg"):
 def load_settings(filename="settings.cfg"):
 	with open(filename, 'r') as fd:
 		o= json.load(fd)
-	o["keybindings"]=keymapping.load_mapping()
+	o["keybindings"]=keymapping.load_mapping(o["keymapping_file"])
 	return o

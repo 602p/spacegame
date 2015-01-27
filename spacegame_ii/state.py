@@ -20,7 +20,7 @@ class StateManager:
 			self.states[key].first_start()
 			self.states[key]._initilized=True
 		self.states[key].start()
-	def start_interdicting(self, state, params):
+	def start_interdicting(self, state, params=None):
 		_temp_state=state+"_built"+str(datetime.datetime.now().time().isoformat())
 		self.add_state(self.factories[state](), _temp_state)
 		debug("Temporary state created as "+_temp_state)
