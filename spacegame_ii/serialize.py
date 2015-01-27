@@ -27,6 +27,7 @@ def load_from_node(root, node, parent):
 	return root.load_modes[node["__deserialize_handler__"]](root, node, parent)
 
 def save_settings(settings, filename="settings.cfg"):
+	del settings["keybindings"]
 	with open(filename, 'w') as fd:
 		json.dump(settings, fd, indent=4)
 
