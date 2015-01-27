@@ -262,6 +262,7 @@
 									{
 										"type":"Button",
 										"label":"Start Binder",
+										"label_font":"$font_standard_small",
 										"controllers":[
 											{
 												"controller":"start_binder"
