@@ -2,6 +2,7 @@ from __future__ import division
 import random, pygame, math, particles
 from rotutil import rot_center, aspect_scale
 from jsonutil import dget
+from triggers import *
 
 system_status=[
 	[" OPTIMAL ",(0,255,0)],
@@ -13,6 +14,7 @@ system_status=[
 class DamageSystem:
 	def __init__(self, damage_model, config):
 		self.damage_model=damage_model
+		self.config=config
 		self.status=0
 		self.name=config["name"]
 		self.attributes=config["attributes"]
@@ -57,16 +59,19 @@ class DamageSystem:
 			self.health=self.maxhealth
 
 	def do_damaged(self):
+		sg_postevent(UE_SYSTEM_DAMAGED, system=self, manager=self.damage_model)
 		for i in self.attributes:
 			exec "self.damage_model.ship."+i+"="+str(self.olds[i]*self.effects_damaged[self.attributes.index(i)])
 		self.status=1
 
 	def do_destroyed(self):
+		sg_postevent(UE_SYSTEM_DESTROYED, system=self, manager=self.damage_model)
 		for i in self.attributes:
 			exec "self.damage_model.ship."+i+"="+str(self.olds[i]*self.effects_destroyed[self.attributes.index(i)])
 		self.status=2
 
 	def reset(self):
+		sg_postevent(UE_SYSTEM_REPAIRED, system=self, manager=self.damage_model)
 		for i in self.attributes:
 			exec "self.damage_model.ship."+i+"="+str(self.olds[i])
 		self.status=0
@@ -76,6 +81,17 @@ class DamageSystem:
 
 	def regen(self):
 		self.deal_damage(-self.regen_const/self.damage_model.ship.root.fps)
+
+	def save_to_config_node(self):
+		return {
+			"config":self.config,
+			"hp":self.health
+		}
+
+def _load_system(damage_model, node):
+	s = DamageSystem(damage_model, node["config"])
+	s.deal_damage(s.health-node["hp"])
+	return s
 
 class DamageModel:
 	def __init__(self, ship, hull=1, shields=0):
@@ -87,35 +103,40 @@ class DamageModel:
 		self.systems=[]
 		self.root=self.ship.root
 
-	def damage_hull(self, hull, precise_x=None, precise_y=None):
+	def damage_hull(self, hull, precise_x=None, precise_y=None, source=None):
 		if hull>0.1 and self.hull>0:
 			px=self.ship.rotated_rect.centerx if precise_x==None else precise_x
 			py=self.ship.rotated_rect.centery if precise_y==None else precise_y
 			self.ship.particlemanager.add_particle(particles.make_hitNumber(self.root, "-"+str(int(hull)),
 			 self.root.gamedb("font_standard_small"), px+random.randint(-30,30), py+random.randint(-30,30), (255,0,0)))
 		self.hull-=hull
+		sg_postevent(UE_HUL_DAMAGE_DEALT, system=self, amount=hull, x=precise_x, y=precise_y, source=source)
 		if len(self.systems)>0:
 			s=random.sample(self.systems,1)[0]
 			if s:
 				s.deal_damage(hull)
 		if self.hull<=0:
 			self.hull=0
+			sg_postevent(UE_SHIP_DESTROYED, system=self, x=precise_x, y=precise_y, source=source)
 
-	def damage_shields(self, shields, precise_x=None, precise_y=None):
+	def damage_shields(self, shields, precise_x=None, precise_y=None, source=None):
 		if shields>0.1 and self.shields>0:
 			px=self.ship.rotated_rect.centerx if precise_x==None else precise_x
 			py=self.ship.rotated_rect.centery if precise_y==None else precise_y
 			self.ship.particlemanager.add_particle(particles.make_hitNumber(self.root, "-"+str(int(shields)),
 			 self.root.gamedb("font_standard_small"), px+random.randint(-30,30), py+random.randint(-30,30), (0,0,255)))
 		self.shields-=shields
+		sg_postevent(UE_SHL_DAMAGE_DEALT, system=self, amount=shields, x=precise_x, y=precise_y, source=source)
 		if self.shields<=0:
 			self.damage_hull(abs(self.shields)*0.8)
 			self.shields=0
+			sg_postevent(UE_SHIELDS_DOWN, system=self, x=px, y=py, source=source)
 
 	def damage(self, damage, peirce=0, px=None, py=None, source=None):
-		self.damage_shields(damage*(1-peirce), px, py)
-		self.damage_hull(damage*peirce, px, py)
-		self.last_source=None
+		self.damage_shields(damage*(1-peirce), px, py, source)
+		self.damage_hull(damage*peirce, px, py, source)
+		self.last_source=source
+		sg_postevent(UE_DAMAGE_DEALT, system=self, amount=damage, peirce=peirce, x=px, y=py, source=source)
 
 	def load_systems(self, config):
 		"""Takes a list of dicts describing systems and adds them to its internal register.
@@ -212,3 +233,16 @@ class DamageModel:
 		for i in self.systems:
 			if i:
 				i.update_olds()
+
+	def save_systems_json(self):
+		r=[]
+		for i in self.systems:
+			if i:
+				r.append(i.save_to_config_node())
+		return r
+
+	def load_systems_json(self, node):
+		c=0
+		for n in node:
+			if self.systems[c]:
+				self.systems[c]=_load_system(self, n)

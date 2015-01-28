@@ -1,0 +1,21 @@
+{
+	"x":0,
+	"y":0,
+	"name":"The Bajor System (0,0)",
+	"statics":[
+		{
+			"type":"ship",
+			"ship_id":"ss_bajor_ds9",
+			"name":"deepspace9",
+			"x":500,
+			"y":500
+		},
+		{
+			"type":"ship",
+			"ship_id":"ss_bajor_planet",
+			"name":"bajorplanet",
+			"x":-500,
+			"y":-500
+		}
+	]
+}

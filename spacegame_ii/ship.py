@@ -1,5 +1,6 @@
 from __future__ import division
-import rarity, os, json, serialize, item, assets, random, assets, pygame, math, particles, physics, damage, pygame, primitives, ai
+import rarity, os, json, serialize, item, assets, entitybase
+import random, assets, pygame, math, particles, physics, damage, pygame, primitives, ai
 from triggers import *
 from math import cos, sin, radians, degrees
 from rotutil import *
@@ -9,6 +10,7 @@ from jsonutil import get_expanded_json, dget
 def init(root):
 	if not 'ship_factories' in dir(root):
 		root.ship_factories={}
+	serialize.register_load_mode(root, "ship", _load_ship)
 
 def load_dir(root, dname):
 	for i in os.listdir(dname):
@@ -29,8 +31,23 @@ def create_ship_factory(root, config):
 	return ShipFactory(root, config)
 
 def create_ship(root, id_, x=0, y=0, with_equip=1, ai=True):
-	debug("Instantiating ship "+id_+" at "+str((x,y,)) + ". w_e: "+str(with_equip)+". u_a: "+str(ai))
+	debug("Instantiating ship "+str(id_)+" at "+str((x,y,)) + ". w_e: "+str(with_equip)+". u_a: "+str(ai))
 	return root.ship_factories[id_](x, y, with_equip, ai)
+
+def _load_ship(root, node, parent):
+	s = create_ship(root, node["ship_id"], 0, 0, not "packed" in node.keys(), node.get("ai", 1))
+	
+	if "packed" in node.keys():
+		for item in node["inventory"]:
+			serialize.load_from_node(root, item, s)
+		s.damage.hull=node["currhull"]
+		s.damage.shields=node["currshld"]
+		s.damage.load_systems_json(node["damagesystems"])
+		s.rigidbody   = physics._load_rigidbody(node["rigidbody"], s)
+	else:
+		s.rigidbody.x=node["x"]
+		s.rigidbody.y=node["y"]
+	return s
 
 class ShipFactory:
 	def __init__(self, root, config):
@@ -67,7 +84,8 @@ class ShipFactory:
 				s.inventory.append(item.create_item(self.root, i["item_name"], s, i["equipped"]))
 		return s
 
-class Ship(serialize.SerializableObject):
+class Ship(serialize.SerializableObject, entitybase.FlaggedEntity):
+	can_be_targeted=1
 	def __init__(self, root, image, id_string, name, hull, mass, cost, cargo, start_speed, reactor_max,
 		reactor_regen, hardpoints, engine_sources, shields, rarity, max_speed, turn_rate, systems, config, x, y, use_ai=True):
 		self.root=root
@@ -117,6 +135,8 @@ class Ship(serialize.SerializableObject):
 		self.rerotate()
 
 		self.rotated_in_flight=0
+		self.can_be_hit=config.get("can_be_hit", True)
+		self.can_be_targeted=config.get("can_be_targeted", True)
 
 	def get_inventory_mass(self):
 		m=0
@@ -160,19 +180,12 @@ class Ship(serialize.SerializableObject):
 		#self.triggermanager("on_item_dequip", item)
 
 	def fire_item_in_hardpoint(self, id_int):
-		sg_postevent(UE_FIRE_ATTEMPT, self.root, ship=self, hardpoint=id_int)
+		sg_postevent(UE_FIRE_ATTEMPT, ship=self, hardpoint=id_int)
 		if self.get_item_in_hardpoint(id_int)!=None:
-			sg_postevent(UE_FIRE_EQUIPPED, self.root, ship=self, hardpoint=id_int)
+			sg_postevent(UE_FIRE_EQUIPPED, ship=self, hardpoint=id_int)
 			self.get_item_in_hardpoint(id_int).fire()
 		else:
-			sg_postevent(UE_FIRE_UNEQUIPPED, self.root, ship=self, hardpoint=id_int)
-
-	def save_to_config_node(self):
-		inv=[]
-		for item in self.inventory:
-			inv.append(item.save_to_config_node())
-		return {"__deserialize_handler__":"ship", "ship_id":self.id_string, "inventory":inv, "current_hull":self.currhull,
-		"current_shields":self.currshields}
+			sg_postevent(UE_FIRE_UNEQUIPPED, ship=self, hardpoint=id_int)
 
 	def rerotate(self):
 		self.rotated_image, self.rotated_rect=rot_center(self.image, pygame.Rect((self.rigidbody.x, self.rigidbody.y), self.image.get_size()), self.rigidbody.get_angle())
@@ -236,10 +249,21 @@ class Ship(serialize.SerializableObject):
 		self.rigidbody.exert_in_vector(-self.speed*4)
 
 	def die(self):
+		sg_postevent(UE_SHIP_DIE_RUN, ship=self)
 		primitives.do_group_for_ship(self.root, dget(self.config, "ship_die", []), self)
 
-	def get_insert_dict(self):
+	def save_to_config_node(self):
+		inv=[]
+		for item in self.inventory:
+			inv.append(item.save_to_config_node())
 		return {
-			"id":self.id_string,
-			"name":self.name
+			"__deserialize_handler__":"ship", 
+			"ship_id":self.id_string, 
+			"inventory":inv, 
+			"currhull":self.damage.hull,
+			"currshld":self.damage.shields,
+			"damagesystems":self.damage.save_systems_json(),
+			"rigidbody":self.rigidbody.save_to_config_node(),
+			"ai":self.use_ai,
+			"packed":True
 		}

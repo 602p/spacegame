@@ -10,6 +10,7 @@ class ExplosionSFXManager(extention_loader.HookableExtention):
 				debug("Got a UE_PROJECTILE_IMPACT event, playing sounds")
 				primitives.do_group_for_impact(self.root, self.root.gamedb("x_moreexplosions_config"),
 				 event.projectile.parent, event.hit, event.projectile)
+			#print "uevent --> "+str(event)
 
 def init_inject(root, console):
 	info("Injecting the ExplosionHook")

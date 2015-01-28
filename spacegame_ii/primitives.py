@@ -21,7 +21,7 @@ class BasePrimitive:
 	def run_in_impact(self, item, impact, projectile=None):
 		self.run_in_item(item)
 
-	def run_in_trigger(self, trigger, ship=None, item=None, impact=None, event=None):
+	def run_in_sector(self, sector):
 		pass
 
 def init(root):
@@ -37,7 +37,7 @@ def get_primitive(root, name, config):
 		#debug("getting primitive "+name)
 		return root.primitives_list[name](root, config)
 	else:
-		warning("WARNING: PRIMITIVE '"+str(name)+"' NOT DEFINED [TERMINATES PRIMITIVE CHAIN]")
+		warning("WARNING: PRIMITIVE '"+str(name)+"' NOT DEFINED")
 		return BasePrimitive(root, config)
 
 def do_for_item(root, name, item, node):
@@ -52,8 +52,8 @@ def do_for_ship(root, name, ship, node):
 def do_for_impact(root, name, item, impacted, projectile, node):
 	get_primitive(root, name, node).run_in_impact(item, impacted, projectile)
 
-def do_for_trigger(root, name, trigger, node, ship=None, item=None, impact=None, event=None):
-	get_primitive(root, name, node).run_in_trigger(trigger, ship, item, impact, event)
+def do_for_sector(root, name, sector, node):
+	get_primitive(root, name, node).run_in_sector(sector)
 
 def do_group_for_item(root, group, item, key="primitive"):
 	for i in group:
@@ -71,6 +71,6 @@ def do_group_for_ship(root, group, ship, key="primitive"):
 	for i in group:
 		do_for_ship(root, i[key], ship, i)
 
-def do_group_for_trigger(root, group, trigger, ship=None, item=None, impact=None, event=None, key="primitive"):
+def do_group_for_sector(root, group, sector, key="primitive"):
 	for i in group:
-		do_for_trigger(root, i[key], trigger, i, ship, item, impact, event)
+		do_for_sector(root, i[key], sector, i)

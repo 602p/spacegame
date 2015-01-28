@@ -36,3 +36,23 @@ def load_settings(filename="settings.cfg"):
 		o= json.load(fd)
 	o["keybindings"]=keymapping.load_mapping(o["keymapping_file"])
 	return o
+
+class SaveGame(object, SerializableObject):
+	def __init__(self, root):
+		self.root=root
+		self.database={
+			"packed_entities":{}
+		}
+
+	def get_db(self, key, default=None):
+		return self.database.get(key, default)
+
+	def save_to_config_node(self):
+		savegame={
+			"savegame_revision":0,
+			"game_time":self.root.game_time,
+			"state":"game",
+			"quest_system":None, #Not implemented!
+			"database":self.database,
+			"galaxy_pos":[0,0]
+		}

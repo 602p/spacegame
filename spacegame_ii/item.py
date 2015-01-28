@@ -8,6 +8,7 @@ from triggers import *
 def init(root):
 	if not 'item_factories' in dir(root):
 		root.item_factories={}
+	serialize.register_load_mode(root, "item", _deserialize_item)
 
 def load_dir(root, dname):
 	for i in os.listdir(dname):
@@ -32,9 +33,11 @@ def create_item(root, name, parent, equipped=-1):
 
 def _deserialize_item(root, node, parent):
 	item=create_item(root, node["id"], parent, node["equipped"])
+	item.count=node["count"]
 	if item.equipped>-1:
 		item.equip_actions()
 	parent.inventory.append(item)
+	return item
 
 class ItemFactory:
 	def __init__(self, root, json_dict):
@@ -179,19 +182,27 @@ class Item(serialize.SerializableObject):
 
 	def fire(self):
 		if self.can_fire():
-			sg_postevent(UE_FIRE_REQUIRE_SUCCESS, self.root, item=self)
-			sg_postevent(UE_BEFORE_FIRE, self.root, item=self)
+			sg_postevent(UE_FIRE_REQUIRE_SUCCESS, item=self)
+			sg_postevent(UE_BEFORE_FIRE, item=self)
 			self.fire_actions()
-			sg_postevent(UE_AFTER_FIRE, self.root, item=self)
+			sg_postevent(UE_AFTER_FIRE, item=self)
 			if "item" in self.fire_required.keys():
 				for item in self.parent.inventory:
 					if item.id_str==self.fire_required["item"]:
 						item.consume_one()
 		else:
-			sg_postevent(UE_FIRE_REQUIRE_FAIL, self.root, item=self)
+			sg_postevent(UE_FIRE_REQUIRE_FAIL, item=self)
 			
 	def save_to_config_node(self):
-		return {"__deserialize_handler__":"item", "id":self.id_str, "equipped":self.equipped, "count":self.count}
+		return {
+			"__deserialize_handler__":"item",
+			"id":self.id_str, 
+			"equipped":self.equipped, 
+			"count":self.count
+		}
+
+	def load_from_config_node(self, node):
+		self.count=node["count"]
 
 	def get_center_(self):
 		if self.equipped>-1:

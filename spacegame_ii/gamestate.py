@@ -1,5 +1,5 @@
 from __future__ import division
-import state, ship, pygame, random, tasks, overlay_gui, interdiction_gui, sys, math, parralax
+import state, ship, pygame, random, tasks, overlay_gui, interdiction_gui, sys, math, parralax, sectors
 from logging import debug, info, warning, error, critical
 
 class RunningGameState(state.State):
@@ -31,15 +31,14 @@ class RunningGameState(state.State):
 		self.entities=[]
 		self.entities=[
 			ship.create_ship(self.root, "cargo_transport_test", 100, 100, ai=False),
-			ship.create_ship(self.root, "ss_bajor_ds9", -100, -100),
-			ship.create_ship(self.root, "ss_f9_jumpgate", -2000, -2000)
+			# ship.create_ship(self.root, "ss_bajor_ds9", -100, -100),
+			# ship.create_ship(self.root, "ss_f9_jumpgate", -2000, -2000)
 		]
 
 
 		#self.entities[0].targeted=self.entities[1]
 
 		self.player=self.entities[0]
-		self.player.selected_wep=0
 	def start(self):
 		info("=================================STARTING GAME STATE==========================")
 	def update_and_render(self):
@@ -62,6 +61,8 @@ class RunningGameState(state.State):
 			self.player.exert_reverse_engine()
 		if pygame.key.get_pressed()[self.root.settings["keybindings"]["fire_item"]]:
 			self.player.fire_item_in_hardpoint(self.player.selected_wep)
+
+		self.root.screen.draw_rect((0,255,0), pygame.Rect(-sectors.SECTORSIZE,-sectors.SECTORSIZE,sectors.SECTORSIZE*2,sectors.SECTORSIZE*2), 10)
 
 		tasks.run_group(self.root, "render_before_particles")
 		self.root.particlemanager.draw(self.root.screen)
@@ -170,6 +171,8 @@ class RunningGameState(state.State):
 					self.entities[-1].rigidbody.y=0
 					self.player.targeted=self.entities[-1]
 				elif e.key == pygame.K_BACKQUOTE: pass #hiding window
+				elif e.key == pygame.K_ESCAPE:
+					root.state_manager.start_interdicting("generic_ui", root.gamedb("sgcui_settings"))
 			elif e.type==pygame.VIDEORESIZE:
 				print e
 				print "gsresize"
@@ -178,8 +181,9 @@ class RunningGameState(state.State):
 				self.parralax_scroller.bindall(self.root.renderspace_size)
 			elif e.type==pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
 				for entitiy in self.entities:
-					if self.root.screen.get_t_rect(entitiy.rotated_rect).collidepoint(pygame.mouse.get_pos()):
-						self.player.targeted=entitiy
+					if entitiy.can_be_targeted:
+						if self.root.screen.get_t_rect(entitiy.rotated_rect).collidepoint(pygame.mouse.get_pos()):
+							self.player.targeted=entitiy
 			for ext in self.root.extentions:
 				self.root.extentions[ext].event_state("game", e)
 

@@ -1,10 +1,10 @@
-import primitives, physics, assets, pygame, random, math, cmath, particles
+import primitives, physics, assets, pygame, random, math, cmath, particles, entitybase
 from rotutil import rot_center, get_angle, get_rel_angle, rotate_point
 from jsonutil import dget
 from particles import Particle
 from triggers import *
 
-class Projectile:
+class Projectile(entitybase.FlaggedEntity):
 	def __init__(self, image, root, parent, lifetime, homing, velocity, impact, maxspeed, accel, particlestyle={"particles":0}, turnrate=60, offset_min=0, offset_max=0, cfg={}):
 		self.rigidbody=physics.RigidBody2D(1, parent.get_center()[0]+random.uniform(offset_min, offset_max),
 		    parent.get_center()[1]+random.uniform(offset_min, offset_max),physics.Vector2d(velocity, parent.parent.rigidbody.get_angle()))
@@ -76,12 +76,12 @@ class Projectile:
 
 		if self.root.game_time-self.start>self.lifetime:
 			self.kill=True
-			sg_postevent(UE_PROJECTILE_TIMEOUT, self.root, projectile=self)
+			sg_postevent(UE_PROJECTILE_TIMEOUT, projectile=self)
 		for i in self.root.state_manager.states["game"].entities:
 			if i != self.parent.parent and i.can_be_hit:
 				if i.rotated_mask.overlap(self.mask, (self.rotated_rect.x-i.rotated_rect.x,self.rotated_rect.y-i.rotated_rect.y)):
 					self.kill=True
-					sg_postevent(UE_PROJECTILE_IMPACT, self.root, projectile=self, hit=i)
+					sg_postevent(UE_PROJECTILE_IMPACT, projectile=self, hit=i)
 					primitives.do_group_for_impact(self.root, self.impact, self.parent, i, self)
 
 	def die(self):
@@ -93,7 +93,7 @@ class FireProjectilePrimitive(primitives.BasePrimitive):
 		r=self.root
 		i=0
 		while i!=dget(n, "number", 1):
-			r.state_manager.states["game"].entities.append(Projectile(r.gamedb.get_asset(n["image"]), r,
+			r.state_manager.states["game"].entities.insert(1,Projectile(r.gamedb.get_asset(n["image"]), r,
 				item, n["lifetime"], n["homing"], n["velocity"], n["impact"], n["maxspeed"], n["accel"], dget(n, "particlestyle", {"particles":0}), dget(n, "turnrate", 60),
 				dget(n, "offset_min", 0), dget(n, "offset_max", 0), n))
 			i+=1

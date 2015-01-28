@@ -6,6 +6,8 @@ import sys,random,pygame,uidict,sgc
 from pygame.locals import *
 from sgc.locals import *
 
+from toolbox import EasyGame
+
 def init(root):
 	root.widget_constructors={
 		"Button":sgc.Button,
@@ -25,7 +27,11 @@ def init(root):
 		"popup_ok":PopupInterdictorController,
 		"click_on_keypress":DoClickEventOnKeypress,
 		"goto_binder":GotoBinderState,
-		"yn_popup_quit":YNQuitter
+		"yn_popup_quit":YNQuitter,
+		"goto_ui_state":GotoUIState,
+		"goto_state":GotoOtherState,
+		"load_game":RunLoadGame,
+		"save_game":RunSaveGame
 	}
 
 def interdict_ok(root, title="NOT_SET", text="NOT_SET", button="NOT_SET", callback=lambda s:0, wrap=48, key="sgcui_modalok"):
@@ -189,6 +195,26 @@ class GotoBinderState(WidgetController):
 class YNQuitter(WidgetController):
 	def on_click(self):
 		interdict_yn(self.root, "Confirm", "Are you sure you want to quit?", "Don't Quit", "Quit", callback_n=lambda s:pygame.quit())
+
+class GotoUIState(WidgetController):
+	def on_click(self):
+		self.root.state_manager.start_interdicting("generic_ui", self.root.gamedb(self.config["state_config"]))
+
+class GotoOtherState(WidgetController):
+	def on_click(self):
+		self.root.state_manager.goto_state(self.config["state"])
+
+class RunLoadGame(WidgetController):
+	def on_click(self):
+		path = EasyGame.pathgetter("saves/", 1, "Select a savegame")
+		serialize.load_game(self.root, path)
+		#self.root.state_manager.goto_state("game")
+
+class RunSaveGame(WidgetController):
+	def on_click(self):
+		path = EasyGame.pathgetter("saves/", 0, "Select a savegame")
+		serialize.save_game(self.root, path)
+		#self.root.state_manager.goto_state("game")
 
 class WidgetAbstractionInterface:
 	def __init__(self, widget, state, root):

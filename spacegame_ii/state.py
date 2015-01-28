@@ -66,7 +66,11 @@ class InterdictingState(State):
 			debug("starting interdicting state...")
 			self.last=self.state_manager.current
 			debug("captured last state as "+self.last)
-			self.last_params=self.state_manager.states[self.state_manager.current].params
+			if self.state_manager.current!='':
+				self.last_params=self.state_manager.states[self.state_manager.current].params
+			else:
+				self.last_params=None
+			
 			self.done=False
 			self.return_value=-1
 		else:

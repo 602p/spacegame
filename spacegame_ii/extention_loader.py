@@ -2,7 +2,6 @@ import os, item, ship, serialize, primitives, imp, json, fnmatch, pygame, time, 
 from logging import debug, info, warning, error, critical
 
 def load_all_packages(root, dirn, console=None):
-	root.extentions={}
 	info("Loading Plugins")
 	if console: post_and_flip(console, "| | |                     | | |", bold=1, color=(0,255,0))
 	if console: post_and_flip(console, "V V V   Loading Plugins   V V V", bold=1, color=(0,255,0))
@@ -24,6 +23,7 @@ def load_all_packages(root, dirn, console=None):
 		post_and_flip(console, "Loaded "+str(len(root.gamedb.assets))+" assets")
 		post_and_flip(console, "Loaded "+str(len(root.item_factories))+" items")
 		post_and_flip(console, "Loaded "+str(len(root.ship_factories))+" ships")
+		post_and_flip(console, "(Sectors get loaded at runtime C: )")
 		time.sleep(2.5)
 
 def safepost(console, text, bold=0, italic=0, underline=0, color=(255,255,255), bg=(0,0,0), debugmsg=False):
@@ -56,7 +56,16 @@ def load_items(root, dirn, console):
 def load_ships(root, dirn, console):
 	for rn in findall(dirn, "*.ship"):
 		if console: post_and_flip(console, "Loading Ship '"+rn+"'...", color=(255,255,255))
-		ship.load_file(root, rn)		
+		ship.load_file(root, rn)	
+
+def load_galaxy(root, dirn, console):
+	import sectors #dumb hack to fix circular imports
+	c=0
+	for rn in findall(dirn, "*.sector"):
+		c+=1
+		if console: post_and_flip(console, "Loading Sector '"+rn+"'...", color=(255,255,255))
+		sectors.load_file(root, rn)		
+	return c
 
 def load_plugin(root, fname, console):
 	if not ".PYC" in fname.upper():
@@ -79,7 +88,7 @@ def post_and_flip(console, *args, **kwargs):
 	pygame.display.flip()
 	#time.sleep(0.005)
 
-class HookableExtention:
+class HookableExtention(object):
 	def event_root(self, event):
 		pass
 
@@ -87,4 +96,7 @@ class HookableExtention:
 		pass
 
 	def last_load(self):
+		pass
+
+	def tick(self, state):
 		pass

@@ -11,6 +11,11 @@
 			"name":"settings_bg",
 			"type":"image",
 			"path":"image/settings_bg.jpg"
+		},
+		{
+			"name":"menu_bg",
+			"type":"image",
+			"path":"image/menu_bg.jpg"
 		}
 	]
 }

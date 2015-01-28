@@ -1,11 +1,12 @@
 from __future__ import division
 from logging import debug, info, warning, error, critical
-import logging, sys, traceback, datetime, ai
+import logging
 logging.basicConfig(filemode='w', filename='spacegame.log',level=logging.DEBUG, format='[%(asctime)s] %(levelname)s\t: %(message)s')
 debug("Logging Started")
 import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader
-import assets, pyconsole, interdiction_gui, overlay_gui, ui_states
-import sgc, serialize, gfxcursor, formatting, pyganim, keymapping
+import assets, pyconsole, interdiction_gui, overlay_gui, ui_states, sectors
+import sgc, serialize, gfxcursor, formatting, pyganim, keymapping, sys, traceback, datetime, ai
+debug("Imports done")
 
 allowdebug=True
 
@@ -19,8 +20,13 @@ def credits():
 	print("\tGFXCursor by Frank Raiser, Pete Shinner")
 
 if allowdebug:
-	def g_spawnship(name, a=True, w=True):
+	def g_spawnship(name, a=True, w=True, k=False):
 		g.entities.append(ship.create_ship(root, name, g.player.rigidbody.x, g.player.rigidbody.y, w, a))
+		g.entities[-1].keep_in_save=k
+	def g_sst():
+		g_spawnship("destroyer_transport_test", 0, 1, 1)
+	def g_gs(s1,s2):
+		root.galaxy.goto_sector(s1,s2)
 
 pygame.init()
 debug("Pygame started")
@@ -29,6 +35,7 @@ class R:pass
 root=R()
 
 root.formatter=formatting.Formatter({"root":root})
+root.extentions={}
 
 root.settings=serialize.load_settings()
 
@@ -42,12 +49,14 @@ pygame.display.set_caption("Spacegame Alpha")
 scrollingscreen=rotutil.ScrollingWorldManager(root, screen.image)
 root.screen=scrollingscreen
 
+serialize.init(root)
 ship.init(root)
 item.init(root)
 primitives.init(root)
 tasks.init(root)
 ai.init(root)
 ui_states.init(root)
+sectors.init(root)
 
 root.gfxcursor=gfxcursor.GfxCursor(root, root.screen.screen)
 
@@ -66,6 +75,9 @@ debug("Loaded all SG extensions")
 
 root.renderspace_size=renderspace_size
 
+# root.savegame=serialize.SaveGame(root)
+# root.galaxy=sectors.Galaxy(root)
+
 info("Loading loader packages")
 extention_loader.load_all_packages(root, 'loader')
 info("Loading core packages")
@@ -78,7 +90,8 @@ root.state_manager.add_state(gamestate.RunningGameState(), "game")
 root.state_manager.add_state(gamestate.RunningGamePausedState(), "game_paused")
 root.state_manager.factories["generic_ui"]=state.InterdictingStateFactory(ui_states.GenericUIInterdictor)
 root.state_manager.factories["keymapper"]=state.InterdictingStateFactory(keymapping.KeyMapperState)
-root.state_manager.goto_state("game")
+#root.state_manager.goto_state("game")
+root.state_manager.start_interdicting("generic_ui", root.gamedb("sgcui_mainmenu"))
 
 g=root.state_manager.states["game"]
 
@@ -108,6 +121,10 @@ def flip_screen():
 
 eventclear_tick=0
 
+# root.galaxy.gamestate=root.state_manager.states["game"]
+# root.galaxy.preprocess_statics()
+# root.galaxy.goto_sector(0,0)
+
 info("Doing last plugin init...")
 for ext in root.extentions:
 	root.extentions[ext].last_load()
@@ -120,17 +137,15 @@ while run:
 	for ext in root.extentions:
 		for e in events:
 			root.extentions[ext].event_root(events)
+		root.extentions[ext].tick(root.state_manager.current)
 
 	for e in events:
-		
 		if e.type==pygame.QUIT:
 			debug("Shutting Down")
 			sys.exit()
 		elif e.type==pygame.KEYDOWN:
 			if e.key == pygame.K_BACKQUOTE and pygame.key.get_mods() & pygame.KMOD_CTRL:
 				root.console.set_active()
-			elif e.key == pygame.K_ESCAPE:
-				root.state_manager.start_interdicting("generic_ui", root.gamedb("sgcui_settings"))
 		elif e.type==pygame.VIDEORESIZE:
 			debug("Root resize")
 			root.renderspace_size=e.dict['size']

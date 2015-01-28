@@ -19,6 +19,12 @@
 			"size":30
 		},
 		{
+			"name":"font_standard_75",
+			"path":"ui/modular/kenvector_future_thin.ttf",
+			"type":"font",
+			"size":75
+		},
+		{
 			"name":"font_standard_very_small",
 			"path":"ui/modular/kenvector_future_thin.ttf",
 			"type":"font",
