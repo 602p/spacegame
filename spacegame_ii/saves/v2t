@@ -4,17 +4,29 @@
             "0,1": [
                 {
                     "rigidbody": {
-                        "y": -200.0, 
-                        "x": -200.0, 
+                        "y": -500, 
+                        "x": -500, 
                         "vector": {
                             "magnitude": 0, 
                             "angle": 0
                         }, 
-                        "mass": 21, 
-                        "last_tc": 0.02
+                        "mass": 20, 
+                        "last_tc": 0.01
                     }, 
+                    "currpwr": 200, 
+                    "currhull": 50, 
+                    "currshld": 150, 
+                    "ai": 1, 
+                    "__deserialize_handler__": "ship", 
+                    "damagesystems": [
+                        {
+                            "hp": 10
+                        }, 
+                        {
+                            "hp": 10
+                        }
+                    ], 
                     "ship_id": "alien_transport_test", 
-                    "packed": true, 
                     "inventory": [
                         {
                             "count": 1, 
@@ -23,52 +35,77 @@
                             "equipped": 0
                         }
                     ], 
+                    "packed": true
+                }, 
+                {
+                    "rigidbody": {
+                        "y": 0, 
+                        "x": 0, 
+                        "vector": {
+                            "magnitude": 0, 
+                            "angle": 0
+                        }, 
+                        "mass": 20, 
+                        "last_tc": 0.01
+                    }, 
+                    "currpwr": 200, 
+                    "currhull": 50, 
                     "currshld": 150, 
                     "ai": 1, 
                     "__deserialize_handler__": "ship", 
                     "damagesystems": [
                         {
-                            "hp": 10, 
-                            "config": {
-                                "effects_damaged": [
-                                    0.6
-                                ], 
-                                "name": "THRUSTERS", 
-                                "image_damaged": "image_icon_thrusters_yellow", 
-                                "image_destroyed": "image_icon_thrusters_red", 
-                                "threshold_damaged": 6, 
-                                "health": 10, 
-                                "regen": 0.1, 
-                                "effects_destroyed": [
-                                    0.2
-                                ], 
-                                "attributes": [
-                                    "turn_rate"
-                                ]
-                            }
+                            "hp": 10
                         }, 
                         {
-                            "hp": 10, 
-                            "config": {
-                                "effects_damaged": [
-                                    0.6
-                                ], 
-                                "name": "THRUSTERS", 
-                                "image_damaged": "image_icon_thrusters_yellow", 
-                                "image_destroyed": "image_icon_thrusters_red", 
-                                "threshold_damaged": 6, 
-                                "health": 10, 
-                                "regen": 0.1, 
-                                "effects_destroyed": [
-                                    0.2
-                                ], 
-                                "attributes": [
-                                    "turn_rate"
-                                ]
-                            }
+                            "hp": 10
                         }
                     ], 
-                    "currhull": 50
+                    "ship_id": "alien_transport_test", 
+                    "inventory": [
+                        {
+                            "count": 1, 
+                            "__deserialize_handler__": "item", 
+                            "id": "x_wep_thanh", 
+                            "equipped": 0
+                        }
+                    ], 
+                    "packed": true
+                }, 
+                {
+                    "rigidbody": {
+                        "y": -200, 
+                        "x": -200, 
+                        "vector": {
+                            "magnitude": 0, 
+                            "angle": 0
+                        }, 
+                        "mass": 20, 
+                        "last_tc": 0.01
+                    }, 
+                    "currpwr": 200, 
+                    "currhull": 50, 
+                    "currshld": 150, 
+                    "ai": 1, 
+                    "__deserialize_handler__": "ship", 
+                    "damagesystems": [
+                        {
+                            "hp": 10
+                        }, 
+                        {
+                            "hp": 10
+                        }
+                    ], 
+                    "ship_id": "alien_transport_test", 
+                    "inventory": [
+                        {
+                            "count": 1, 
+                            "__deserialize_handler__": "item", 
+                            "id": "x_wep_thanh", 
+                            "equipped": 0
+                        }
+                    ], 
+                    "packed": true
                 }
             ], 
             "0,0": [
@@ -84,7 +121,7 @@
                         "last_tc": 0.02
                     }, 
                     "ship_id": "ss_bajor_ds9", 
-                    "packed": true, 
+                    "currpwr": 500.0, 
                     "inventory": [
                         {
                             "count": 1, 
@@ -143,56 +180,17 @@
                     ], 
                     "currshld": 1000.0, 
                     "ai": 1, 
+                    "packed": true, 
                     "__deserialize_handler__": "ship", 
                     "damagesystems": [
                         {
-                            "hp": 100, 
-                            "config": {
-                                "effects_damaged": [
-                                    0.5, 
-                                    0.5
-                                ], 
-                                "name": "ENGINES", 
-                                "image_damaged": "image_icon_engine_yellow", 
-                                "image_destroyed": "image_icon_engine_red", 
-                                "threshold_damaged": 60, 
-                                "health": 100, 
-                                "regen": 0.3, 
-                                "effects_destroyed": [
-                                    0.1, 
-                                    0.1
-                                ], 
-                                "attributes": [
-                                    "max_speed", 
-                                    "speed"
-                                ]
-                            }
+                            "hp": 4.842600000460015
                         }, 
                         {
-                            "hp": 100, 
-                            "config": {
-                                "effects_damaged": [
-                                    0.5, 
-                                    0.5
-                                ], 
-                                "name": "ENGINES", 
-                                "image_damaged": "image_icon_engine_yellow", 
-                                "image_destroyed": "image_icon_engine_red", 
-                                "threshold_damaged": 60, 
-                                "health": 100, 
-                                "regen": 0.3, 
-                                "effects_destroyed": [
-                                    0.1, 
-                                    0.1
-                                ], 
-                                "attributes": [
-                                    "max_speed", 
-                                    "speed"
-                                ]
-                            }
+                            "hp": 100
                         }
                     ], 
-                    "currhull": 638.0
+                    "currhull": 260.0
                 }, 
                 {
                     "rigidbody": {
@@ -206,10 +204,11 @@
                         "last_tc": 0.02
                     }, 
                     "ship_id": "ss_bajor_planet", 
-                    "packed": true, 
+                    "currpwr": 1, 
                     "inventory": [], 
                     "currshld": 1, 
                     "ai": 1, 
+                    "packed": true, 
                     "__deserialize_handler__": "ship", 
                     "damagesystems": [], 
                     "currhull": 1
@@ -231,20 +230,20 @@
         0, 
         0
     ], 
-    "game_time": 115.79720008271345, 
+    "game_time": 72.88980000372882, 
     "player": {
         "rigidbody": {
-            "y": 733.6012546099759, 
-            "x": 879.8327925650392, 
+            "y": 442.63232939144797, 
+            "x": 796.31640936218, 
             "vector": {
-                "magnitude": -1.922077594161106, 
-                "angle": 222.98400035222215
+                "magnitude": 266.24828915013745, 
+                "angle": 193.39199922711458
             }, 
-            "mass": 23.1, 
+            "mass": 23, 
             "last_tc": 0.02
         }, 
         "ship_id": "cargo_transport_test", 
-        "packed": true, 
+        "currpwr": 100.0520000414567, 
         "inventory": [
             {
                 "count": 1, 
@@ -263,62 +262,23 @@
                 "__deserialize_handler__": "item", 
                 "id": "wep_torpedo_carnivore1", 
                 "equipped": 2
-            }, 
-            {
-                "count": 2, 
-                "__deserialize_handler__": "item", 
-                "id": "ammo_torpedo_stinger1", 
-                "equipped": -1
             }
         ], 
-        "currshld": 50.02960010299191, 
+        "currshld": 50, 
         "ai": false, 
+        "packed": true, 
         "__deserialize_handler__": "ship", 
         "damagesystems": [
             {
-                "hp": 10, 
-                "config": {
-                    "effects_damaged": [
-                        0.6
-                    ], 
-                    "name": "THRUSTERS", 
-                    "image_damaged": "image_icon_thrusters_yellow", 
-                    "image_destroyed": "image_icon_thrusters_red", 
-                    "threshold_damaged": 6, 
-                    "health": 10, 
-                    "regen": 0.1, 
-                    "effects_destroyed": [
-                        0.2
-                    ], 
-                    "attributes": [
-                        "turn_rate"
-                    ]
-                }
+                "hp": 10
             }, 
             {
-                "hp": 10, 
-                "config": {
-                    "effects_damaged": [
-                        0.6
-                    ], 
-                    "name": "THRUSTERS", 
-                    "image_damaged": "image_icon_thrusters_yellow", 
-                    "image_destroyed": "image_icon_thrusters_red", 
-                    "threshold_damaged": 6, 
-                    "health": 10, 
-                    "regen": 0.1, 
-                    "effects_destroyed": [
-                        0.2
-                    ], 
-                    "attributes": [
-                        "turn_rate"
-                    ]
-                }
+                "hp": 10
             }
         ], 
         "currhull": 50
     }, 
     "state": "game", 
-    "savegame_revision": 0, 
+    "savegame_revision": 2, 
     "quest_system": null
 }

@@ -63,6 +63,11 @@ class Galaxy(object):
 		for i in self.iter_sectors():
 			i.preprocess_statics()
 
+	def update_statics(self):
+		info("Updating all statics...")
+		for i in self.iter_sectors():
+			i.update_statics()
+
 class Sector(object):
 	def __init__(self, root, config):
 		self.x=config["x"]
@@ -84,6 +89,21 @@ class Sector(object):
 			static["__deserialize_handler__"]=static["type"]
 			entity = serialize.load_from_node(self.root, static, None)
 			self.root.savegame.database["packed_entities"][self.get_savegame_id()].append(entity.save_to_config_node())
+		if self.get_savegame_id() not in self.root.savegame.database["sector_data"].keys():
+			self.root.savegame.database["sector_data"][self.get_savegame_id()]={}
+		self.root.savegame.database["sector_data"][self.get_savegame_id()]["last_loaded_entity"]=len(self.statics)-1
+
+	def update_statics(self):
+		debug("Updating statics for sector "+self.get_savegame_id()+"...")
+		count=0
+		for static in self.statics:
+			if count>self.root.savegame.database["sector_data"][self.get_savegame_id()]["last_loaded_entity"]:
+				static["__deserialize_handler__"]=static["type"]
+				entity = serialize.load_from_node(self.root, static, None)
+				self.root.savegame.database["packed_entities"][self.get_savegame_id()].append(entity.save_to_config_node())
+			count+=1
+
+		self.root.savegame.database["sector_data"][self.get_savegame_id()]["last_loaded_entity"]=len(self.statics)-1
 
 	def load(self):
 		self.root.igconsole.post("Now entering "+self.name+"...", bold=1, color=(0,255,0))
@@ -122,10 +142,15 @@ class Sector(object):
 	def unload(self):
 		self.unload_entities()
 
-	def unload_entities(self):
+	def pack_entities(self):
+		packed=[]
 		for entity in self.galaxy.gamestate.entities[1:]:
 			if entity.can_save:
-				self.root.savegame.database["packed_entities"][self.get_savegame_id()].append(entity.save_to_config_node())
+				packed.append(entity.save_to_config_node())
+		return packed
+
+	def unload_entities(self):
+		self.root.savegame.database["packed_entities"][self.get_savegame_id()].extend(self.pack_entities())
 		self.galaxy.gamestate.player.targeted=None
 		del self.galaxy.gamestate.entities[1:]
 
@@ -139,3 +164,9 @@ class SectorManager(HookableExtention):
 			#self.root.screen.draw_rect((0,255,0), pygame.Rect(-SECTORSIZE, -SECTORSIZE, SECTORSIZE, SECTORSIZE), 10)
 			if player.rigidbody.x>SECTORSIZE:
 				pass
+
+	def event_root(self, events):
+		for event in events:
+			if event.type==pygame.USEREVENT:
+				if event.sg_type==triggers.UE_SHIP_DIE_RUN:
+					print "shipboom"

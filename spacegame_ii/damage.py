@@ -84,12 +84,11 @@ class DamageSystem:
 
 	def save_to_config_node(self):
 		return {
-			"config":self.config,
 			"hp":self.health
 		}
 
-def _load_system(damage_model, node):
-	s = DamageSystem(damage_model, node["config"])
+def _load_system(s, node):
+	print "dealing "+str(s.health-node["hp"])+" damage to "+s.name
 	s.deal_damage(s.health-node["hp"])
 	return s
 
@@ -245,4 +244,5 @@ class DamageModel:
 		c=0
 		for n in node:
 			if self.systems[c]:
-				self.systems[c]=_load_system(self, n)
+				_load_system(self.systems[c], n)
+			c+=1

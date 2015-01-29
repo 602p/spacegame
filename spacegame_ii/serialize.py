@@ -1,7 +1,9 @@
 import json, keymapping, ship, ui_states
+from logging import debug, info, error, critical, warn
 
 def init(root):
 	root.load_modes={}
+	root.savegame_migrations={}
 	#register_load_mode(root, "item", item._deserialize_item)
 
 class SerializableObject:
@@ -17,7 +19,9 @@ def save_game(root, filename):
 
 def load_game(root, filename):
 	with open(filename, 'r') as fd:
-		pass #TODO: do
+		json_save=json.load(fd)
+		root.savegame=SaveGame(root)
+		root.savegame.load_save(json_save)
 
 def new_game(root, start, player_name, ship_name):
 	import extention_loader, sectors
@@ -57,20 +61,76 @@ class SaveGame(object, SerializableObject):
 		self.database={
 			"packed_entities":{},
 			"player_name":player_name,
-			"ship_name":ship_name
+			"ship_name":ship_name,
+			"sector_data":{}
 		}
+		self.curr_revsion=2
 
 	def get_db(self, key, default=None):
 		return self.database.get(key, default)
 
 	def save_to_config_node(self): #When we load the sector it removes all the packed entites. Need a way to get a copy from the Sector instance
+		temp_db=self.database.copy()
+		temp_db["packed_entities"][self.root.galaxy.get_sector().get_savegame_id()]=self.root.galaxy.get_sector().pack_entities()
 		savegame={
-			"savegame_revision":0,
+			"savegame_revision":self.curr_revsion,
 			"game_time":self.root.game_time,
-			"state":"game",
+			"state":"game", #Not sure if this is worth keeping
 			"quest_system":None, #Not implemented!
-			"database":self.database,
+			"database":temp_db,
 			"galaxy_pos":[self.root.galaxy.currentx,self.root.galaxy.currenty],
 			"player":self.root.state_manager.states["game"].player.save_to_config_node()
 		}
 		return savegame
+
+	def load_save(self, json_save):
+		import ship, sectors, extention_loader
+		root=self.root
+		debug("Loading Save...")
+
+		if self.curr_revsion>json_save["savegame_revision"]:
+			info("Save outdated... Migrating...")
+			contupdate=1
+			while contupdate:
+				if json_save["savegame_revision"]+1 in self.root.savegame_migrations:
+					debug("Migrating up from "+str(json_save["savegame_revision"])+' using '+str(self.root.savegame_migrations[json_save["savegame_revision"]+1])+"...")
+					json_save = self.root.savegame_migrations[json_save["savegame_revision"]+1](self.root, json_save).migrate()
+				else:
+					contupdate=0
+				if self.curr_revsion==json_save["savegame_revision"]:
+					debug("Done migrating!")
+					contupdate=0
+
+		if self.curr_revsion==json_save["savegame_revision"]:
+			info("Versions match, loading...")
+			root.game_time=json_save["game_time"]
+			root.state_manager.states["game"].entities=[ship._load_ship(root, json_save["player"], None)]
+			root.state_manager.states["game"].player=root.state_manager.states["game"].entities[0]
+			
+			root.savegame.database=json_save["database"]
+			root.galaxy=sectors.Galaxy(root)
+			root.galaxy.gamestate=root.state_manager.states["game"]
+			extention_loader.load_galaxy(root, 'extensions', None)
+
+			root.galaxy.update_statics()
+
+			root.galaxy.goto_sector(*json_save["galaxy_pos"])
+			root.state_manager.goto_state("game")
+
+		elif self.curr_revsion>json_save["savegame_revision"]:
+			error("No migration path from "+str(json_save["savegame_revision"])+" --> "+str(self.curr_revsion))
+			ui_states.interdict_ok(root, "LOAD ERROR", "No migration path from "+str(json_save["savegame_revision"])+" --> "+str(self.curr_revsion), "OK",
+			 lambda s:s.root.state_manager.start_interdicting("generic_ui", s.root.gamedb("sgcui_mainmenu")))
+		elif self.curr_revsion<json_save["savegame_revision"]:
+			error("This is a save file from a newer version of Spacegame than you you have. Plz be to update")
+			ui_states.interdict_ok(root, "LOAD ERROR", "This is a save file from a newer version of%n Spacegame (?!?!?!) than you you have.%n Plz be to update", "OK",
+			 lambda s:s.root.state_manager.start_interdicting("generic_ui", s.root.gamedb("sgcui_mainmenu")))
+
+class SavegameMigrator(object):
+	def __init__(self, root, save):
+		self.root=root
+		self.save=save
+
+	def migrate(self):
+		error("Migration not defined")
+		return self.save

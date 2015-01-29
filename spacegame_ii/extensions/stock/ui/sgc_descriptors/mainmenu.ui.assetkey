@@ -38,10 +38,6 @@
 								"controllers":[
 									{
 										"controller":"load_game"
-									},
-									{
-										"controller":"goto_state",
-										"state":"game"
 									}
 								]
 							},

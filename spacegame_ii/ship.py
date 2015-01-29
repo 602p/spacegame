@@ -42,6 +42,7 @@ def _load_ship(root, node, parent):
 			serialize.load_from_node(root, item, s)
 		s.damage.hull=node["currhull"]
 		s.damage.shields=node["currshld"]
+		s.current_power=node["currpwr"]
 		s.damage.load_systems_json(node["damagesystems"])
 		s.rigidbody   = physics._load_rigidbody(node["rigidbody"], s)
 	else:
@@ -266,5 +267,6 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity):
 			"damagesystems":self.damage.save_systems_json(),
 			"rigidbody":self.rigidbody.save_to_config_node(),
 			"ai":self.use_ai,
+			"currpwr":self.current_power,
 			"packed":True
 		}
