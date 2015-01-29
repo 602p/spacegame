@@ -187,18 +187,11 @@ class RunningGameState(state.State):
 			for ext in self.root.extentions:
 				self.root.extentions[ext].event_state("game", e)
 
-class RunningGamePausedState(state.State):
-	def first_start(self):
-		self.petr=self.root.gamedb.get_asset("font_standard_large").render("PRESS ENTER TO RESUME", 1, (255,255,255))
-		self.paused=self.root.gamedb.get_asset("font_standard_large").render("PAUSED", 1, (255,255,255))
-	def update_and_render(self):
-		self.root.screen.screen.fill((0,0,0))
-		if 'background_gamerun_screen' in dir(self.root):
-			self.root.screen.screen.blit(self.root.background_gamerun_screen, (0,0))
-		self.root.screen.screen.blit(self.paused, ((self.root.renderspace_size[0]/2)-(self.paused.get_width()/2), 50))
-		self.root.screen.screen.blit(self.petr, ((self.root.renderspace_size[0]/2)-(self.petr.get_width()/2), 250))
+class CreditsState(state.InterdictingState):
+	def internal_update(self):
+		self.root.screen.screen.blit(self.root.gamedb("credits_screen"), (0,0))
+		
 	def process_events(self, events):
 		for e in events:
-			if e.type==pygame.KEYDOWN:
-				if e.key==pygame.K_RETURN:
-					self.state_manager.goto_state("game")
+			if e.type==pygame.MOUSEBUTTONDOWN or e.type==pygame.KEYDOWN:
+				self.finish()

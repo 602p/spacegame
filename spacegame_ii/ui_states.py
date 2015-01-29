@@ -31,7 +31,8 @@ def init(root):
 		"goto_ui_state":GotoUIState,
 		"goto_state":GotoOtherState,
 		"load_game":RunLoadGame,
-		"save_game":RunSaveGame
+		"save_game":RunSaveGame,
+		"goto_istate":GotoOtherIState
 	}
 
 def interdict_ok(root, title="NOT_SET", text="NOT_SET", button="NOT_SET", callback=lambda s:0, wrap=48, key="sgcui_modalok"):
@@ -203,6 +204,10 @@ class GotoUIState(WidgetController):
 class GotoOtherState(WidgetController):
 	def on_click(self):
 		self.root.state_manager.goto_state(self.config["state"])
+
+class GotoOtherIState(WidgetController):
+	def on_click(self):
+		self.root.state_manager.start_interdicting(self.config["state"])
 
 class RunLoadGame(WidgetController):
 	def on_click(self):

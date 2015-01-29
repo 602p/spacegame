@@ -1,0 +1,22 @@
+{
+	"require":["cfg_start_base"],
+	"assets":[
+		{
+			"type":"image",
+			"path":"starts/minelayer/fedbanner.png",
+			"name":"img_start_fed_banner",
+			"scale":[300,600]
+		},
+		{
+			"type":"json",
+			"name":"startdefun_fm",
+			"json":{
+				"%+start_base%":0,
+				"name":"Federation Minelayer Start",
+				"banner":"img_start_fed_banner",
+				"ship":"terran_defender",
+				"start_effects":[]
+			}
+		}
+	]
+}

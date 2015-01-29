@@ -1,0 +1,11 @@
+{
+	"assets":[
+		{
+			"name":"cfg_start_base",
+			"type":"json",
+			"json":{
+				"font":"font_standard_small"
+			}
+		}
+	]
+}

@@ -1,0 +1,21 @@
+{
+	"require":["cfg_start_base"],
+	"assets":[
+		{
+			"type":"image",
+			"path":"starts/transporttest/banner.png",
+			"name":"img_start_transporttest_banner"
+		},
+		{
+			"type":"json",
+			"name":"startdefun_tt",
+			"json":{
+				"%+start_base%":0,
+				"name":"Cargo Transport Test Start",
+				"banner":"img_start_transporttest_banner",
+				"ship":"cargo_transport_test",
+				"start_effects":[]
+			}
+		}
+	]
+}

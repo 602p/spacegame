@@ -53,7 +53,7 @@
 								"col":[0,0,170],
 								"controllers":[
 									{
-										"controller":"goto_state",
+										"controller":"goto_istate",
 										"state":"credits"
 									}
 								]

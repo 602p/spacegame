@@ -16,6 +16,11 @@
 			"name":"menu_bg",
 			"type":"image",
 			"path":"image/menu_bg.jpg"
+		},
+		{
+			"name":"credits_screen",
+			"type":"image",
+			"path":"image/credits.png"
 		}
 	]
 }

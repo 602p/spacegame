@@ -9,6 +9,12 @@
 			"name":"uia_yn_dialog",
 			"path":"ui/YNDialog.png",
 			"type":"image"
+		},
+		{
+			"name":"uia_back_button",
+			"path":"ui/backbutton.png",
+			"type":"image",
+			"scale":[60,60]
 		}
 	]
 }
