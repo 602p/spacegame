@@ -4,6 +4,6 @@ class FlaggedEntity(object):
 	can_be_hit=False
 	targeted=None
 	selected_wep=0
-	keep_in_save=False
+	can_save=False
 	def should_spawn_for_savegame(self, save):
 		return None

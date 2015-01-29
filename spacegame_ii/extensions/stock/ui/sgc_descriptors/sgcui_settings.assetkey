@@ -84,6 +84,19 @@
 						]
 					},
 					{
+						"type":"Button",
+						"label":"SAVE GAME",
+						"pos":[810,650],
+						"surf":[150,50],
+						"label_font":"$font_standard_small",
+						"col":[0,255,0],
+						"controllers":[
+							{
+								"controller":"do_save_game"
+							}
+						]
+					},
+					{
 						"type":"HBox",
 						"pos":[0,0],
 						"spacing":100,

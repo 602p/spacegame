@@ -137,6 +137,7 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity):
 		self.rotated_in_flight=0
 		self.can_be_hit=config.get("can_be_hit", True)
 		self.can_be_targeted=config.get("can_be_targeted", True)
+		self.can_save=not config.get("disable_saving", False)
 
 	def get_inventory_mass(self):
 		m=0

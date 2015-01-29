@@ -43,10 +43,7 @@ def interdict_ok(root, title="NOT_SET", text="NOT_SET", button="NOT_SET", callba
 	debug("button="+button)
 	debug("wrap="+str(wrap))
 	debug("style="+key)
-	text_=textwrap.wrap(text, wrap)
-	text=""
-	for l in text_:
-		text+="\n"+l.replace("%n", "\n")
+	text=text.replace("%n", "\n")
 	state=root.state_manager.start_interdicting("generic_ui", root.gamedb(key))
 	#print state.widgets.keys()
 	state.widgets["replace_title"].config(text=title)

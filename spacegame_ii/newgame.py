@@ -1,10 +1,12 @@
 from logging import debug, info, warning, error, critical
 import state, pygame, ui_states, serialize
+from toolbox import EasyGame
 
 def init(root):
 	root.widget_controllers.update({
 		"nginputs_controller":NGInputsController,
-		"create_new_save":CreateNewSave
+		"create_new_save":CreateNewSave,
+		"do_save_game":SaveCurrentGame
 	})
 
 class ShipSelectState(state.State):
@@ -39,3 +41,7 @@ class NGInputsController(ui_states.WidgetController):
 class CreateNewSave(ui_states.WidgetController):
 	def on_click(self):
 		serialize.new_game(self.root, self.state.params["_startcfg"], self.state.widgets["playername"].text, self.state.widgets["shipname"].text)
+
+class SaveCurrentGame(ui_states.WidgetController):
+	def on_click(self):
+		serialize.save_game(self.root, EasyGame.pathgetter("saves/", 1, "Select a file to save to..."))

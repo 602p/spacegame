@@ -124,7 +124,8 @@ class Sector(object):
 
 	def unload_entities(self):
 		for entity in self.galaxy.gamestate.entities[1:]:
-			self.root.savegame.database["packed_entities"][self.get_savegame_id()].append(entity.save_to_config_node())
+			if entity.can_save:
+				self.root.savegame.database["packed_entities"][self.get_savegame_id()].append(entity.save_to_config_node())
 		self.galaxy.gamestate.player.targeted=None
 		del self.galaxy.gamestate.entities[1:]
 
