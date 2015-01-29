@@ -14,49 +14,73 @@
 						"controllers":[
 							{
 								"controller":"exit_state"
+							},
+							{
+								"controller":"nginputs_controller"
 							}
 						]
 					},
 					{
-						"type":"HBox",
+						"type":"VBox",
+						"col":[0,0,150, 150],
+						"surf":[1300,350],
+						"pos":[0,0],
 						"widgets":[
 							{
-								"type":"VBox",
+								"type":"Label",
+								"text":"UNSET",
+								"id":"description",
+								"surf":[1300,200],
+								"col":[255,255,255],
+								"font":"$font_sys_mono"										
+							}
+						]
+					},
+					{
+						"type":"VBox",
+						"pos":[0,350],
+						"widgets":[
+							{
+								"type":"HBox",
 								"widgets":[
 									{
-										"type":"HBox",
-										"widgets":[
-											{
-												"type":"InputBox",
-												"id":"playername"
-											},
-											{
-												"type":"Label",
-												"text":"Player Name",
-												"col":[255,255,255],
-												"font":"$font_standard_small"										
-											}
-										]
+										"type":"InputBox",
+										"id":"playername"
 									},
 									{
-										"type":"HBox",
-										"widgets":[
-											{
-												"type":"InputBox",
-												"id":"shipname"
-											},
-											{
-												"type":"Label",
-												"text":"Ship Name",
-												"col":[255,255,255],
-												"font":"$font_standard_small"										
-											}
-										]
+										"type":"Label",
+										"text":"Player Name",
+										"col":[255,255,255],
+										"font":"$font_standard_small"										
+									}
+								]
+							},
+							{
+								"type":"HBox",
+								"widgets":[
+									{
+										"type":"InputBox",
+										"id":"shipname"
 									},
 									{
-										"type":"Button",
-										"label":"Engage!",
-										"label_font":"$font_standard_small"
+										"type":"Label",
+										"text":"Ship Name",
+										"col":[255,255,255],
+										"font":"$font_standard_small"										
+									}
+								]
+							},
+							{
+								"type":"Button",
+								"label":"Engage!",
+								"label_font":"$font_standard_small",
+								"controllers":[
+									{
+										"controller":"create_new_save"
+									},
+									{
+										"controller":"goto_state",
+										"state":"game"
 									}
 								]
 							}

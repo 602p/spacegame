@@ -1,5 +1,11 @@
 from logging import debug, info, warning, error, critical
-import state, pygame
+import state, pygame, ui_states, serialize
+
+def init(root):
+	root.widget_controllers.update({
+		"nginputs_controller":NGInputsController,
+		"create_new_save":CreateNewSave
+	})
 
 class ShipSelectState(state.State):
 	def first_start(self):
@@ -23,3 +29,13 @@ class ShipSelectState(state.State):
 		if pygame.Rect(0,640,60,60).collidepoint(pygame.mouse.get_pos()):
 			if pygame.mouse.get_pressed()[0]:
 				self.root.state_manager.start_interdicting("generic_ui", self.root.gamedb("sgcui_mainmenu"))
+
+class NGInputsController(ui_states.WidgetController):
+	def on_start(self):
+		self.state.widgets["description"].config(
+			text=self.state.params["_startcfg"].get("description", "NO DESC").replace("%n","\n")
+		)
+
+class CreateNewSave(ui_states.WidgetController):
+	def on_click(self):
+		serialize.new_game(self.root, self.state.params["_startcfg"], self.state.widgets["playername"].text, self.state.widgets["shipname"].text)

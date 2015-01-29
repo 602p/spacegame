@@ -32,7 +32,8 @@ def init(root):
 		"goto_state":GotoOtherState,
 		"load_game":RunLoadGame,
 		"save_game":RunSaveGame,
-		"goto_istate":GotoOtherIState
+		"goto_istate":GotoOtherIState,
+		"goto_ui_state_checked":GotoUIStateChecked
 	}
 
 def interdict_ok(root, title="NOT_SET", text="NOT_SET", button="NOT_SET", callback=lambda s:0, wrap=48, key="sgcui_modalok"):
@@ -200,6 +201,11 @@ class YNQuitter(WidgetController):
 class GotoUIState(WidgetController):
 	def on_click(self):
 		self.root.state_manager.start_interdicting("generic_ui", self.root.gamedb(self.config["state_config"]))
+
+class GotoUIStateChecked(WidgetController):
+	def on_click(self):
+		interdict_yn(self.root, self.config.get("title", "Check"), self.config.get("body","Are you sure?"), self.config.get("yes","No"), self.config.get("no","Yes"),
+		 callback_n=lambda s:s.state_manager.start_interdicting("generic_ui", s.root.gamedb(self.config["state_config"])))
 
 class GotoOtherState(WidgetController):
 	def on_click(self):

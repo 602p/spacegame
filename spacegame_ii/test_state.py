@@ -57,6 +57,7 @@ tasks.init(root)
 ai.init(root)
 ui_states.init(root)
 sectors.init(root)
+newgame.init(root)
 
 root.gfxcursor=gfxcursor.GfxCursor(root, root.screen.screen)
 

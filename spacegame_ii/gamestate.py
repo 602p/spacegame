@@ -13,8 +13,8 @@ class RunningGameState(state.State):
 		random.seed(0)
 		for i in range(random.randint(30,60)):
 			self.generated.append([[random.randint(-8000,8000), random.randint(-6000,6000)], random.sample(self.root.gamedb.get_startswith("bg_nebula"), 1)[0]])
-		for i in range(random.randint(5,10)):
-			self.generated.append([[random.randint(-8000,8000), random.randint(-6000,6000)], random.sample(self.root.gamedb.get_startswith("bg_planet"), 1)[0]])
+		# for i in range(random.randint(5,10)):
+		# 	self.generated.append([[random.randint(-8000,8000), random.randint(-6000,6000)], random.sample(self.root.gamedb.get_startswith("bg_planet"), 1)[0]])
 
 		
 
@@ -28,17 +28,17 @@ class RunningGameState(state.State):
 			]
 		)
 
-		self.entities=[]
-		self.entities=[
-			ship.create_ship(self.root, "cargo_transport_test", 100, 100, ai=False),
-			# ship.create_ship(self.root, "ss_bajor_ds9", -100, -100),
-			# ship.create_ship(self.root, "ss_f9_jumpgate", -2000, -2000)
-		]
+		# self.entities=[]
+		# self.entities=[
+		# 	ship.create_ship(self.root, "cargo_transport_test", 100, 100, ai=False),
+		# 	# ship.create_ship(self.root, "ss_bajor_ds9", -100, -100),
+		# 	# ship.create_ship(self.root, "ss_f9_jumpgate", -2000, -2000)
+		# ]
 
 
 		#self.entities[0].targeted=self.entities[1]
 
-		self.player=self.entities[0]
+		# self.player=self.entities[0]
 	def start(self):
 		info("=================================STARTING GAME STATE==========================")
 	def update_and_render(self):
@@ -172,7 +172,7 @@ class RunningGameState(state.State):
 					self.player.targeted=self.entities[-1]
 				elif e.key == pygame.K_BACKQUOTE: pass #hiding window
 				elif e.key == pygame.K_ESCAPE:
-					root.state_manager.start_interdicting("generic_ui", root.gamedb("sgcui_settings"))
+					self.root.state_manager.start_interdicting("generic_ui", self.root.gamedb("sgcui_settings"))
 			elif e.type==pygame.VIDEORESIZE:
 				print e
 				print "gsresize"

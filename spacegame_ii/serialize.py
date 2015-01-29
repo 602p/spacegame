@@ -1,4 +1,4 @@
-import json, keymapping
+import json, keymapping, ship
 
 def init(root):
 	root.load_modes={}
@@ -19,6 +19,17 @@ def load_game(root, filename):
 	with open(filename, 'r') as fd:
 		pass #TODO: do
 
+def new_game(root, start, player_name, ship_name):
+	import extention_loader, sectors
+	root.savegame=SaveGame(root, player_name, ship_name)
+	root.galaxy=sectors.Galaxy(root)
+	root.galaxy.gamestate=root.state_manager.states["game"]
+	root.state_manager.states["game"].entities=[ship.create_ship(root, start["ship"], 0, 0, ai=False)]
+	root.state_manager.states["game"].player=root.state_manager.states["game"].entities[0]
+	extention_loader.load_galaxy(root, 'extensions', None)
+	root.galaxy.preprocess_statics()
+	root.galaxy.goto_sector(*start.get("sector", [0,0]))
+
 def save_object(item):
 	#assert isinstance(item, SerializableObject) #NO! DUCK TYPING IS GOD!
 	return item.save_to_config_node()
@@ -38,10 +49,12 @@ def load_settings(filename="settings.cfg"):
 	return o
 
 class SaveGame(object, SerializableObject):
-	def __init__(self, root):
+	def __init__(self, root, player_name="pn", ship_name="sn"):
 		self.root=root
 		self.database={
-			"packed_entities":{}
+			"packed_entities":{},
+			"player_name":player_name,
+			"ship_name":ship_name
 		}
 
 	def get_db(self, key, default=None):

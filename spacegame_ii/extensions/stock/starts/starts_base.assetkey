@@ -4,7 +4,7 @@
 			"name":"cfg_start_base",
 			"type":"json",
 			"json":{
-				"font":"font_standard_small"
+				"font":"font_sys_mono"
 			}
 		}
 	]

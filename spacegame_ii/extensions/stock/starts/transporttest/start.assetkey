@@ -14,7 +14,8 @@
 				"name":"Cargo Transport Test Start",
 				"banner":"img_start_transporttest_banner",
 				"ship":"cargo_transport_test",
-				"start_effects":[]
+				"start_effects":[],
+				"description":"INTRO TEXT GOES HERE INTRO TEXT GOES HERE INTRO TEXT GOES HERE%n%nShip Class: Federation Cargo Runabout%n%nCompliment:%n>> Basic Laser System%n>> Smart-fire missile launcher%n%n%n%nGood Luck!"
 			}
 		}
 	]

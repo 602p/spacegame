@@ -36,6 +36,9 @@ def sg_postevent(type_const, *a, **k):
 		"array_args":a,
 		"dict_args":k
 	})
-	pygame.event.post(pygame.event.Event(pygame.USEREVENT, built_dict))
+	try:
+		pygame.event.post(pygame.event.Event(pygame.USEREVENT, built_dict))
+	except pygame.error:
+		error("Pygame event queue full: Event dropped")
 	#debug("Posted an event of type "+type_const)
 	#debug("-->"+str(built_dict))

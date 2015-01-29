@@ -20,7 +20,7 @@
 			"name":"sgcui_settings",
 			"type":"json",
 			"json":{
-				"bg_image":"settings_bg",
+				"bg_image":"menu_bg",
 				"widgets":[
 					{
 						"type":"Button",
@@ -65,6 +65,21 @@
 						"controllers":[
 							{
 								"controller":"yn_popup_quit"
+							}
+						]
+					},
+					{
+						"type":"Button",
+						"label":"MAIN MENU",
+						"pos":[980,650],
+						"surf":[150,50],
+						"label_font":"$font_standard_small",
+						"col":[255,0,0],
+						"controllers":[
+							{
+								"controller":"goto_ui_state_checked",
+								"state_config":"sgcui_mainmenu",
+								"body":"Are you sure?%nAll unsaved progress will be lost!"
 							}
 						]
 					},
