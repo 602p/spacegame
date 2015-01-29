@@ -1,8 +1,10 @@
 import ship, json, extention_loader, triggers, pygame, serialize
 from logging import debug, info, warning, error, critical
 from extention_loader import HookableExtention
+from triggers import *
 
 SECTORSIZE=5000 #Actually 2x this
+GALAXYSIZE=10 #Again, 2x this in each axis
 
 def init(root):
 	root.extentions["static_entity_manager"]=SectorManager(root)
@@ -27,6 +29,12 @@ class Galaxy(object):
 		self.root=root
 		self.gamestate=None
 		self.sectormap={} #[x][y]
+		debug("Prepopulating galaxy")
+		for x in range(-GALAXYSIZE, GALAXYSIZE+1):
+			self.sectormap[x]={}
+			for y in range(-GALAXYSIZE, GALAXYSIZE+1):
+				self.add_sector(Sector(root, {"x":x,"y":y}))
+				self.root.savegame.database["packed_entities"][self.sectormap[x][y].get_savegame_id()]=[]
 
 	def add_sector(self, sector):
 		if sector.x not in self.sectormap.keys():
@@ -44,12 +52,20 @@ class Galaxy(object):
 
 	def goto_sector(self, x, y):
 		info("Transitioning from sector ("+str(self.currentx)+","+str(self.currenty)+") to ("+str(x)+","+str(y)+")")
+		if x in self.sectormap.keys():
+			if y in self.sectormap[x].keys():
+				sg_postevent(UE_CHANGE_SECTOR, galaxy=self, newx=x, newy=y)
+				if type(self.currentx) == int:
+					self.get_sector().unload()
+				self.currentx=x
+				self.currenty=y
+				self.get_sector().load()
+				sg_postevent(UE_CHANGE_SECTOR_FINISH, galaxy=self)
+				return
+		error("Sector not defined! (No change made)")
 
-		if type(self.currentx) == int:
-			self.get_sector().unload()
-		self.currentx=x
-		self.currenty=y
-		self.get_sector().load()
+	def change_sector_by(self, x, y):
+		self.goto_sector(self.currentx+x, self.currenty+y)
 
 	def iter_sectors(self):
 		l=[]
@@ -163,10 +179,14 @@ class SectorManager(HookableExtention):
 			player = self.root.state_manager.states["game"].player
 			#self.root.screen.draw_rect((0,255,0), pygame.Rect(-SECTORSIZE, -SECTORSIZE, SECTORSIZE, SECTORSIZE), 10)
 			if player.rigidbody.x>SECTORSIZE:
-				pass
-
-	def event_root(self, events):
-		for event in events:
-			if event.type==pygame.USEREVENT:
-				if event.sg_type==triggers.UE_SHIP_DIE_RUN:
-					print "shipboom"
+				self.root.galaxy.change_sector_by(1,0)
+				player.rigidbody.x=-SECTORSIZE
+			if player.rigidbody.x<-SECTORSIZE:
+				self.root.galaxy.change_sector_by(-1,0)
+				player.rigidbody.x=SECTORSIZE
+			if player.rigidbody.y>SECTORSIZE:
+				self.root.galaxy.change_sector_by(0,1)
+				player.rigidbody.y=-SECTORSIZE
+			if player.rigidbody.y<-SECTORSIZE:
+				self.root.galaxy.change_sector_by(0,-1)
+				player.rigidbody.y=SECTORSIZE

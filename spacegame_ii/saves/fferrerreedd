@@ -1,0 +1,284 @@
+{
+    "database": {
+        "packed_entities": {
+            "0,1": [
+                {
+                    "rigidbody": {
+                        "y": -500, 
+                        "x": -500, 
+                        "vector": {
+                            "magnitude": 0, 
+                            "angle": 0
+                        }, 
+                        "mass": 20, 
+                        "last_tc": 0.01
+                    }, 
+                    "ship_id": "alien_transport_test", 
+                    "currpwr": 200, 
+                    "inventory": [
+                        {
+                            "count": 1, 
+                            "__deserialize_handler__": "item", 
+                            "id": "x_wep_thanh", 
+                            "equipped": 0
+                        }
+                    ], 
+                    "currshld": 150, 
+                    "ai": 1, 
+                    "packed": true, 
+                    "__deserialize_handler__": "ship", 
+                    "damagesystems": [
+                        {
+                            "hp": 10
+                        }, 
+                        {
+                            "hp": 10
+                        }
+                    ], 
+                    "currhull": 50
+                }, 
+                {
+                    "rigidbody": {
+                        "y": 0, 
+                        "x": 0, 
+                        "vector": {
+                            "magnitude": 0, 
+                            "angle": 0
+                        }, 
+                        "mass": 20, 
+                        "last_tc": 0.01
+                    }, 
+                    "ship_id": "alien_transport_test", 
+                    "currpwr": 200, 
+                    "inventory": [
+                        {
+                            "count": 1, 
+                            "__deserialize_handler__": "item", 
+                            "id": "x_wep_thanh", 
+                            "equipped": 0
+                        }
+                    ], 
+                    "currshld": 150, 
+                    "ai": 1, 
+                    "packed": true, 
+                    "__deserialize_handler__": "ship", 
+                    "damagesystems": [
+                        {
+                            "hp": 10
+                        }, 
+                        {
+                            "hp": 10
+                        }
+                    ], 
+                    "currhull": 50
+                }, 
+                {
+                    "rigidbody": {
+                        "y": -200, 
+                        "x": -200, 
+                        "vector": {
+                            "magnitude": 0, 
+                            "angle": 0
+                        }, 
+                        "mass": 20, 
+                        "last_tc": 0.01
+                    }, 
+                    "ship_id": "alien_transport_test", 
+                    "currpwr": 200, 
+                    "inventory": [
+                        {
+                            "count": 1, 
+                            "__deserialize_handler__": "item", 
+                            "id": "x_wep_thanh", 
+                            "equipped": 0
+                        }
+                    ], 
+                    "currshld": 150, 
+                    "ai": 1, 
+                    "packed": true, 
+                    "__deserialize_handler__": "ship", 
+                    "damagesystems": [
+                        {
+                            "hp": 10
+                        }, 
+                        {
+                            "hp": 10
+                        }
+                    ], 
+                    "currhull": 50
+                }
+            ], 
+            "0,0": [
+                {
+                    "rigidbody": {
+                        "y": 500.0, 
+                        "x": 500.0, 
+                        "vector": {
+                            "magnitude": 0, 
+                            "angle": 0
+                        }, 
+                        "mass": 2009, 
+                        "last_tc": 0.02
+                    }, 
+                    "ship_id": "ss_bajor_ds9", 
+                    "currpwr": 500.0, 
+                    "inventory": [
+                        {
+                            "count": 1, 
+                            "__deserialize_handler__": "item", 
+                            "id": "wep_basic_laser", 
+                            "equipped": 0
+                        }, 
+                        {
+                            "count": 1, 
+                            "__deserialize_handler__": "item", 
+                            "id": "wep_basic_laser", 
+                            "equipped": 1
+                        }, 
+                        {
+                            "count": 1, 
+                            "__deserialize_handler__": "item", 
+                            "id": "wep_basic_laser", 
+                            "equipped": 2
+                        }, 
+                        {
+                            "count": 1, 
+                            "__deserialize_handler__": "item", 
+                            "id": "wep_basic_laser", 
+                            "equipped": 3
+                        }, 
+                        {
+                            "count": 1, 
+                            "__deserialize_handler__": "item", 
+                            "id": "wep_basic_laser", 
+                            "equipped": 4
+                        }, 
+                        {
+                            "count": 1, 
+                            "__deserialize_handler__": "item", 
+                            "id": "wep_torpedo_stinger1", 
+                            "equipped": 5
+                        }, 
+                        {
+                            "count": 1, 
+                            "__deserialize_handler__": "item", 
+                            "id": "wep_torpedo_stinger1", 
+                            "equipped": 6
+                        }, 
+                        {
+                            "count": 1, 
+                            "__deserialize_handler__": "item", 
+                            "id": "wep_torpedo_stinger1", 
+                            "equipped": 7
+                        }, 
+                        {
+                            "count": 1, 
+                            "__deserialize_handler__": "item", 
+                            "id": "wep_torpedo_stinger1", 
+                            "equipped": 8
+                        }
+                    ], 
+                    "currshld": 1000.0, 
+                    "ai": 1, 
+                    "packed": true, 
+                    "__deserialize_handler__": "ship", 
+                    "damagesystems": [
+                        {
+                            "hp": 100
+                        }, 
+                        {
+                            "hp": 100
+                        }
+                    ], 
+                    "currhull": 800
+                }, 
+                {
+                    "rigidbody": {
+                        "y": -500.0, 
+                        "x": -500.0, 
+                        "vector": {
+                            "magnitude": 0, 
+                            "angle": 0
+                        }, 
+                        "mass": 1, 
+                        "last_tc": 0.02
+                    }, 
+                    "ship_id": "ss_bajor_planet", 
+                    "currpwr": 1, 
+                    "inventory": [], 
+                    "currshld": 1, 
+                    "ai": 1, 
+                    "packed": true, 
+                    "__deserialize_handler__": "ship", 
+                    "damagesystems": [], 
+                    "currhull": 1
+                }
+            ]
+        }, 
+        "player_name": "", 
+        "ship_name": "", 
+        "sector_data": {
+            "0,1": {
+                "last_loaded_entity": 2
+            }, 
+            "0,0": {
+                "last_loaded_entity": 1
+            }
+        }
+    }, 
+    "galaxy_pos": [
+        0, 
+        0
+    ], 
+    "game_time": 159.80050001772736, 
+    "player": {
+        "rigidbody": {
+            "y": -452.18921374621124, 
+            "x": -538.6999300342968, 
+            "vector": {
+                "magnitude": -50.0, 
+                "angle": 244.81800001380105
+            }, 
+            "mass": 203, 
+            "last_tc": 0.02
+        }, 
+        "ship_id": "ferengi_cruiser", 
+        "currpwr": 200.0120000591838, 
+        "inventory": [
+            {
+                "count": 1, 
+                "__deserialize_handler__": "item", 
+                "id": "wep_proj_laser", 
+                "equipped": 0
+            }, 
+            {
+                "count": 1, 
+                "__deserialize_handler__": "item", 
+                "id": "wep_basic_laser", 
+                "equipped": 1
+            }, 
+            {
+                "count": 3, 
+                "__deserialize_handler__": "item", 
+                "id": "wep_fed_mine1", 
+                "equipped": 2
+            }
+        ], 
+        "currshld": 200, 
+        "ai": false, 
+        "packed": true, 
+        "__deserialize_handler__": "ship", 
+        "damagesystems": [
+            {
+                "hp": 10
+            }, 
+            {
+                "hp": 10
+            }
+        ], 
+        "currhull": 250
+    }, 
+    "state": "game", 
+    "savegame_revision": 2, 
+    "quest_system": null
+}

@@ -60,7 +60,7 @@ class AIController:
 							priorities[i]=dget(self.ship.get_item_in_hardpoint(i)._config, "ai_priority", 5)
 					i+=1
 				for i in sorted(priorities, key=lambda hardpoint: priorities[hardpoint]):
-					self.ship.get_item_in_hardpoint(i).fire() #then fire
+					pass#self.ship.get_item_in_hardpoint(i).fire() #then fire
 		except BaseException as e:
 			if not (isinstance(e, AttributeError) and "_config" not in str(e)):
 				error("AI ERROR (BASE): " + str(e))

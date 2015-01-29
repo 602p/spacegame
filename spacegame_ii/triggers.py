@@ -28,6 +28,8 @@ UE_SHIP_DESTROYED='UE_SHIP_DESTROYED'			  #system, source						Called in damagem
 
 UE_SHIP_DIE_RUN='UE_SHIP_DIE_RUN'				  # ship 								Called in ship when ship.die() is run
 
+UE_CHANGE_SECTOR='UE_CHANGE_SECTOR'				  #galaxy, newx, newy					Called when galaxy switches sector
+UE_CHANGE_SECTOR_FINISH='UE_CHANGE_SECTOR_FINISH' #galaxy								Called when galaxy switches sector
 
 def sg_postevent(type_const, *a, **k):
 	built_dict=k

@@ -108,6 +108,16 @@ class SimpleDamagePrimitive(primitives.BasePrimitive):
 	def run_in_impact(self, item, impacted, projectile):
 		self.do(impacted, projectile.rotated_rect.centerx, projectile.rotated_rect.centery)
 
+class ShieldDamagePrimitive(primitives.BasePrimitive):
+	def do(root, target, px, py):
+		target.damage.damage_shields(root.config["damage"], px, py, shlonly=1)
+
+	def run_in_item(self, item):
+		self.do(item.parent.targeted, None, None)
+
+	def run_in_impact(self, item, impacted, projectile):
+		self.do(impacted, projectile.rotated_rect.centerx, projectile.rotated_rect.centery)
+
 class SystemDamagePrimitive(primitives.BasePrimitive):
 	def run_in_impact(self, item, impacted, projectile):
 		impacted.damage.damage_system(self.config["damage"], dget(self.config, "system_name", None), dget(self.config, "system_key", None))
@@ -133,3 +143,5 @@ def init_primitives(root, console):
 	primitives.register_primitive(root, "system_damage", SystemDamagePrimitive)
 
 	primitives.register_primitive(root, "sound_effect", PlaySoundEffectPrimitive)
+
+	primitives.register_primitive(root, "shield_damage", ShieldDamagePrimitive)

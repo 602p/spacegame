@@ -118,7 +118,7 @@ class DamageModel:
 			self.hull=0
 			sg_postevent(UE_SHIP_DESTROYED, system=self, x=precise_x, y=precise_y, source=source)
 
-	def damage_shields(self, shields, precise_x=None, precise_y=None, source=None):
+	def damage_shields(self, shields, precise_x=None, precise_y=None, source=None, shlonly=0):
 		if shields>0.1 and self.shields>0:
 			px=self.ship.rotated_rect.centerx if precise_x==None else precise_x
 			py=self.ship.rotated_rect.centery if precise_y==None else precise_y
@@ -127,9 +127,9 @@ class DamageModel:
 		self.shields-=shields
 		sg_postevent(UE_SHL_DAMAGE_DEALT, system=self, amount=shields, x=precise_x, y=precise_y, source=source)
 		if self.shields<=0:
-			self.damage_hull(abs(self.shields)*0.8)
+			if not shlonly: self.damage_hull(abs(self.shields)*0.8)
 			self.shields=0
-			sg_postevent(UE_SHIELDS_DOWN, system=self, x=px, y=py, source=source)
+			sg_postevent(UE_SHIELDS_DOWN, system=self, x=precise_x, y=precise_y, source=source)
 
 	def damage(self, damage, peirce=0, px=None, py=None, source=None):
 		self.damage_shields(damage*(1-peirce), px, py, source)

@@ -1,0 +1,80 @@
+{
+    "%+base_ship%":0,
+    "name":"Ferengi Cruiser",
+    "id":"ferengi_cruiser",
+    "image":"img_ship_ferengi_cruiser",
+    
+    "mass":200,
+    "cost":22000,
+    "cargo":500,
+
+    "start_speed":10000,
+    "max_speed":320,
+    "turn_rate":180,
+
+    "reactor_max":200,
+    "reactor_regen":6,
+
+    "hull":250,
+    "shields":200,
+    "shield_regen":1.75,
+
+    "systems":[
+        "%+systems_standard%"
+    ],
+    "hardpoints":[
+        {
+            "size":"small",
+            "x":12,
+            "y":32
+        },
+        {
+            "size":"small",
+            "x":82,
+            "y":32
+        },
+        {
+            "size":"mine",
+            "x":47,
+            "y":94
+        }
+    ],
+    "start_equip":[
+        {
+            "item_name":"wep_proj_laser",
+            "equipped":0
+        },
+        {
+            "item_name":"wep_basic_laser",
+            "equipped":1
+        },
+        {
+            "item_name":"wep_fed_mine1",
+            "equipped":2
+        }
+    ],
+    "ship_die":"%explosion_ship_large%",
+    "engine_sources":[
+        {
+            "x":31,
+            "y":96,
+            "width":3,
+            "style":"%ship_trail%"
+        },
+        {
+            "x":62,
+            "y":96,
+            "width":3,
+            "style":"%ship_trail%"
+        }
+    ],
+    "rarity":{
+        "default":20,
+        "factions":[
+            {
+                "faction":"test",
+                "rarity":100
+            }
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+	"require":["cfg_start_base"],
+	"assets":[
+		{
+			"type":"image",
+			"path":"starts/ferengi/banner.jpg",
+			"name":"img_start_ferengi_banner"
+		},
+		{
+			"type":"json",
+			"name":"startdefun_tt",
+			"json":{
+				"%+start_base%":0,
+				"name":"Ferengi Trader Start",
+				"banner":"img_start_ferengi_banner",
+				"ship":"ferengi_cruiser",
+				"start_effects":[],
+				"description":"FERENGIS%nYELL YEAH!"
+			}
+		}
+	]
+}

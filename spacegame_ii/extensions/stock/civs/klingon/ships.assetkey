@@ -1,0 +1,9 @@
+{
+	"assets":[
+		{
+			"type":"image",
+			"name":"img_ship_klingon_attack",
+			"path":"civs/klingon/attackship_s.png"
+		}
+	]
+}

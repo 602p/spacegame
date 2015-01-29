@@ -1,0 +1,71 @@
+{
+    "%+base_ship%":0,
+    "name":"Klingon Attack Ship",
+    "id":"cardassian_galor",
+    "image":"img_ship_cardassian_galor",
+    
+    "mass":100,
+    "cost":15000,
+    "cargo":100,
+
+    "start_speed":12000,
+    "max_speed":500,
+    "turn_rate":180,
+
+    "reactor_max":200,
+    "reactor_regen":6,
+
+    "hull":125,
+    "shields":150,
+    "shield_regen":2.25,
+
+    "systems":[
+        "%+systems_standard%"
+    ],
+    "hardpoints":[
+        {
+            "size":"small",
+            "x":12,
+            "y":55
+        },
+        {
+            "size":"small",
+            "x":75,
+            "y":55
+        }
+    ],
+    "start_equip":[
+        {
+            "item_name":"wep_basic_laser",
+            "equipped":0
+        },
+        {
+            "item_name":"wep_shield_laser",
+            "equipped":1
+        }
+    ],
+    "ship_die":"%explosion_ship_large%",
+    "engine_sources":[
+        {
+            "x":12,
+            "y":65,
+            "width":8,
+            "style":"%ship_trail%"
+        },
+        {
+            "x":75,
+            "y":65,
+            "width":8,
+            "style":"%ship_trail%"
+        }
+    ],
+    "rarity":{
+        "default":20,
+        "factions":[
+            {
+                "faction":"test",
+                "rarity":100
+            }
+        ]
+    }
+}

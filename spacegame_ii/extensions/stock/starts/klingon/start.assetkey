@@ -1,0 +1,22 @@
+{
+	"require":["cfg_start_base"],
+	"assets":[
+		{
+			"type":"image",
+			"path":"starts/klingon/banner.png",
+			"name":"img_start_klingon_banner"
+		},
+		{
+			"type":"json",
+			"name":"startdefun_ke",
+			"json":{
+				"%+start_base%":0,
+				"name":"Klingon Warrior Start",
+				"banner":"img_start_klingon_banner",
+				"ship":"klingon_attackship",
+				"start_effects":[],
+				"description":"HONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%n"
+			}
+		}
+	]
+}

@@ -1,0 +1,22 @@
+{
+	"require":["cfg_start_base"],
+	"assets":[
+		{
+			"type":"image",
+			"path":"starts/cardassian/banner.jpg",
+			"name":"img_start_cardassian_banner"
+		},
+		{
+			"type":"json",
+			"name":"startdefun_cu",
+			"json":{
+				"%+start_base%":0,
+				"name":"Cardassian Employ Start",
+				"banner":"img_start_cardassian_banner",
+				"ship":"cardassian_galor",
+				"start_effects":[],
+				"description":"HONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%nHONOR%n"
+			}
+		}
+	]
+}
