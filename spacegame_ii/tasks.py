@@ -34,4 +34,5 @@ class Task:
 	def update(self, root):
 		if root.game_time-self.start>self.timeout:
 			self.delete=True
+		self.curr_time=root.game_time-self.start
 		self._update(self, root)

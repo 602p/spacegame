@@ -1,0 +1,25 @@
+{
+	"x":10,
+	"y":0,
+	"name":"Qo'noS [Kronos] System (10,0)",
+	"statics":[
+		{
+			"type":"ship",
+			"ship_id":"klingon_warbird",
+			"x":0,
+			"y":0
+		},
+		{
+			"type":"ship",
+			"ship_id":"ss_klingon_tygokor",
+			"x":-100,
+			"y":-400
+		},
+		{
+			"type":"ship",
+			"ship_id":"ss_kronos_planet",
+			"x":-800,
+			"y":-800
+		}
+	]
+}

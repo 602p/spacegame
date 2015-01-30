@@ -6,18 +6,27 @@ def load_all_packages(root, dirn, console=None):
 	#if console: post_and_flip(console, "| | |                     | | |", bold=1, color=(0,255,0))
 	if console: post_and_flip(console, "V V V   Loading Plugins   V V V", bold=1, color=(0,255,0))
 	load_plugins(root, dirn, console)
+	info("Doing last plugin init...")
+	for ext in root.extentions:
+		root.extentions[ext].after_plugins_load()
 	info("Loading Assetkeys")
 	#if console: post_and_flip(console, "| | |                     | | |", bold=1, color=(0,255,0))
 	if console: post_and_flip(console, "V V V   Loading Assets    V V V", bold=1, color=(0,255,0))
 	load_assetkeys(root, dirn, console)
+	for ext in root.extentions:
+		root.extentions[ext].after_assets_load()
 	info("Loading items")
 	#if console: post_and_flip(console, "| | |                     | | |", bold=1, color=(0,255,0))
 	if console: post_and_flip(console, "V V V   Compiling Items   V V V", bold=1, color=(0,255,0))
 	load_items(root, dirn, console)
+	for ext in root.extentions:
+		root.extentions[ext].after_items_load()
 	info("Loading Ships")
 	#if console: post_and_flip(console, "| | |                     | | |", bold=1, color=(0,255,0))
 	if console: post_and_flip(console, "V V V   Compiling Ships   V V V", bold=1, color=(0,255,0))
 	load_ships(root, dirn, console)
+	for ext in root.extentions:
+		root.extentions[ext].after_ships_load()
 	if console:
 		post_and_flip(console, "LOADING FINISHED!", bold=1, italic=1, color=(0,255,0))
 		post_and_flip(console, "Loaded "+str(len(root.gamedb.assets))+" assets")
@@ -89,6 +98,9 @@ def post_and_flip(console, *args, **kwargs):
 	#time.sleep(0.005)
 
 class HookableExtention(object):
+	def __init__(self, root):
+		self.root=root
+		
 	def event_root(self, event):
 		pass
 
@@ -96,6 +108,18 @@ class HookableExtention(object):
 		pass
 
 	def last_load(self):
+		pass
+
+	def after_plugins_load(self):
+		pass
+
+	def after_assets_load(self):
+		pass
+
+	def after_items_load(self):
+		pass
+
+	def after_ships_load(self):
 		pass
 
 	def tick(self, state):

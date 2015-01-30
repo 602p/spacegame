@@ -37,15 +37,52 @@ def _deserialize_item(root, node, parent):
 	if item.equipped>-1:
 		item.equip_actions()
 	parent.inventory.append(item)
+	item.do_additional_load(node)
 	return item
 
 class ItemFactory:
 	def __init__(self, root, json_dict):
-		self.cost=json_dict["cost"]
-		self.id=json_dict["id"]
+		# self.cost=json_dict["cost"]
+		# self.id=json_dict["id"]
+		# self.name=json_dict["name"]
+		# self.inventory_image=root.gamedb.get_asset(json_dict["inventory_image"])
+		# self.equipped_image=root.gamedb.get_asset(json_dict["equipped_image"])
+		# self.mass=json_dict["mass"]
+		# self.hardpoint=json_dict["mount_type"]
+		# self.rarity=rarity.Rarity(json_dict["rarity"])
+		# self.fire_required=json_dict["required"]
+		# self.passive_equip=json_dict["equip"]
+		# self.passive_dequip=json_dict["dequip"]
+		# self.fire_events=json_dict["fire_events"]
+		self.root=root
+		self.config=json_dict
+
+		debug("Cached item '"+self.config["id"])
+
+	def __call__(self, parent, equipped=-1):
+		return Item(self.root, equipped, parent, self.config)
+
+
+class Item(serialize.SerializableObject):
+	def __init__(self, root, equipped, parent, json_dict):
+		config=json_dict
+		# self.costper=cost
+		# self.name=name
+		# self.root=root
+		# self.id_str=id_str
+		# self.inventory_image=inventory_image.copy() #Make a copy so we dont contaminate the gdb
+		# self.mass=mass
+		# self.hardpoint=hardpoint
+		# self.passive_equip=passive_equip
+		# self.passive_dequip=passive_dequip
+		# self.fire_events=fire_events
+		# self.equipped_image=equipped_image.copy() #Make a copy so we dont contaminate the gdb
+		# self.rarity=rarity.Rarity(config["rarity"])
+		self.costper=json_dict["cost"]
+		self.id_str=json_dict["id"]
 		self.name=json_dict["name"]
-		self.inventory_image=root.gamedb.get_asset(json_dict["inventory_image"])
-		self.equipped_image=root.gamedb.get_asset(json_dict["equipped_image"])
+		self.inventory_image=root.gamedb.get_asset(json_dict["inventory_image"]).copy()
+		self.equipped_image=root.gamedb.get_asset(json_dict["equipped_image"]).copy()
 		self.mass=json_dict["mass"]
 		self.hardpoint=json_dict["mount_type"]
 		self.rarity=rarity.Rarity(json_dict["rarity"])
@@ -54,34 +91,10 @@ class ItemFactory:
 		self.passive_dequip=json_dict["dequip"]
 		self.fire_events=json_dict["fire_events"]
 		self.root=root
-		self.config=json_dict
 
-		debug("Loaded item '"+self.id)
-
-	def __call__(self, parent, equipped=-1):
-		return Item(self.root, self.id, self.name, self.cost, self.mass, self.inventory_image, self.equipped_image,
-			self.fire_required, self.hardpoint, self.rarity, self.passive_equip,
-			self.passive_dequip, self.fire_events, equipped, parent, self.config)
-
-
-class Item(serialize.SerializableObject):
-	def __init__(self, root, id_str, name, cost, mass, inventory_image, equipped_image, fire_required,
-		hardpoint, rarity, passive_equip, passive_dequip, fire_events, equipped, parent, config):
-		self.costper=cost
-		self.name=name
-		self.root=root
-		self.id_str=id_str
-		self.inventory_image=inventory_image.copy() #Make a copy so we dont contaminate the gdb
-		self.mass=mass
-		self.hardpoint=hardpoint
-		self.passive_equip=passive_equip
-		self.passive_dequip=passive_dequip
-		self.fire_events=fire_events
-		self.equipped_image=equipped_image.copy() #Make a copy so we dont contaminate the gdb
-		self.rarity=rarity
-		self.fire_required=fire_required
 		self.parent=parent
-		self._config=config
+		self._config=json_dict
+		self.config=json_dict
 
 		self.count=config.get("count", 1)
 
@@ -239,3 +252,9 @@ class Item(serialize.SerializableObject):
 		return {
 			"name":self.name
 		}
+
+	def update(self, dt):
+		pass
+
+	def do_additional_load(self, config):
+		pass

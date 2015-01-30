@@ -2,7 +2,7 @@ import pygame
 from pygame.locals import *
 pygame.init()
 screen=pygame.display.set_mode((500,500),HWSURFACE|DOUBLEBUF|RESIZABLE)
-pic=pygame.image.load("extentions/stock/civs/bajor/bajorcrescent.png") #You need an example picture in the same folder as this file!
+pic=pygame.image.load("extensions/stock/civs/bajor/bajorcrescent.png") #You need an example picture in the same folder as this file!
 screen.blit(pygame.transform.scale(pic,(500,500)),(0,0))
 pygame.display.flip()
 while True:

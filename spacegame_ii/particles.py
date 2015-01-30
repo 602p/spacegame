@@ -48,6 +48,19 @@ def make_explosion(root, x, y, count=200):
 		i+=1
 	return ps
 
+def make_warptrail(root, x, y, color):
+	i=0
+	ps=[]
+	while i<10:
+		surf=pygame.Surface((2,2))
+		surf.fill(color)
+		exec("""def move_direction(self):
+	self.x+="""+str((random.random()-random.random())*3)+"""
+	self.y+="""+str((random.random()-random.random())*3))
+		ps.append(Particle(root, surf, x, y, move_direction, 45, True))
+		i+=1
+	return ps
+
 def make_gibs(root, x, y, num=50):
 	i=0
 	ps=[]

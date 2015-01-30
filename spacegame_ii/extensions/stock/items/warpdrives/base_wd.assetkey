@@ -1,0 +1,20 @@
+{
+	"require":["cfg_base_item"],
+	"assets":[
+		{
+			"name":"cfg_item_wd_base",
+			"type":"json",
+			"json":{
+				"%+base_item%":0,
+				"xwd_warp_factor":2,
+				"xwd_charge_time":10,
+				"xwd_charge_power":1,
+				"xwd_charge_shield":1,
+				"warp_color":[255,255,255],
+				"required":{
+			        "cooldown":1
+			    }
+			}
+		}
+	]
+}

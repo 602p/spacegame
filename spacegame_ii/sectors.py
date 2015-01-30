@@ -4,7 +4,7 @@ from extention_loader import HookableExtention
 from triggers import *
 
 SECTORSIZE=5000 #Actually 2x this
-GALAXYSIZE=10 #Again, 2x this in each axis
+GALAXYSIZE=11 #Again, 2x this in each axis
 
 def init(root):
 	root.extentions["static_entity_manager"]=SectorManager(root)

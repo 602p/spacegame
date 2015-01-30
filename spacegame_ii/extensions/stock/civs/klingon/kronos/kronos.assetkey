@@ -1,0 +1,9 @@
+{
+	"assets":[
+		{
+			"type":"image",
+			"path":"civs/klingon/kronos/kronos2.png",
+			"name":"img_kronos_planet"
+		}
+	]
+}

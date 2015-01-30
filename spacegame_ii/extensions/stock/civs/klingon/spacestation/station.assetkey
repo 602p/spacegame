@@ -1,0 +1,9 @@
+{
+	"assets":[
+		{
+			"type":"image",
+			"name":"img_ship_klingon_station_tygokor",
+			"path":"civs/klingon/spacestation/tygokor_s.png"
+		}
+	]
+}

@@ -118,8 +118,8 @@ class DamageModel:
 			self.hull=0
 			sg_postevent(UE_SHIP_DESTROYED, system=self, x=precise_x, y=precise_y, source=source)
 
-	def damage_shields(self, shields, precise_x=None, precise_y=None, source=None, shlonly=0):
-		if shields>0.1 and self.shields>0:
+	def damage_shields(self, shields, precise_x=None, precise_y=None, source=None, shlonly=0, hidetxt=0):
+		if shields>0.1 and self.shields>0 and not hidetxt:
 			px=self.ship.rotated_rect.centerx if precise_x==None else precise_x
 			py=self.ship.rotated_rect.centery if precise_y==None else precise_y
 			self.ship.particlemanager.add_particle(particles.make_hitNumber(self.root, "-"+str(int(shields)),

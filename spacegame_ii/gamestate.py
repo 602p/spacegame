@@ -62,13 +62,15 @@ class RunningGameState(state.State):
 		if pygame.key.get_pressed()[self.root.settings["keybindings"]["fire_item"]]:
 			self.player.fire_item_in_hardpoint(self.player.selected_wep)
 
+		update_time=1/self.root.fps
+
 		self.root.screen.draw_rect((0,255,0), pygame.Rect(-sectors.SECTORSIZE,-sectors.SECTORSIZE,sectors.SECTORSIZE*2,sectors.SECTORSIZE*2), 10)
 
 		tasks.run_group(self.root, "render_before_particles")
 		self.root.particlemanager.draw(self.root.screen)
 		
 		locked_by=0
-		update_time=1/self.root.fps
+		
 		tasks.run_group(self.root, "render_before_entities")
 		for entitiy in reversed(self.entities): #run thru in reverse so player is always on top
 			if not entitiy.kill:

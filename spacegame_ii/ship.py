@@ -209,6 +209,9 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity):
 		self.particlemanager.update()
 		self.particlemanager.draw(self.root.screen)
 
+		for i in self.inventory:
+			i.update(time)
+
 		if self.rigidbody.get_magnitude()<-self.max_speed/8:
 			self.rigidbody.set_magnitude(-self.max_speed/8)
 		if self.rigidbody.get_magnitude()>self.max_speed:
