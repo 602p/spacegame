@@ -9,7 +9,7 @@
     "cargo":80,
 
     "start_speed":5000,
-    "max_speed":180,
+    "max_speed":250,
     "turn_rate":90,
 
     "reactor_max":100,

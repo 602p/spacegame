@@ -44,4 +44,4 @@ class CreateNewSave(ui_states.WidgetController):
 
 class SaveCurrentGame(ui_states.WidgetController):
 	def on_click(self):
-		serialize.save_game(self.root, EasyGame.pathgetter("saves/", 1, "Select a file to save to..."))
+		serialize.save_game(self.root, EasyGame.pathgetter("saves/", 1, "Select a file to save to...")+".sgs")

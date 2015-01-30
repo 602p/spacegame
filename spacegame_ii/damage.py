@@ -88,7 +88,7 @@ class DamageSystem:
 		}
 
 def _load_system(s, node):
-	print "dealing "+str(s.health-node["hp"])+" damage to "+s.name
+	#print "dealing "+str(s.health-node["hp"])+" damage to "+s.name
 	s.deal_damage(s.health-node["hp"])
 	return s
 

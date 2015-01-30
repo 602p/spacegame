@@ -28,7 +28,7 @@ class InteractableToEnterStation(ai.AIControllerUpdateNode):
 						widget._switch()
 				else:
 					if self.controller.root.game_time-self.cooldown_last>4:
-						self.controller.root.igconsole.post("Please slow down before docking", (0,255,0), bold=True)
+						self.controller.root.igconsole.post("Please slow down before docking", (255,255,0))
 						self.cooldown_last=self.controller.root.game_time
 
 def init_ais(root, console):

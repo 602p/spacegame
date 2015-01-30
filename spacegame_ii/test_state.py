@@ -190,5 +190,3 @@ while run:
 	root.gfxcursor.show()
 	
 	flip_screen()
-
-	

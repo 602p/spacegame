@@ -8,9 +8,9 @@
     "cost":15000,
     "cargo":100,
 
-    "start_speed":12000,
-    "max_speed":500,
-    "turn_rate":180,
+    "start_speed":3000,
+    "max_speed":150,
+    "turn_rate":45,
 
     "reactor_max":200,
     "reactor_regen":6,

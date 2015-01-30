@@ -1,7 +1,7 @@
 from subprocess import Popen,PIPE
 from os.path import dirname,join,abspath
 lib = join(dirname(__file__),'lib')
-import pickle
+import pickle, os
 Entry = join(lib,'Entry.py')
 Confirm = join(lib,'Confirm.py')
 PathGetter = join(lib,'PathGetter.py')
@@ -20,9 +20,11 @@ def confirm(label='...',title='',mode=3,fontsize=16,width=320,bgcolor=(250,250,2
     return pickle.loads(p.communicate()[0])
 
 def pathgetter(path='',mode=0,caption=''):
+    os.chdir(path)
     if not mode in (1,2): mode = 0
     p = Popen(["python", PathGetter],stdout=PIPE,stdin=PIPE)
     p.stdin.write(pickle.dumps([path,mode,caption],protocol=2))
+    os.chdir("..")
     return pickle.loads(p.communicate()[0])
 
 def choice(label='YOUR CHOICE',menu=[],mode=1,fontsize=16,width=320,height=None,frame=True,bgcolor=(250,250,250),fgcolor=(0,0,0)):

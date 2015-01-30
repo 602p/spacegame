@@ -103,12 +103,13 @@ class SaveGame(object, SerializableObject):
 
 		if self.curr_revsion==json_save["savegame_revision"]:
 			info("Versions match, loading...")
+			root.galaxy=sectors.Galaxy(root)
 			root.game_time=json_save["game_time"]
 			root.state_manager.states["game"].entities=[ship._load_ship(root, json_save["player"], None)]
 			root.state_manager.states["game"].player=root.state_manager.states["game"].entities[0]
 			
 			root.savegame.database=json_save["database"]
-			root.galaxy=sectors.Galaxy(root)
+			
 			root.galaxy.gamestate=root.state_manager.states["game"]
 			extention_loader.load_galaxy(root, 'extensions', None)
 
