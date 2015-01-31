@@ -1,0 +1,12 @@
+{
+	"id":"klingon_lore_enemy",
+	"keys":["klingon_lore"],
+	"priority":0,
+	"text":"Grrrrr! You need know no more of us.",
+	"requirements":[
+		{
+			"primitive":"disposition_below",
+			"amount":81
+		}
+	]
+}

@@ -24,6 +24,9 @@ class BasePrimitive:
 	def run_in_sector(self, sector):
 		pass
 
+	def run_in_dialog(self, dialog):
+		return True
+
 def init(root):
 	if not 'primitives' in dir(root):
 		root.primitives_list={}
@@ -55,22 +58,47 @@ def do_for_impact(root, name, item, impacted, projectile, node):
 def do_for_sector(root, name, sector, node):
 	get_primitive(root, name, node).run_in_sector(sector)
 
+def do_for_dialog(root, name, dialog, speech, node):
+	get_primitive(root, name, node).run_in_dialog(dialog)
+
 def do_group_for_item(root, group, item, key="primitive"):
+	c=1
 	for i in group:
-		do_for_item(root, i[key], item, i)
+		if not do_for_item(root, i[key], item, i):
+			c=0
+	return c
 
 def do_group_for_event(root, group, event, key="primitive"):
+	c=1
 	for i in group:
-		do_for_event(root, i[key], event, i)
+		if not do_for_event(root, i[key], event, i):
+			c=0
+	return c
 
 def do_group_for_impact(root, group, item, impacted, projectile=None, key="primitive"):
+	c=1
 	for i in group:
-		do_for_impact(root, i[key], item, impacted, projectile, i)
+		if not do_for_impact(root, i[key], item, impacted, projectile, i):
+			c=0
+	return c
 
 def do_group_for_ship(root, group, ship, key="primitive"):
+	c=1
 	for i in group:
-		do_for_ship(root, i[key], ship, i)
+		if not do_for_ship(root, i[key], ship, i):
+			c=0
+	return c
 
 def do_group_for_sector(root, group, sector, key="primitive"):
+	c=1
 	for i in group:
-		do_for_sector(root, i[key], sector, i)
+		if not do_for_sector(root, i[key], sector, i):
+			c=0
+	return c
+
+def do_group_for_dialog(root, group, dialog, speech, key="primitive"):
+	c=1
+	for i in group:
+		if not do_for_dialog(root, i[key], dialog, speech, i):
+			c=0
+	return c

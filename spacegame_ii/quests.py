@@ -34,7 +34,7 @@ class QuestManager:
 		self.quests=[]
 
 	def sort_quests(self):
-		self.quests.sort(key=lambda q:-q.sort_order)
+		self.quests.sort(key=lambda q:q.sort_order)
 
 class QuestFactory:
 	def __init__(self, config, root):
@@ -61,7 +61,7 @@ class QuestFactory:
 class Quest:
 	def __init__(self, config):
 		self.config=config
-		self.sort_order=config.get("sort_order", 100)
+		self.sort_order=config.get("sort_order", 0)
 		self.id=config["id"]
 		self.name=config.get("name", "EVENT_NAME")
 		self.tags=config.get("tags",[])
@@ -78,5 +78,5 @@ A Quest has some requirements needed to spawn it and a rarity. It also has event
 -rarity
 -spawn requirements
 -finish requirements
--sort order (lowest at top)
+-sort order (highest at top)
 """

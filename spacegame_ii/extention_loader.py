@@ -1,4 +1,4 @@
-import os, item, ship, serialize, primitives, imp, json, fnmatch, pygame, time, sys
+import os, item, ship, serialize, primitives, imp, json, fnmatch, pygame, time, sys, dialog
 from logging import debug, info, warning, error, critical
 
 def load_all_packages(root, dirn, console=None):
@@ -27,6 +27,14 @@ def load_all_packages(root, dirn, console=None):
 	load_ships(root, dirn, console)
 	for ext in root.extentions:
 		root.extentions[ext].after_ships_load()
+
+	info("Loading dialog")
+	#if console: post_and_flip(console, "| | |                     | | |", bold=1, color=(0,255,0))
+	if console: post_and_flip(console, "V V V Installing dialog V V V", bold=1, color=(0,255,0))
+	load_dialog(root, dirn, console)
+	for ext in root.extentions:
+		root.extentions[ext].after_dialog_load()
+
 	if console:
 		post_and_flip(console, "LOADING FINISHED!", bold=1, italic=1, color=(0,255,0))
 		post_and_flip(console, "Loaded "+str(len(root.gamedb.assets))+" assets")
@@ -61,6 +69,11 @@ def load_items(root, dirn, console):
 	for rn in findall(dirn, "*.item"):
 		if console: post_and_flip(console, "Loading Item '"+rn+"'...", color=(255,255,255))
 		item.load_file(root, rn)
+
+def load_dialog(root, dirn, console):
+	for rn in findall(dirn, "*.talk"):
+		if console: post_and_flip(console, "Loading dialog '"+rn+"'...", color=(255,255,255))
+		dialog.load_file(root, rn)
 
 def load_ships(root, dirn, console):
 	for rn in findall(dirn, "*.ship"):
@@ -120,6 +133,9 @@ class HookableExtention(object):
 		pass
 
 	def after_ships_load(self):
+		pass
+
+	def after_dialog_load(self):
 		pass
 
 	def tick(self, state):

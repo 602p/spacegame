@@ -7,7 +7,8 @@
         "prev_item": "Select Previous Item", 
         "turn_left": "Rotate Left", 
         "accelerate": "Accelerate", 
-        "fire_item": "Fire Selected Item"
+        "fire_item": "Fire Selected Item", 
+        "talk": "Hail (Open communication)"
     }, 
     "project_name": "Set Spacegame Keybindings...", 
     "mapping": {
@@ -18,6 +19,7 @@
         "prev_item": 49, 
         "turn_left": 97, 
         "accelerate": 119, 
-        "fire_item": 32
+        "fire_item": 32, 
+        "talk": 102
     }
 }

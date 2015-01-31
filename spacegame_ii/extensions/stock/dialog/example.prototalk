@@ -1,0 +1,12 @@
+POOL:klingon_federation_bad
+POOL:federation_lore
+TEXT>>
+A collection of mangy P'tachs
+We have no need of such a "federation"
+JSON>>
+"requirements":[
+	{
+		"primitive":"speaker_is_in",
+		"id":"klingon_race"
+	}
+]

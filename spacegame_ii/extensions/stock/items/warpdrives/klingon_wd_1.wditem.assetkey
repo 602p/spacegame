@@ -12,7 +12,7 @@
 			"json":{
 				"%+item_wd_base%":0,
 				"id":"item_klingon_warpdrive1",
-				"name":"Vatha class warp-drive",
+				"name":"Vor'cha class warpdrive",
 				"inventory_image":"img_inv_klingon_wd",
 				"xwd_warp_factor":4,
 				"xwd_charge_power":0.2,

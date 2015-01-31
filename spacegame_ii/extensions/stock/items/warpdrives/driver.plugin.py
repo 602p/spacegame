@@ -27,12 +27,6 @@ class WarpDriveItem(item.Item):
 		debug("Toggled charging... is now "+str(self.xwd_is_charging))
 
 		if self.xwd_charge_status>=self.xwd_charge_time and not self.xwd_at_warp:
-			self.xwd_charge_status=0
-			self.xwd_is_charging=0
-			self.xwd_at_warp=1
-			self.xwd_orig_speed=self.parent.max_speed
-			self.parent.max_speed*=self.xwd_warp_factor
-			self.parent.rigidbody._vector.magnitude=self.parent.max_speed
 			self.do_screen_flash()
 		elif self.xwd_at_warp:
 			self.xwd_charge_status=0
@@ -51,6 +45,16 @@ class WarpDriveItem(item.Item):
 			surf.set_alpha((t.curr_time**EXPONENT)*(255/DURATION**EXPONENT))
 			r.screen.screen.blit(surf, (0,0))
 		tasks.add_task(self.root, "render_last", tasks.Task(self.root, _internal, DURATION))
+		def _internalt(t, r):
+			self=t.data
+			if t.delete:
+				self.xwd_charge_status=0
+				self.xwd_is_charging=0
+				self.xwd_at_warp=1
+				self.xwd_orig_speed=self.parent.max_speed
+				self.parent.max_speed*=self.xwd_warp_factor
+				self.parent.rigidbody._vector.magnitude=self.parent.max_speed
+		tasks.add_task(self.root, "render_last", tasks.Task(self.root, _internalt, DURATION, self))
 
 	def do_screen_flash_end(self):
 		DURATION=0.4
@@ -95,9 +99,14 @@ class WarpDriveItem(item.Item):
 			self.fire_actions()
 
 class WarpDriveManager(extention_loader.HookableExtention):
-	def after_assets_load(self):
+	def __init__(self, root, console):
+		self.root=root
+		self.console=console
+	def after_items_load(self):
 		for asset_cfg in self.root.gamedb.get_startswith("warpdriveloader_"):
+			extention_loader.safepost(self.console, "Loading Item from assetkey:"+asset_cfg["id"]+" with WarpdriveItemFactory...")
 			self.root.item_factories[asset_cfg["id"]]=WarpdriveItemFactory(self.root, asset_cfg)
 
+
 def init_regwarps(root, _):
-	root.extentions["warp_drive_manager"]=WarpDriveManager(root)
+	root.extentions["warp_drive_manager"]=WarpDriveManager(root, _)

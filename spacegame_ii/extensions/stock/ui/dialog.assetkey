@@ -1,0 +1,19 @@
+{
+	"assets":[
+		{
+			"type":"image",
+			"path":"ui/dialogbox.png",
+			"name":"uia_dialog_box"
+		},
+		{
+			"type":"json",
+			"name":"cfg_dialog_box",
+			"json":{
+				"words_area":[0,0,615,495],
+				"exit_button":[625,455,200,40],
+				"topic_area":[625,100,200,350],
+				"box_pos":[250,100]
+			}
+		}
+	]
+}

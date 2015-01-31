@@ -1,0 +1,6 @@
+{
+	"id":"generic_misc_greeting_outlander",
+	"keys":["greeting"],
+	"priority":0,
+	"text":"Keep moving outlander"
+}
