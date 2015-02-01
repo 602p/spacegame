@@ -28,7 +28,7 @@
     			"controller":"spacestation",
                 "max_speed":100,
 				"bg_image":"image_bajor_ds9_splash",
-				"name":"Dickbutt Station",
+				"name":"Ty'gokor",
 				"ui_config":"%default_spacestation_ui%"
     		}
     	]
