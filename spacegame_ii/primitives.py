@@ -24,7 +24,7 @@ class BasePrimitive:
 	def run_in_sector(self, sector):
 		pass
 
-	def run_in_dialog(self, dialog):
+	def run_in_dialog(self, dialog, speech):
 		return True
 
 def init(root):
@@ -44,22 +44,22 @@ def get_primitive(root, name, config):
 		return BasePrimitive(root, config)
 
 def do_for_item(root, name, item, node):
-	get_primitive(root, name, node).run_in_item(item)
+	return get_primitive(root, name, node).run_in_item(item)
 
 def do_for_event(root, name, event, node):
-	get_primitive(root, name, node).run_in_event(event)
+	return get_primitive(root, name, node).run_in_event(event)
 
 def do_for_ship(root, name, ship, node):
-	get_primitive(root, name, node).run_in_ship(ship)
+	return get_primitive(root, name, node).run_in_ship(ship)
 
 def do_for_impact(root, name, item, impacted, projectile, node):
-	get_primitive(root, name, node).run_in_impact(item, impacted, projectile)
+	return get_primitive(root, name, node).run_in_impact(item, impacted, projectile)
 
 def do_for_sector(root, name, sector, node):
-	get_primitive(root, name, node).run_in_sector(sector)
+	return get_primitive(root, name, node).run_in_sector(sector)
 
 def do_for_dialog(root, name, dialog, speech, node):
-	get_primitive(root, name, node).run_in_dialog(dialog)
+	return get_primitive(root, name, node).run_in_dialog(dialog, speech)
 
 def do_group_for_item(root, group, item, key="primitive"):
 	c=1

@@ -26,6 +26,7 @@ def load_game(root, filename):
 def new_game(root, start, player_name, ship_name):
 	import extention_loader, sectors
 	root.savegame=SaveGame(root, player_name, ship_name)
+	root.dialog_manager.init_each_game()
 	root.galaxy=sectors.Galaxy(root)
 	root.galaxy.gamestate=root.state_manager.states["game"]
 	root.state_manager.states["game"].entities=[ship.create_ship(root, start["ship"], 0, 0, ai=False)]
@@ -79,7 +80,8 @@ class SaveGame(object, SerializableObject):
 			"quest_system":None, #Not implemented!
 			"database":temp_db,
 			"galaxy_pos":[self.root.galaxy.currentx,self.root.galaxy.currenty],
-			"player":self.root.state_manager.states["game"].player.save_to_config_node()
+			"player":self.root.state_manager.states["game"].player.save_to_config_node(),
+			"dialog_manager":self.root.dialog_manager.save_to_config_node()
 		}
 		return savegame
 
@@ -109,6 +111,8 @@ class SaveGame(object, SerializableObject):
 			root.state_manager.states["game"].player=root.state_manager.states["game"].entities[0]
 			
 			root.savegame.database=json_save["database"]
+
+			root.dialog_manager.do_additional_load(json_save["dialog_manager"])
 			
 			root.galaxy.gamestate=root.state_manager.states["game"]
 			extention_loader.load_galaxy(root, 'extensions', None)

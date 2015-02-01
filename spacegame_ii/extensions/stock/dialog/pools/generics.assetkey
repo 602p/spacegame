@@ -1,0 +1,19 @@
+{
+	"assets":[
+		{
+			"name":"talkpools_generic",
+			"type":"json",
+			"json":[
+				{
+					"id":"tips",
+					"name":"Little Advice",
+					"kas":true
+				},
+				{
+					"id":"klingon_lore",
+					"name":"Klingon Species"
+				}
+			]
+		}
+	]
+}

@@ -1,14 +1,4 @@
 {
 	"id":"klingon_main_mission",
-	"text":"Yes, you have a mission, but describing that would require having a $plot:joke_plot$.",
-	"events":[
-		{
-			"primitive":"player_add_item",
-			"id":"wep_proj_laser"
-		},
-		{
-			"primitive":"player_add_item",
-			"id":"wep_proj_laser"
-		}
-	]
+	"text":"Yes, you have a mission, but describing that would require having a $@plot:joke_plot@$ .%nI have some $@equipment:kl_give_start_lasers@$ for you.%nTalk to me later about your mission."
 }

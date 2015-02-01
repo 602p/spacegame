@@ -43,14 +43,6 @@
         {
             "item_name":"item_klingon_warpdrive1",
             "equipped":2
-        },
-        {
-            "item_name":"wep_proj_laser",
-            "equipped":1
-        },
-        {
-            "item_name":"wep_proj_laser",
-            "equipped":0
         }
     ],
     "ship_die":"%explosion_ship_large%",

@@ -2,11 +2,15 @@
 	"id":"klingon_intro_1",
 	"keys":["game_start_intro", "greeting"],
 	"priority":100,
-	"text":"$Klingon:klingon_lore$ intro dialouge test!!!I'm a $klingon:klingon_lore$ talking in spacegame!!! Lets talk about your $mission:klingon_main_mission$.",
+	"text":"$@Klingon:klingon_lore@$ intro dialouge test!!!I'm a $@klingon:klingon_lore@$ talking in spacegame!!! Lets talk about your $@mission:klingon_main_mission@$ .",
 	"requirements":[
 		{
-			"primitive":"player_ship_is",
-			"id":"klingon_attackship"
+			"primitive":"PLYRcheckship",
+			"ship":"klingon_attackship"
+		},
+		{
+			"primitive":"SPKRcheckship",
+			"ship":"ss_klingon_tygokor"
 		}
 	]
 }

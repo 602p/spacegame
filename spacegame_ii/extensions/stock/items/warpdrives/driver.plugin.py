@@ -92,6 +92,7 @@ class WarpDriveItem(item.Item):
 		return cfg
 
 	def do_additional_load(self, config):
+		item.Item.do_additional_load(self, config)
 		self.xwd_charge_status=config.get("xwd_charge_status", 0)
 		self.xwd_is_charging=config.get("xwd_is_charging", 0)
 		if config.get("xwd_at_warp", 0):

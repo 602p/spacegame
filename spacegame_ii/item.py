@@ -28,8 +28,11 @@ def register_item(root, config):
 def create_item_factory(root, config):
 	return ItemFactory(root, config)
 
-def create_item(root, name, parent, equipped=-1):
-	return root.item_factories[name](parent, equipped)
+def create_item(root, name, parent, equipped=-1, count=None):
+	i=root.item_factories[name](parent, equipped)
+	if count:
+		i.count=count
+	return i
 
 def _deserialize_item(root, node, parent):
 	item=create_item(root, node["id"], parent, node["equipped"])
