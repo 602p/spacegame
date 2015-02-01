@@ -3,7 +3,8 @@
 		{
 			"type":"image",
 			"name":"img_ship_klingon_attack",
-			"path":"civs/klingon/attackship/attackship_s.png"
+			"path":"civs/klingon/attackship/attackship_s.png",
+			"colorkey":[255,255,255]
 		}
 	]
 }
