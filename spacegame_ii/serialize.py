@@ -112,6 +112,7 @@ class SaveGame(object, SerializableObject):
 			
 			root.savegame.database=json_save["database"]
 
+			root.dialog_manager.init_each_game()
 			root.dialog_manager.do_additional_load(json_save["dialog_manager"])
 			
 			root.galaxy.gamestate=root.state_manager.states["game"]

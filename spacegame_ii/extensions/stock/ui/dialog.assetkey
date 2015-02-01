@@ -10,8 +10,8 @@
 			"name":"cfg_dialog_box",
 			"json":{
 				"words_area":[5,5,615,495],
-				"exit_button":[625,455,200,40],
-				"topic_area":[625,100,200,350],
+				"exit_button":[625,455,175,40],
+				"topic_area":[625,0,175,450],
 				"box_pos":[250,100]
 			}
 		}

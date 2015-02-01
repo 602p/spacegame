@@ -196,7 +196,7 @@ class DialogState(state.InterdictingState):
 								self.hotspots.append([pygame.Rect(current_pos, surf.get_size()),speech_pointer,token])
 							else:
 								self.font.set_bold(0)
-							self.text_image.blit(self.font.render(token, 1, (0,0,0)), current_pos)
+							self.text_image.blit(self.font.render(token, 1, (255,255,255)), current_pos)
 							current_pos[0]+=self.font.size(token+" ")[0]
 							
 
@@ -221,7 +221,7 @@ class DialogState(state.InterdictingState):
 
 		for topic in self.dialog_manager.known_topics:
 			topic_text=self.dialog_manager.poolmappings[topic]
-			preadj_surf.blit(self.font.render(topic_text, 1, (0,0,0)), current_pos)
+			preadj_surf.blit(self.font.render(topic_text, 1, (255,255,255)), current_pos)
 			#print topic+" :: "+topic_text
 
 			surf=pygame.Surface(self.font.size(topic_text)).convert_alpha()
