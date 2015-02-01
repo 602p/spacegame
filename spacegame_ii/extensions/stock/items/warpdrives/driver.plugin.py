@@ -11,7 +11,7 @@ class WarpdriveItemFactory(item.ItemFactory):
 class WarpDriveItem(item.Item):
 	def __init__(self, *args, **kw):
 		item.Item.__init__(self, *args, **kw)
-		print self.fire_required
+		#print self.fire_required
 		self.xwd_is_charging=0
 		self.xwd_charge_status=0
 		self.xwd_warp_factor=self.config["xwd_warp_factor"]

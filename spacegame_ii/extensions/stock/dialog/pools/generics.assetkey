@@ -12,6 +12,14 @@
 				{
 					"id":"klingon_lore",
 					"name":"Klingon Species"
+				},
+				{
+					"id":"klingon_main_mission",
+					"name":"Your Mission"
+				},
+				{
+					"id":"joke_plot",
+					"name":"The Plot"
 				}
 			]
 		}

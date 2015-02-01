@@ -91,8 +91,9 @@ class SpeechPool(object):
 		return random.sample(updated_pool[sorted_pool[0]], 1)[0]
 
 class Speech(object):
-	def __init__(self, root, config):
+	def __init__(self, root, config, x_bold=0):
 		self.root=root
+		self.bold=x_bold
 		self.text=config["text"].replace("\\n","\n").replace("%n","\n")
 		self.pools=config.get("keys",[])
 		self.pools.append("_all")
@@ -114,6 +115,9 @@ class Speech(object):
 
 	def get_text(self):
 		return self.text
+
+def _create_speech(root, text, x_bold=0):
+	return Speech(root, {"text":text}, x_bold)
 
 class DialogState(state.InterdictingState):
 	def first_start(self):
@@ -139,6 +143,7 @@ class DialogState(state.InterdictingState):
 
 		self.speeches=[self.dialog_manager.get_for(self.params[0])]
 		self.font=self.root.gamedb(self.params[1])
+		self.max_width=int(self.words_rect.width/self.font.size("_")[0])-2
 		debug("Selected first speech as ?"+self.speeches[0].pools[0])
 		self.text_scroll=0
 		self.topics_scroll=0
@@ -146,7 +151,18 @@ class DialogState(state.InterdictingState):
 		self.rebuild_text()
 		self.rebuild_topics()
 
+	def show_loading(self):
+		size=self.root.gamedb("font_standard_large").size("LOADING...")
+		pos=[(self.root.gamedb("uia_dialog_box").get_size()[0]/2)-(size[0]/2), (self.root.gamedb("uia_dialog_box").get_size()[1]/2)-(size[1]/2)]
+		pos[0]+=self.box_pos[0]
+		pos[1]+=self.box_pos[1]
+
+		pygame.draw.rect(self.root.screen.screen, (0,0,0), pygame.Rect(pos, size) )
+		self.root.screen.screen.blit(self.root.gamedb("font_standard_large").render("LOADING...", 1, (255,0,0)), pos)
+
 	def rebuild_text(self):
+		self.show_loading()
+		pygame.display.flip()
 		self.hotspots=[]
 		self.text_image=pygame.Surface((self.words_rect.width, 10000)).convert_alpha()
 		self.text_image.fill(pygame.Color(0,0,0,0))
@@ -155,37 +171,37 @@ class DialogState(state.InterdictingState):
 		debug("Rebuilding dialog text")
 
 		for speech in self.speeches:
-			split_text=[]
-			for line in speech.text.split("\n"):
-				split_text.append(line.replace("\n",""))
-				split_text.append("")
+			if speech.text:
+				split_text=[]
+				for line in speech.text.split("\n"):
+					split_text.append(line.replace("\n",""))
 
-			for line in split_text:
-				for token in line.split(" "):
-					if token!="":
-						if current_pos[0]+self.font.size(token+" ")[0]>self.words_rect.width:
-							current_pos[0]=0
-							current_pos[1]+=self.font.size("|")[1]
-						if token.startswith("$@") and token.endswith("@$"):
-							self.font.set_bold(1)
-							token, speech_pointer = token.replace("@$","").replace("$@","").split(":")
+				for line in split_text:
+					for token in line.split(" "):
+						if token!="":
+							if current_pos[0]+self.font.size(token+" ")[0]>self.words_rect.width:
+								current_pos[0]=0
+								current_pos[1]+=self.font.size("|")[1]
+							if token.startswith("$@") and token.endswith("@$"):
+								self.font.set_bold(1)
+								token, speech_pointer = token.replace("@$","").replace("$@","").split(":")
 
-							if speech_pointer in self.dialog_manager.poolmappings.keys():
-								self.dialog_manager.learn_topic(speech_pointer)
-								self.rebuild_topics()
+								if speech_pointer in self.dialog_manager.poolmappings.keys():
+									self.dialog_manager.learn_topic(speech_pointer)
+									self.rebuild_topics()
 
-							surf=pygame.Surface(self.font.size(token)).convert_alpha()
-							surf.fill((255,0,0,220))
-							self.text_image.blit(surf, current_pos)
-							self.hotspots.append([pygame.Rect(current_pos, surf.get_size()),speech_pointer])
-						else:
-							self.font.set_bold(0)
-						self.text_image.blit(self.font.render(token, 1, (0,0,0)), current_pos)
-						current_pos[0]+=self.font.size(token+" ")[0]
-						
+								surf=pygame.Surface(self.font.size(token)).convert_alpha()
+								surf.fill((255,0,0,220))
+								self.text_image.blit(surf, current_pos)
+								self.hotspots.append([pygame.Rect(current_pos, surf.get_size()),speech_pointer,token])
+							else:
+								self.font.set_bold(0)
+							self.text_image.blit(self.font.render(token, 1, (0,0,0)), current_pos)
+							current_pos[0]+=self.font.size(token+" ")[0]
+							
 
-				current_pos[1]+=self.font.size("|")[1]
-				current_pos[0]=0
+					current_pos[1]+=self.font.size("|")[1]
+					current_pos[0]=0
 
 		new_surf=pygame.Surface((self.text_image.get_bounding_rect().width+100,
 			self.text_image.get_bounding_rect().height+50)).convert_alpha()
@@ -194,6 +210,8 @@ class DialogState(state.InterdictingState):
 		self.text_image=new_surf
 
 	def rebuild_topics(self):
+		self.show_loading()
+		pygame.display.flip()
 		debug("Rebuilding topics")
 		self.font.set_bold(1)
 		self.topics_hotspots=[]
@@ -209,7 +227,7 @@ class DialogState(state.InterdictingState):
 			surf=pygame.Surface(self.font.size(topic_text)).convert_alpha()
 			# surf.fill((255,0,0,180))
 			# preadj_surf.blit(surf, current_pos)
-			self.topics_hotspots.append([pygame.Rect(current_pos, surf.get_size()), topic])
+			self.topics_hotspots.append([pygame.Rect(current_pos, surf.get_size()), topic, topic_text])
 
 			current_pos[1]+=self.font.size("|")[1]
 			current_pos[0]=0
@@ -239,13 +257,23 @@ class DialogState(state.InterdictingState):
 			if event.type==pygame.MOUSEBUTTONUP:
 				if self.goodbye_rect.collidepoint(pygame.mouse.get_pos()):
 					self.finish()
-				for rect, pointer in self.hotspots:
+				for rect, pointer, text in self.hotspots:
 					if rect.collidepoint((pygame.mouse.get_pos()[0]-self.box_pos[0], pygame.mouse.get_pos()[1]-self.box_pos[1]+self.text_scroll)):
+						self.speeches.append(_create_speech(self.root, " "))
+						self.speeches.append(_create_speech(self.root, "/-----"+text+('-'*(self.max_width-5-len(text)-1))+"\\", 1))
+
 						self.speeches.append(self.dialog_manager.get_for(pointer))
+						self.speeches.append(_create_speech(self.root, "\\"+'-'*(self.max_width-1)+"/", 1))
+
 						self.rebuild_text()
-				for rect, pointer in self.topics_hotspots:
+				for rect, pointer, text in self.topics_hotspots:
 					if rect.collidepoint((pygame.mouse.get_pos()[0]-self.topics_rect.left, pygame.mouse.get_pos()[1]+self.text_scroll-self.topics_rect.top)):
+						self.speeches.append(_create_speech(self.root, " "))
+						self.speeches.append(_create_speech(self.root, "/-----"+text+('-'*(self.max_width-5-len(text)-1))+"\\", 1))
+
 						self.speeches.append(self.dialog_manager.get_for(pointer))
+						self.speeches.append(_create_speech(self.root, "\\"+'-'*(self.max_width-1)+"/", 1))
+
 						self.rebuild_text()
 			if event.type==pygame.MOUSEBUTTONDOWN:
 				if self.words_rect.collidepoint(pygame.mouse.get_pos()):
