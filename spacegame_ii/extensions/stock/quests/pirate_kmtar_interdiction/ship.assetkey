@@ -1,0 +1,9 @@
+{
+	"assets":[
+		{
+			"type":"image",
+			"name":"img_ship_klingon_warbird_UNI_kmtar",
+			"path":"quests/pirate_kmtar_interdiction/ship_s.png"
+		}
+	]
+}

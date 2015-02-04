@@ -4,8 +4,9 @@ import logging
 logging.basicConfig(filemode='w', filename='spacegame.log',level=logging.DEBUG, format='[%(asctime)s] %(levelname)s\t: %(message)s')
 debug("Logging Started")
 import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader
-import assets, pyconsole, interdiction_gui, overlay_gui, ui_states, sectors, newgame, dialog
-import sgc, serialize, gfxcursor, formatting, pyganim, keymapping, sys, traceback, datetime, ai
+import assets, pyconsole, interdiction_gui, overlay_gui, ui_states, sectors, newgame, dialog, quests
+import sgc, serialize, gfxcursor, formatting, pyganim, keymapping, sys, traceback, datetime, ai, types
+import entitybase as eb
 debug("Imports done")
 
 allowdebug=True
@@ -59,6 +60,8 @@ ui_states.init(root)
 sectors.init(root)
 newgame.init(root)
 dialog.init(root)
+quests.init(root)
+eb.init_grufs(root)
 
 root.gfxcursor=gfxcursor.GfxCursor(root, root.screen.screen)
 
@@ -130,6 +133,8 @@ eventclear_tick=0
 # root.galaxy.preprocess_statics()
 # root.galaxy.goto_sector(0,0)
 
+ts=None
+
 info("Doing last plugin init...")
 for ext in root.extentions:
 	root.extentions[ext].last_load()
@@ -151,6 +156,8 @@ while run:
 		elif e.type==pygame.KEYDOWN:
 			if e.key == pygame.K_BACKQUOTE and pygame.key.get_mods() & pygame.KMOD_CTRL:
 				root.console.set_active()
+			if e.key==pygame.K_F1:
+				root.quest_manager.start_quest("event_pirate_raid_1")
 		elif e.type==pygame.VIDEORESIZE:
 			debug("Root resize")
 			root.renderspace_size=e.dict['size']

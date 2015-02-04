@@ -1,0 +1,62 @@
+{
+   "events" : [
+      {
+         "add_triggers" : [
+            {
+               "group":"UE_DAMAGE_DEALT",
+               "primitive" : {
+                  "primitive":"postmsg",
+                  "text":"<@{system:ship.name}> was hit for <@{amount:__str__()}>!"
+               }
+            },
+            {
+               "group":"UE_SHIP_DIE_RUN",
+               "primitive" : {
+                  "primitive": "finish_event"
+               }
+            }
+         ],
+         "faction" : "neutral",
+         "internal_id" : "pirate",
+         "pos" : "random",
+         "primitive" : "spawn_ship",
+         "random_within_x" : [ -100, 100 ],
+         "random_within_y" : [ -100, 100 ],
+         "ship_id" : "klingon_warbird_UNI_kmtar"
+      },
+      {
+         "primitive" : "force_hail",
+         "ship" : "pirate",
+         "topic" : "UNI_kmtar_raid_start"
+      },
+      {
+         "primitive" : "warp_flash_exit"
+      },
+      {
+         "name" : "event_kmtar_raid",
+         "primitive" : "set_variable",
+         "value" : true
+      }
+   ],
+   "finish_events":[
+      {
+         "primitive":"postmsg",
+         "text":"<@{event:name}> is complete!"
+      }
+   ],
+   "id" : "event_pirate_raid_1",
+   "intro" : "Interdiction Detected!",
+   "name" : "Pirate Interdiction",
+   "rarity" : {
+      "default" : 20
+   },
+   "spawn_random" : true,
+   "spawn_requirements" : [
+      {
+         "name" : "event_kmtar_raid",
+         "primitive" : "check_variable",
+         "value" : null
+      }
+   ],
+   "tags" : [ "interdiction" ]
+}

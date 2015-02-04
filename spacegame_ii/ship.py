@@ -45,6 +45,8 @@ def _load_ship(root, node, parent):
 		s.current_power=node["currpwr"]
 		s.damage.load_systems_json(node["damagesystems"])
 		s.rigidbody   = physics._load_rigidbody(node["rigidbody"], s)
+		s.hash_id=node["hash_id"]
+		s.triggers.update(node["triggers"])
 	else:
 		s.rigidbody.x=node["x"]
 		s.rigidbody.y=node["y"]
@@ -85,7 +87,7 @@ class ShipFactory:
 				s.inventory.append(item.create_item(self.root, i["item_name"], s, i["equipped"]))
 		return s
 
-class Ship(serialize.SerializableObject, entitybase.FlaggedEntity):
+class Ship(serialize.SerializableObject, entitybase.FlaggedEntity, entitybase.TiggerablePosteventAdapterMixin):
 	can_be_targeted=1
 	def __init__(self, root, image, id_string, name, hull, mass, cost, cargo, start_speed, reactor_max,
 		reactor_regen, hardpoints, engine_sources, shields, rarity, max_speed, turn_rate, systems, config, x, y, use_ai=True):
@@ -109,6 +111,7 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity):
 		self.turn_rate=turn_rate
 
 		self.config=config
+		self.triggers=self.config.get("triggers",{})
 
 		self.damage=damage.DamageModel(self, hull, shields)
 		self.damage.load_systems(systems)
@@ -139,6 +142,8 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity):
 		self.can_be_hit=config.get("can_be_hit", True)
 		self.can_be_targeted=config.get("can_be_targeted", True)
 		self.can_save=not config.get("disable_saving", False)
+
+		self.hash_id=hash(self)
 
 	def get_inventory_mass(self):
 		m=0
@@ -182,12 +187,12 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity):
 		#self.triggermanager("on_item_dequip", item)
 
 	def fire_item_in_hardpoint(self, id_int):
-		sg_postevent(UE_FIRE_ATTEMPT, ship=self, hardpoint=id_int)
+		self.sg_postevent(UE_FIRE_ATTEMPT, ship=self, hardpoint=id_int)
 		if self.get_item_in_hardpoint(id_int)!=None:
-			sg_postevent(UE_FIRE_EQUIPPED, ship=self, hardpoint=id_int)
+			self.sg_postevent(UE_FIRE_EQUIPPED, ship=self, hardpoint=id_int)
 			self.get_item_in_hardpoint(id_int).fire()
 		else:
-			sg_postevent(UE_FIRE_UNEQUIPPED, ship=self, hardpoint=id_int)
+			self.sg_postevent(UE_FIRE_UNEQUIPPED, ship=self, hardpoint=id_int)
 
 	def rerotate(self):
 		self.rotated_image, self.rotated_rect=rot_center(self.image, pygame.Rect((self.rigidbody.x, self.rigidbody.y), self.image.get_size()), self.rigidbody.get_angle())
@@ -254,7 +259,8 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity):
 		self.rigidbody.exert_in_vector(-self.speed*4)
 
 	def die(self):
-		sg_postevent(UE_SHIP_DIE_RUN, ship=self)
+		debug(self.name+" was destroyed")
+		self.sg_postevent(UE_SHIP_DIE_RUN, ship=self)
 		primitives.do_group_for_ship(self.root, dget(self.config, "ship_die", []), self)
 
 	def save_to_config_node(self):
@@ -271,5 +277,22 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity):
 			"rigidbody":self.rigidbody.save_to_config_node(),
 			"ai":self.use_ai,
 			"currpwr":self.current_power,
-			"packed":True
+			"packed":True,
+			"hash_id":self.hash_id,
+			"triggers":self.serialize_triggers()
 		}
+
+	def __enter__(s, *a, **k):
+		return s
+
+	def __exit__(self, *a, **k):
+		debug("Calling _finalize")
+		try:
+			self.root.savegame.database["packed_entities"][self._source_sector_id][self._source_idx]=self.save_to_config_node()
+			debug("_finalize completed")
+			print "_finalize run on get_entity_by_id::ship_ref"
+		except AttributeError:
+			pass
+
+	def finalize(self):
+		self.__exit__()

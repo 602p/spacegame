@@ -1,4 +1,4 @@
-import os, item, ship, serialize, primitives, imp, json, fnmatch, pygame, time, sys, dialog
+import os, item, ship, serialize, primitives, imp, json, fnmatch, pygame, time, sys, dialog, quests
 from logging import debug, info, warning, error, critical
 
 def load_all_packages(root, dirn, console=None):
@@ -30,16 +30,24 @@ def load_all_packages(root, dirn, console=None):
 
 	info("Loading dialog")
 	#if console: post_and_flip(console, "| | |                     | | |", bold=1, color=(0,255,0))
-	if console: post_and_flip(console, "V V V Installing dialog V V V", bold=1, color=(0,255,0))
+	if console: post_and_flip(console, "V V V  Installing dialog  V V V", bold=1, color=(0,255,0))
 	load_dialog(root, dirn, console)
 	for ext in root.extentions:
 		root.extentions[ext].after_dialog_load()
+
+	info("Loading quests")
+	if console: post_and_flip(console, "V V V  Compiling  Quests  V V V", bold=1, color=(0,255,0))
+	load_quests(root, dirn, console)
+	for ext in root.extentions:
+		root.extentions[ext].after_quests_load()
 
 	if console:
 		post_and_flip(console, "LOADING FINISHED!", bold=1, italic=1, color=(0,255,0))
 		post_and_flip(console, "Loaded "+str(len(root.gamedb.assets))+" assets")
 		post_and_flip(console, "Loaded "+str(len(root.item_factories))+" items")
 		post_and_flip(console, "Loaded "+str(len(root.ship_factories))+" ships")
+		post_and_flip(console, "Loaded "+str(root.dialog_manager.count_pools())+" speech pools ("+str(root.dialog_manager.count_speeches())+" speechis distributed)")
+		post_and_flip(console, "Loaded "+str(len(root.quest_factories))+" quests")
 		post_and_flip(console, "(Sectors get loaded at runtime C: )")
 		time.sleep(2.5)
 
@@ -64,6 +72,11 @@ def load_plugins(root, dirn, console):
 	for rn in findall(dirn, "*.plugin.py"):
 		if console: post_and_flip(console, "Loading Plugin '"+rn+"'...", color=(255,255,255))
 		load_plugin(root, rn, console)
+
+def load_quests(root, dirn, console):
+	for rn in findall(dirn, "*.quest"):
+		if console: post_and_flip(console, "Loading Quest '"+rn+"'...", color=(255,255,255))
+		quests.load_file(root, rn)
 
 def load_items(root, dirn, console):
 	for rn in findall(dirn, "*.item"):
@@ -136,6 +149,9 @@ class HookableExtention(object):
 		pass
 
 	def after_dialog_load(self):
+		pass
+
+	def after_quests_load(self):
 		pass
 
 	def tick(self, state):

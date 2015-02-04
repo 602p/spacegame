@@ -1,31 +1,40 @@
 from logging import debug, info, warning, error, critical
 
 class BasePrimitive:
+	primitive_id="_BasePrimitive"
 	def __init__(self, root, node):
 		self.root=root
 		self.config=node
 		self.load_config(node)
+		#print "Created a "+self.primitive_id
 
-	def load_config(self, config):
+	@classmethod
+	def _bind(self, idx):
+		self.primitive_id=idx
+
+	def load_config(self, config, *args):
 		pass
 
-	def run_in_item(self, item):
+	def run_in_item(self, item, *args):
 		pass
 
-	def run_in_event(self, event):
+	def run_in_event(self, event, *args):
 		pass
 
-	def run_in_ship(self, ship):
+	def run_in_ship(self, ship, *args):
 		pass
 
-	def run_in_impact(self, item, impact, projectile=None):
+	def run_in_impact(self, item, impact, projectile=None, *args):
 		self.run_in_item(item)
 
-	def run_in_sector(self, sector):
+	def run_in_sector(self, sector, *args):
 		pass
 
-	def run_in_dialog(self, dialog, speech):
+	def run_in_dialog(self, dialog, speech, *args):
 		return True
+
+	def run_in_trigger(self, *args, **kw):
+		pass
 
 def init(root):
 	if not 'primitives' in dir(root):
@@ -34,6 +43,7 @@ def init(root):
 def register_primitive(root, name, primitive):
 	debug("Registering primitive "+name+" ("+str(primitive)+")")
 	root.primitives_list[name]=primitive
+	primitive._bind(name)
 
 def get_primitive(root, name, config):
 	if name in root.primitives_list.keys():
@@ -57,6 +67,9 @@ def do_for_impact(root, name, item, impacted, projectile, node):
 
 def do_for_sector(root, name, sector, node):
 	return get_primitive(root, name, node).run_in_sector(sector)
+
+def do_for_trigger(root, name, node, *args, **kw):
+	return get_primitive(root, name, node).run_in_trigger(*args, **kw)
 
 def do_for_dialog(root, name, dialog, speech, node):
 	return get_primitive(root, name, node).run_in_dialog(dialog, speech)
@@ -96,9 +109,30 @@ def do_group_for_sector(root, group, sector, key="primitive"):
 			c=0
 	return c
 
+def do_group_for_trigger(root, group, *args, **kwargs):
+	c=1
+	for i in group:
+		if not do_for_trigger(root, i["primitive"], i, *args, **kwargs):
+			c=0
+	return c
+
 def do_group_for_dialog(root, group, dialog, speech, key="primitive"):
 	c=1
 	for i in group:
 		if not do_for_dialog(root, i[key], dialog, speech, i):
 			c=0
 	return c
+
+#         do_group_for_item
+#                 |
+#                / \
+#               /   \
+#              V     V
+#   sound_effect     fire_projectile
+#                           |
+#                         on_hit -------------> trigger
+#                           |                      |
+#                          / \----------------\    \---------------\--------------------\
+#                         /   \                \                    \                    \
+#                        V     V                V                    V                    V
+#            simple_damage     play_animation   sound_effect         sound_effect         delayed_sound_effect

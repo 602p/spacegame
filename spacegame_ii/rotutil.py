@@ -28,7 +28,9 @@ class ScrollingWorldManager:
 		rect.topleft=self.get_t_coords(rect)
 		return rect
 	def blit(self, image, coords):
-		if self.root.settings["debug"]["overrender"]:self.draw_rect((0,0,255), pygame.Rect(coords, image.get_size()))
+		try:
+			if self.root.settings["debug"]["overrender"]:self.draw_rect((0,0,255), pygame.Rect(coords, image.get_size()))
+		except: pass
 		new_rect=pygame.Rect((coords[0]-self.offset_x, coords[1]-self.offset_y), image.get_size())
 		if new_rect.colliderect(pygame.Rect((0,0),self.screen.get_size())) or self.root.settings["graphics"]["no_render_clipping"]:
 			self.screen.blit(image, (coords[0]-self.offset_x, coords[1]-self.offset_y))

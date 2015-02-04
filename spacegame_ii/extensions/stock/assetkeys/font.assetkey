@@ -41,6 +41,12 @@
 			"type":"sysfont",
 			"sys_name":"monospace",
 			"size":13
+		},
+		{
+			"name":"font_dialog_default",
+			"type":"font",
+			"path":"fonts/kenny.nl/kenpixel.ttf",
+			"size":10
 		}
 	]
 }

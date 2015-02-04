@@ -1,0 +1,14 @@
+{
+	"keys":["UNI_kmtar_raid_fight", "quest_topic"],
+	"text":"Be it so...!",
+	"events":[
+		{
+			"primitive":"set_current_dialog_exitability",
+			"value":true
+		},
+		{
+			"primitive":"set_npc_ai",
+			"value":"ai_fighter"
+		}
+	]
+}

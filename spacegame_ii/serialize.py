@@ -1,4 +1,4 @@
-import json, keymapping, ship, ui_states
+import json, keymapping, ship, ui_states, quests
 from logging import debug, info, error, critical, warn
 
 def init(root):
@@ -27,16 +27,18 @@ def new_game(root, start, player_name, ship_name):
 	import extention_loader, sectors
 	root.savegame=SaveGame(root, player_name, ship_name)
 	root.dialog_manager.init_each_game()
+
 	root.galaxy=sectors.Galaxy(root)
 	root.galaxy.gamestate=root.state_manager.states["game"]
 	root.state_manager.states["game"].entities=[ship.create_ship(root, start["ship"], 0, 0, ai=False)]
 	root.state_manager.states["game"].player=root.state_manager.states["game"].entities[0]
+	root.quest_manager=quests.QuestManager(root, root.state_manager.states["game"].player)
 	extention_loader.load_galaxy(root, 'extensions', None)
 	root.galaxy.preprocess_statics()
 	root.galaxy.goto_sector(*start.get("sector", [0,0]))
 	root.state_manager.goto_state("game")
 	root.state_manager.run_tick()
-	ui_states.interdict_ok(root, title="Welcome to Spacegame!", text="Fly your ship with WASD%nSelect weapons with 1 & 2%nInteract with E%nFire with SPACE%n%n(Or rebind in the settings menu [ESC])", button = "SET")
+	ui_states.interdict_ok(root, title="Welcome to Spacegame!", text="Fly your ship with WASD%nSelect weapons with 1 & 2%nInteract with E%nTalk to selected with F%nFire with SPACE%n%n(Or rebind in the settings menu [ESC])", button = "Start!")
 
 def save_object(item):
 	#assert isinstance(item, SerializableObject) #NO! DUCK TYPING IS GOD!
@@ -77,7 +79,7 @@ class SaveGame(object, SerializableObject):
 			"savegame_revision":self.curr_revsion,
 			"game_time":self.root.game_time,
 			"state":"game", #Not sure if this is worth keeping
-			"quest_system":None, #Not implemented!
+			"quest_system":self.root.quest_manager.save_to_config_node(), #Not implemented!
 			"database":temp_db,
 			"galaxy_pos":[self.root.galaxy.currentx,self.root.galaxy.currenty],
 			"player":self.root.state_manager.states["game"].player.save_to_config_node(),
@@ -111,6 +113,9 @@ class SaveGame(object, SerializableObject):
 			root.state_manager.states["game"].player=root.state_manager.states["game"].entities[0]
 			
 			root.savegame.database=json_save["database"]
+
+			root.quest_manager=quests.QuestManager(root, root.state_manager.states["game"].player)
+			root.quest_manager.load_quests(json_save["quest_system"])
 
 			root.dialog_manager.init_each_game()
 			root.dialog_manager.do_additional_load(json_save["dialog_manager"])

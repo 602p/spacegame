@@ -60,18 +60,21 @@ class DamageSystem:
 
 	def do_damaged(self):
 		sg_postevent(UE_SYSTEM_DAMAGED, system=self, manager=self.damage_model)
+		self.damage_model.ship.trigger(UE_SYSTEM_DAMAGED, system=self, manager=self.damage_model)
 		for i in self.attributes:
 			exec "self.damage_model.ship."+i+"="+str(self.olds[i]*self.effects_damaged[self.attributes.index(i)])
 		self.status=1
 
 	def do_destroyed(self):
 		sg_postevent(UE_SYSTEM_DESTROYED, system=self, manager=self.damage_model)
+		self.damage_model.ship.trigger(UE_SYSTEM_DESTROYED, system=self, manager=self.damage_model)
 		for i in self.attributes:
 			exec "self.damage_model.ship."+i+"="+str(self.olds[i]*self.effects_destroyed[self.attributes.index(i)])
 		self.status=2
 
 	def reset(self):
 		sg_postevent(UE_SYSTEM_REPAIRED, system=self, manager=self.damage_model)
+		self.damage_model.ship.trigger(UE_SYSTEM_REPAIRED, system=self, manager=self.damage_model)
 		for i in self.attributes:
 			exec "self.damage_model.ship."+i+"="+str(self.olds[i])
 		self.status=0
@@ -110,6 +113,7 @@ class DamageModel:
 			 self.root.gamedb("font_standard_small"), px+random.randint(-30,30), py+random.randint(-30,30), (255,0,0)))
 		self.hull-=hull
 		sg_postevent(UE_HUL_DAMAGE_DEALT, system=self, amount=hull, x=precise_x, y=precise_y, source=source)
+		self.ship.trigger(UE_SYSTEM_DAMAGED, system=self, amount=hull, x=precise_x, y=precise_y, source=source)
 		if len(self.systems)>0:
 			s=random.sample(self.systems,1)[0]
 			if s:
@@ -117,6 +121,7 @@ class DamageModel:
 		if self.hull<=0:
 			self.hull=0
 			sg_postevent(UE_SHIP_DESTROYED, system=self, x=precise_x, y=precise_y, source=source)
+			self.ship.trigger(UE_SHIP_DESTROYED, system=self, x=precise_x, y=precise_y, source=source)
 
 	def damage_shields(self, shields, precise_x=None, precise_y=None, source=None, shlonly=0, hidetxt=0):
 		if shields>0.1 and self.shields>0 and not hidetxt:
@@ -126,16 +131,19 @@ class DamageModel:
 			 self.root.gamedb("font_standard_small"), px+random.randint(-30,30), py+random.randint(-30,30), (0,0,255)))
 		self.shields-=shields
 		sg_postevent(UE_SHL_DAMAGE_DEALT, system=self, amount=shields, x=precise_x, y=precise_y, source=source)
+		self.ship.trigger(UE_SHL_DAMAGE_DEALT, system=self, amount=shields, x=precise_x, y=precise_y, source=source)
 		if self.shields<=0:
 			if not shlonly: self.damage_hull(abs(self.shields)*0.8)
 			self.shields=0
 			sg_postevent(UE_SHIELDS_DOWN, system=self, x=precise_x, y=precise_y, source=source)
+			self.ship.trigger(UE_SHIELDS_DOWN, system=self, amount=shields, x=precise_x, y=precise_y, source=source)
 
 	def damage(self, damage, peirce=0, px=None, py=None, source=None):
 		self.damage_shields(damage*(1-peirce), px, py, source)
 		self.damage_hull(damage*peirce, px, py, source)
 		self.last_source=source
 		sg_postevent(UE_DAMAGE_DEALT, system=self, amount=damage, peirce=peirce, x=px, y=py, source=source)
+		self.ship.trigger(UE_DAMAGE_DEALT, system=self, amount=damage, x=px, y=py, source=source, peirce=peirce)
 
 	def load_systems(self, config):
 		"""Takes a list of dicts describing systems and adds them to its internal register.

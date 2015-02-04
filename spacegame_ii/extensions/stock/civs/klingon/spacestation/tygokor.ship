@@ -32,5 +32,13 @@
 				"ui_config":"%default_spacestation_ui%"
     		}
     	]
+    },
+    "triggers":{
+        "UE_DAMAGE_DEALT":[
+            {
+                "primitive":"postmsg",
+                "text":"(A) <@{system:ship.name}> was hit for <@{amount:__str__()}>!"
+            }
+        ]
     }
 }

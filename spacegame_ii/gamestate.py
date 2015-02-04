@@ -70,6 +70,7 @@ class RunningGameState(state.State):
 		self.root.particlemanager.draw(self.root.screen)
 		
 		locked_by=0
+		self.root.quest_manager.update()
 		
 		tasks.run_group(self.root, "render_before_entities")
 		for entitiy in reversed(self.entities): #run thru in reverse so player is always on top
@@ -188,6 +189,16 @@ class RunningGameState(state.State):
 							self.player.targeted=entitiy
 			for ext in self.root.extentions:
 				self.root.extentions[ext].event_state("game", e)
+
+	def _get_entity_by_id(self, hid):
+		"""NOTE: DO NOT USE. USE entitybase.get_entitiy_by_id INSTEAD!"""
+		for entity in self.entities:
+			try:
+				if entity.hash_id==hid:
+					return entity
+			except AttributeError:
+				pass
+		return None
 
 class CreditsState(state.InterdictingState):
 	def internal_update(self):

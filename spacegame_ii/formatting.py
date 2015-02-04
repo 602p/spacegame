@@ -1,4 +1,4 @@
-
+from logging import debug
 class Formatter(object):
 	def __init__(self, modules={"t_int":1}):
 		self.modules=modules
@@ -20,7 +20,10 @@ class Formatter(object):
 			#print ref
 			#print cmd
 
+			debug("Processing o_:"+o_substring+" with pc_:"+"self.modules[ref]."+cmd+" to...")
+
 			full_string=full_string.replace(o_substring, str(eval("self.modules[ref]."+cmd)))
+			debug("f_s_:"+full_string)
 			#print full_string
 			#print
 		return full_string

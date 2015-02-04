@@ -45,7 +45,7 @@ class DialogManager(object):
 	def start_dialog(self, target, topic="greeting"):
 		self.player=self.root.state_manager.states["game"].player
 		self.othership=target
-		self.root.state_manager.start_interdicting("dialog", [topic, "font_sys_mono_13"])
+		self.current_state=self.root.state_manager.start_interdicting("dialog", [topic, "font_dialog_default"])
 
 	def get_for(self, name):
 		s=self.pools[name].get_speech()
@@ -61,6 +61,15 @@ class DialogManager(object):
 	def do_additional_load(self, config):
 		for topic in config["known_topics"]: self.learn_topic(topic)
 
+	def count_speeches(self):
+		c=0
+		for pool in self.pools.keys():
+			c+=self.pools[pool].count_speeches()
+		return c
+
+	def count_pools(self):
+		return len(self.pools.keys())
+
 class SpeechPool(object):
 	def __init__(self, manager, name):
 		self.manager=manager
@@ -74,6 +83,12 @@ class SpeechPool(object):
 			self.pool[speech.priority]=[]
 		debug("Added speech to pool:"+self.name)
 		self.pool[speech.priority].append(speech)
+
+	def count_speeches(self):
+		c=0
+		for pri in self.pool.keys():
+			c+=len(self.pool[pri])
+		return c
 
 	def get_speech(self):
 		random.seed(self.root.game_time*82)
@@ -141,15 +156,15 @@ class DialogState(state.InterdictingState):
 		self.goodbye_rect.move_ip(self.box_pos)
 		self.topics_rect.move_ip(self.box_pos)
 
-		self.speeches=[self.dialog_manager.get_for(self.params[0])]
+		
 		self.font=self.root.gamedb(self.params[1])
 		self.max_width=int(self.words_rect.width/self.font.size("_")[0])-2
-		debug("Selected first speech as ?"+self.speeches[0].pools[0])
+		
 		self.text_scroll=0
 		self.topics_scroll=0
+		self.can_exit=True
 
-		self.rebuild_text()
-		self.rebuild_topics()
+		self.has_init=0
 
 	def show_loading(self):
 		size=self.root.gamedb("font_standard_large").size("LOADING...")
@@ -240,6 +255,12 @@ class DialogState(state.InterdictingState):
 		self.topics_image=new_surf
 
 	def internal_update(self):
+		if not self.has_init:
+			self.speeches=[self.dialog_manager.get_for(self.params[0])]
+			debug("Selected first speech as ?"+self.speeches[0].pools[0])
+			self.rebuild_text()
+			self.rebuild_topics()
+			self.has_init=1
 		screen=self.root.screen.screen
 		config=self.root.gamedb("cfg_dialog_box")
 		
@@ -248,6 +269,10 @@ class DialogState(state.InterdictingState):
 		pygame.draw.rect(screen, (0,255,0), self.words_rect, 3)
 		pygame.draw.rect(screen, (255,0,0), self.goodbye_rect, 3)
 		pygame.draw.rect(screen, (0,0,255), self.topics_rect, 3)
+
+		if not self.can_exit:
+			pygame.draw.rect(screen, (255,0,0), self.goodbye_rect, 0)
+
 		screen.blit(self.text_image, (self.words_rect.left, self.words_rect.top-self.text_scroll))
 		screen.blit(self.topics_image, (self.topics_rect.left, self.topics_rect.top-self.topics_scroll))
 		screen.blit(self.screenshot, (0,0))
@@ -256,7 +281,8 @@ class DialogState(state.InterdictingState):
 		for event in events:
 			if event.type==pygame.MOUSEBUTTONUP:
 				if self.goodbye_rect.collidepoint(pygame.mouse.get_pos()):
-					self.finish()
+					if self.can_exit:
+						self.finish()
 				for rect, pointer, text in self.hotspots:
 					if rect.collidepoint((pygame.mouse.get_pos()[0]-self.box_pos[0], pygame.mouse.get_pos()[1]-self.box_pos[1]+self.text_scroll)):
 						self.speeches.append(_create_speech(self.root, " "))
@@ -267,7 +293,7 @@ class DialogState(state.InterdictingState):
 
 						self.rebuild_text()
 				for rect, pointer, text in self.topics_hotspots:
-					if rect.collidepoint((pygame.mouse.get_pos()[0]-self.topics_rect.left, pygame.mouse.get_pos()[1]+self.text_scroll-self.topics_rect.top)):
+					if rect.collidepoint((pygame.mouse.get_pos()[0]-self.topics_rect.left, pygame.mouse.get_pos()[1]+self.topics_scroll-self.topics_rect.top)):
 						self.speeches.append(_create_speech(self.root, " "))
 						self.speeches.append(_create_speech(self.root, "/-----"+text+('-'*(self.max_width-5-len(text)-1))+"\\", 1))
 

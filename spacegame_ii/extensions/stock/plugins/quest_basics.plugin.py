@@ -49,6 +49,11 @@ class PostIGConsoleMessage(primitives.BasePrimitive):
 				"ship":ship
 			}))
 
+	def run_in_trigger(self, *a, **k):
+		bdict={"pos_args":a}
+		bdict.update(k)
+		self.root.igconsole.postd(self.config, formatting.SubFormatter(self.root.formatter,bdict))
+
 	def run_in_impact(self, item, impact, projectile):
 		if projectile.parent==self.root.state_manager.states["game"].player or self.config.get("postany", False):
 			self.root.igconsole.postd(self.config, formatting.SubFormatter(self.root.formatter,{

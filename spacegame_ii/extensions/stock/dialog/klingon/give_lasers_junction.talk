@@ -1,45 +1,38 @@
 {
-	"keys":["kl_give_start_lasers"],
-	"text":"",
-	"events":[
-		{
-			"primitive":"check_variable",
-			"value":null,
-			"name":"kl_intro_given_lasers",
-			"effects":[
-				{
-					"primitive":"player_add_item",
-					"id":"wep_proj_laser",
-					"equipped":0
-				},
-				{
-					"primitive":"player_add_item",
-					"id":"wep_proj_laser",
-					"equipped":1
-				},
-				{
-					"primitive":"set_variable",
-					"name":"kl_intro_given_lasers",
-					"value":true
-				},
-				{
-					"primitive":"show_speech",
-					"id":"kl_start_lasers_given"
-				}
-			],
-			"else":[
-				{
-					"primitive":"check_variable",
-					"value":true,
-					"name":"kl_intro_given_lasers",
-					"effects":[
-						{
-							"primitive":"show_speech",
-							"id":"kl_start_lasers_owned"
-						}
-					]
-				}
-			]
-		}
-	]
+   "events" : [
+      {
+         "effects" : [
+            {
+               "equipped" : 0,
+               "id" : "wep_proj_laser",
+               "primitive" : "player_add_item"
+            },
+            {
+               "equipped" : 1,
+               "id" : "wep_proj_laser",
+               "primitive" : "player_add_item"
+            },
+            {
+               "name" : "kl_intro_given_lasers",
+               "primitive" : "set_variable",
+               "value" : true
+            },
+            {
+               "id" : "kl_start_lasers_given",
+               "primitive" : "show_speech"
+            }
+         ],
+         "else" : [
+            {
+               "id" : "kl_start_lasers_owned",
+               "primitive" : "show_speech"
+            }
+         ],
+         "name" : "kl_intro_given_lasers",
+         "primitive" : "check_variable",
+         "value" : null
+      }
+   ],
+   "keys" : [ "kl_give_start_lasers" ],
+   "text" : ""
 }

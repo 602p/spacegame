@@ -1,17 +1,17 @@
 {
     "player": {
         "rigidbody": {
-            "y": 0.0, 
-            "x": 0.0, 
+            "y": -1391.5076890340727, 
+            "x": 852.3836278810426, 
             "vector": {
-                "magnitude": 0, 
-                "angle": 0
+                "magnitude": 238.72621335997366, 
+                "angle": 325.47600013344896
             }, 
-            "mass": 101, 
+            "mass": 103, 
             "last_tc": 0.02
         }, 
         "ship_id": "klingon_attackship", 
-        "currpwr": 200, 
+        "currpwr": 52.186224970670025, 
         "inventory": [
             {
                 "count": 1, 
@@ -21,9 +21,21 @@
                 "__deserialize_handler__": "item", 
                 "id": "item_klingon_warpdrive1", 
                 "xwd_is_charging": 0
+            }, 
+            {
+                "count": 1, 
+                "__deserialize_handler__": "item", 
+                "id": "wep_proj_laser", 
+                "equipped": 0
+            }, 
+            {
+                "count": 1, 
+                "__deserialize_handler__": "item", 
+                "id": "wep_proj_laser", 
+                "equipped": 1
             }
         ], 
-        "currshld": 150, 
+        "currshld": 150.03577498062512, 
         "ai": false, 
         "packed": true, 
         "__deserialize_handler__": "ship", 
@@ -466,14 +478,14 @@
             "0,0": [
                 {
                     "rigidbody": {
-                        "y": 500, 
-                        "x": 500, 
+                        "y": 500.0, 
+                        "x": 500.0, 
                         "vector": {
                             "magnitude": 0, 
                             "angle": 0
                         }, 
-                        "mass": 2000, 
-                        "last_tc": 0.01
+                        "mass": 2009, 
+                        "last_tc": 0.02
                     }, 
                     "ship_id": "ss_bajor_ds9", 
                     "currpwr": 500, 
@@ -549,14 +561,14 @@
                 }, 
                 {
                     "rigidbody": {
-                        "y": -500, 
-                        "x": -500, 
+                        "y": -500.0, 
+                        "x": -500.0, 
                         "vector": {
                             "magnitude": 0, 
                             "angle": 0
                         }, 
                         "mass": 1, 
-                        "last_tc": 0.01
+                        "last_tc": 0.02
                     }, 
                     "ship_id": "ss_bajor_planet", 
                     "currpwr": 1, 
@@ -614,34 +626,6 @@
             "10,0": [
                 {
                     "rigidbody": {
-                        "y": 0.0, 
-                        "x": 0.0, 
-                        "vector": {
-                            "magnitude": 0, 
-                            "angle": 0
-                        }, 
-                        "mass": 100, 
-                        "last_tc": 0.02
-                    }, 
-                    "ship_id": "klingon_warbird", 
-                    "currpwr": 200, 
-                    "inventory": [], 
-                    "currshld": 150, 
-                    "ai": 1, 
-                    "packed": true, 
-                    "__deserialize_handler__": "ship", 
-                    "damagesystems": [
-                        {
-                            "hp": 10
-                        }, 
-                        {
-                            "hp": 10
-                        }
-                    ], 
-                    "currhull": 125
-                }, 
-                {
-                    "rigidbody": {
                         "y": -400.0, 
                         "x": -100.0, 
                         "vector": {
@@ -652,9 +636,9 @@
                         "last_tc": 0.02
                     }, 
                     "ship_id": "ss_klingon_tygokor", 
-                    "currpwr": 500, 
+                    "currpwr": 500.0, 
                     "inventory": [], 
-                    "currshld": 1000, 
+                    "currshld": 1000.0, 
                     "ai": 1, 
                     "packed": true, 
                     "__deserialize_handler__": "ship", 
@@ -853,6 +837,7 @@
             "-1,0": [], 
             "-1,1": []
         }, 
+        "kl_intro_given_lasers": true, 
         "player_name": "", 
         "ship_name": "", 
         "sector_data": {
@@ -2446,14 +2431,17 @@
         }
     }, 
     "galaxy_pos": [
-        10, 
+        0, 
         0
     ], 
-    "game_time": 0.8600000000000004, 
+    "game_time": 234.33640002064806, 
     "dialog_manager": {
         "pools": "LART", 
         "known_topics": [
-            "tips"
+            "tips", 
+            "klingon_lore", 
+            "klingon_main_mission", 
+            "joke_plot"
         ]
     }, 
     "quest_system": null

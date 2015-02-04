@@ -1,0 +1,10 @@
+{
+	"keys":["UNI_kmtar_raid_start", "quest_topic"],
+	"text":"Arrrrrr! I am K'mtar, I have fallen from the house of Mogh, and resorted to a life of piracy. Give me 1000 credits not to destroy you poor ship.%n%n $@Surrender:UNI_kmtar_raid_surrender@$ your credits or $@fight:UNI_kmtar_raid_fight@$ ... and die.",
+	"events":[
+		{
+			"primitive":"set_current_dialog_exitability",
+			"value":false
+		}
+	]
+}

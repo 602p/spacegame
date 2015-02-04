@@ -4,6 +4,7 @@ from jsonutil import dget
 from logging import debug, info, warning, error, critical
 from jsonutil import get_expanded_json
 from triggers import *
+import entitybase
 
 def init(root):
 	if not 'item_factories' in dir(root):
@@ -66,7 +67,7 @@ class ItemFactory:
 		return Item(self.root, equipped, parent, self.config)
 
 
-class Item(serialize.SerializableObject):
+class Item(serialize.SerializableObject, entitybase.Triggerable,entitybase.TiggerablePosteventAdapterMixin):
 	def __init__(self, root, equipped, parent, json_dict):
 		config=json_dict
 		# self.costper=cost
@@ -81,6 +82,7 @@ class Item(serialize.SerializableObject):
 		# self.fire_events=fire_events
 		# self.equipped_image=equipped_image.copy() #Make a copy so we dont contaminate the gdb
 		# self.rarity=rarity.Rarity(config["rarity"])
+		self.triggers={}
 		self.costper=json_dict["cost"]
 		self.id_str=json_dict["id"]
 		self.name=json_dict["name"]
@@ -198,16 +200,18 @@ class Item(serialize.SerializableObject):
 
 	def fire(self):
 		if self.can_fire():
-			sg_postevent(UE_FIRE_REQUIRE_SUCCESS, item=self)
-			sg_postevent(UE_BEFORE_FIRE, item=self)
+			self.sg_postevent(UE_FIRE_REQUIRE_SUCCESS, item=self)
+			#self.trigger(UE_FIRE_REQUIRE_SUCCESS)
+			self.sg_postevent(UE_BEFORE_FIRE, item=self)
+			#self.trigger(UE_BEFORE_FIRE)
 			self.fire_actions()
-			sg_postevent(UE_AFTER_FIRE, item=self)
+			self.sg_postevent(UE_AFTER_FIRE, item=self)
 			if "item" in self.fire_required.keys():
 				for item in self.parent.inventory:
 					if item.id_str==self.fire_required["item"]:
 						item.consume_one()
 		else:
-			sg_postevent(UE_FIRE_REQUIRE_FAIL, item=self)
+			self.sg_postevent(UE_FIRE_REQUIRE_FAIL, item=self)
 			
 	def save_to_config_node(self):
 		return {

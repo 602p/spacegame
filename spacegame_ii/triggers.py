@@ -14,7 +14,7 @@ UE_FIRE_REQUIRE_SUCCESS='UE_FIRE_REQUIRE_SUCCESS' #item									Called in item c
 UE_PROJECTILE_IMPACT='UE_PROJECTILE_IMPACT'		  #projectile, hit 						Called in projectile context, when projectile hits something
 UE_PROJECTILE_TIMEOUT='UE_PROJECTILE_TIMEOUT'	  #projectile 							Called in projectile context, when projectile exceeds its lifetime
 
-UE_STATE_CHANGE='UE_STATE_START'				  #manager, oldstate, newstate			Called in statemgr context, when switching state
+UE_STATE_CHANGE='UE_STATE_CHANGE'				  #manager, oldstate, newstate			Called in statemgr context, when switching state
 
 UE_SYSTEM_REPAIRED='UE_SYSTEM_REPAIRED'			  #manager, system 						Called in damagesystem when system is repaired
 UE_SYSTEM_DAMAGED='UE_SYSTEM_DAMAGED'			  #manager, system 						Called in damagesystem when system is damaged
