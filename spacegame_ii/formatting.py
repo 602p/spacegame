@@ -1,4 +1,5 @@
 from logging import debug
+
 class Formatter(object):
 	def __init__(self, modules={"t_int":1}):
 		self.modules=modules

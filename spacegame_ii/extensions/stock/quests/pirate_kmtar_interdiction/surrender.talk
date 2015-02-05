@@ -9,6 +9,10 @@
 		{
 			"primitive":"set_npc_ai",
 			"value":"ai_none"
+		},
+		{
+			"primitive":"take_credits",
+			"amount":1000
 		}
 	]
 }

@@ -24,7 +24,7 @@ def get_ai_update(root, key):
 def has_ai_update(root, key):
 	return key in root.ai_update_keys.keys()
 
-class AIController:
+class AIController(object):
 	"""
 	Manages all controller nodes for the ship
 	"""
