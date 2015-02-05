@@ -131,7 +131,7 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity, entitybase.Ti
 
 		self.lastangle=0
 
-		self.use_ai=use_ai
+		self.use_ai=0
 		if self.use_ai:
 			self.ai=ai.AIController(self, config["ai"])
 

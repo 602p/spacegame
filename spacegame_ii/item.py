@@ -106,10 +106,10 @@ class Item(serialize.SerializableObject, entitybase.Triggerable,entitybase.Tigge
 
 		self.ai_hints=[]
 
-		if "ai_hints" in config:
-			for i in config["ai_hints"]:
-				if ai.has_ai_hint(self.root, i["name"]):
-					self.ai_hints.append(ai.get_ai_hint(self.root, i["name"])(self, i))
+		# if "ai_hints" in config:
+		# 	for i in config["ai_hints"]:
+		# 		if ai.has_ai_hint(self.root, i["name"]):
+		# 			self.ai_hints.append(ai.get_ai_hint(self.root, i["name"])(self, i))
 
 		self.equipped=equipped
 
