@@ -71,6 +71,22 @@ class ConstrainByShipAttribute(ai.AIItemHint):
 				return True
 		return False
 
+class ConstrainShieldLevel(ai.AIItemHint):
+	def get_suggested(self, ai):
+		attr=ai.ship.targeted.damage.shields
+		if "exactly" in self.config.keys():
+			if attr==self.config["exactly"]:
+				return True
+
+		if "below" in self.config.keys():
+			if attr<self.config["below"]:
+				return True
+
+		if "above" in self.config.keys():
+			if attr>self.config["above"]:
+				return True
+		return False
+
 
 def init_ais(root, console):
 	ai.add_update_node(root, "select_player", SelectPlayer)
@@ -78,3 +94,4 @@ def init_ais(root, console):
 	ai.add_update_node(root, "follow_selected", FollowSelected)
 	ai.add_hint_node(root, "constrain_by_system_damage", ConstrainByDamageSystemStatus)
 	ai.add_hint_node(root, "constrain_by_attribute_status", ConstrainByShipAttribute)
+	ai.add_hint_node(root, "constrain_by_shield_level", ConstrainShieldLevel)

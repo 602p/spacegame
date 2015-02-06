@@ -132,6 +132,14 @@ class Item(serialize.SerializableObject, entitybase.Triggerable,entitybase.Tigge
 		# surface.draw_rect((255,0,0), pygame.Rect(self.get_center(),(2,2)))
 		# surface.draw_rect((0,0,255), self.rotated_rect, 1)
 
+	def get_desc_text(self):
+		d = [str(self.count)+"x : "+self.name]
+		if self.equipped!=-1:
+			d.append("Equipped in slot  "+str(self.equipped))
+		else:
+			d.append("Not equipped")
+		d.append(self.config.get("desc_text", "(No Description Availible)"))
+		return d
 
 	def get_inventory_image(self):
 		surface=pygame.Surface((64,64))

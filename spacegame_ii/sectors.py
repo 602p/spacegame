@@ -101,7 +101,10 @@ class Sector(object):
 
 	def preprocess_statics(self):
 		debug("Processing statics for sector "+self.get_savegame_id()+"...")
+		#print "PROCESSING FOR "+self.get_savegame_id()
 		for static in self.statics:
+			#print ">>>>>>"+str(static)
+
 			static["__deserialize_handler__"]=static["type"]
 			entity = serialize.load_from_node(self.root, static, None)
 			self.root.savegame.database["packed_entities"][self.get_savegame_id()].append(entity.save_to_config_node())
@@ -114,6 +117,7 @@ class Sector(object):
 		count=0
 		for static in self.statics:
 			if count>self.root.savegame.database["sector_data"][self.get_savegame_id()]["last_loaded_entity"]:
+				#print ">>>>>>"+str(static)
 				static["__deserialize_handler__"]=static["type"]
 				entity = serialize.load_from_node(self.root, static, None)
 				self.root.savegame.database["packed_entities"][self.get_savegame_id()].append(entity.save_to_config_node())
@@ -148,6 +152,7 @@ class Sector(object):
 		for static in self.root.savegame.database["packed_entities"][self.get_savegame_id()]:
 			#static["__deserialize_handler__"]=static["type"]
 			debug("Adding a PPE...")
+			#print static
 			entity = serialize.load_from_node(self.root, static, None)
 			self.galaxy.gamestate.entities.append(entity)
 		self.root.savegame.database["packed_entities"][self.get_savegame_id()]=[]

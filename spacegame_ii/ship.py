@@ -35,6 +35,7 @@ def create_ship(root, id_, x=0, y=0, with_equip=1, ai=True):
 	return root.ship_factories[id_](x, y, with_equip, ai)
 
 def _load_ship(root, node, parent):
+	#print ">>>"+str(node)
 	s = create_ship(root, node["ship_id"], 0, 0, not "packed" in node.keys(), node.get("ai", 1))
 	
 	if "packed" in node.keys():
@@ -47,6 +48,8 @@ def _load_ship(root, node, parent):
 		s.rigidbody   = physics._load_rigidbody(node["rigidbody"], s)
 		s.hash_id=node["hash_id"]
 		s.triggers.update(node["triggers"])
+		if node.get("ai",1):
+			s.ai=ai._load_controller(root, s, node["ai_controller"])
 	else:
 		s.rigidbody.x=node["x"]
 		s.rigidbody.y=node["y"]
@@ -156,7 +159,7 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity, entitybase.Ti
 
 	def pick_up(self, item):
 		#self.triggermanager("on_pickup_attempt", item)
-		if self.get_inventory_mass()+item.mass<self.cargo:
+		if self.get_inventory_mass()+item.mass<self.cargo or 1:
 			self.inventory.append(item)
 			#self.triggermanager("on_pickup_success", item)
 			return True
@@ -169,6 +172,19 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity, entitybase.Ti
 			if i.equipped==id_int:
 				return i
 		return None
+
+	def try_stack(self, item):
+		for iitem in self.inventory:
+			if iitem!=item:
+				if iitem.id_str==item.id_str:
+					iitem.count+=item.count
+					del self.inventory[self.inventory.index(item)]
+					return
+
+	def try_split(self, itemx, count):
+		assert count<itemx.count, "Tried to take more than you have"
+		itemx.count-=count
+		self.inventory.append(item.create_item(self.root, itemx.id_str, self, -1, count))
 
 	def find_hardpoint_for_item(self, item):
 		for i in self.hardpoints:
@@ -267,7 +283,7 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity, entitybase.Ti
 		inv=[]
 		for item in self.inventory:
 			inv.append(item.save_to_config_node())
-		return {
+		d = {
 			"__deserialize_handler__":"ship", 
 			"ship_id":self.id_string, 
 			"inventory":inv, 
@@ -281,9 +297,12 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity, entitybase.Ti
 			"hash_id":self.hash_id,
 			"triggers":self.serialize_triggers()
 		}
+		if self.use_ai:
+			d["ai_controller"]=self.ai.save_to_config_node()
+		return d
 
-	def __enter__(s, *a, **k):
-		return s
+	def __enter__(self, *a, **k):
+		return self
 
 	def __exit__(self, *a, **k):
 		debug("Calling _finalize")

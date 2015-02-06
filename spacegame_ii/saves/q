@@ -7,14 +7,14 @@
         "triggers": {}, 
         "packed": true, 
         "rigidbody": {
-            "y": -6.683607390859738, 
-            "x": -7.679678785120776, 
+            "y": -8.749383293936162, 
+            "x": -13.949518056497281, 
             "vector": {
-                "magnitude": 28.49108959404977, 
-                "angle": 52.362001203662125
+                "magnitude": 31.55776412587042, 
+                "angle": 58.19399975758668
             }, 
-            "mass": 101, 
-            "last_tc": 0.008100000197753912
+            "mass": 161, 
+            "last_tc": 0.007300000200500494
         }, 
         "currshld": 150, 
         "__deserialize_handler__": "ship", 
@@ -27,6 +27,24 @@
                 "__deserialize_handler__": "item", 
                 "id": "item_klingon_warpdrive1", 
                 "xwd_is_charging": 0
+            }, 
+            {
+                "count": 10, 
+                "__deserialize_handler__": "item", 
+                "id": "item_durasteel_cargo", 
+                "equipped": -1
+            }, 
+            {
+                "count": 10, 
+                "__deserialize_handler__": "item", 
+                "id": "item_durasteel_cargo", 
+                "equipped": -1
+            }, 
+            {
+                "count": 10, 
+                "__deserialize_handler__": "item", 
+                "id": "item_durasteel_cargo", 
+                "equipped": -1
             }
         ], 
         "damagesystems": [
@@ -37,7 +55,7 @@
                 "hp": 10
             }
         ], 
-        "hash_id": 10324239
+        "hash_id": 3429267
     }, 
     "state": "game", 
     "savegame_revision": 2, 
@@ -378,6 +396,10 @@
                     }, 
                     "currshld": 150, 
                     "__deserialize_handler__": "ship", 
+                    "ai_controller": {
+                        "controllers": [], 
+                        "database": {}
+                    }, 
                     "inventory": [
                         {
                             "count": 1, 
@@ -394,7 +416,7 @@
                             "hp": 10
                         }
                     ], 
-                    "hash_id": 11234433
+                    "hash_id": 11724611
                 }, 
                 {
                     "currpwr": 200, 
@@ -415,6 +437,10 @@
                     }, 
                     "currshld": 150, 
                     "__deserialize_handler__": "ship", 
+                    "ai_controller": {
+                        "controllers": [], 
+                        "database": {}
+                    }, 
                     "inventory": [
                         {
                             "count": 1, 
@@ -431,7 +457,7 @@
                             "hp": 10
                         }
                     ], 
-                    "hash_id": 11234401
+                    "hash_id": 11724623
                 }, 
                 {
                     "currpwr": 200, 
@@ -452,6 +478,10 @@
                     }, 
                     "currshld": 150, 
                     "__deserialize_handler__": "ship", 
+                    "ai_controller": {
+                        "controllers": [], 
+                        "database": {}
+                    }, 
                     "inventory": [
                         {
                             "count": 1, 
@@ -468,7 +498,7 @@
                             "hp": 10
                         }
                     ], 
-                    "hash_id": 11234417
+                    "hash_id": 11724641
                 }
             ], 
             "0,0": [
@@ -491,6 +521,60 @@
                     }, 
                     "currshld": 1000, 
                     "__deserialize_handler__": "ship", 
+                    "ai_controller": {
+                        "controllers": [
+                            {
+                                "config": {
+                                    "controller": "spacestation", 
+                                    "max_speed": 100, 
+                                    "name": "Deep Space 9", 
+                                    "bg_image": "image_bajor_ds9_splash", 
+                                    "ui_config": {
+                                        "widgets": [
+                                            {
+                                                "text": "Welcome to %(station_name)s", 
+                                                "font": "$font_standard_large", 
+                                                "type": "Label", 
+                                                "pos": [
+                                                    0, 
+                                                    0
+                                                ]
+                                            }, 
+                                            {
+                                                "label_col": [
+                                                    255, 
+                                                    255, 
+                                                    255
+                                                ], 
+                                                "type": "Switch", 
+                                                "pos": [
+                                                    0, 
+                                                    100
+                                                ], 
+                                                "label": "LEL MEMES"
+                                            }, 
+                                            {
+                                                "controllers": [
+                                                    {
+                                                        "controller": "exit_state"
+                                                    }
+                                                ], 
+                                                "type": "Button", 
+                                                "label_font": "$font_standard_small", 
+                                                "pos": [
+                                                    0, 
+                                                    650
+                                                ], 
+                                                "label": "Exit"
+                                            }
+                                        ]
+                                    }
+                                }, 
+                                "database": {}
+                            }
+                        ], 
+                        "database": {}
+                    }, 
                     "inventory": [
                         {
                             "count": 1, 
@@ -555,7 +639,7 @@
                             "hp": 100
                         }
                     ], 
-                    "hash_id": 11234311
+                    "hash_id": 11722735
                 }, 
                 {
                     "currpwr": 1, 
@@ -576,9 +660,13 @@
                     }, 
                     "currshld": 1, 
                     "__deserialize_handler__": "ship", 
+                    "ai_controller": {
+                        "controllers": [], 
+                        "database": {}
+                    }, 
                     "inventory": [], 
                     "damagesystems": [], 
-                    "hash_id": 11234321
+                    "hash_id": 11722751
                 }
             ], 
             "11,6": [], 
@@ -639,10 +727,14 @@
                             "angle": 0
                         }, 
                         "mass": 100, 
-                        "last_tc": 0.008100000197753912
+                        "last_tc": 0.007300000200500494
                     }, 
                     "currshld": 150, 
                     "__deserialize_handler__": "ship", 
+                    "ai_controller": {
+                        "controllers": [], 
+                        "database": {}
+                    }, 
                     "inventory": [], 
                     "damagesystems": [
                         {
@@ -652,7 +744,7 @@
                             "hp": 10
                         }
                     ], 
-                    "hash_id": 11237519
+                    "hash_id": 11727479
                 }, 
                 {
                     "currpwr": 500, 
@@ -676,13 +768,70 @@
                             "angle": 0
                         }, 
                         "mass": 2000, 
-                        "last_tc": 0.008100000197753912
+                        "last_tc": 0.007300000200500494
                     }, 
                     "currshld": 1000, 
                     "__deserialize_handler__": "ship", 
+                    "ai_controller": {
+                        "controllers": [
+                            {
+                                "config": {
+                                    "config": {
+                                        "controller": "spacestation", 
+                                        "max_speed": 100, 
+                                        "name": "Ty'gokor", 
+                                        "bg_image": "image_bajor_ds9_splash", 
+                                        "ui_config": {
+                                            "widgets": [
+                                                {
+                                                    "text": "Welcome to %(station_name)s", 
+                                                    "font": "$font_standard_large", 
+                                                    "type": "Label", 
+                                                    "pos": [
+                                                        0, 
+                                                        0
+                                                    ]
+                                                }, 
+                                                {
+                                                    "label_col": [
+                                                        255, 
+                                                        255, 
+                                                        255
+                                                    ], 
+                                                    "type": "Switch", 
+                                                    "pos": [
+                                                        0, 
+                                                        100
+                                                    ], 
+                                                    "label": "LEL MEMES"
+                                                }, 
+                                                {
+                                                    "controllers": [
+                                                        {
+                                                            "controller": "exit_state"
+                                                        }
+                                                    ], 
+                                                    "type": "Button", 
+                                                    "label_font": "$font_standard_small", 
+                                                    "pos": [
+                                                        0, 
+                                                        650
+                                                    ], 
+                                                    "label": "Exit"
+                                                }
+                                            ]
+                                        }
+                                    }, 
+                                    "database": {}
+                                }, 
+                                "database": {}
+                            }
+                        ], 
+                        "database": {}
+                    }, 
                     "inventory": [], 
                     "damagesystems": [], 
-                    "hash_id": 11237525
+                    "hash_id": 11727487
                 }, 
                 {
                     "currpwr": 1, 
@@ -699,13 +848,17 @@
                             "angle": 0
                         }, 
                         "mass": 1, 
-                        "last_tc": 0.008100000197753912
+                        "last_tc": 0.007300000200500494
                     }, 
                     "currshld": 1, 
                     "__deserialize_handler__": "ship", 
+                    "ai_controller": {
+                        "controllers": [], 
+                        "database": {}
+                    }, 
                     "inventory": [], 
                     "damagesystems": [], 
-                    "hash_id": 11237535
+                    "hash_id": 11727499
                 }
             ], 
             "10,7": [], 
@@ -2468,14 +2621,13 @@
             "-1,1": {
                 "last_loaded_entity": -1
             }
-        }, 
-        "event_kmtar_raid": true
+        }
     }, 
     "galaxy_pos": [
         10, 
         0
     ], 
-    "game_time": 1.437900005055924, 
+    "game_time": 3.1263000044215516, 
     "dialog_manager": {
         "pools": "LART", 
         "known_topics": [
@@ -2483,5 +2635,7 @@
             "debug_let_exit"
         ]
     }, 
-    "quest_system": null
+    "quest_system": {
+        "quests": []
+    }
 }

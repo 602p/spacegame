@@ -1,17 +1,23 @@
 {
     "player": {
-        "rigidbody": {
-            "y": -1391.5076890340727, 
-            "x": 852.3836278810426, 
-            "vector": {
-                "magnitude": 238.72621335997366, 
-                "angle": 325.47600013344896
-            }, 
-            "mass": 103, 
-            "last_tc": 0.02
-        }, 
+        "currpwr": 200, 
+        "currhull": 125, 
+        "ai": false, 
         "ship_id": "klingon_attackship", 
-        "currpwr": 52.186224970670025, 
+        "triggers": {}, 
+        "packed": true, 
+        "rigidbody": {
+            "y": 0.0, 
+            "x": 0.0, 
+            "vector": {
+                "magnitude": 0, 
+                "angle": 0
+            }, 
+            "mass": 161, 
+            "last_tc": 0.006800000041503907
+        }, 
+        "currshld": 150, 
+        "__deserialize_handler__": "ship", 
         "inventory": [
             {
                 "count": 1, 
@@ -23,22 +29,24 @@
                 "xwd_is_charging": 0
             }, 
             {
-                "count": 1, 
+                "count": 10, 
                 "__deserialize_handler__": "item", 
-                "id": "wep_proj_laser", 
-                "equipped": 0
+                "id": "item_durasteel_cargo", 
+                "equipped": -1
             }, 
             {
-                "count": 1, 
+                "count": 10, 
                 "__deserialize_handler__": "item", 
-                "id": "wep_proj_laser", 
-                "equipped": 1
+                "id": "item_durasteel_cargo", 
+                "equipped": -1
+            }, 
+            {
+                "count": 10, 
+                "__deserialize_handler__": "item", 
+                "id": "item_durasteel_cargo", 
+                "equipped": -1
             }
         ], 
-        "currshld": 150.03577498062512, 
-        "ai": false, 
-        "packed": true, 
-        "__deserialize_handler__": "ship", 
         "damagesystems": [
             {
                 "hp": 10
@@ -47,7 +55,7 @@
                 "hp": 10
             }
         ], 
-        "currhull": 125
+        "hash_id": 3413141
     }, 
     "state": "game", 
     "savegame_revision": 2, 
@@ -370,6 +378,12 @@
             "0,2": [], 
             "0,1": [
                 {
+                    "currpwr": 200, 
+                    "currhull": 50, 
+                    "ai": 1, 
+                    "ship_id": "alien_transport_test", 
+                    "triggers": {}, 
+                    "packed": true, 
                     "rigidbody": {
                         "y": -500, 
                         "x": -500, 
@@ -380,8 +394,12 @@
                         "mass": 20, 
                         "last_tc": 0.01
                     }, 
-                    "ship_id": "alien_transport_test", 
-                    "currpwr": 200, 
+                    "currshld": 150, 
+                    "__deserialize_handler__": "ship", 
+                    "ai_controller": {
+                        "controllers": [], 
+                        "database": {}
+                    }, 
                     "inventory": [
                         {
                             "count": 1, 
@@ -390,10 +408,6 @@
                             "equipped": 0
                         }
                     ], 
-                    "currshld": 150, 
-                    "ai": 1, 
-                    "packed": true, 
-                    "__deserialize_handler__": "ship", 
                     "damagesystems": [
                         {
                             "hp": 10
@@ -402,9 +416,15 @@
                             "hp": 10
                         }
                     ], 
-                    "currhull": 50
+                    "hash_id": 11663177
                 }, 
                 {
+                    "currpwr": 200, 
+                    "currhull": 50, 
+                    "ai": 1, 
+                    "ship_id": "alien_transport_test", 
+                    "triggers": {}, 
+                    "packed": true, 
                     "rigidbody": {
                         "y": 0, 
                         "x": 0, 
@@ -415,8 +435,12 @@
                         "mass": 20, 
                         "last_tc": 0.01
                     }, 
-                    "ship_id": "alien_transport_test", 
-                    "currpwr": 200, 
+                    "currshld": 150, 
+                    "__deserialize_handler__": "ship", 
+                    "ai_controller": {
+                        "controllers": [], 
+                        "database": {}
+                    }, 
                     "inventory": [
                         {
                             "count": 1, 
@@ -425,10 +449,6 @@
                             "equipped": 0
                         }
                     ], 
-                    "currshld": 150, 
-                    "ai": 1, 
-                    "packed": true, 
-                    "__deserialize_handler__": "ship", 
                     "damagesystems": [
                         {
                             "hp": 10
@@ -437,9 +457,15 @@
                             "hp": 10
                         }
                     ], 
-                    "currhull": 50
+                    "hash_id": 11663189
                 }, 
                 {
+                    "currpwr": 200, 
+                    "currhull": 50, 
+                    "ai": 1, 
+                    "ship_id": "alien_transport_test", 
+                    "triggers": {}, 
+                    "packed": true, 
                     "rigidbody": {
                         "y": -200, 
                         "x": -200, 
@@ -450,8 +476,12 @@
                         "mass": 20, 
                         "last_tc": 0.01
                     }, 
-                    "ship_id": "alien_transport_test", 
-                    "currpwr": 200, 
+                    "currshld": 150, 
+                    "__deserialize_handler__": "ship", 
+                    "ai_controller": {
+                        "controllers": [], 
+                        "database": {}
+                    }, 
                     "inventory": [
                         {
                             "count": 1, 
@@ -460,10 +490,6 @@
                             "equipped": 0
                         }
                     ], 
-                    "currshld": 150, 
-                    "ai": 1, 
-                    "packed": true, 
-                    "__deserialize_handler__": "ship", 
                     "damagesystems": [
                         {
                             "hp": 10
@@ -472,23 +498,83 @@
                             "hp": 10
                         }
                     ], 
-                    "currhull": 50
+                    "hash_id": 11663207
                 }
             ], 
             "0,0": [
                 {
+                    "currpwr": 500, 
+                    "currhull": 800, 
+                    "ai": 1, 
+                    "ship_id": "ss_bajor_ds9", 
+                    "triggers": {}, 
+                    "packed": true, 
                     "rigidbody": {
-                        "y": 500.0, 
-                        "x": 500.0, 
+                        "y": 500, 
+                        "x": 500, 
                         "vector": {
                             "magnitude": 0, 
                             "angle": 0
                         }, 
-                        "mass": 2009, 
-                        "last_tc": 0.02
+                        "mass": 2000, 
+                        "last_tc": 0.01
                     }, 
-                    "ship_id": "ss_bajor_ds9", 
-                    "currpwr": 500, 
+                    "currshld": 1000, 
+                    "__deserialize_handler__": "ship", 
+                    "ai_controller": {
+                        "controllers": [
+                            {
+                                "config": {
+                                    "controller": "spacestation", 
+                                    "max_speed": 100, 
+                                    "name": "Deep Space 9", 
+                                    "bg_image": "image_bajor_ds9_splash", 
+                                    "ui_config": {
+                                        "widgets": [
+                                            {
+                                                "text": "Welcome to %(station_name)s", 
+                                                "font": "$font_standard_large", 
+                                                "type": "Label", 
+                                                "pos": [
+                                                    0, 
+                                                    0
+                                                ]
+                                            }, 
+                                            {
+                                                "label_col": [
+                                                    255, 
+                                                    255, 
+                                                    255
+                                                ], 
+                                                "type": "Switch", 
+                                                "pos": [
+                                                    0, 
+                                                    100
+                                                ], 
+                                                "label": "LEL MEMES"
+                                            }, 
+                                            {
+                                                "controllers": [
+                                                    {
+                                                        "controller": "exit_state"
+                                                    }
+                                                ], 
+                                                "type": "Button", 
+                                                "label_font": "$font_standard_small", 
+                                                "pos": [
+                                                    0, 
+                                                    650
+                                                ], 
+                                                "label": "Exit"
+                                            }
+                                        ]
+                                    }
+                                }, 
+                                "database": {}
+                            }
+                        ], 
+                        "database": {}
+                    }, 
                     "inventory": [
                         {
                             "count": 1, 
@@ -545,10 +631,6 @@
                             "equipped": 8
                         }
                     ], 
-                    "currshld": 1000, 
-                    "ai": 1, 
-                    "packed": true, 
-                    "__deserialize_handler__": "ship", 
                     "damagesystems": [
                         {
                             "hp": 100
@@ -557,28 +639,34 @@
                             "hp": 100
                         }
                     ], 
-                    "currhull": 800
+                    "hash_id": 11661303
                 }, 
                 {
+                    "currpwr": 1, 
+                    "currhull": 1, 
+                    "ai": 1, 
+                    "ship_id": "ss_bajor_planet", 
+                    "triggers": {}, 
+                    "packed": true, 
                     "rigidbody": {
-                        "y": -500.0, 
-                        "x": -500.0, 
+                        "y": -500, 
+                        "x": -500, 
                         "vector": {
                             "magnitude": 0, 
                             "angle": 0
                         }, 
                         "mass": 1, 
-                        "last_tc": 0.02
+                        "last_tc": 0.01
                     }, 
-                    "ship_id": "ss_bajor_planet", 
-                    "currpwr": 1, 
-                    "inventory": [], 
                     "currshld": 1, 
-                    "ai": 1, 
-                    "packed": true, 
                     "__deserialize_handler__": "ship", 
+                    "ai_controller": {
+                        "controllers": [], 
+                        "database": {}
+                    }, 
+                    "inventory": [], 
                     "damagesystems": [], 
-                    "currhull": 1
+                    "hash_id": 11663111
                 }
             ], 
             "11,6": [], 
@@ -625,6 +713,53 @@
             "10,1": [], 
             "10,0": [
                 {
+                    "currpwr": 200, 
+                    "currhull": 125, 
+                    "ai": 1, 
+                    "ship_id": "klingon_warbird", 
+                    "triggers": {}, 
+                    "packed": true, 
+                    "rigidbody": {
+                        "y": 0.0, 
+                        "x": 0.0, 
+                        "vector": {
+                            "magnitude": 0, 
+                            "angle": 0
+                        }, 
+                        "mass": 100, 
+                        "last_tc": 0.006800000041503907
+                    }, 
+                    "currshld": 150, 
+                    "__deserialize_handler__": "ship", 
+                    "ai_controller": {
+                        "controllers": [], 
+                        "database": {}
+                    }, 
+                    "inventory": [], 
+                    "damagesystems": [
+                        {
+                            "hp": 10
+                        }, 
+                        {
+                            "hp": 10
+                        }
+                    ], 
+                    "hash_id": 11665789
+                }, 
+                {
+                    "currpwr": 500, 
+                    "currhull": 800, 
+                    "ai": 1, 
+                    "ship_id": "ss_klingon_tygokor", 
+                    "triggers": {
+                        "UE_DAMAGE_DEALT": [
+                            {
+                                "text": "(A) <@{system:ship.name}> was hit for <@{amount:__str__()}>!", 
+                                "primitive": "postmsg"
+                            }
+                        ]
+                    }, 
+                    "packed": true, 
                     "rigidbody": {
                         "y": -400.0, 
                         "x": -100.0, 
@@ -633,19 +768,75 @@
                             "angle": 0
                         }, 
                         "mass": 2000, 
-                        "last_tc": 0.02
+                        "last_tc": 0.006800000041503907
                     }, 
-                    "ship_id": "ss_klingon_tygokor", 
-                    "currpwr": 500.0, 
-                    "inventory": [], 
-                    "currshld": 1000.0, 
-                    "ai": 1, 
-                    "packed": true, 
+                    "currshld": 1000, 
                     "__deserialize_handler__": "ship", 
+                    "ai_controller": {
+                        "controllers": [
+                            {
+                                "config": {
+                                    "controller": "spacestation", 
+                                    "max_speed": 100, 
+                                    "name": "Ty'gokor", 
+                                    "bg_image": "image_bajor_ds9_splash", 
+                                    "ui_config": {
+                                        "widgets": [
+                                            {
+                                                "text": "Welcome to %(station_name)s", 
+                                                "font": "$font_standard_large", 
+                                                "type": "Label", 
+                                                "pos": [
+                                                    0, 
+                                                    0
+                                                ]
+                                            }, 
+                                            {
+                                                "label_col": [
+                                                    255, 
+                                                    255, 
+                                                    255
+                                                ], 
+                                                "type": "Switch", 
+                                                "pos": [
+                                                    0, 
+                                                    100
+                                                ], 
+                                                "label": "LEL MEMES"
+                                            }, 
+                                            {
+                                                "controllers": [
+                                                    {
+                                                        "controller": "exit_state"
+                                                    }
+                                                ], 
+                                                "type": "Button", 
+                                                "label_font": "$font_standard_small", 
+                                                "pos": [
+                                                    0, 
+                                                    650
+                                                ], 
+                                                "label": "Exit"
+                                            }
+                                        ]
+                                    }
+                                }, 
+                                "database": {}
+                            }
+                        ], 
+                        "database": {}
+                    }, 
+                    "inventory": [], 
                     "damagesystems": [], 
-                    "currhull": 800
+                    "hash_id": 11665797
                 }, 
                 {
+                    "currpwr": 1, 
+                    "currhull": 1, 
+                    "ai": 1, 
+                    "ship_id": "ss_kronos_planet", 
+                    "triggers": {}, 
+                    "packed": true, 
                     "rigidbody": {
                         "y": -800.0, 
                         "x": -800.0, 
@@ -654,17 +845,17 @@
                             "angle": 0
                         }, 
                         "mass": 1, 
-                        "last_tc": 0.02
+                        "last_tc": 0.006800000041503907
                     }, 
-                    "ship_id": "ss_kronos_planet", 
-                    "currpwr": 1, 
-                    "inventory": [], 
                     "currshld": 1, 
-                    "ai": 1, 
-                    "packed": true, 
                     "__deserialize_handler__": "ship", 
+                    "ai_controller": {
+                        "controllers": [], 
+                        "database": {}
+                    }, 
+                    "inventory": [], 
                     "damagesystems": [], 
-                    "currhull": 1
+                    "hash_id": 11665809
                 }
             ], 
             "10,7": [], 
@@ -837,7 +1028,6 @@
             "-1,0": [], 
             "-1,1": []
         }, 
-        "kl_intro_given_lasers": true, 
         "player_name": "", 
         "ship_name": "", 
         "sector_data": {
@@ -2431,18 +2621,18 @@
         }
     }, 
     "galaxy_pos": [
-        0, 
+        10, 
         0
     ], 
-    "game_time": 234.33640002064806, 
+    "game_time": 0.5140999982632063, 
     "dialog_manager": {
         "pools": "LART", 
         "known_topics": [
             "tips", 
-            "klingon_lore", 
-            "klingon_main_mission", 
-            "joke_plot"
+            "debug_let_exit"
         ]
     }, 
-    "quest_system": null
+    "quest_system": {
+        "quests": []
+    }
 }

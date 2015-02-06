@@ -3,12 +3,12 @@
       {
          "effects" : [
             {
-               "equipped" : 0,
+               "equipped" : -1,
                "id" : "wep_proj_laser",
                "primitive" : "player_add_item"
             },
             {
-               "equipped" : 1,
+               "equipped" : -1,
                "id" : "wep_proj_laser",
                "primitive" : "player_add_item"
             },

@@ -1,4 +1,4 @@
-import json, primitives, random, state, pygame, textwrap, random
+import json, primitives, random, state, pygame, textwrap, random, jsonutil
 from logging import debug, info, warning, error, critical
 
 def init(root):
@@ -7,7 +7,7 @@ def init(root):
 def load_file(root, fname):
 	debug("Load talk_file '"+fname)
 	with open(fname, 'r') as f:
-		root.dialog_manager.add_speech_config(json.load(f))
+		root.dialog_manager.add_speech_config(jsonutil.get_expanded_json(root.gamedb, json.load(f)))
 
 class DialogManager(object):
 	def __init__(self, root):

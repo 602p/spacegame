@@ -1,0 +1,17 @@
+{
+    "%+base_ship%":0,
+    "name":"Cargo Pod",
+    "id":"cargo_pod_generic",
+    "hull":10,
+    "image":"img_cargo_container",
+    "mass":1,
+    "cargo":99999999,
+
+    "ai":{
+        "ai_subcontrollers":[
+            {
+                "controller":"cargopod"
+            }
+        ]
+    }
+}

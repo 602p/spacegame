@@ -1,0 +1,23 @@
+{
+	"assets":[
+		{
+			"type":"image",
+			"path":"ui/inventorybox.png",
+			"name":"uia_inventory_box"
+		},
+		{
+			"type":"image",
+			"path":"image/ships/cargo.png",
+			"name":"img_cargo_container"
+		},
+		{
+			"type":"json",
+			"name":"cfg_inventory_box",
+			"json":{
+				"ship_name_pos":[560, 0],
+				"mass_pos":[1085, 0],
+				"items_pos":[0, 50]
+			}
+		}
+	]
+}

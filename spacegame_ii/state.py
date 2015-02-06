@@ -14,6 +14,7 @@ class StateManager:
 	def goto_state(self, key, params=123):
 		sg_postevent(UE_STATE_CHANGE, self.root, manager=self, oldstate=self.current, newstate=key)
 		self.states[key].pre_change()
+		self.states[key].sm_id=key
 		if self.current!="":
 			self.states[self.current].suspend()
 		self.current=key

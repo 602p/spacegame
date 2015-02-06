@@ -36,6 +36,7 @@ class AIController(object):
 		self.gamestate=ship.root.state_manager.states["game"]
 		self.controllers=[]
 		self.can_fire=1
+		self.database={}
 
 		for subcontroller in config["ai_subcontrollers"]: #Get all the subcontrollers from the ai defintion...
 			if has_ai_update(self.root, subcontroller["controller"]):
@@ -59,8 +60,9 @@ class AIController(object):
 						if fire:
 							priorities[i]=dget(self.ship.get_item_in_hardpoint(i)._config, "ai_priority", 5)
 					i+=1
-				for i in sorted(priorities, key=lambda hardpoint: priorities[hardpoint]):
-					pass#self.ship.get_item_in_hardpoint(i).fire() #then fire
+				if self.ship.targeted:
+					for i in sorted(priorities, key=lambda hardpoint: priorities[hardpoint]):
+						self.ship.get_item_in_hardpoint(i).fire() #then fire
 		except BaseException as e:
 			if not (isinstance(e, AttributeError) and "_config" not in str(e)):
 				error("AI ERROR (BASE): " + str(e))
@@ -72,6 +74,15 @@ class AIController(object):
 		self.enabled=True
 	def disable(self):
 		self.enabled=False
+
+	def save_to_config_node(self):
+		controllers=[]
+		for controller in self.controllers:
+			controllers.append(controller.save_to_config_node())
+		return {
+			"controllers":controllers,
+			"database":self.database
+		}
 
 class AIItemHint:
 	def __init__(self, item, config):
@@ -85,8 +96,29 @@ class AIControllerUpdateNode:
 		self.controller=ai_controller
 		self.config=config
 		self.ship=ai_controller.ship
+		self.database={}
 		self.init()
 	def init(self):
 		pass
 	def update(self):
 		pass
+	def save_to_config_node(self):
+		return {
+			"config":self.config,
+			"database":self.database
+		}
+
+def _load_node(root, config, controller):
+	#print config
+	controller.controllers.append(
+		get_ai_update(root, config["config"]["controller"])(controller, config["config"])
+		)
+	controller.controllers[-1].database=config["database"]
+
+def _load_controller(root, ship, config):
+	#print config
+	cont=AIController(ship, {"ai_subcontrollers":[]})
+	for node in config["controllers"]:
+		_load_node(root, node, cont)
+	cont.database=config["database"]
+	return cont

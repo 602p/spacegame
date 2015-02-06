@@ -8,7 +8,7 @@
 		},
 		{
 			"primitive":"set_npc_ai",
-			"value":"ai_none"
+			"value":"%ai_none%"
 		},
 		{
 			"primitive":"take_credits",

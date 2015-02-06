@@ -45,5 +45,11 @@
             }
         ]
     },
-    "ai_priority":5
+    "ai_priority":5,
+    "ai_hints":[
+        {
+            "name":"constrain_by_shield_level",
+            "above":5
+        }
+    ]
 }

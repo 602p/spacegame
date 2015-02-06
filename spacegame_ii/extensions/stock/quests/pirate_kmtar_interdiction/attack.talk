@@ -8,7 +8,7 @@
 		},
 		{
 			"primitive":"set_npc_ai",
-			"value":"ai_fighter"
+			"value":"%ai_fighter%"
 		}
 	]
 }

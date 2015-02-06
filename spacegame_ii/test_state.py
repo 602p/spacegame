@@ -4,7 +4,7 @@ import logging
 logging.basicConfig(filemode='w', filename='spacegame.log',level=logging.DEBUG, format='[%(asctime)s] %(levelname)s\t: %(message)s')
 debug("Logging Started")
 import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader
-import assets, pyconsole, interdiction_gui, overlay_gui, ui_states, sectors, newgame, dialog, quests
+import assets, pyconsole, interdiction_gui, overlay_gui, ui_states, sectors, newgame, dialog, quests, inventory
 import sgc, serialize, gfxcursor, formatting, pyganim, keymapping, sys, traceback, datetime, ai, types
 import entitybase as eb
 debug("Imports done")
@@ -98,6 +98,9 @@ root.state_manager.factories["generic_ui"]=state.InterdictingStateFactory(ui_sta
 root.state_manager.factories["keymapper"]=state.InterdictingStateFactory(keymapping.KeyMapperState)
 root.state_manager.factories["credits"]=state.InterdictingStateFactory(gamestate.CreditsState)
 root.state_manager.factories["dialog"]=state.InterdictingStateFactory(dialog.DialogState)
+root.state_manager.factories["inventory"]=state.InterdictingStateFactory(inventory.InventoryState)
+root.state_manager.factories["hardpoint_select"]=state.InterdictingStateFactory(inventory.SlotSelectorState)
+
 #root.state_manager.goto_state("game")
 root.state_manager.start_interdicting("generic_ui", root.gamedb("sgcui_mainmenu"))
 
