@@ -7,7 +7,7 @@ from logging import debug, info, warning, error, critical
 import logging
 logging.basicConfig(filemode='w', filename='spacegame.log',level=logging.DEBUG, format='[%(asctime)s] %(levelname)s\t: %(message)s')
 debug("Logging Started")
-import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader
+import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader, triggers
 import assets, pyconsole, interdiction_gui, overlay_gui, ui_states, sectors, newgame, dialog, quests, inventory
 import sgc, serialize, gfxcursor, formatting, pyganim, keymapping, sys, traceback, datetime, ai, types, faction
 import entitybase as eb
@@ -153,13 +153,15 @@ if root.settings["graphics"]["gfxcursor"]:root.gfxcursor.setCursorFromAsset("cur
 
 if SKIP_TO_GAME:
 	serialize.new_game(root, root.gamedb(SKIP_START_ID), 'sel_skipped_name', 'sel_skipped_sname')
-
+else:
+	triggers.sg_postevent(triggers.UE_GAME_START)
+	
 while run:
 	events=pygame.event.get()
 
 	for ext in root.extentions:
 		for e in events:
-			root.extentions[ext].event_root(events)
+			root.extentions[ext].event_root(e)
 		root.extentions[ext].tick(root.state_manager.current)
 
 	for e in events:

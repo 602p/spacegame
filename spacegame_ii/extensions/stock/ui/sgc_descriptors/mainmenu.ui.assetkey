@@ -5,6 +5,7 @@
 			"type":"json",
 			"json":{
 				"bg_image":"menu_bg",
+				"id":"main_menu",
 				"widgets":[
 					{
 						"type":"VBox",

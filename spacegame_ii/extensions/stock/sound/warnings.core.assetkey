@@ -1,0 +1,14 @@
+{
+	"assets":[
+		{
+			"name":"snd_shelds_down_warning_player",
+			"type":"sound",
+			"path":"sound/shields_failed.ogg"
+		},
+		{
+			"name":"snd_hull_breach_player",
+			"type":"sound",
+			"path":"sound/structural_integrity.ogg"
+		}
+	]
+}

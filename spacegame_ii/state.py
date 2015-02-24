@@ -34,6 +34,9 @@ class StateManager:
 	def process_events(self, events):
 		self.states[self.current].process_events(events)
 
+	def getcurr(self):
+		return self.states[self.current]
+
 class State:
 	def __init__(self):
 		self._initilized=False

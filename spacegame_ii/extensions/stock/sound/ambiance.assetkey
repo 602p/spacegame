@@ -1,0 +1,9 @@
+{
+	"assets":[
+		{
+			"name":"snd_main_menu_ambiance",
+			"type":"sound",
+			"path":"sound/ship_ambiance.ogg"
+		}
+	]
+}
