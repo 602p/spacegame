@@ -36,6 +36,9 @@ class BasePrimitive:
 	def run_in_trigger(self, *args, **kw):
 		pass
 
+	def run_in_faction(self, faction):
+		pass
+
 def init(root):
 	if not 'primitives' in dir(root):
 		root.primitives_list={}
@@ -74,6 +77,9 @@ def do_for_trigger(root, name, node, *args, **kw):
 def do_for_dialog(root, name, dialog, speech, node):
 	return get_primitive(root, name, node).run_in_dialog(dialog, speech)
 
+def do_for_faction(root, name, faction, node):
+	return get_primitive(root, name, node).run_in_faction(faction)
+
 def do_group_for_item(root, group, item, key="primitive"):
 	c=1
 	for i in group:
@@ -99,6 +105,13 @@ def do_group_for_ship(root, group, ship, key="primitive"):
 	c=1
 	for i in group:
 		if not do_for_ship(root, i[key], ship, i):
+			c=0
+	return c
+
+def do_group_for_faction(root, group, faction, key="primitive"):
+	c=1
+	for i in group:
+		if not do_for_faction(root, i[key], faction, i):
 			c=0
 	return c
 

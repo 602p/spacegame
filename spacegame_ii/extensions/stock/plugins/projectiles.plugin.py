@@ -99,24 +99,24 @@ class FireProjectilePrimitive(primitives.BasePrimitive):
 			i+=1
 
 class SimpleDamagePrimitive(primitives.BasePrimitive):
-	def do(root, target, px, py):
-		target.damage(root.config["damage"], dget(root.config, "peirce", 0), px, py)
+	def do(root, target, px, py, source):
+		target.damage(root.config["damage"], dget(root.config, "peirce", 0), px, py, source)
 
 	def run_in_item(self, item):
-		self.do(item.parent.targeted, None, None)
+		self.do(item.parent.targeted, None, None, item.parent)
 
 	def run_in_impact(self, item, impacted, projectile):
-		self.do(impacted, projectile.rotated_rect.centerx, projectile.rotated_rect.centery)
+		self.do(impacted, projectile.rotated_rect.centerx, projectile.rotated_rect.centery, item.parent)
 
 class ShieldDamagePrimitive(primitives.BasePrimitive):
-	def do(root, target, px, py):
-		target.damage.damage_shields(root.config["damage"], px, py, shlonly=1)
+	def do(root, target, px, py, src):
+		target.damage.damage_shields(root.config["damage"], px, py, src, shlonly=1)
 
 	def run_in_item(self, item):
-		self.do(item.parent.targeted, None, None)
+		self.do(item.parent.targeted, None, None, item.parent)
 
 	def run_in_impact(self, item, impacted, projectile):
-		self.do(impacted, projectile.rotated_rect.centerx, projectile.rotated_rect.centery)
+		self.do(impacted, projectile.rotated_rect.centerx, projectile.rotated_rect.centery, item.parent)
 
 class SystemDamagePrimitive(primitives.BasePrimitive):
 	def run_in_impact(self, item, impacted, projectile):

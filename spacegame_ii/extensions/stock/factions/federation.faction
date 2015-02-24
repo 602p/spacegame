@@ -12,20 +12,13 @@
 		"has_many_humans"
 	],
 
-	"join_requirements":[
-		{
-			"primitive":"not_member",
-			"any":[
-				"klingonempire"
-			]
-		}
-	],
+	"join_requirements":[],
 	"leave_requirements":[],
 
 	"join_effects":[],
 	"leave_effects":[],
 
 	"relations":{
-		"klingonempire":-200
+		"klingonempire":-20
 	}
 }

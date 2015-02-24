@@ -1,11 +1,15 @@
 from __future__ import division
+
+SKIP_TO_GAME=False
+SKIP_START_ID='startdefun_cu'
+
 from logging import debug, info, warning, error, critical
 import logging
 logging.basicConfig(filemode='w', filename='spacegame.log',level=logging.DEBUG, format='[%(asctime)s] %(levelname)s\t: %(message)s')
 debug("Logging Started")
 import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader
 import assets, pyconsole, interdiction_gui, overlay_gui, ui_states, sectors, newgame, dialog, quests, inventory
-import sgc, serialize, gfxcursor, formatting, pyganim, keymapping, sys, traceback, datetime, ai, types
+import sgc, serialize, gfxcursor, formatting, pyganim, keymapping, sys, traceback, datetime, ai, types, faction
 import entitybase as eb
 debug("Imports done")
 
@@ -30,10 +34,11 @@ if allowdebug:
 		root.galaxy.goto_sector(s1,s2)
 
 pygame.init()
+pygame.key.set_mods(0) #Hack where CTRL would be held down when launched from sublime with CTRL-B
 debug("Pygame started")
 
-class SPACEGAME_GAMEROOT:pass
-root=SPACEGAME_GAMEROOT()
+import absroot
+root=absroot
 
 root.formatter=formatting.Formatter({"root":root})
 root.extentions={}
@@ -62,6 +67,7 @@ newgame.init(root)
 dialog.init(root)
 quests.init(root)
 eb.init_grufs(root)
+faction.init(root)
 
 root.gfxcursor=gfxcursor.GfxCursor(root, root.screen.screen)
 
@@ -75,6 +81,7 @@ root.igconsole = overlay_gui.IngameRenderedConsole(root, 5)
 root.igconsole.enable_debug()
 
 root.game_time=0
+root.fps=999
 
 debug("Loaded all SG extensions")
 
@@ -143,6 +150,9 @@ for ext in root.extentions:
 	root.extentions[ext].last_load()
 
 if root.settings["graphics"]["gfxcursor"]:root.gfxcursor.setCursorFromAsset("cursor_triangle_glow")
+
+if SKIP_TO_GAME:
+	serialize.new_game(root, root.gamedb(SKIP_START_ID), 'sel_skipped_name', 'sel_skipped_sname')
 
 while run:
 	events=pygame.event.get()

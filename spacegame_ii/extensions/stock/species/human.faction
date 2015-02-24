@@ -3,5 +3,8 @@
 	"name":"Human",
 	"description":"Humanity... pretty generic",
 
-	"triggers":{}
+	"relations":{
+		"klingon":-1,
+		"human":1
+	}
 }

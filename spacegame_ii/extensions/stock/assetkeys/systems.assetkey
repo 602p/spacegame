@@ -41,6 +41,11 @@
                 "%+systems_standard_engines%",
                 "%+systems_standard_thrusters%"
             ]
+        },
+        {
+            "name":"image_shield_hit_default",
+            "type":"image",
+            "path":"image/ships/shield2.png"
         }
     ]
 }

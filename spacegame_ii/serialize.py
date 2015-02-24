@@ -1,4 +1,4 @@
-import json, keymapping, ship, ui_states, quests
+import json, keymapping, ship, ui_states, quests, faction
 from logging import debug, info, error, critical, warn
 
 def init(root):
@@ -27,7 +27,8 @@ def new_game(root, start, player_name, ship_name):
 	import extention_loader, sectors
 	root.savegame=SaveGame(root, player_name, ship_name)
 	root.dialog_manager.init_each_game()
-
+	root.faction_manager=faction.FactionManager(root)
+	root.faction_manager.update_newgame()
 	root.galaxy=sectors.Galaxy(root)
 	root.galaxy.gamestate=root.state_manager.states["game"]
 	root.state_manager.states["game"].entities=[ship.create_ship(root, start["ship"], 0, 0, ai=False)]

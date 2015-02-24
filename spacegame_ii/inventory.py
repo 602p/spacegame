@@ -1,4 +1,4 @@
-import pygame, state, inputbox, ship
+import pygame, state, inputbox, ship, ui_states
 from logging import debug, info, warning, error, critical
 
 class InventoryState(state.InterdictingState):
@@ -55,12 +55,16 @@ class InventoryState(state.InterdictingState):
 						self.selected_item.dequip()
 						self.first_start()
 					if event.key==pygame.K_d:
-						self.root.state_manager.states["game"].entities.append(
-							ship.create_ship(self.root, "cargo_pod_generic", self.selected_item.parent.rigidbody.x, self.selected_item.parent.rigidbody.y, 1,1)
-							)
-						self.root.state_manager.states["game"].entities[-1].pick_up(self.selected_item)
-						del self.selected_item.parent.inventory[self.selected_item.parent.inventory.index(self.selected_item)]
-						self.first_start()
+						if self.selected_item.equipped==-1:
+							self.root.state_manager.states["game"].entities.append(
+								ship.create_ship(self.root, "cargo_pod_generic", self.selected_item.parent.rigidbody.x, self.selected_item.parent.rigidbody.y, 1,1)
+								)
+							self.root.state_manager.states["game"].entities[-1].pick_up(self.selected_item)
+							del self.selected_item.parent.inventory[self.selected_item.parent.inventory.index(self.selected_item)]
+							self.first_start()
+						else:
+							ui_states.interdict_ok(self.root, title="Error", text="Cannot drop equipped item!%nDequip with X first", button = "OK")
+
 					if event.key==pygame.K_u:
 						self.selected_item.fire()
 					if event.key==pygame.K_e:

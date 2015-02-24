@@ -6,8 +6,8 @@ class ExplosionSFXManager(extention_loader.HookableExtention):
 		self.root=root
 	def event_state(self, state, event):
 		if event.type==pygame.USEREVENT:
-			if event.sg_type==triggers.UE_PROJECTILE_IMPACT:
-				debug("Got a UE_PROJECTILE_IMPACT event, playing sounds")
+			if event.sg_type==triggers.UE_HUL_DAMAGE_DEALT:
+				debug("Got a UE_HUL_DAMAGE_DEALT event, playing sounds")
 				primitives.do_group_for_impact(self.root, self.root.gamedb("x_moreexplosions_config"),
 				 event.projectile.parent, event.hit, event.projectile)
 			#print "uevent --> "+str(event)

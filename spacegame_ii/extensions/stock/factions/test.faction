@@ -3,7 +3,7 @@
 	"name":"Test faction",
 	"longname":"Test developer faction",
 	"description":"Testing faction that allows everything. For developer testing.",
-	"color":[255,0,0],
+	"color":[255,255,255],
 
 	"tags":[
 		"test_tag",

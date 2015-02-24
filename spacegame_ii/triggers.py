@@ -31,6 +31,9 @@ UE_SHIP_DIE_RUN='UE_SHIP_DIE_RUN'				  # ship 								Called in ship when ship.d
 UE_CHANGE_SECTOR='UE_CHANGE_SECTOR'				  #galaxy, newx, newy					Called when galaxy switches sector
 UE_CHANGE_SECTOR_FINISH='UE_CHANGE_SECTOR_FINISH' #galaxy								Called when galaxy switches sector
 
+UE_FACTION_JOINED='UE_FACTION_JOINED'             #faction, ship 						Called when a ship joins a faction (functionally)
+UE_FACTION_JOINED_LOGIC='UE_FACTION_JOINED_LOGIC' #faction, ship 						Called when a ship joins a faction (logically)
+
 def sg_postevent(type_const, *a, **k):
 	built_dict=k
 	built_dict.update({

@@ -1,4 +1,4 @@
-import os, item, ship, serialize, primitives, imp, json, fnmatch, pygame, time, sys, dialog, quests
+import os, item, ship, serialize, primitives, imp, json, fnmatch, pygame, time, sys, dialog, quests, faction
 from logging import debug, info, warning, error, critical
 
 def load_all_packages(root, dirn, console=None):
@@ -30,10 +30,17 @@ def load_all_packages(root, dirn, console=None):
 
 	info("Loading dialog")
 	#if console: post_and_flip(console, "| | |                     | | |", bold=1, color=(0,255,0))
-	if console: post_and_flip(console, "V V V  Installing dialog  V V V", bold=1, color=(0,255,0))
+	if console: post_and_flip(console, "V V V  Installing Dialog  V V V", bold=1, color=(0,255,0))
 	load_dialog(root, dirn, console)
 	for ext in root.extentions:
 		root.extentions[ext].after_dialog_load()
+
+	info("Loading factions")
+	#if console: post_and_flip(console, "| | |                     | | |", bold=1, color=(0,255,0))
+	if console: post_and_flip(console, "V V V Installing Factions V V V", bold=1, color=(0,255,0))
+	load_factions(root, dirn, console)
+	for ext in root.extentions:
+		root.extentions[ext].after_faction_load()
 
 	info("Loading quests")
 	if console: post_and_flip(console, "V V V  Compiling  Quests  V V V", bold=1, color=(0,255,0))
@@ -82,6 +89,11 @@ def load_items(root, dirn, console):
 	for rn in findall(dirn, "*.item"):
 		if console: post_and_flip(console, "Loading Item '"+rn+"'...", color=(255,255,255))
 		item.load_file(root, rn)
+
+def load_factions(root, dirn, console):
+	for rn in findall(dirn, "*.faction"):
+		if console: post_and_flip(console, "Loading Faction '"+rn+"'...", color=(255,255,255))
+		faction.load_file(root, rn)
 
 def load_dialog(root, dirn, console):
 	for rn in findall(dirn, "*.talk"):
@@ -152,6 +164,9 @@ class HookableExtention(object):
 		pass
 
 	def after_quests_load(self):
+		pass
+
+	def after_faction_load(self):
 		pass
 
 	def tick(self, state):

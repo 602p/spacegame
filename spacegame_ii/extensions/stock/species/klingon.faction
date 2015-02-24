@@ -1,0 +1,10 @@
+{
+	"id":"klingon",
+	"name":"Klingon",
+	"description":"Klingons are a warlike race that highly price honor",
+
+	"relations":{
+		"human":-1,
+		"klingon":1
+	}
+}
