@@ -133,7 +133,7 @@ class DamageModel:
 		sg_postevent(UE_SHL_DAMAGE_DEALT, system=self, amount=shields, x=precise_x, y=precise_y, source=source)
 		self.ship.trigger(UE_SHL_DAMAGE_DEALT, system=self, amount=shields, x=precise_x, y=precise_y, source=source)
 		if self.shields<=0:
-			if not shlonly: self.damage_hull(abs(self.shields)*0.8)
+			if not shlonly: self.damage_hull(abs(self.shields)*0.8, precise_x, precise_y, source)
 			self.shields=0
 			sg_postevent(UE_SHIELDS_DOWN, system=self, x=precise_x, y=precise_y, source=source)
 			self.ship.trigger(UE_SHIELDS_DOWN, system=self, amount=shields, x=precise_x, y=precise_y, source=source)

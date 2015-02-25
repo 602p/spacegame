@@ -107,8 +107,8 @@ class RunningGameState(state.State):
 				pygame.display.flip()
 				i+=1
 			if not interdiction_gui.interdict_yn(self.root, "GAME OVER", "You have died. Were playing "+self.player.name+" ("+self.player.id_string+"). Killed by TODO. Better luck next time :(", "RESET", "QUIT"):
-				sys.exit()
 				pygame.quit()
+				sys.exit()
 			else:
 				self.root.state_manager.states["game"].first_start()
 

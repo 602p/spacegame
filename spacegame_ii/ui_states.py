@@ -183,6 +183,7 @@ class DoClickEventOnKeypress(WidgetController):
 		#print "e"
 		if e.type==pygame.KEYDOWN:
 			#print "k"
+			#print self.config
 			if e.key==self.config.get("keycode", pygame.K_RETURN):
 				#print "c"
 				self.interface.state.widgets[self.config.get("widget_id", self.interface.widget._ui_id)].wai.on_click()

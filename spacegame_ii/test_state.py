@@ -1,12 +1,14 @@
 from __future__ import division
+import absroot
 
 SKIP_TO_GAME=False
 SKIP_START_ID='startdefun_cu'
 
 from logging import debug, info, warning, error, critical
 import logging
-logging.basicConfig(filemode='w', filename='spacegame.log',level=logging.DEBUG, format='[%(asctime)s] %(levelname)s\t: %(message)s')
-debug("Logging Started")
+logging.basicConfig(filemode='w', filename='spacegame.log',level=logging.DEBUG, format='%(asctime)s>%(levelname)s\t\t: %(message)s')
+info("Booting Spacegame_ii "+absroot.version)
+debug(" (Logging Started)")
 import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader, triggers
 import assets, pyconsole, interdiction_gui, overlay_gui, ui_states, sectors, newgame, dialog, quests, inventory
 import sgc, serialize, gfxcursor, formatting, pyganim, keymapping, sys, traceback, datetime, ai, types, faction
@@ -37,7 +39,7 @@ pygame.init()
 pygame.key.set_mods(0) #Hack where CTRL would be held down when launched from sublime with CTRL-B
 debug("Pygame started")
 
-import absroot
+
 root=absroot
 
 root.formatter=formatting.Formatter({"root":root})
@@ -86,9 +88,6 @@ root.fps=999
 debug("Loaded all SG extensions")
 
 root.renderspace_size=renderspace_size
-
-# root.savegame=serialize.SaveGame(root)
-# root.galaxy=sectors.Galaxy(root)
 
 info("Loading loader packages")
 extention_loader.load_all_packages(root, 'loader')
@@ -155,7 +154,7 @@ if SKIP_TO_GAME:
 	serialize.new_game(root, root.gamedb(SKIP_START_ID), 'sel_skipped_name', 'sel_skipped_sname')
 else:
 	triggers.sg_postevent(triggers.UE_GAME_START)
-	
+
 while run:
 	events=pygame.event.get()
 

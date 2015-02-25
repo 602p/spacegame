@@ -30,6 +30,10 @@
 						"controllers":[
 							{
 								"controller":"exit_state"
+							},
+							{
+								"controller":"click_on_keypress",
+								"keycode":27
 							}
 						]
 					},
@@ -52,6 +56,9 @@
 								"title":"Success",
 								"text":"Settings Applied%n:)",
 								"button":"OK"
+							},
+							{
+								"controller":"click_on_keypress"
 							}
 						]
 					},

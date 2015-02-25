@@ -22,7 +22,7 @@ class ShieldFXManager(extention_loader.HookableExtention):
 					angle=get_angle(event.system.ship.rotated_rect.centerx, event.x, 
 						event.system.ship.rotated_rect.centery, event.y)
 
-					orig_image=pygame.transform.scale(absroot.gamedb("image_shield_hit_default"), (event.system.ship.rotated_rect.width+100, event.system.ship.rotated_rect.height+100 ) )
+					orig_image=pygame.transform.scale(absroot.gamedb("image_shield_hit_default"), (event.system.ship.rotated_rect.width+30, event.system.ship.rotated_rect.height+30 ) )
 
 
 					def _(t, r):

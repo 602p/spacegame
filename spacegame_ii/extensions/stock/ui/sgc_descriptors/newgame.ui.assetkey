@@ -77,6 +77,9 @@
 								"controllers":[
 									{
 										"controller":"create_new_save"
+									},
+									{
+										"controller":"click_on_keypress"
 									}
 								]
 							}

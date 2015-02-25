@@ -13,12 +13,12 @@ class ShieldFXManager(extention_loader.HookableExtention):
 	def event_root(self, event):
 		if event.type==pygame.USEREVENT:
 			if event.sg_type==triggers.UE_STATE_CHANGE:
-				if event.newstate.startswith('generic_ui')\
-				 or event.newstate.startswith("credits")\
-				 or event.newstate.startswith("dialog")\
-				 or event.newstate.startswith("inventory")\
-				 or event.newstate.startswith("hardpoint_select")\
-				 or event.newstate == "newgame_selectship":
+				if event.newstate.startswith('generic_ui') or \
+			 event.newstate.startswith("credits") or \
+			 event.newstate.startswith("dialog") or \
+			 event.newstate.startswith("inventory") or \
+			 event.newstate.startswith("hardpoint_select") or \
+			 event.newstate == "newgame_selectship":
 					self.start()
 				else:
 					self.end()
@@ -37,6 +37,6 @@ class ShieldFXManager(extention_loader.HookableExtention):
 		self.channel.stop()
 
 def init_inject(root, console):
-	info("Injecting the ShieldHook")
-	extention_loader.safepost(console, "[ShieldFXManager]: Injecting the ShieldHook", color=(0,255,255), bold=1)                                                                                           
-	root.extentions["shield_fx"]=ShieldFXManager(root)
+	info("Injecting the SoundHook")
+	extention_loader.safepost(console, "[MusicManager]: Injecting the SoundHook", color=(0,255,255), bold=1)                                                                                           
+	root.extentions["ambience"]=ShieldFXManager(root)

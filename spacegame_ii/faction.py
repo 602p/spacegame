@@ -4,6 +4,7 @@ from triggers import *
 
 def init(root):
 	root.factions={}
+	#
 
 def load_file(root, fn):
 	debug("Loading faction_file: "+fn)
@@ -12,15 +13,6 @@ def load_file(root, fn):
 		root.factions[jsone["id"]] = Faction(jsone)
 
 class Faction(object):
-	#Name
-	#Desc
-	#Longname
-	#Relations
-	#Factions
-	#Triggers
-	#Attached ships
-	#Inventory
-	#Currency 
 	def __init__(self, config):
 		self.config=config
 		self.id_str=config["id"]
@@ -37,7 +29,7 @@ class Faction(object):
 
 	def do_join(self, ship):
 		primitives.do_group_for_ship(absroot, sef.join_effects, ship)
-		sg_postevent
+		sg_postevent(UE_FACTION_JOINED, faction=self, ship=ship)
 
 	def can_join(self, ship):
 		return primitives.do_group_for_ship(absroot, sef.join_effects, ship)
