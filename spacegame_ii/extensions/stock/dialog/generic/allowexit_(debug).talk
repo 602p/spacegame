@@ -1,0 +1,10 @@
+{
+	"keys":["debug_let_exit"],
+	"text":"current_dialog.can_exit << 1",
+	"events":[
+		{
+			"primitive":"set_current_dialog_exitability",
+			"value":true
+		}
+	]
+}

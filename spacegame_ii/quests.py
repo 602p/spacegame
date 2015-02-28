@@ -1,7 +1,11 @@
 from __future__ import division
-import random, rarity, primitives, json
+import random, rarity, primitives, json, absroot
 from logging import debug, info, warn, error, critical
 from jsonutil import dget, get_expanded_json
+import logging
+module_logger=logging.getLogger("sg.quests")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
+
 
 def init(root):
 	if not 'quest_factories' in dir(root):
@@ -82,10 +86,12 @@ class QuestFactory:
 		self.last_spawn_check=root.game_time
 
 	def can_spawn(self):
+		if not self.can_be_random: return False
 		return primitives.do_group_for_event(self.root, self.spawn_requirements, self)
 
 	def get_spawn_chance(self):
-		a = self.rarity.should_have("", self.root.game_time-self.last_spawn_check) #TODO: Setup when sectors have tags
+		#print self.root.game_time-self.last_spawn_check
+		a = self.rarity.should_happen(absroot.galaxy.get_sector().tags, self.root.game_time-self.last_spawn_check)
 		self.last_spawn_check=self.root.game_time
 		return a
 

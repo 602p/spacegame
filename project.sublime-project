@@ -1,0 +1,25 @@
+{
+	"build_systems":
+	[
+		{
+			"cmd":
+			[
+				"cd $project_path/spacegame_ii/",
+				"&",
+				"python",
+				"-u",
+				"test_state.py"
+			],
+			"file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+			"name": "Spacegame",
+			"selector": "source.python",
+			"shell": true
+		}
+	],
+	"folders":
+	[
+		{
+			"path": "spacegame_ii"
+		}
+	]
+}

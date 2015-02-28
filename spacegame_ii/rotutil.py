@@ -1,4 +1,8 @@
 import pygame, math
+import logging
+module_logger=logging.getLogger("sg.rotutil")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
+
 
 def rot_center(image, rect, angle):
 	"""rotate an image while keeping its center"""

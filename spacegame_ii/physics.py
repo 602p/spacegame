@@ -3,6 +3,10 @@ from __future__ import division
 ################## http://www.pygame.org/wiki/2DVectorClass ##################
 import operator
 import math
+import logging
+module_logger=logging.getLogger("sg.physics")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
+
  
 class Vector2d:
 	"""Good vector class"""
@@ -37,6 +41,8 @@ class RigidBody2D:
 			vector=Vector2d(0,0)
 		assert isinstance(vector, Vector2d)
 		self.x=float(x)
+		# print y
+		# print type(y)
 		self.y=float(y)
 		self._vector=vector
 		self.mass=mass

@@ -26,6 +26,9 @@ import re 		# Python's Regexp library. Used in pyconsole for parsing
 import textwrap # Used for proper word wrapping
 from string import ascii_letters
 from code import InteractiveConsole		# Gives us access to the python interpreter
+import logging
+module_logger=logging.getLogger("sg.pyconsoleMODIFIED")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
 
 
 __version__ = "0.7"

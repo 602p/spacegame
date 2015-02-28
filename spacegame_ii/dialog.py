@@ -1,5 +1,9 @@
 import json, primitives, random, state, pygame, textwrap, random, jsonutil
 from logging import debug, info, warning, error, critical
+import logging
+module_logger=logging.getLogger("sg.dialog")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
+
 
 def init(root):
 	root.dialog_manager=DialogManager(root)
@@ -151,11 +155,12 @@ class DialogState(state.InterdictingState):
 		self.goodbye_rect=pygame.Rect(*config["exit_button"])
 		self.topics_rect=pygame.Rect(*config["topic_area"])
 		self.box_pos=config["box_pos"]
+		self.rep_pos=pygame.Rect(config["relations_pos"], (999, 999))
 
 		self.words_rect.move_ip(self.box_pos)
 		self.goodbye_rect.move_ip(self.box_pos)
 		self.topics_rect.move_ip(self.box_pos)
-
+		self.rep_pos.move_ip(self.box_pos)
 		
 		self.font=self.root.gamedb(self.params[1])
 		self.max_width=int(self.words_rect.width/self.font.size("_")[0])-2
@@ -275,32 +280,34 @@ class DialogState(state.InterdictingState):
 
 		screen.blit(self.text_image, (self.words_rect.left, self.words_rect.top-self.text_scroll))
 		screen.blit(self.topics_image, (self.topics_rect.left, self.topics_rect.top-self.topics_scroll))
+		screen.blit(self.font.render("Reputation: "+str(self.dialog_manager.othership.player_relations), 1, (255,255,255)), self.rep_pos)
 		screen.blit(self.screenshot, (0,0))
 
 	def process_events(self, events):
 		for event in events:
 			if event.type==pygame.MOUSEBUTTONUP:
-				if self.goodbye_rect.collidepoint(pygame.mouse.get_pos()):
-					if self.can_exit:
-						self.finish()
-				for rect, pointer, text in self.hotspots:
-					if rect.collidepoint((pygame.mouse.get_pos()[0]-self.box_pos[0], pygame.mouse.get_pos()[1]-self.box_pos[1]+self.text_scroll)):
-						self.speeches.append(_create_speech(self.root, " "))
-						self.speeches.append(_create_speech(self.root, "/-----"+text+('-'*(self.max_width-5-len(text)-1))+"\\", 1))
+				if event.button==1:
+					if self.goodbye_rect.collidepoint(pygame.mouse.get_pos()):
+						if self.can_exit:
+							self.finish()
+					for rect, pointer, text in self.hotspots:
+						if rect.collidepoint((pygame.mouse.get_pos()[0]-self.box_pos[0], pygame.mouse.get_pos()[1]-self.box_pos[1]+self.text_scroll)):
+							self.speeches.append(_create_speech(self.root, " "))
+							self.speeches.append(_create_speech(self.root, "/-----"+text+('-'*(self.max_width-5-len(text)-1))+"\\", 1))
 
-						self.speeches.append(self.dialog_manager.get_for(pointer))
-						self.speeches.append(_create_speech(self.root, "\\"+'-'*(self.max_width-1)+"/", 1))
+							self.speeches.append(self.dialog_manager.get_for(pointer))
+							self.speeches.append(_create_speech(self.root, "\\"+'-'*(self.max_width-1)+"/", 1))
 
-						self.rebuild_text()
-				for rect, pointer, text in self.topics_hotspots:
-					if rect.collidepoint((pygame.mouse.get_pos()[0]-self.topics_rect.left, pygame.mouse.get_pos()[1]+self.topics_scroll-self.topics_rect.top)):
-						self.speeches.append(_create_speech(self.root, " "))
-						self.speeches.append(_create_speech(self.root, "/-----"+text+('-'*(self.max_width-5-len(text)-1))+"\\", 1))
+							self.rebuild_text()
+					for rect, pointer, text in self.topics_hotspots:
+						if rect.collidepoint((pygame.mouse.get_pos()[0]-self.topics_rect.left, pygame.mouse.get_pos()[1]+self.topics_scroll-self.topics_rect.top)):
+							self.speeches.append(_create_speech(self.root, " "))
+							self.speeches.append(_create_speech(self.root, "/-----"+text+('-'*(self.max_width-5-len(text)-1))+"\\", 1))
 
-						self.speeches.append(self.dialog_manager.get_for(pointer))
-						self.speeches.append(_create_speech(self.root, "\\"+'-'*(self.max_width-1)+"/", 1))
+							self.speeches.append(self.dialog_manager.get_for(pointer))
+							self.speeches.append(_create_speech(self.root, "\\"+'-'*(self.max_width-1)+"/", 1))
 
-						self.rebuild_text()
+							self.rebuild_text()
 			if event.type==pygame.MOUSEBUTTONDOWN:
 				if self.words_rect.collidepoint(pygame.mouse.get_pos()):
 					if event.button==5:

@@ -1,5 +1,11 @@
 {
 	"id":"klingon_lore_friend",
 	"keys":["klingon_lore"],
-	"text":"Klingons are a feirce people, and I am one (TODO: Fill this out.)"
+	"text":"Klingons are a feirce people, and I am one (TODO: Fill this out.)",
+	"requirements":[
+		{
+			"primitive":"check_reputation",
+			"above":50
+		}
+	]
 }

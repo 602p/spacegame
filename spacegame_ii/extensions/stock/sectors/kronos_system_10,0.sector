@@ -5,15 +5,10 @@
 	"statics":[
 		{
 			"type":"ship",
-			"ship_id":"klingon_warbird",
-			"x":0,
-			"y":0
-		},
-		{
-			"type":"ship",
 			"ship_id":"ss_klingon_tygokor",
 			"x":-100,
-			"y":-400
+			"y":-400,
+			"relations":40
 		},
 		{
 			"type":"ship",
@@ -21,5 +16,6 @@
 			"x":-800,
 			"y":-800
 		}
-	]
+	],
+	"tags": [ "klingon" ]
 }

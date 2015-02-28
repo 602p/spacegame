@@ -5,6 +5,10 @@ from logging import debug, info, warning, error, critical
 from jsonutil import get_expanded_json
 from triggers import *
 import entitybase
+import logging
+module_logger=logging.getLogger("sg.item")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
+
 
 def init(root):
 	if not 'item_factories' in dir(root):
@@ -115,6 +119,10 @@ class Item(serialize.SerializableObject, entitybase.Triggerable,entitybase.Tigge
 
 		self.last_fired=0
 		#self.get_rotated_image()
+
+	def reparent(self, parent):
+		self.parent=parent
+		self.equipped=-1
 
 	def get_rotated_image(self, scale=1):
 		#if "ammo" in self.id_str:print "gri"

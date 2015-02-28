@@ -1,4 +1,8 @@
 from logging import debug
+import logging
+module_logger=logging.getLogger("sg.formatting")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
+
 
 class Formatter(object):
 	def __init__(self, modules={"t_int":1}):

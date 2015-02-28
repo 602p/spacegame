@@ -20,11 +20,6 @@
 				{
 					"id":"joke_plot",
 					"name":"The Plot"
-				},
-				{
-					"id":"debug_let_exit",
-					"name":"<DEBUG> Exit",
-					"kas":true
 				}
 			]
 		}

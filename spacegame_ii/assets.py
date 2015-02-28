@@ -1,6 +1,10 @@
 import os, pygame, json, extention_loader, sys, traceback
 from logging import debug, info, warning, error, critical
 from jsonutil import get_expanded_json
+import logging
+module_logger=logging.getLogger("sg.assets")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
+
 
 class Spritesheet(object):
     def __init__(self, filename):
@@ -37,6 +41,7 @@ class GameAssetDatabase:
 		self.loaders={}
 		self.delayed_load_nodes=[]
 		self.loaded_nodes=[]
+		self.metadata={}
 		def load_image(node, basepath):
 			debug("Loading image "+node["path"])
 			i=pygame.image.load(os.path.join(basepath+node["path"]))
@@ -58,13 +63,13 @@ class GameAssetDatabase:
 				return i.convert_alpha()
 			else:
 				return i.convert()
-		self.loaders["image"]=load_image
+		self.register_loader("image",load_image)
 
 		def load_cursor(node, basepath):
 			debug("Loading cursor "+node["path"])
 			i=pygame.image.load(os.path.join(basepath+node["path"]))
 			return [i.convert_alpha(), node.get("hotspot", (0,0))]
-		self.loaders["gfxcursor"]=load_cursor
+		self.register_loader("gfxcursor",load_cursor)
 
 		def load_sound(node, basepath):
 			debug("Loading sound "+node["path"])
@@ -72,39 +77,45 @@ class GameAssetDatabase:
 			if "volume" in node:
 				i.set_volume(node["volume"])
 			return i
-		self.loaders["sound"]=load_sound
+		self.register_loader("sound",load_sound)
 
 		def load_font(node, basepath):
 			debug("Loading font "+node["path"])
 			s=20
 			if "size" in node:
 				s=node["size"]
-			return pygame.font.Font(basepath+node["path"], s)
-		self.loaders["font"]=load_font
+			f=pygame.font.Font(basepath+node["path"], s)
+			f.set_bold(node.get("default_bold", False))
+			return f
+		self.register_loader("font",load_font)
 
 		def load_sysfont(node, basepath):
 			s=20
 			if "size" in node:
 				s=node["size"]
-			debug("Loading sysfont "+str(node["size"])+" of size "+str(node["size"]))
-			return pygame.sysfont.SysFont(node["sys_name"], s)
-		self.loaders["sysfont"]=load_sysfont
+			debug("Loading sysfont "+str(node["sys_name"])+" of size "+str(node["size"]))
+			f = pygame.sysfont.SysFont(node["sys_name"], s)
+			f.set_bold(node.get("default_bold", False))
+			return f
+		self.register_loader("sysfont",load_sysfont)
 
 		def load_json(node, basepath):
 			debug("Loading JSON '"+str(node["json"])[:10]+"...'")
 			return node["json"]
-		self.loaders["json"]=load_json
+		self.register_loader("json",load_json)
 
-	def register_loader(self, func, key):
-		self.loaders["key"]=func
+	def register_loader(self, key, func):
+		self.loaders[key]=func
+		debug("Registered loader '"+key+"'::"+str(func))
 
 	def load_with_loader(self, node, basepath, console=None):
 		# print node["type"]
 		# print node["type"] in self.loaders.keys()
 		# print
 		try:
-			debug("Loading node using loader:'"+node["type"]+"' to name:'"+node["name"]+"'... [USING INLINE INSERTION]")
+			debug("Applying loader:'"+node["type"]+"' infer from:'"+node["name"]+"'...")
 			self.assets[str(node["name"])]=self.loaders[str(node["type"])](get_expanded_json(self, node), basepath)
+			self.metadata[node["name"]]={"basepath":basepath, "node":node}
 		except KeyError:
 			error("Loader "+node["type"]+" not found! (probably)")
 			exc_type, exc_value, exc_traceback = sys.exc_info()
@@ -126,7 +137,7 @@ class GameAssetDatabase:
 					if console: extention_loader.post_and_flip(console, "--> Delaying load of "+path+" until after "+i, italic=1, color=(255,255,0))
 		if do_load:
 			for i in data:
-				debug("Load node ["+basepath+"::"+path+"]: INDEX "+str(data.index(i)))
+				debug("Load ["+"::"+path+"]:"+str(data.index(i)))
 				self.load_with_loader(i, basepath, console)
 				self.loaded_nodes.append(i["name"])
 		else:
@@ -149,6 +160,9 @@ class GameAssetDatabase:
 			
 	def get_asset(self, key):
 		return self.assets[key]
+
+	def get_meta(self, key):
+		return self.metadata[key]
 
 	def get_startswith(self, key):
 		r=[]

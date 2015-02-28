@@ -1,0 +1,25 @@
+{
+	"assets":[
+		{
+			"name":"talkpools_debug",
+			"type":"json",
+			"json":[
+				{
+					"id":"debug_let_exit",
+					"name":"<DEBUG> Let Exit",
+					"kas":true
+				},
+				{
+					"id":"debug_add_rep",
+					"name":"<DEBUG> Add 10 rep",
+					"kas":true
+				},
+				{
+					"id":"debug_del_rep",
+					"name":"<DEBUG> Del 10 rep",
+					"kas":true
+				}
+			]
+		}
+	]
+}

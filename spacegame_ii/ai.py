@@ -1,6 +1,10 @@
 from logging import debug, info, warning, error
 from jsonutil import dget
 import traceback, sys
+import logging
+module_logger=logging.getLogger("sg.ai")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
+
 
 def init(root):
 	root.ai_hint_keys={}

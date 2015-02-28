@@ -16,6 +16,10 @@
 # TODO: Feature idea: if the same image file is specified, re-use the Surface object. (Make this optional though.)
 
 import pygame, time
+import logging
+module_logger=logging.getLogger("sg.pyganimMODIFIED")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
+
 
 # setting up constants
 PLAYING = 'playing'

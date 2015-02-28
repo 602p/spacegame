@@ -1,0 +1,14 @@
+{
+	"assets":[
+		{
+			"name":"klingon_dishonor",
+			"type":"json",
+			"json":{
+				"x_type":"cutscene",
+				"clipping":[0,10.5],
+				"path":"video/klingon_dishonor.mpg",
+				"mute":true
+			}
+		}
+	]
+}

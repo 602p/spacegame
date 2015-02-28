@@ -6,6 +6,10 @@
     "image":"img_cargo_container",
     "mass":1,
     "cargo":99999999,
+    "can_be_hit":0,
+    "can_be_targeted":0,
+
+    "ship_die":[],
 
     "ai":{
         "ai_subcontrollers":[

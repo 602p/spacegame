@@ -1,5 +1,9 @@
 import json, keymapping, ship, ui_states, quests, faction
 from logging import debug, info, error, critical, warn
+import logging
+module_logger=logging.getLogger("sg.serialize")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
+
 
 def init(root):
 	root.load_modes={}
@@ -15,6 +19,8 @@ def register_load_mode(root, load_type, load_function):
 
 def save_game(root, filename):
 	with open(filename, 'w') as fd: #json.dumps(node, indent=4)
+		with open(filename+".rawdict", 'w') as fd2:
+			fd2.write(str(root.savegame.save_to_config_node()))
 		json.dump(root.savegame.save_to_config_node(), fd, indent=4)
 
 def load_game(root, filename):

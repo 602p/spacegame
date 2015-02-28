@@ -1,6 +1,10 @@
 from logging import debug, info, warning, error, critical
 import state, pygame, ui_states, serialize
 from toolbox import EasyGame
+import logging
+module_logger=logging.getLogger("sg.newgame")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
+
 
 def init(root):
 	root.widget_controllers.update({

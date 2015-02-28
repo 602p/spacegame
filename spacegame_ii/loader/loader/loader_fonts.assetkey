@@ -5,6 +5,13 @@
 			"type":"sysfont",
 			"sys_name":"monospace",
 			"size":20
+		},
+		{
+			"name":"LOADER_font_version",
+			"type":"sysfont",
+			"sys_name":"monospace",
+			"size":12,
+			"default_bold":true
 		}
 	]
 }

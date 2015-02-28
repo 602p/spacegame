@@ -11,8 +11,9 @@
 			"json":{
 				"words_area":[5,5,615,495],
 				"exit_button":[625,455,175,40],
-				"topic_area":[625,0,175,450],
-				"box_pos":[250,100]
+				"topic_area":[625,15,175,435],
+				"box_pos":[250,100],
+				"relations_pos":[625, 2]
 			}
 		}
 	]

@@ -1,6 +1,10 @@
 import random, datetime
 from logging import debug, info, warning, error, critical
 from triggers import *
+import logging
+module_logger=logging.getLogger("sg.state")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
+
 
 class StateManager:
 	def __init__(self, root):

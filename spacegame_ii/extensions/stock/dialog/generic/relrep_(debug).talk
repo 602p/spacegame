@@ -1,0 +1,10 @@
+{
+	"keys":["debug_del_rep"],
+	"text":"othership.player_relations -= 10",
+	"events":[
+		{
+			"primitive":"mod_reputation",
+			"amount":-10
+		}
+	]
+}

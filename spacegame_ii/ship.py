@@ -1,11 +1,15 @@
 from __future__ import division
-import rarity, os, json, serialize, item, assets, entitybase
+import rarity, os, json, serialize, item, assets, entitybase, faction
 import random, assets, pygame, math, particles, physics, damage, pygame, primitives, ai
 from triggers import *
 from math import cos, sin, radians, degrees
 from rotutil import *
 from logging import debug, info, warning, error, critical
 from jsonutil import get_expanded_json, dget
+import logging
+module_logger=logging.getLogger("sg.ship")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
+
 
 def init(root):
 	if not 'ship_factories' in dir(root):
@@ -19,16 +23,21 @@ def load_dir(root, dname):
 def load_file(root, fname):
 	debug("Load ship_file '"+fname)
 	with open(fname, 'r') as f:
-		load_string(root, f.read())
+		load_string(root, f.read(), path=fname)
 
-def load_string(root, string):
-	register_ship(root, get_expanded_json(root.gamedb, json.loads(string)))
+def load_string(root, string, path=None):
+	json_o=get_expanded_json(root.gamedb, json.loads(string))
+	register_ship(root, json_o)
+	root.gamedb.assets["ship:"+json_o["id"]]=json_o
+	root.gamedb.metadata["ship:"+json_o["id"]]={"path":path, "node":json_o, "is_ship":False}
 
 def register_ship(root, config):
 	root.ship_factories[config["id"]]=create_ship_factory(root, config)
+	#
 
 def create_ship_factory(root, config):
 	return ShipFactory(root, config)
+	#
 
 def create_ship(root, id_, x=0, y=0, with_equip=1, ai=True):
 	debug("Instantiating ship "+str(id_)+" at "+str((x,y,)) + ". w_e: "+str(with_equip)+". u_a: "+str(ai))
@@ -50,9 +59,16 @@ def _load_ship(root, node, parent):
 		s.triggers.update(node["triggers"])
 		if node.get("ai",1):
 			s.ai=ai._load_controller(root, s, node["ai_controller"])
+		for item in node.get("factions", []):
+			faction.get_faction(item).do_join(s, force_functional=1)
 	else:
 		s.rigidbody.x=node["x"]
 		s.rigidbody.y=node["y"]
+		for item in node.get("factions", []):
+			faction.get_faction(item).do_join(s, force_functional=0)
+	s.player_relations=node.get("relations", 0)
+	
+
 	return s
 
 class ShipFactory:
@@ -98,6 +114,8 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity, entitybase.Ti
 
 		self.image=image.copy() #Make a copy so we dont contaminate the gdb
 		self.id_string=id_string
+		self.id_str=id_string
+		self.str_id=id_string
 		self.name=name
 		self.mass=mass
 		self.cost=cost
@@ -115,6 +133,7 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity, entitybase.Ti
 
 		self.config=config
 		self.triggers=self.config.get("triggers",{})
+		self.player_relations=self.config.get("relations", 0)
 
 		self.damage=damage.DamageModel(self, hull, shields)
 		self.damage.load_systems(systems)
@@ -132,8 +151,6 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity, entitybase.Ti
 
 		self.targeted=None
 
-		self.lastangle=0
-
 		self.use_ai=use_ai
 		if self.use_ai:
 			self.ai=ai.AIController(self, config["ai"])
@@ -147,6 +164,8 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity, entitybase.Ti
 		self.can_save=not config.get("disable_saving", False)
 
 		self.hash_id=hash(self)
+
+		self.faction_memberships=[]
 
 	def get_inventory_mass(self):
 		m=0
@@ -295,7 +314,9 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity, entitybase.Ti
 			"currpwr":self.current_power,
 			"packed":True,
 			"hash_id":self.hash_id,
-			"triggers":self.serialize_triggers()
+			"triggers":self.serialize_triggers(),
+			"relations":self.player_relations,
+			"factions":self.faction_memberships
 		}
 		if self.use_ai:
 			d["ai_controller"]=self.ai.save_to_config_node()

@@ -1,6 +1,10 @@
 import json, jsonutil, absroot, primitives
 from logging import debug, info, warn, error, critical
 from triggers import *
+import logging
+module_logger=logging.getLogger("sg.faction")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
+
 
 def init(root):
 	root.factions={}
@@ -11,6 +15,9 @@ def load_file(root, fn):
 	with open(fn, 'r') as fd:
 		jsone=jsonutil.get_expanded_json(root.gamedb, json.load(fd))
 		root.factions[jsone["id"]] = Faction(jsone)
+
+def get_faction(name):
+	return absroot.factions[name]
 
 class Faction(object):
 	def __init__(self, config):
@@ -26,17 +33,39 @@ class Faction(object):
 		self.join_effects=config.get("join_effects",[])
 		self.leave_effects=config.get("leave_effects",[])
 		self.relations=config.get("relations",{})
+		#print config
 
-	def do_join(self, ship):
-		primitives.do_group_for_ship(absroot, sef.join_effects, ship)
+	def do_join(self, ship, force_functional=False):
+		primitives.do_group_for_ship(absroot, self.join_effects, ship)
 		sg_postevent(UE_FACTION_JOINED, faction=self, ship=ship)
+		debug("A "+ship.id_str+" joined "+self.id_str+" [functional]")
+		if (self.id_str not in ship.faction_memberships) and not force_functional:
+			ship.faction_memberships.append(self.id_str)
+			sg_postevent(UE_FACTION_JOINED_LOGIC, faction=self, ship=ship)
+			debug("A "+ship.id_str+" joined "+self.id_str+" [logical]")
 
 	def can_join(self, ship):
-		return primitives.do_group_for_ship(absroot, sef.join_effects, ship)
+		return primitives.do_group_for_ship(absroot, self.join_required, ship)
 
 	def try_join(self, ship):
 		if self.can_join(ship):
-			self.do_joins(ship)
+			self.do_join(ship)
+			return True
+		return False
+
+	def do_leave(self, ship, force_functional=False):
+		primitives.do_group_for_ship(absroot, self.leave_effects, ship)
+		sg_postevent(UE_FACTION_LEFT, faction=self, ship=ship)
+		debug("A "+ship.id_str+" left "+self.id_str)
+		if (self.id_str in ship.faction_memberships):
+			del ship.faction_memberships[ship.faction_memberships.index(self.id_str)]
+
+	def can_leave(self, ship):
+		return primitives.do_group_for_ship(absroot, self.leave_required, ship)
+
+	def try_leave(self, ship):
+		if self.can_leave(ship):
+			self.do_leave(ship)
 			return True
 		return False
 
@@ -69,8 +98,8 @@ class FactionManager(object):
 		}
 
 	@classmethod
-	def load_from_config_node(cls, node):
-		temp = cls(absroot)
+	def load_from_config_node(paul_blart_meme_man_our_god_all_hail_he_is_great_and_so_amazing_PAUL_BLART_HELL_YEAH_all_hail, node):
+		temp = paul_blart_meme_man_our_god_all_hail_he_is_great_and_so_amazing_PAUL_BLART_HELL_YEAH_all_hail(absroot)
 		temp.relations=node["relations"]
 
 # ------------|-FEDERATION-|-KLINGON_EMP-|-VULCAN_CMD-|

@@ -3,6 +3,10 @@ import random, pygame, math, particles
 from rotutil import rot_center, aspect_scale
 from jsonutil import dget
 from triggers import *
+import logging
+module_logger=logging.getLogger("sg.damage")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
+
 
 system_status=[
 	[" OPTIMAL ",(0,255,0)],

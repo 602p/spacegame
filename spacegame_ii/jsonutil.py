@@ -1,6 +1,10 @@
 from logging import debug, info, warning, error, critical
 
 ju_debug=False
+import logging
+module_logger=logging.getLogger("sg.jsonutil")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
+debug("ju_debug: "+str(ju_debug))
 
 def get_expanded_json(gamedb, json):
 	o=expand_object(gamedb, json)
@@ -26,15 +30,18 @@ def expand_dict(db, j):
 	new={}
 	for k in filter(lambda x:x.startswith("%+"), j.keys()):
 		if k.startswith("%+") and k.endswith("%"):
-			debug("DICT_EXAND_MODE: Expanding "+k)
-			new.update(db.get_asset("cfg_"+k.replace("%", '').replace("+", '')))
+			#debug("DICT_EXAND_MODE: Expanding "+k)
+			assetname=k.replace("%", '').replace("+", '')
+			if not "ship:" in assetname:
+				assetname="cfg_"+assetname
+			new.update(db.get_asset(assetname))
 	#Expand all normal
 	for k in j.keys():
 		new[k]=expand_object(db, j[k])
 	#Expand all %++s with ovveride
 	for k in filter(lambda x:x.startswith("%++"), j.keys()):
 		if k.startswith("%+") and k.endswith("%"):
-			debug("DICT_EXAND_MODE: Expanding woveride "+k)
+			#debug("DICT_EXAND_MODE: Expanding woveride "+k)
 			new.update(db.get_asset("cfg_"+k.replace("%", '').replace("+", '')))
 	return new
 

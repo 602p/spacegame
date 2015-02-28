@@ -1,6 +1,10 @@
 import pygame
 from rotutil import rot_center, get_rel_angle, get_angle
 from logging import debug, info, warning, error, critical
+import logging
+module_logger=logging.getLogger("sg.overlay_gui")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
+
 
 def render_wepbar(root, state, ship, x, y):
 	screen=root.screen.screen
@@ -107,7 +111,7 @@ class IngameRenderedConsole:
 	def post(self, text, color=(255,255,255,255), bg=(0,0,0,0), bold=False, italic=False, underline=False, debugmsg=False):
 		debug("Posting message: "+text)
 		if not debugmsg or self.debug:
-			debug("Message posted")
+			#debug("Message posted")
 			self.lines.append((text, color, bg, bold, italic, underline))
 			if len(self.lines)>self.maxlines:
 				del self.lines[0]

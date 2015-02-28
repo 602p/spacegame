@@ -1,10 +1,14 @@
 import extention_loader, absroot, tasks, pygame, rotutil, triggers, particles
 from rotutil import *
 from logging import debug, info
+import logging
+module_logger=logging.getLogger("plugin.menu_music")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
+
 
 clamp = lambda my_value, min_value, max_value: max(min(my_value, max_value), min_value)
 
-class ShieldFXManager(extention_loader.HookableExtention):
+class SoundHook_Music(extention_loader.HookableExtention):
 	def __init__(self, root):
 		self.root=root
 		self.last_shields_warning=-10
@@ -26,17 +30,17 @@ class ShieldFXManager(extention_loader.HookableExtention):
 				self.start()
 
 	def start(self):
-		print "Starting Menu Music..."
+		debug( "Starting Menu Music..." )
 		#pygame.mixer.music.load(
 		if not self.channel.get_busy():
 			self.channel.play(absroot.gamedb("snd_main_menu_ambiance"), -1)
 		#pygame.mixer.music.play(-1)
 
 	def end(self):
-		print "Stopping Menu Music"
+		debug( "Stopping Menu Music" )
 		self.channel.stop()
 
 def init_inject(root, console):
 	info("Injecting the SoundHook")
 	extention_loader.safepost(console, "[MusicManager]: Injecting the SoundHook", color=(0,255,255), bold=1)                                                                                           
-	root.extentions["ambience"]=ShieldFXManager(root)
+	root.extentions["ambience"]=SoundHook_Music(root)

@@ -1,5 +1,9 @@
 import pygame, random
 from jsonutil import dget
+import logging
+module_logger=logging.getLogger("sg.particles")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
+
 
 class Particle(object):
 	def __init__(self, root, surface, x, y, update, dieoff, collidekill=False):

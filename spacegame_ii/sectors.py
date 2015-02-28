@@ -1,13 +1,15 @@
-import ship, json, extention_loader, triggers, pygame, serialize
-from logging import debug, info, warning, error, critical
+import ship, json, extention_loader, triggers, pygame, serialize, logging
 from extention_loader import HookableExtention
 from triggers import *
+
+module_logger=logging.getLogger("sg.sectors")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
 
 SECTORSIZE=5000 #Actually 2x this
 GALAXYSIZE=11 #Again, 2x this in each axis
 
 def init(root):
-	root.extentions["static_entity_manager"]=SectorManager(root)
+	root.extentions["sector_transition_manager"]=SectorManager(root)
 
 def load_file(root, fname):
 	debug("Load sector_file '"+fname)
@@ -95,6 +97,7 @@ class Sector(object):
 		self.enter_effects=config.get("enter_effects", [])
 		self.leave_effects=config.get("leave_effects", [])
 		self.statics = config.get("statics", [])
+		self.tags = config.get("tags", [])
 
 	def get_savegame_id(sector):
 		return str(sector.x)+","+str(sector.y)

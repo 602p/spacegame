@@ -1,5 +1,9 @@
-import os, item, ship, serialize, primitives, imp, json, fnmatch, pygame, time, sys, dialog, quests, faction
+import os, item, ship, serialize, primitives, imp, json, fnmatch, pygame, time, sys, dialog, quests, faction, state, absroot
 from logging import debug, info, warning, error, critical
+import logging
+module_logger=logging.getLogger("sg.extention_loader")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
+
 
 def load_all_packages(root, dirn, console=None):
 	info("Loading Plugins")
@@ -53,7 +57,7 @@ def load_all_packages(root, dirn, console=None):
 		post_and_flip(console, "Loaded "+str(len(root.gamedb.assets))+" assets")
 		post_and_flip(console, "Loaded "+str(len(root.item_factories))+" items")
 		post_and_flip(console, "Loaded "+str(len(root.ship_factories))+" ships")
-		post_and_flip(console, "Loaded "+str(root.dialog_manager.count_pools())+" speech pools ("+str(root.dialog_manager.count_speeches())+" speechis distributed)")
+		post_and_flip(console, "Loaded "+str(root.dialog_manager.count_pools())+" speech pools ("+str(root.dialog_manager.count_speeches())+" speechIs distributed)")
 		post_and_flip(console, "Loaded "+str(len(root.quest_factories))+" quests")
 		post_and_flip(console, "(Sectors get loaded at runtime C: )")
 		time.sleep(2.5)
@@ -71,6 +75,11 @@ def findall(dirn, pattern):
 
 def load_assetkeys(root, dirn, console):
 	for rootn, dirnames, filenames in os.walk(dirn):
+		if "plugin.id" in filenames:
+			with open(rootn+"/plugin.id", 'r') as fd:
+				debug("Loading a plugin.id from "+rootn)
+				data=json.load(fd)
+				create_master_ext(data["name"], desc="&"+data.get("desc", "Package notifier for $name")+" [from "+rootn+"]", color=data.get("color", (127,127,255)), bold=data.get("bold", 1), italic=data.get("italic", 0))
 		for filename in fnmatch.filter(filenames, "*.assetkey"):
 			root.gamedb.load_assetfile(os.path.join(rootn, filename), rootn.split("\\")[0]+"\\"+rootn.split("\\")[1]+"\\", console)
 	root.gamedb.process_delayed_load(console)
@@ -101,7 +110,7 @@ def load_dialog(root, dirn, console):
 		dialog.load_file(root, rn)
 
 def load_ships(root, dirn, console):
-	for rn in findall(dirn, "*.ship"):
+	for rn in sorted(findall(dirn, "*.ship")):
 		if console: post_and_flip(console, "Loading Ship '"+rn+"'...", color=(255,255,255))
 		ship.load_file(root, rn)	
 
@@ -119,6 +128,7 @@ def load_plugin(root, fname, console):
 		debug("Load plugin '"+fname+"'")
 		key=fname.replace("\\", "").replace(".", "")
 		exec key+" = imp.load_source('"+key+"', fname)"
+		debug("Key mapped as '"+key+"' 	")
 		for funcname in eval("dir("+key+")"):
 			if funcname.upper().startswith("INIT"):
 				debug("Run init '"+fname+"'::"+funcname)
@@ -136,6 +146,7 @@ def post_and_flip(console, *args, **kwargs):
 	#time.sleep(0.005)
 
 class HookableExtention(object):
+	name="[unset-name]"
 	def __init__(self, root):
 		self.root=root
 		
@@ -171,3 +182,53 @@ class HookableExtention(object):
 
 	def tick(self, state):
 		pass
+
+	def get_text(self):
+		return self.name+" -- "+self.get_desc()
+
+	def get_desc(self):
+		return "Installed"
+		
+	def get_color(self):
+		return (255,255,255)
+
+	def get_bold(self):
+		return 0
+
+	def get_italic(self):
+		return 0
+
+class ExtentionInfoClass(state.InterdictingState):
+	def internal_update(self):
+		absroot.screen.screen.fill((0,0,0))
+		pos=0
+		for name, ext in absroot.extentions.iteritems():
+			absroot.gamedb("LOADER_font_mono").set_bold(ext.get_bold())
+			absroot.gamedb("LOADER_font_mono").set_italic(ext.get_italic())
+			absroot.screen.screen.blit(absroot.gamedb("LOADER_font_mono").render(name+": "+ext.get_text(), 1, ext.get_color()), [0, pos])
+			pos+=absroot.gamedb("LOADER_font_mono").size("A")[1]
+		absroot.gamedb("LOADER_font_mono").set_bold(0)
+		absroot.gamedb("LOADER_font_mono").set_italic(0)
+
+	def process_events(self, events):
+		for e in events:
+			if e.type==pygame.MOUSEBUTTONDOWN or e.type==pygame.KEYDOWN:
+				self.finish()
+
+def create_master_ext(name_, desc='Package notifier for $name', color=(127,127,255), bold=1, italic=0):
+	debug("Adding a _Master plugin id, name:"+name_)
+	desc=desc.replace("$name", name_)
+	class _Master(HookableExtention):
+		name=name_
+		def get_desc(self):
+			return desc
+
+		def get_bold(self):
+			return bold
+
+		def get_italic(self):
+			return italic
+
+		def get_color(self):
+			return color
+	absroot.extentions["master_"+name_]=_Master(absroot)

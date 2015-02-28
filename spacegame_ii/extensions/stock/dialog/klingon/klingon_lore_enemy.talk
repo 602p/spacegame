@@ -1,5 +1,6 @@
 {
 	"id":"klingon_lore_enemy",
 	"keys":["klingon_lore"],
-	"text":"Grrrrr! You need know no more of us."
+	"text":"Grrrrr! You need know no more of us.",
+	"priority":-1
 }

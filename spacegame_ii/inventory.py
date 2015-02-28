@@ -1,5 +1,9 @@
 import pygame, state, inputbox, ship, ui_states
 from logging import debug, info, warning, error, critical
+import logging
+module_logger=logging.getLogger("sg.inventory")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
+
 
 class InventoryState(state.InterdictingState):
 	def first_start(self):

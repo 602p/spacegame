@@ -48,7 +48,13 @@
    "intro" : "Interdiction Detected!",
    "name" : "Pirate Interdiction",
    "rarity" : {
-      "default" : 20
+      "default" : "1/hr",
+      "factions":[
+         {
+            "faction":"klingon",
+            "rarity":"1/min"
+         }
+      ]
    },
    "spawn_random" : true,
    "spawn_requirements" : [

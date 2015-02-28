@@ -1,4 +1,8 @@
 import pygame, json, state
+import logging
+module_logger=logging.getLogger("sg.keymapping")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
+
 
 def _load_mapping(path):
 	with open(path, 'r') as fd:

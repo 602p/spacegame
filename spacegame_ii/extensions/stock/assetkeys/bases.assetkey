@@ -1,6 +1,14 @@
 {
 	"assets":[
 		{
+			"name":"cfg_drop_inv",
+			"type":"json",
+			"json":
+				{
+						"primitive":"drop_inventory"
+				}
+		},
+		{
 			"name":"cfg_base_ship",
 			"type":"json",
 			"json":{
@@ -27,7 +35,9 @@
 					"default":-1,
 					"factions":[]
 				},
-				"ship_die":[],
+				"ship_die":[
+					"%drop_inv%"
+				],
 				"ai":{
 					"ai_subcontrollers":[]
 				}

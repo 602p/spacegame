@@ -20,6 +20,7 @@ class InteractToGiveItems(ai.AIControllerUpdateNode):
 						#print "ip"
 						try:
 							for item in self.ship.inventory:
+								item.reparent(self.controller.root.state_manager.states["game"].player)
 								self.controller.root.state_manager.states["game"].player.pick_up(item)
 						except BaseException as e:
 							print "ERROR!!!!LSAJDFOIAJDF"

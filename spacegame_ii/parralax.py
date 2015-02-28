@@ -1,5 +1,9 @@
 from __future__ import division
 import pygame, random
+import logging
+module_logger=logging.getLogger("sg.parralax")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
+
 
 class StarfieldLayer:
 	def __init__(self, density, color, size, speed):
@@ -15,6 +19,7 @@ class StarfieldLayer:
 
 	def render(self, surface, (xpos, ypos)):
 		i=0
+		state=random.getstate()
 		random.seed(413)
 		while i!=self.density:
 			#
@@ -26,12 +31,14 @@ class StarfieldLayer:
 				)
 				)
 			i+=1
+		random.setstate(state)
 
 class ParralaxStarfieldScroller:
 	def __init__(self, size, layers):
 		self.layers=layers
 		self.pos=[0,0]
 		self.bindall(size)
+		debug("Initilized ParralaxStarfieldScroller with "+str(len(layers))+" layers at []:"+str(size))
 	
 	def bindall(self, size):
 		for layer in self.layers:

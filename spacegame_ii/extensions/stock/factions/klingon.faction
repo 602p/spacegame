@@ -21,7 +21,12 @@
 	"leave_requirements":[],
 
 	"join_effects":[],
-	"leave_effects":[],
+	"leave_effects":[
+		{
+			"primitive":"play_cutscene",
+			"movie":"klingon_dishonor"
+		}
+	],
 
 	"relations":{
 		"federation":-20

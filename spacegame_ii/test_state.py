@@ -1,19 +1,35 @@
 from __future__ import division
 import absroot
 
+
+
 SKIP_TO_GAME=False
 SKIP_START_ID='startdefun_cu'
 
 from logging import debug, info, warning, error, critical
 import logging
-logging.basicConfig(filemode='w', filename='spacegame.log',level=logging.DEBUG, format='%(asctime)s>%(levelname)s\t\t: %(message)s')
+logging.basicConfig(filemode='w', filename='spacegame.log',level=logging.DEBUG, format='%(relativeCreated)-6d [%(name)-20s] %(levelname)-8s: %(message)s')
+import logging
+module_logger=logging.getLogger("sg")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
+
 info("Booting Spacegame_ii "+absroot.version)
-debug(" (Logging Started)")
+debug("...(Logging Started)")
+
+try:
+	import psyco
+	debug("...(Found psyco)")
+	psyco.full()
+	info("...(psyco configured)")
+except ImportError:
+	warning( '...(This game may run faster if you install psyco)' )
+	print "This game may run faster if you install psyco"
+
 import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader, triggers
 import assets, pyconsole, interdiction_gui, overlay_gui, ui_states, sectors, newgame, dialog, quests, inventory
 import sgc, serialize, gfxcursor, formatting, pyganim, keymapping, sys, traceback, datetime, ai, types, faction
 import entitybase as eb
-debug("Imports done")
+debug("...(Imports done)")
 
 allowdebug=True
 
@@ -37,7 +53,7 @@ if allowdebug:
 
 pygame.init()
 pygame.key.set_mods(0) #Hack where CTRL would be held down when launched from sublime with CTRL-B
-debug("Pygame started")
+debug("...(Pygame started)")
 
 
 root=absroot
@@ -100,6 +116,7 @@ debug("Loaded all packages")
 root.state_manager.add_state(gamestate.RunningGameState(), "game")
 
 root.state_manager.add_state(newgame.ShipSelectState(), "newgame_selectship")
+root.state_manager.factories["ext_info"]=state.InterdictingStateFactory(extention_loader.ExtentionInfoClass)
 root.state_manager.factories["generic_ui"]=state.InterdictingStateFactory(ui_states.GenericUIInterdictor)
 root.state_manager.factories["keymapper"]=state.InterdictingStateFactory(keymapping.KeyMapperState)
 root.state_manager.factories["credits"]=state.InterdictingStateFactory(gamestate.CreditsState)
@@ -166,12 +183,21 @@ while run:
 	for e in events:
 		if e.type==pygame.QUIT:
 			debug("Shutting Down")
+			info("Writing an autosave to autosave.sgs")
+			serialize.save_game(root, "saves/autosave.sgs")
+			debug("--Save completed, dying")
 			sys.exit()
 		elif e.type==pygame.KEYDOWN:
 			if e.key == pygame.K_BACKQUOTE and pygame.key.get_mods() & pygame.KMOD_CTRL:
 				root.console.set_active()
 			if e.key==pygame.K_F1:
 				root.quest_manager.start_quest("event_pirate_raid_1")
+			if e.key==pygame.K_F2:
+				faction.get_faction("klingonempire").try_join(g.player)
+			if e.key==pygame.K_F3:
+				faction.get_faction("klingonempire").try_leave(g.player)
+			if e.key==pygame.K_F4:
+				absroot.state_manager.start_interdicting("cutscene_anim", "fsanim_intro_ke")
 		elif e.type==pygame.VIDEORESIZE:
 			debug("Root resize")
 			root.renderspace_size=e.dict['size']
@@ -189,8 +215,9 @@ while run:
 	if pygame.event.peek(pygame.QUIT):run=0
 	root.console.process_input(events)
 	try:
-		root.state_manager.process_events(events)
-		root.state_manager.run_tick()
+		if not root.console.active:
+			root.state_manager.process_events(events)
+			root.state_manager.run_tick()
 	except BaseException as e:
 		exc_type, exc_value, exc_traceback = sys.exc_info()
 		error("================ROOT ERROR=====================")
@@ -211,5 +238,7 @@ while run:
 	#pygame.draw.line(root.screen.screen, (255,0,0), (0,0), root.renderspace_size, 20)
 
 	root.gfxcursor.show()
+
+	root.screen.screen.blit(root.gamedb("LOADER_font_version").render(root.version, 1, (255,0,0)), (0,0))
 	
 	flip_screen()

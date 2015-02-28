@@ -19,6 +19,14 @@ class CheatHook(extention_loader.HookableExtention):
 		self.root.widget_controllers["xcheat_set_attribute"]=SetPlayerAttribute
 		self.root.widget_controllers["xcheat_get_attribute"]=GetPlayerAttribute
 		self.root.widget_controllers["xcheat_rebuild_systems"]=RebuildSystems
+	def get_desc(self):
+		return "Installed. Keycode: "+str(KEY_CODE)
+
+	def get_color(self):
+		return (0,170,0)
+
+	def get_italic(self):
+		return 1
 
 class RepairPlayerShip(ui_states.WidgetController):
 	def on_click(self):

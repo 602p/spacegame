@@ -70,6 +70,19 @@
 							},
 							{
 								"type":"Button",
+								"label":"EXTENTIONS",
+								"surf":[150,50],
+								"label_font":"$font_standard_small",
+								"col":[170,0,170],
+								"controllers":[
+									{
+										"controller":"goto_istate",
+										"state":"ext_info"
+									}
+								]
+							},
+							{
+								"type":"Button",
 								"label":"QUIT GAME",
 								"surf":[150,50],
 								"label_font":"$font_standard_small",

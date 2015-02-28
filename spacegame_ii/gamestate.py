@@ -1,6 +1,10 @@
 from __future__ import division
 import state, ship, pygame, random, tasks, overlay_gui, interdiction_gui, sys, math, parralax, sectors
 from logging import debug, info, warning, error, critical
+import logging
+module_logger=logging.getLogger("sg.gamestate")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
+
 
 class RunningGameState(state.State):
 	def first_start(self):

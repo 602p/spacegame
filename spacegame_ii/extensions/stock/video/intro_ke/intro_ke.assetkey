@@ -1,0 +1,54 @@
+{
+	"assets":[
+		{
+			"type":"image",
+			"name":"image_intro_ke_0",
+			"path":"video/intro_ke/0.bmp"
+		},
+		{
+			"type":"image",
+			"name":"image_intro_ke_1",
+			"path":"video/intro_ke/1.bmp"
+		},
+		{
+			"type":"image",
+			"name":"image_intro_ke_2",
+			"path":"video/intro_ke/2.bmp"
+		},
+		{
+			"type":"image",
+			"name":"image_intro_ke_3",
+			"path":"video/intro_ke/3.bmp"
+		},
+		{
+			"type":"image",
+			"name":"image_intro_ke_4",
+			"path":"video/intro_ke/4.bmp"
+		},
+		{
+			"type":"image",
+			"name":"image_intro_ke_5",
+			"path":"video/intro_ke/5.bmp"
+		},
+		{
+			"type":"image",
+			"name":"image_intro_ke_6",
+			"path":"video/intro_ke/6.bmp"
+		},
+		{
+			"type":"json",
+			"name":"fsanim_intro_ke",
+			"json":{
+				"frames":[
+					["image_intro_ke_0", 0.75],
+					["image_intro_ke_1", 0.75],
+					["image_intro_ke_2", 0.75],
+					["image_intro_ke_3", 0.75],
+					["image_intro_ke_4", 1.8],
+					["image_intro_ke_5", 1.2],
+					["image_intro_ke_6", 1.2]
+				]
+			}
+		}
+	]
+}

@@ -28,6 +28,10 @@ That's it. Have fun with your new funky cursors.
 
 import pygame
 from logging import debug, info, warning, error, critical
+import logging
+module_logger=logging.getLogger("sg.gfxcursorMODIFIED")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
+
 
 class GfxCursor:
     """
@@ -90,12 +94,11 @@ class GfxCursor:
 
     def setCursorFromAsset(self, asset=None):
         debug("Setting GfxCursor from asset '"+str(asset)+"'")
-        if asset==None:
+        if asset is None:
             self.enabled=0
             pygame.mouse.set_visible(True)
             self.disable()
         else:
-            debug("True, enabling...")
             self.enabled=1
             pygame.mouse.set_visible(False)
             self.enable()

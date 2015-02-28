@@ -1,5 +1,9 @@
 from logging import debug, info, warn, error, critical
 import pygame
+import logging
+module_logger=logging.getLogger("sg.triggers")
+debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
+
 
 	
 UE_FIRE_ATTEMPT='UE_FIRE_ATTEMPT'				  #ship, hardpoint						Called in ship context, immediatley when fire_item_in_hardpoint is called
@@ -34,6 +38,7 @@ UE_CHANGE_SECTOR_FINISH='UE_CHANGE_SECTOR_FINISH' #galaxy								Called when gal
 
 UE_FACTION_JOINED='UE_FACTION_JOINED'             #faction, ship 						Called when a ship joins a faction (functionally)
 UE_FACTION_JOINED_LOGIC='UE_FACTION_JOINED_LOGIC' #faction, ship 						Called when a ship joins a faction (logically)
+UE_FACTION_LEFT='UE_FACTION_LEFT'                 #faction, ship 						Called when a ship leaves (?) a ~~tree~~ faction
 
 def sg_postevent(type_const, *a, **k):
 	built_dict=k
