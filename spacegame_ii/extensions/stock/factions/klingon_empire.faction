@@ -1,0 +1,24 @@
+{
+   "color" : [ 255, 0, 0 ],
+   "id" : "klingonempire",
+   "join_effects" : [],
+   "join_requirements" : [
+      {
+         "any" : [ "federation" ],
+         "primitive" : "not_faction_member"
+      }
+   ],
+   "leave_effects" : [
+      {
+         "movie" : "klingon_dishonor",
+         "primitive" : "play_cutscene"
+      }
+   ],
+   "leave_requirements" : [],
+   "name" : "Klingon Empire",
+   "navy_name" : "Klingon navy",
+   "relations" : {
+      "federation" : -20
+   },
+   "tags" : [ "all", "has_any_klingons", "has_many_klingons" ]
+}

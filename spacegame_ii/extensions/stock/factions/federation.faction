@@ -1,24 +1,16 @@
 {
-	"id":"federation",
-	"name":"The Federation",
-	"longname":"United Federation Of Planets",
-	"description":"----",
-	"color":[0,0,255],
-
-	"tags":[
-		"all",
-		"has_any_klingons",
-		"has_any_humans",
-		"has_many_humans"
-	],
-
-	"join_requirements":[],
-	"leave_requirements":[],
-
-	"join_effects":[],
-	"leave_effects":[],
-
-	"relations":{
-		"klingonempire":-20
-	}
+   "color" : [ 0, 0, 255 ],
+   "description" : "----",
+   "id" : "federation",
+   "join_effects" : [],
+   "join_requirements" : [],
+   "leave_effects" : [],
+   "leave_requirements" : [],
+   "longname" : "United Federation Of Planets",
+   "name" : "The Federation",
+   "navy_name" : "Starfleet",
+   "relations" : {
+      "klingonempire" : -20
+   },
+   "tags" : [ "all", "has_any_klingons", "has_any_humans", "has_many_humans" ]
 }
