@@ -171,3 +171,6 @@ spacegame_ii/*.log
 
 spacegame_ii/saves
 spacegame_ii/saves/*
+.sgs
+*.sgs
+*.rawdict

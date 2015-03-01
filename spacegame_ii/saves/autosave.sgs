@@ -1,76 +1,63 @@
 {
     "player": {
-<<<<<<< HEAD
-        "currpwr": 5887.64346078653, 
-        "currhull": 81.58523996932313, 
-=======
-        "currpwr": 147.33480015540744, 
+        "currpwr": 200, 
         "currhull": 125, 
->>>>>>> a175e24487b1b40b290e803e2bf363148aacc372
         "ai": false, 
-        "ship_id": "cardassian_galor", 
+        "ship_id": "klingon_attackship", 
         "triggers": {}, 
         "packed": true, 
         "rigidbody": {
-<<<<<<< HEAD
-            "y": -224.5363394825777, 
-            "x": 193.82412382778074, 
+            "y": 0.0, 
+            "x": 0.0, 
             "vector": {
-                "magnitude": 28.964705484796454, 
-                "angle": 336.45599817833204
+                "magnitude": 0, 
+                "angle": 0
             }, 
-            "mass": 102, 
-            "last_tc": 0.018299999671897896
-        }, 
-        "currshld": 9999929, 
-=======
-            "y": -101.49927544897594, 
-            "x": -293.46484109681427, 
-            "vector": {
-                "magnitude": 57.75615353902978, 
-                "angle": 333.917995784113
-            }, 
-            "mass": 123, 
-            "last_tc": 0.015300000688705476
+            "mass": 161, 
+            "last_tc": 0.011200000136718753
         }, 
         "currshld": 150, 
->>>>>>> a175e24487b1b40b290e803e2bf363148aacc372
         "__deserialize_handler__": "ship", 
         "relations": 0, 
         "inventory": [
             {
-                "count": 2, 
+                "count": 1, 
+                "xwd_at_warp": 0, 
+                "xwd_charge_status": 0, 
+                "equipped": 2, 
                 "__deserialize_handler__": "item", 
-                "id": "wep_basic_laser", 
-                "equipped": 0
+                "id": "item_klingon_warpdrive1", 
+                "xwd_is_charging": 0
             }, 
             {
-                "count": 2, 
+                "count": 10, 
                 "__deserialize_handler__": "item", 
-                "id": "wep_shield_laser", 
-                "equipped": 1
+                "id": "item_durasteel_cargo", 
+                "equipped": -1
+            }, 
+            {
+                "count": 10, 
+                "__deserialize_handler__": "item", 
+                "id": "item_durasteel_cargo", 
+                "equipped": -1
+            }, 
+            {
+                "count": 10, 
+                "__deserialize_handler__": "item", 
+                "id": "item_durasteel_cargo", 
+                "equipped": -1
             }
         ], 
         "factions": [], 
         "damagesystems": [
             {
-<<<<<<< HEAD
-                "hp": 3.804550008184015
-            }, 
-            {
-                "hp": 3.6042700101159184
-            }
-        ], 
-        "hash_id": 13126991
-=======
                 "hp": 10
             }, 
             {
                 "hp": 10
             }
         ], 
-        "hash_id": 14736133
->>>>>>> a175e24487b1b40b290e803e2bf363148aacc372
+        "hash_id": 12809557
     }, 
     "state": "game", 
     "savegame_revision": 2, 
@@ -433,11 +420,7 @@
                             "hp": 10
                         }
                     ], 
-<<<<<<< HEAD
-                    "hash_id": 13760997
-=======
-                    "hash_id": 14750945
->>>>>>> a175e24487b1b40b290e803e2bf363148aacc372
+                    "hash_id": 13447693
                 }, 
                 {
                     "currpwr": 200, 
@@ -480,11 +463,7 @@
                             "hp": 10
                         }
                     ], 
-<<<<<<< HEAD
-                    "hash_id": 13762829
-=======
-                    "hash_id": 14750957
->>>>>>> a175e24487b1b40b290e803e2bf363148aacc372
+                    "hash_id": 13445823
                 }, 
                 {
                     "currpwr": 200, 
@@ -527,11 +506,7 @@
                             "hp": 10
                         }
                     ], 
-<<<<<<< HEAD
-                    "hash_id": 13761005
-=======
-                    "hash_id": 14750933
->>>>>>> a175e24487b1b40b290e803e2bf363148aacc372
+                    "hash_id": 13447689
                 }
             ], 
             "0,0": [
@@ -674,11 +649,7 @@
                             "hp": 100
                         }
                     ], 
-<<<<<<< HEAD
-                    "hash_id": 13760783
-=======
-                    "hash_id": 14750869
->>>>>>> a175e24487b1b40b290e803e2bf363148aacc372
+                    "hash_id": 13445647
                 }, 
                 {
                     "currpwr": 1, 
@@ -707,11 +678,7 @@
                     "inventory": [], 
                     "factions": [], 
                     "damagesystems": [], 
-<<<<<<< HEAD
-                    "hash_id": 13760947
-=======
-                    "hash_id": 14750825
->>>>>>> a175e24487b1b40b290e803e2bf363148aacc372
+                    "hash_id": 13445823
                 }
             ], 
             "11,6": [], 
@@ -758,11 +725,7 @@
             "10,1": [], 
             "10,0": [
                 {
-<<<<<<< HEAD
-                    "currpwr": 500.37500001430595, 
-=======
-                    "currpwr": 500.2875000054818, 
->>>>>>> a175e24487b1b40b290e803e2bf363148aacc372
+                    "currpwr": 500, 
                     "currhull": 800, 
                     "ai": 1, 
                     "ship_id": "ss_klingon_tygokor", 
@@ -783,15 +746,9 @@
                             "angle": 0
                         }, 
                         "mass": 2000, 
-<<<<<<< HEAD
-                        "last_tc": 0.018299999671897896
+                        "last_tc": 0.011200000136718753
                     }, 
-                    "currshld": 1000.2600010196526, 
-=======
-                        "last_tc": 0.015300000688705476
-                    }, 
-                    "currshld": 954.6325005477621, 
->>>>>>> a175e24487b1b40b290e803e2bf363148aacc372
+                    "currshld": 1000, 
                     "__deserialize_handler__": "ship", 
                     "relations": 40, 
                     "ai_controller": {
@@ -851,11 +808,7 @@
                     "inventory": [], 
                     "factions": [], 
                     "damagesystems": [], 
-<<<<<<< HEAD
-                    "hash_id": 13843509
-=======
-                    "hash_id": 14801909
->>>>>>> a175e24487b1b40b290e803e2bf363148aacc372
+                    "hash_id": 13518913
                 }, 
                 {
                     "currpwr": 1, 
@@ -872,11 +825,7 @@
                             "angle": 0
                         }, 
                         "mass": 1, 
-<<<<<<< HEAD
-                        "last_tc": 0.018299999671897896
-=======
-                        "last_tc": 0.015300000688705476
->>>>>>> a175e24487b1b40b290e803e2bf363148aacc372
+                        "last_tc": 0.011200000136718753
                     }, 
                     "currshld": 1, 
                     "__deserialize_handler__": "ship", 
@@ -888,11 +837,7 @@
                     "inventory": [], 
                     "factions": [], 
                     "damagesystems": [], 
-<<<<<<< HEAD
-                    "hash_id": 13843517
-=======
-                    "hash_id": 14801917
->>>>>>> a175e24487b1b40b290e803e2bf363148aacc372
+                    "hash_id": 13518921
                 }
             ], 
             "10,7": [], 
@@ -2661,11 +2606,7 @@
         10, 
         0
     ], 
-<<<<<<< HEAD
-    "game_time": 74.86970006670259, 
-=======
-    "game_time": 32.9624000524455, 
->>>>>>> a175e24487b1b40b290e803e2bf363148aacc372
+    "game_time": 1.1968000063256834, 
     "dialog_manager": {
         "pools": "LART", 
         "known_topics": [
@@ -2676,21 +2617,6 @@
         ]
     }, 
     "quest_system": {
-<<<<<<< HEAD
-        "quests": [
-            {
-                "active": false, 
-                "state": 0, 
-                "id": "event_pirate_raid_1", 
-                "database": {
-                    "ship_mappings": {
-                        "pirate": 13849049
-                    }
-                }
-            }
-        ]
-=======
         "quests": []
->>>>>>> a175e24487b1b40b290e803e2bf363148aacc372
     }
 }
