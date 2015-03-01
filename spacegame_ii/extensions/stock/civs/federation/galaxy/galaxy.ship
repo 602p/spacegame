@@ -1,0 +1,62 @@
+{
+    "%+base_ship%":0,
+    "name":"Galaxy Class Ship",
+    "id":"federation_galaxy",
+    "image":"img_ship_galaxy_class",
+    
+    "mass":100,
+    "cost":15000,
+    "cargo":100,
+
+    "start_speed":5000,
+    "max_speed":500,
+    "turn_rate":90,
+
+    "reactor_max":300,
+    "reactor_regen":6,
+
+    "hull":300,
+    "shields":300,
+    "shield_regen":4,
+
+    "systems":[
+        "%+systems_standard%"
+    ],
+    "hardpoints":[
+        {
+            "size":"small",
+            "x":12,
+            "y":69
+        },
+        {
+            "size":"small",
+            "x":82,
+            "y":69
+        },
+        {
+            "size":"warpdrive",
+            "x":82,
+            "y":69
+        }
+    ],
+    "start_equip":[
+        {
+            "item_name":"wep_basic_laser",
+            "equipped":0
+        },
+        {
+            "item_name":"wep_basic_laser",
+            "equipped":1
+        }
+
+    ],
+    "ship_die":"%explosion_ship_large%",
+    "engine_sources":[
+        {
+            "x":45,
+            "y":73,
+            "width":3,
+            "style":"%ship_trail%"
+        }
+    ]
+}

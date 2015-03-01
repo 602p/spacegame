@@ -1,0 +1,9 @@
+{
+	"assets":[
+		{
+			"type":"image",
+			"path":"civs/cardassian/cardassia/cardassia_small.png",
+			"name":"img_cardassia_planet"
+		}
+	]
+}

@@ -146,6 +146,7 @@ class DialogState(state.InterdictingState):
 		self.dialog_manager.current=self
 		config=self.root.gamedb("cfg_dialog_box")
 		self.config=config
+		self.othership=self.dialog_manager.othership
 
 		self.screenshot=self.root.screen.screen.copy().convert_alpha()
 		self.screenshot.subsurface(pygame.Rect(config["box_pos"], self.root.gamedb("uia_dialog_box").get_size()))\
@@ -193,8 +194,7 @@ class DialogState(state.InterdictingState):
 		for speech in self.speeches:
 			if speech.text:
 				split_text=[]
-				tmp_text=speech.text
-				tmp_text.replace("\r","")
+				tmp_text=speech.text.replace("\r","")
 				rep_text=formatting.SubFormatter(self.root.formatter,{
 					"dialog_s":self,
 					"dialog_m":self.dialog_manager,
@@ -290,7 +290,9 @@ class DialogState(state.InterdictingState):
 		screen.blit(self.text_image, (self.words_rect.left, self.words_rect.top-self.text_scroll))
 		screen.blit(self.topics_image, (self.topics_rect.left, self.topics_rect.top-self.topics_scroll))
 		screen.blit(self.font.render("Reputation: "+str(self.dialog_manager.othership.player_relations), 1, (255,255,255)), self.rep_pos)
+
 		screen.blit(self.screenshot, (0,0))
+		screen.blit(self.font.render("OSHIP_:"+self.othership.name, 1, (255,255,255)), (0,0))
 
 	def process_events(self, events):
 		for event in events:

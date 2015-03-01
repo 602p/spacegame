@@ -1,0 +1,14 @@
+{
+	"x":0,
+	"y":10,
+	"name":"Cardassia Prime System (0,10)",
+	"statics":[
+		{
+			"type":"ship",
+			"ship_id":"ss_cardassia_planet",
+			"x":-400,
+			"y":-400
+		}
+	],
+	"tags": [ "cardassian" ]
+}

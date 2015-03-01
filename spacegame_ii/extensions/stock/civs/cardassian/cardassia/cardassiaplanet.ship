@@ -1,0 +1,27 @@
+{
+	"%+base_ship%":0,
+	"id":"ss_cardassia_planet",
+	"name":"Cardassia Prime",
+    "source_faction":"cardassian",
+    "hull":1,
+    "mass":1,
+    "image":"img_cardassia_planet",
+    "cost":1,
+    "cargo":1,
+    "start_speed":1,
+    "reactor_max":1,
+    "reactor_regen":1,
+    "shields":1,
+    "max_speed":1,
+    "start_speed":1,
+    "turn_rate":1,
+    "shield_regen":1,
+
+    "render_rotation":false,
+    "can_be_hit":false,
+    "can_be_targeted":false,
+
+    "systems":[],
+    "hardpoints":[],
+    "start_equip":[]
+}

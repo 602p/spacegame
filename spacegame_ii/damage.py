@@ -141,7 +141,7 @@ class DamageModel:
 			self.shields=0
 			sg_postevent(UE_SHIELDS_DOWN, system=self, x=precise_x, y=precise_y, source=source)
 			self.ship.trigger(UE_SHIELDS_DOWN, system=self, amount=shields, x=precise_x, y=precise_y, source=source)
-			print "Triggered UE_SHIELDS_DOWN"
+			#print "Triggered UE_SHIELDS_DOWN"
 
 	def damage(self, damage, peirce=0, px=None, py=None, source=None):
 		self.damage_shields(damage*(1-peirce), px, py, source)

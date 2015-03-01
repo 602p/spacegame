@@ -1,0 +1,15 @@
+{
+   "keys" : [ "UNI_the_wounded_cardassian_hail3" ],
+   "text" : "Head to the Cuella system in sector 0,10...\n...Thats where he was last seen."
+   ,"events":[
+   		{
+   			"primitive":"UNI_wounded_spawn_ship_in_other_sector",
+   			"secid":"0,10",
+   			"worldpos":[0,0]
+   		},
+		{
+			"primitive":"set_current_dialog_exitability",
+			"value":true
+		}
+	]
+}
