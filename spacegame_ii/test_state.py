@@ -52,6 +52,7 @@ if allowdebug:
 		root.galaxy.goto_sector(s1,s2)
 
 pygame.init()
+pygame.mixer.init()
 pygame.key.set_mods(0) #Hack where CTRL would be held down when launched from sublime with CTRL-B
 debug("...(Pygame started)")
 

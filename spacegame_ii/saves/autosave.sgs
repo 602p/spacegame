@@ -1,22 +1,22 @@
 {
     "player": {
-        "currpwr": 39.21074982665566, 
-        "currhull": 94.26999985407527, 
+        "currpwr": 147.33480015540744, 
+        "currhull": 125, 
         "ai": false, 
         "ship_id": "klingon_attackship", 
         "triggers": {}, 
         "packed": true, 
         "rigidbody": {
-            "y": 119.77092604298944, 
-            "x": 2.858640007564163, 
+            "y": -101.49927544897594, 
+            "x": -293.46484109681427, 
             "vector": {
-                "magnitude": 42.39756158423452, 
-                "angle": 224.59679718209745
+                "magnitude": 57.75615353902978, 
+                "angle": 333.917995784113
             }, 
             "mass": 123, 
-            "last_tc": 0.01809999990333557
+            "last_tc": 0.015300000688705476
         }, 
-        "currshld": 8.703000035733627, 
+        "currshld": 150, 
         "__deserialize_handler__": "ship", 
         "relations": 0, 
         "inventory": [
@@ -51,13 +51,13 @@
         "factions": [], 
         "damagesystems": [
             {
-                "hp": 4.640899944896891
+                "hp": 10
             }, 
             {
-                "hp": 0.386800001588161
+                "hp": 10
             }
         ], 
-        "hash_id": 13135445
+        "hash_id": 14736133
     }, 
     "state": "game", 
     "savegame_revision": 2, 
@@ -420,7 +420,7 @@
                             "hp": 10
                         }
                     ], 
-                    "hash_id": 13770763
+                    "hash_id": 14750945
                 }, 
                 {
                     "currpwr": 200, 
@@ -463,7 +463,7 @@
                             "hp": 10
                         }
                     ], 
-                    "hash_id": 13770767
+                    "hash_id": 14750957
                 }, 
                 {
                     "currpwr": 200, 
@@ -506,7 +506,7 @@
                             "hp": 10
                         }
                     ], 
-                    "hash_id": 13770781
+                    "hash_id": 14750933
                 }
             ], 
             "0,0": [
@@ -649,7 +649,7 @@
                             "hp": 100
                         }
                     ], 
-                    "hash_id": 13768717
+                    "hash_id": 14750869
                 }, 
                 {
                     "currpwr": 1, 
@@ -678,7 +678,7 @@
                     "inventory": [], 
                     "factions": [], 
                     "damagesystems": [], 
-                    "hash_id": 13768893
+                    "hash_id": 14750825
                 }
             ], 
             "11,6": [], 
@@ -725,7 +725,7 @@
             "10,1": [], 
             "10,0": [
                 {
-                    "currpwr": 500, 
+                    "currpwr": 500.2875000054818, 
                     "currhull": 800, 
                     "ai": 1, 
                     "ship_id": "ss_klingon_tygokor", 
@@ -746,9 +746,9 @@
                             "angle": 0
                         }, 
                         "mass": 2000, 
-                        "last_tc": 0.01809999990333557
+                        "last_tc": 0.015300000688705476
                     }, 
-                    "currshld": 1000, 
+                    "currshld": 954.6325005477621, 
                     "__deserialize_handler__": "ship", 
                     "relations": 40, 
                     "ai_controller": {
@@ -808,7 +808,7 @@
                     "inventory": [], 
                     "factions": [], 
                     "damagesystems": [], 
-                    "hash_id": 13841727
+                    "hash_id": 14801909
                 }, 
                 {
                     "currpwr": 1, 
@@ -825,7 +825,7 @@
                             "angle": 0
                         }, 
                         "mass": 1, 
-                        "last_tc": 0.01809999990333557
+                        "last_tc": 0.015300000688705476
                     }, 
                     "currshld": 1, 
                     "__deserialize_handler__": "ship", 
@@ -837,56 +837,7 @@
                     "inventory": [], 
                     "factions": [], 
                     "damagesystems": [], 
-                    "hash_id": 13841735
-                }, 
-                {
-                    "currpwr": 1, 
-                    "currhull": 10, 
-                    "ai": 1, 
-                    "ship_id": "cargo_pod_generic", 
-                    "triggers": {}, 
-                    "packed": true, 
-                    "rigidbody": {
-                        "y": 121.58962640033721, 
-                        "x": 67.15888060962423, 
-                        "vector": {
-                            "magnitude": 0, 
-                            "angle": 0
-                        }, 
-                        "mass": 3, 
-                        "last_tc": 0.01809999990333557
-                    }, 
-                    "currshld": 1, 
-                    "__deserialize_handler__": "ship", 
-                    "relations": 0, 
-                    "ai_controller": {
-                        "controllers": [
-                            {
-                                "config": {
-                                    "controller": "cargopod"
-                                }, 
-                                "database": {}
-                            }
-                        ], 
-                        "database": {}
-                    }, 
-                    "inventory": [
-                        {
-                            "count": 1, 
-                            "__deserialize_handler__": "item", 
-                            "id": "wep_basic_laser", 
-                            "equipped": -1
-                        }, 
-                        {
-                            "count": 1, 
-                            "__deserialize_handler__": "item", 
-                            "id": "wep_shield_laser", 
-                            "equipped": -1
-                        }
-                    ], 
-                    "factions": [], 
-                    "damagesystems": [], 
-                    "hash_id": 14255115
+                    "hash_id": 14801917
                 }
             ], 
             "10,7": [], 
@@ -2650,14 +2601,13 @@
             "-1,1": {
                 "last_loaded_entity": -1
             }
-        }, 
-        "event_kmtar_raid": true
+        }
     }, 
     "galaxy_pos": [
         10, 
         0
     ], 
-    "game_time": 25.59239990845199, 
+    "game_time": 32.9624000524455, 
     "dialog_manager": {
         "pools": "LART", 
         "known_topics": [
@@ -2671,17 +2621,6 @@
         ]
     }, 
     "quest_system": {
-        "quests": [
-            {
-                "active": false, 
-                "state": 0, 
-                "id": "event_pirate_raid_1", 
-                "database": {
-                    "ship_mappings": {
-                        "pirate": 13845219
-                    }
-                }
-            }
-        ]
+        "quests": []
     }
 }
