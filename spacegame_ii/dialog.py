@@ -1,4 +1,4 @@
-import json, primitives, random, state, pygame, textwrap, random, jsonutil
+import json, primitives, random, state, pygame, textwrap, random, jsonutil, formatting
 from logging import debug, info, warning, error, critical
 import logging
 module_logger=logging.getLogger("sg.dialog")
@@ -193,7 +193,13 @@ class DialogState(state.InterdictingState):
 		for speech in self.speeches:
 			if speech.text:
 				split_text=[]
-				for line in speech.text.split("\n"):
+				rep_text=formatting.SubFormatter(self.root.formatter,{
+					"dialog_s":self,
+					"dialog_m":self.dialog_manager,
+					"speech":speech,
+					"othership":self.dialog_manager.othership
+				}).format_string(speech.text)
+				for line in rep_text.split("\n"):
 					split_text.append(line.replace("\n",""))
 
 				for line in split_text:

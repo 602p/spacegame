@@ -1,5 +1,5 @@
 {
 	"keys":["generic_misc_greeting_test","greeting"],
-	"priority":0,
-	"text":"Ask me about the my $@history:joke_plot@$"
+	"priority":100,
+	"text":"Ask me about the my $@history:joke_plot@$ (I am a <@{othership:name}>.)"
 }
