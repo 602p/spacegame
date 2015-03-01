@@ -167,6 +167,14 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity, entitybase.Ti
 
 		self.faction_memberships=[]
 
+	def get_faction_attr(self, key, default="[[A faction attribute could not be found, and a default was not provided]]"):
+		debug("Seeking '"+key+"' in faction data")
+		for i in self.faction_memberships:
+			print faction.get_faction(i).config.keys()
+			if key in faction.get_faction(i).config.keys():
+				return faction.get_faction(i).config[key]
+		return default
+
 	def get_inventory_mass(self):
 		m=0
 		for i in self.inventory:

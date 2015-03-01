@@ -197,7 +197,8 @@ class DialogState(state.InterdictingState):
 					"dialog_s":self,
 					"dialog_m":self.dialog_manager,
 					"speech":speech,
-					"othership":self.dialog_manager.othership
+					"othership":self.dialog_manager.othership,
+					"player":self.root.state_manager.states["game"].player
 				}).format_string(speech.text)
 				for line in rep_text.split("\n"):
 					split_text.append(line.replace("\n",""))
