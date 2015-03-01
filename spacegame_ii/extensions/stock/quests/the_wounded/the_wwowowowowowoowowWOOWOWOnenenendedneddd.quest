@@ -10,8 +10,8 @@
             {
                "group" : "UE_SHIELDS_DOWN",
                "primitive" : {
-                  "ai" : "%ai_none%",
-                  "primitive" : "set_ai"
+                  "primitive" : "set_npc_ai",
+                  "value" : "%ai_none%"
                }
             },
             {

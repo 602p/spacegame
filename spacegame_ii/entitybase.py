@@ -10,6 +10,7 @@ class Triggerable(object):
 	def serialize_triggers(self):
 		return self.triggers
 	def add_trigger(self, group, trigger):
+		print "Adding trigger to group "+group
 		if group not in self.triggers:
 			self.triggers[group]=[]
 		self.triggers[group].append(trigger)
