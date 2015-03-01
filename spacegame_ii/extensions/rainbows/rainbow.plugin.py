@@ -3,7 +3,7 @@ import logging, random, string
 module_logger=logging.getLogger("plugin.ranbows")
 debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
 
-COUNT=0
+COUNT=30
 
 class Rainbow(extention_loader.HookableExtention):
 	def tick(self, state):
