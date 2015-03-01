@@ -3,10 +3,7 @@
    "id" : "klingonempire",
    "join_effects" : [],
    "join_requirements" : [
-      {
-         "any" : [ "federation" ],
-         "primitive" : "not_faction_member"
-      }
+      
    ],
    "leave_effects" : [
       {
