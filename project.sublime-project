@@ -6,7 +6,7 @@
 			[
 				"cd $project_path/spacegame_ii/",
 				"&",
-				"python",
+				"C:\\Python27\\python",
 				"-u",
 				"test_state.py"
 			],
