@@ -1,63 +1,48 @@
 {
     "player": {
-        "currpwr": 39.21074982665566, 
-        "currhull": 94.26999985407527, 
+        "currpwr": 5887.64346078653, 
+        "currhull": 81.58523996932313, 
         "ai": false, 
-        "ship_id": "klingon_attackship", 
+        "ship_id": "cardassian_galor", 
         "triggers": {}, 
         "packed": true, 
         "rigidbody": {
-            "y": 119.77092604298944, 
-            "x": 2.858640007564163, 
+            "y": -224.5363394825777, 
+            "x": 193.82412382778074, 
             "vector": {
-                "magnitude": 42.39756158423452, 
-                "angle": 224.59679718209745
+                "magnitude": 28.964705484796454, 
+                "angle": 336.45599817833204
             }, 
-            "mass": 123, 
-            "last_tc": 0.01809999990333557
+            "mass": 102, 
+            "last_tc": 0.018299999671897896
         }, 
-        "currshld": 8.703000035733627, 
+        "currshld": 9999929, 
         "__deserialize_handler__": "ship", 
         "relations": 0, 
         "inventory": [
             {
-                "count": 1, 
-                "xwd_at_warp": 0, 
-                "xwd_charge_status": 0, 
-                "equipped": 2, 
+                "count": 2, 
                 "__deserialize_handler__": "item", 
-                "id": "item_klingon_warpdrive1", 
-                "xwd_is_charging": 0
-            }, 
-            {
-                "count": 30, 
-                "__deserialize_handler__": "item", 
-                "id": "item_durasteel_cargo", 
-                "equipped": -1
-            }, 
-            {
-                "count": 1, 
-                "__deserialize_handler__": "item", 
-                "id": "wep_proj_laser", 
+                "id": "wep_basic_laser", 
                 "equipped": 0
             }, 
             {
-                "count": 1, 
+                "count": 2, 
                 "__deserialize_handler__": "item", 
-                "id": "wep_proj_laser", 
+                "id": "wep_shield_laser", 
                 "equipped": 1
             }
         ], 
         "factions": [], 
         "damagesystems": [
             {
-                "hp": 4.640899944896891
+                "hp": 3.804550008184015
             }, 
             {
-                "hp": 0.386800001588161
+                "hp": 3.6042700101159184
             }
         ], 
-        "hash_id": 13135445
+        "hash_id": 13126991
     }, 
     "state": "game", 
     "savegame_revision": 2, 
@@ -420,7 +405,7 @@
                             "hp": 10
                         }
                     ], 
-                    "hash_id": 13770763
+                    "hash_id": 13760997
                 }, 
                 {
                     "currpwr": 200, 
@@ -463,7 +448,7 @@
                             "hp": 10
                         }
                     ], 
-                    "hash_id": 13770767
+                    "hash_id": 13762829
                 }, 
                 {
                     "currpwr": 200, 
@@ -506,7 +491,7 @@
                             "hp": 10
                         }
                     ], 
-                    "hash_id": 13770781
+                    "hash_id": 13761005
                 }
             ], 
             "0,0": [
@@ -649,7 +634,7 @@
                             "hp": 100
                         }
                     ], 
-                    "hash_id": 13768717
+                    "hash_id": 13760783
                 }, 
                 {
                     "currpwr": 1, 
@@ -678,7 +663,7 @@
                     "inventory": [], 
                     "factions": [], 
                     "damagesystems": [], 
-                    "hash_id": 13768893
+                    "hash_id": 13760947
                 }
             ], 
             "11,6": [], 
@@ -725,7 +710,7 @@
             "10,1": [], 
             "10,0": [
                 {
-                    "currpwr": 500, 
+                    "currpwr": 500.37500001430595, 
                     "currhull": 800, 
                     "ai": 1, 
                     "ship_id": "ss_klingon_tygokor", 
@@ -746,9 +731,9 @@
                             "angle": 0
                         }, 
                         "mass": 2000, 
-                        "last_tc": 0.01809999990333557
+                        "last_tc": 0.018299999671897896
                     }, 
-                    "currshld": 1000, 
+                    "currshld": 1000.2600010196526, 
                     "__deserialize_handler__": "ship", 
                     "relations": 40, 
                     "ai_controller": {
@@ -808,7 +793,7 @@
                     "inventory": [], 
                     "factions": [], 
                     "damagesystems": [], 
-                    "hash_id": 13841727
+                    "hash_id": 13843509
                 }, 
                 {
                     "currpwr": 1, 
@@ -825,7 +810,7 @@
                             "angle": 0
                         }, 
                         "mass": 1, 
-                        "last_tc": 0.01809999990333557
+                        "last_tc": 0.018299999671897896
                     }, 
                     "currshld": 1, 
                     "__deserialize_handler__": "ship", 
@@ -837,56 +822,7 @@
                     "inventory": [], 
                     "factions": [], 
                     "damagesystems": [], 
-                    "hash_id": 13841735
-                }, 
-                {
-                    "currpwr": 1, 
-                    "currhull": 10, 
-                    "ai": 1, 
-                    "ship_id": "cargo_pod_generic", 
-                    "triggers": {}, 
-                    "packed": true, 
-                    "rigidbody": {
-                        "y": 121.58962640033721, 
-                        "x": 67.15888060962423, 
-                        "vector": {
-                            "magnitude": 0, 
-                            "angle": 0
-                        }, 
-                        "mass": 3, 
-                        "last_tc": 0.01809999990333557
-                    }, 
-                    "currshld": 1, 
-                    "__deserialize_handler__": "ship", 
-                    "relations": 0, 
-                    "ai_controller": {
-                        "controllers": [
-                            {
-                                "config": {
-                                    "controller": "cargopod"
-                                }, 
-                                "database": {}
-                            }
-                        ], 
-                        "database": {}
-                    }, 
-                    "inventory": [
-                        {
-                            "count": 1, 
-                            "__deserialize_handler__": "item", 
-                            "id": "wep_basic_laser", 
-                            "equipped": -1
-                        }, 
-                        {
-                            "count": 1, 
-                            "__deserialize_handler__": "item", 
-                            "id": "wep_shield_laser", 
-                            "equipped": -1
-                        }
-                    ], 
-                    "factions": [], 
-                    "damagesystems": [], 
-                    "hash_id": 14255115
+                    "hash_id": 13843517
                 }
             ], 
             "10,7": [], 
@@ -1059,7 +995,6 @@
             "-1,0": [], 
             "-1,1": []
         }, 
-        "kl_intro_given_lasers": true, 
         "player_name": "", 
         "ship_name": "", 
         "sector_data": {
@@ -2657,17 +2592,14 @@
         10, 
         0
     ], 
-    "game_time": 25.59239990845199, 
+    "game_time": 74.86970006670259, 
     "dialog_manager": {
         "pools": "LART", 
         "known_topics": [
             "tips", 
             "debug_let_exit", 
             "debug_add_rep", 
-            "debug_del_rep", 
-            "klingon_lore", 
-            "klingon_main_mission", 
-            "joke_plot"
+            "debug_del_rep"
         ]
     }, 
     "quest_system": {
@@ -2678,7 +2610,7 @@
                 "id": "event_pirate_raid_1", 
                 "database": {
                     "ship_mappings": {
-                        "pirate": 13845219
+                        "pirate": 13849049
                     }
                 }
             }
