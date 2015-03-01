@@ -1,5 +1,6 @@
 {
    "%+ship:cardassian_galor%" : 0,
+   "ai" : "%ai_fighter%",
    "id" : "cardassian_galor_trager",
    "shields" : 25
 }

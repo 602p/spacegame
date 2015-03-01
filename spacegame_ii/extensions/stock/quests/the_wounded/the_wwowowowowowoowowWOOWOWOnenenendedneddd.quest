@@ -1,0 +1,58 @@
+{
+   "events" : [
+      {
+         "name" : "event_the_wounded",
+         "primitive" : "set_variable",
+         "value" : true
+      },
+      {
+         "add_triggers" : [
+            {
+               "group" : "UE_SHIELDS_DOWN",
+               "primitive" : {
+                  "ai" : "%ai_none%",
+                  "primitive" : "set_ai"
+               }
+            },
+            {
+               "group" : "UE_SHIELDS_DOWN",
+               "primitive" : {
+                  "primitive" : "force_hail",
+                  "topic" : "UNI_the_wounded_cardassian_hail"
+               }
+            }
+         ],
+         "internal_id" : "weak_cardie",
+         "pos" : "random",
+         "primitive" : "spawn_ship",
+         "random_within_x" : [ -100, 100 ],
+         "random_within_y" : [
+            -100,
+            100,
+            [ -100, 100 ]
+         ],
+         "ship_id" : "cardassian_galor_trager"
+      }
+   ],
+   "id" : "event_tng_the_wounded",
+   "intro" : "Cardassian cruiser firing!",
+   "name" : "TNG: The Wounded",
+   "rarity" : {
+      "default" : "999",
+      "factions" : [
+         {
+            "faction" : "klingon",
+            "rarity" : "1/min"
+         }
+      ]
+   },
+   "spawn_random" : true,
+   "spawn_requirements" : [
+      {
+         "name" : "event_the_wounded",
+         "primitive" : "check_variable",
+         "value" : null
+      }
+   ],
+   "tags" : [ "interdiction" ]
+}
