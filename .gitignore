@@ -168,3 +168,6 @@ spacegame_ii/spacegame.log
 spacegame_ii/*.log
 *.log
 .log
+
+spacegame_ii/saves
+spacegame_ii/saves/*
