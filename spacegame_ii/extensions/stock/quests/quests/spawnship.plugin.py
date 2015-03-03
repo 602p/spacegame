@@ -1,4 +1,4 @@
-import primitives, ship, random
+import primitives, ship, random, faction
 from logging import debug, info, warn, error, critical
 
 class SpawnShipPrimitive(primitives.BasePrimitive):
@@ -22,6 +22,10 @@ class SpawnShipPrimitive(primitives.BasePrimitive):
 		if "add_triggers" in self.config:
 			for group in self.config["add_triggers"]:
 				entity.add_trigger(group["group"], group["primitive"])
+
+		if "join_factions" in self.config:
+			for faction_ in self.config["join_factions"]:
+				faction.get_faction(faction_).do_join(entity)
 
 def init_primitives(root,console):
 	primitives.register_primitive(root, "spawn_ship", SpawnShipPrimitive)

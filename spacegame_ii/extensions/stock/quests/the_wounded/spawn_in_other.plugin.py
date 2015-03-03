@@ -1,4 +1,4 @@
-import primitives, ship, random, absroot
+import primitives, ship, random, absroot, faction
 from logging import debug, info, warn, error, critical
 import entitybase as eb
 
@@ -26,6 +26,7 @@ class SpawnInOther2(primitives.BasePrimitive):
 		ship_b=ship.create_ship(absroot, "cardassian_freighter_UNI_wreck", *self.config["worldpos"])
 		ship_b.rigidbody._vector.magnitude=75
 		ship_b.rigidbody._vector.angle=22
+		faction.get_faction("cardassianunion").do_join(ship_b)
 		absroot.savegame.database["packed_entities"][self.config["secid"]].append(
 			ship_b.save_to_config_node()
 		)

@@ -1,0 +1,18 @@
+{
+	"assets":[
+		{
+			"type":"image",
+			"name":"img_cardassian_icon",
+			"path":"factions/cardassian/cardassianicon.jpg",
+			"scale":[25,25],
+			"colorkey":-1
+		},
+		{
+			"type":"image",
+			"name":"img_cardassian_banner",
+			"path":"factions/cardassian/cardassianflag.jpg",
+			"scale":[64,64],
+			"colorkey":-1
+		}
+	]
+}

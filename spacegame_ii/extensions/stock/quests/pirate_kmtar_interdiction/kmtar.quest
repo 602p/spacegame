@@ -22,7 +22,10 @@
          "primitive" : "spawn_ship",
          "random_within_x" : [ -100, 100 ],
          "random_within_y" : [ -100, 100 ],
-         "ship_id" : "klingon_warbird_UNI_kmtar"
+         "ship_id" : "klingon_warbird_UNI_kmtar",
+         "join_factions":[
+            "klingonempire"
+         ]
       },
       {
          "primitive" : "force_hail",

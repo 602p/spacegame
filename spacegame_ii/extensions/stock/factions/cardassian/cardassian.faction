@@ -1,0 +1,15 @@
+{
+   "color" : [ 255, 255, 0 ],
+   "description" : "Cardassian Description... Cardassian Description... Cardassian Description... Cardassian Description... Cardassian Description... Cardassian Description... Cardassian Description... Cardassian Description... Cardassian Description... Cardassian Description... Cardassian Description... Cardassian Description... Cardassian Description... Cardassian Description... Cardassian Description... Cardassian Description... Cardassian Description... Cardassian Description... Cardassian Description... Cardassian Description... Cardassian Description... Cardassian Description... Cardassian Description... ",
+   "id" : "cardassianunion",
+   "join_effects" : [],
+   "join_requirements" : [],
+   "leave_effects" : [],
+   "leave_requirements" : [],
+   "name" : "Cardassian Union",
+   "navy_name" : "Cardassian navy",
+   "tags" : [ "all", "has_any_cardassians", "has_many_cardassians" ],
+
+   "icon_image":"img_cardassian_icon",
+   "banner_image":"img_cardassian_banner"
+}

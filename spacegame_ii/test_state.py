@@ -199,7 +199,7 @@ while run:
 			if e.key==pygame.K_F2:
 				faction.get_faction("federation").try_join(g.player)
 			if e.key==pygame.K_F3:
-				faction.get_faction("klingonempire").try_join(g.player)
+				faction.get_faction("federation").try_leave(g.player)
 			if e.key==pygame.K_F4:
 				absroot.state_manager.start_interdicting("cutscene_anim", "fsanim_intro_ke")
 			if e.key==pygame.K_F12:

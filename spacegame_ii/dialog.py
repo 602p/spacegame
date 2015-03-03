@@ -164,6 +164,7 @@ class DialogState(state.InterdictingState):
 		self.rep_pos.move_ip(self.box_pos)
 		
 		self.font=self.root.gamedb(self.params[1]+".text")
+		self.titlefont=self.root.gamedb("font_inventory_large")
 		self.topic_font=self.root.gamedb(self.params[1]+".topic")
 		self.max_width=int(self.words_rect.width/self.font.size("_")[0])-2
 		
@@ -292,9 +293,10 @@ class DialogState(state.InterdictingState):
 		screen.blit(self.text_image, (self.words_rect.left, self.words_rect.top-self.text_scroll))
 		screen.blit(self.topics_image, (self.topics_rect.left, self.topics_rect.top-self.topics_scroll))
 		screen.blit(self.font.render("Reputation: "+str(self.dialog_manager.othership.player_relations), 1, (255,255,255)), self.rep_pos)
-
 		screen.blit(self.screenshot, (0,0))
 		screen.blit(self.font.render("OSHIP_:"+self.othership.name, 1, (255,255,255)), (0,0))
+		screen.blit(self.titlefont.render("Hailing "+self.dialog_manager.othership.name, 1, self.dialog_manager.othership.get_faction_attr("color", (255,255,255))), (self.box_pos[0], self.box_pos[1]-self.titlefont.size("|")[1]))
+
 
 	def process_events(self, events):
 		for event in events:

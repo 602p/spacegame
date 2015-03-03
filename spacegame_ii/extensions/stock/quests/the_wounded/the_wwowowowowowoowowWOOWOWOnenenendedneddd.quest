@@ -31,7 +31,10 @@
             100,
             [ -100, 100 ]
          ],
-         "ship_id" : "cardassian_galor_trager"
+         "ship_id" : "cardassian_galor_trager",
+         "join_factions":[
+            "cardassianunion"
+         ]
       }
    ],
    "id" : "event_tng_the_wounded",

@@ -24,9 +24,9 @@ class Faction(tooltips.GenericTooltipMixin):
 		self.config=config
 		self.id_str=config["id"]
 		self.name=config.get("name", "UNS_name")
-		self.longname=config.get("longname", "UNS_longname")
+		self.longname=config.get("longname","["+self.name+"]")
 		self.description=config.get("description", "UNS_description")
-		self.color=config.get("color", [255,255,255])
+		self.color=config.get("color", [40,40,40])
 		self.tags=config.get("tags",[])
 		self.join_required=config.get("join_requirements",[])
 		self.leave_required=config.get("leave_requirements",[])
@@ -76,7 +76,10 @@ class Faction(tooltips.GenericTooltipMixin):
 	def tt_render_image(self):
 		self.tt_image_init((1000,1000))
 		self.tt_image.blit(self.banner_image, (0,0))
-		self.tt_image.blit(absroot.gamedb("font_item_title").render(self.name, 1, (20,20,20)), (70,0))
+		self.tt_image.blit(absroot.gamedb("font_item_title").render(self.name, 1, self.color), (70,0))
+		self.tt_image.blit(
+			tooltips.render_wrapped_text("("+self.longname+")\n"+self.description, 400, absroot.gamedb("font_item_desc"), (40,40,40))
+			,(70, absroot.gamedb("font_item_title").size("|")[1]))
 		self.tt_image_clip()
 		self.tt_add_box()
 
