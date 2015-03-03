@@ -1,0 +1,4 @@
+{
+	"id":"UNI_wounded_pheonix_hail2",
+	"text":"Damnit <@{savedb:get('player_name')}>, can't you $@see:UNI_wounded_pheonix_hail3@$ ? We're at war with the cardassians!"
+}

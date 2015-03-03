@@ -4,6 +4,7 @@
     "id":"wep_shield_laser",
     "inventory_image":"item_laser_turret_inventory2",
     "equipped_image":"item_laser_bullet",
+    "desc_text":"A Phaser Weapon tuned to shields.\nDeals about 45 damage, but only to shields.",
     "mount_type":"small",
     "cost":500,
     "mass":1,

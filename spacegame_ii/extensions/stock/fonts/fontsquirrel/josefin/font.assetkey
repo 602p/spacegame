@@ -1,0 +1,16 @@
+{
+	"assets":[
+		{
+			"name":"font_josefin_14",
+			"type":"font",
+			"path":"fonts/fontsquirrel/josefin/JosefinSans-Regular.ttf",
+			"size":14
+		},
+		{
+			"name":"font_josefin_12",
+			"type":"font",
+			"path":"fonts/fontsquirrel/josefin/JosefinSans-Regular.ttf",
+			"size":12
+		}
+	]
+}

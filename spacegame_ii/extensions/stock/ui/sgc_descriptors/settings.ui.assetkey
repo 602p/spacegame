@@ -13,7 +13,8 @@
 				"loader":"graphics:loader_screen",
 				"gfxcursor":"graphics:gfxcursor",
 				"minspeed":"graphics:min_trail_speed",
-				"fullscreen":"graphics:fullscreen"
+				"fullscreen":"graphics:fullscreen",
+				"dump":"debug:dump_at_die"
 			}
 		},
 		{
@@ -279,6 +280,21 @@
 											{
 												"type":"Label",
 												"text":"Disable Render Clipping",
+												"col":[255,255,255],
+												"font":"$font_standard_small"
+											}
+										]
+									},
+									{
+										"type":"HBox",
+										"widgets":[
+											{
+												"type":"Switch",
+												"id":"dump"
+											},
+											{
+												"type":"Label",
+												"text":"Dump Assets at end (REQ RESTART)",
 												"col":[255,255,255],
 												"font":"$font_standard_small"
 											}

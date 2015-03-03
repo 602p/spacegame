@@ -5,6 +5,7 @@
     "inventory_image":"item_laser_turret_inventory2",
     "equipped_image":"item_laser_bullet",
     "mount_type":"small",
+    "desc_text":"A simple Phaser Weapon.\nDeals about 10 damage.",
     "cost":500,
     "mass":1,
     "required":{

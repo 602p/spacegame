@@ -41,7 +41,7 @@ class GameAssetDatabase:
 		self.loaders={}
 		self.delayed_load_nodes=[]
 		self.loaded_nodes=[]
-		self.metadata={}
+		self.metadata={"$BLANK":{"refs":0, "trefs":0}}
 		def load_image(node, basepath):
 			debug("Loading image "+node["path"])
 			i=pygame.image.load(os.path.join(basepath+node["path"]))
@@ -115,7 +115,7 @@ class GameAssetDatabase:
 		try:
 			debug("Applying loader:'"+node["type"]+"' infer from:'"+node["name"]+"'...")
 			self.assets[str(node["name"])]=self.loaders[str(node["type"])](get_expanded_json(self, node), basepath)
-			self.metadata[node["name"]]={"basepath":basepath, "node":node}
+			self.metadata[node["name"]]={"basepath":basepath, "node":node, "refs":0, "trefs":0}
 		except KeyError:
 			error("Loader "+node["type"]+" not found! (probably)")
 			exc_type, exc_value, exc_traceback = sys.exc_info()
@@ -159,6 +159,12 @@ class GameAssetDatabase:
 			self._process_delayed_load(console)
 			
 	def get_asset(self, key):
+		d = self.assets[key]
+		if key in self.metadata:
+			self.metadata[key]["refs"]+=1
+		if isinstance(d, basestring):
+			if d.startswith("$ASSETREDIR:"):
+				return self.get_asset(d.replace("$ASSETREDIR:","",1))
 		return self.assets[key]
 
 	def get_meta(self, key):

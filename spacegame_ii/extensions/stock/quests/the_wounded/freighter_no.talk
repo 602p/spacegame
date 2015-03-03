@@ -1,0 +1,10 @@
+{
+	"id":"UNI_wounded_freighter_wont",
+	"text":"You would prioritise the peace over the truth?\n\nYou will only stop me by destroying my ship.",
+	"events":[
+		{
+			"primitive":"set_npc_ai",
+			"value":"%ai_fighter%"
+		}
+	]
+}

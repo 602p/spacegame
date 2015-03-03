@@ -34,6 +34,7 @@ def expand_dict(db, j):
 			assetname=k.replace("%", '').replace("+", '')
 			if not "ship:" in assetname:
 				assetname="cfg_"+assetname
+			db.metadata[assetname]["trefs"]+=1
 			new.update(db.get_asset(assetname))
 	#Expand all normal
 	for k in j.keys():
@@ -42,6 +43,7 @@ def expand_dict(db, j):
 	for k in filter(lambda x:x.startswith("%++"), j.keys()):
 		if k.startswith("%+") and k.endswith("%"):
 			#debug("DICT_EXAND_MODE: Expanding woveride "+k)
+			db.metadata["cfg_"+k.replace("%", '').replace("+", '')]["trefs"]+=1
 			new.update(db.get_asset("cfg_"+k.replace("%", '').replace("+", '')))
 	return new
 
@@ -57,6 +59,7 @@ def expand_list(db, j):
 def expand_string(db, j):
 	if j.startswith("%") and j.endswith("%"):
 		if ju_debug: debug("Replacing node "+j+" with node '"+str(db.get_asset("cfg_"+j.replace("%", '').replace("+", '')))+"'")
+		db.metadata["cfg_"+j.replace("%", '').replace("+", '')]["trefs"]+=1
 		return db.get_asset("cfg_"+j.replace("%", '').replace("+", ''))
 	return j
 

@@ -1,0 +1,7 @@
+{
+	"%+ship:cardassian_freighter%":0,
+	"id":"cardassian_freighter_UNI_wreck",
+	"shield_regen":0,
+	"image":"img_wrecked_freighter",
+	"can_be_targeted":0
+}

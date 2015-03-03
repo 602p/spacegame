@@ -19,6 +19,12 @@
 			"size":30
 		},
 		{
+			"name":"font_standard_14",
+			"path":"ui/modular/kenvector_future_thin.ttf",
+			"type":"font",
+			"size":14
+		},
+		{
 			"name":"font_standard_75",
 			"path":"ui/modular/kenvector_future_thin.ttf",
 			"type":"font",
@@ -43,16 +49,34 @@
 			"size":13
 		},
 		{
-			"name":"font_dialog_default",
+			"name":"font_dialog_default.text",
 			"type":"font",
-			"path":"fonts/kenny.nl/kenpixel.ttf",
-			"size":10
+			"path":"fonts/fontsquirrel/sourcecodepro/SourceCodePro-Regular.otf",
+			"size":14
+		},
+		{
+			"name":"font_dialog_default.topic",
+			"type":"font",
+			"path":"fonts/fontsquirrel/sourcecodepro/SourceCodePro-Regular.otf",
+			"size":12
 		},
 		{
 			"name":"font_inventory_default",
 			"type":"font",
 			"path":"fonts/kenny.nl/kenpixel_mini_square.ttf",
 			"size":16
+		},
+		{
+			"name":"font_item_title",
+			"type":"font",
+			"path":"fonts/kenny.nl/kenpixel_mini_square.ttf",
+			"size":16
+		},
+		{
+			"name":"font_item_desc",
+			"type":"font",
+			"path":"fonts/fontsquirrel/sourcecodepro/SourceCodePro-Regular.otf",
+			"size":12
 		},
 		{
 			"name":"font_inventory_large",

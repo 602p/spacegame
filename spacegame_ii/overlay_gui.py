@@ -1,4 +1,4 @@
-import pygame
+import pygame,tasks
 from rotutil import rot_center, get_rel_angle, get_angle
 from logging import debug, info, warning, error, critical
 import logging
@@ -13,9 +13,11 @@ def render_wepbar(root, state, ship, x, y):
 
 	for i in ship.hardpoints:
 		e=ship.get_item_in_hardpoint(ship.hardpoints.index(i))
+		temp_rect=pygame.Rect(x+xo, y+2, 64, 64)
 		if e:
 			screen.blit(e.get_inventory_image(), (x+xo, y+2))
-		if pygame.mouse.get_pressed()[0] and pygame.Rect(x+xo, y+2, 64, 64).collidepoint(pygame.mouse.get_pos()):
+			e.tt_delay_update(temp_rect)
+		if pygame.mouse.get_pressed()[0] and temp_rect.collidepoint(pygame.mouse.get_pos()):
 			ship.selected_wep=ship.hardpoints.index(i)
 		xo+=64
 

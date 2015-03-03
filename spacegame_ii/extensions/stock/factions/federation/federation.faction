@@ -12,5 +12,10 @@
    "relations" : {
       "klingonempire" : -20
    },
-   "tags" : [ "all", "has_any_klingons", "has_any_humans", "has_many_humans" ]
+   "tags" : [ "all", "has_any_klingons", "has_any_humans", "has_many_humans" ],
+
+   "dialog_font_group":"font_dialog_federation",
+
+   "icon_image":"img_federation_icon",
+   "banner_image":"img_federation_banner"
 }

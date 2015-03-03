@@ -1,0 +1,14 @@
+{
+	"assets":[
+		{
+			"name":"font_dialog_federation.text",
+			"type":"json",
+			"json":"$ASSETREDIR:font_josefin_14"
+		},
+		{
+			"name":"font_dialog_federation.topic",
+			"type":"json",
+			"json":"$ASSETREDIR:font_josefin_12"
+		}
+	]
+}

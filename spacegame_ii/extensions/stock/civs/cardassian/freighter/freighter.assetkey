@@ -1,0 +1,9 @@
+{
+	"assets":[
+		{
+			"type":"image",
+			"name":"img_cardassian_freighter",
+			"path":"civs/cardassian/freighter/full.png"
+		}
+	]
+}

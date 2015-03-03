@@ -1,0 +1,17 @@
+{
+	"assets":[
+		{
+			"type":"image",
+			"name":"img_klingon_icon",
+			"path":"factions/klingon/klingonicon.png",
+			"scale":[25,25]
+		},
+		{
+			"type":"image",
+			"name":"img_klingon_banner",
+			"path":"factions/klingon/klingonbanner.png",
+			"scale":[64,64],
+			"colorkey":[255,255,255]
+		}
+	]
+}

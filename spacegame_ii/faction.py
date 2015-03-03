@@ -1,4 +1,4 @@
-import json, jsonutil, absroot, primitives
+import json, jsonutil, absroot, primitives, tooltips
 from logging import debug, info, warn, error, critical
 from triggers import *
 import logging
@@ -19,7 +19,7 @@ def load_file(root, fn):
 def get_faction(name):
 	return absroot.factions[name]
 
-class Faction(object):
+class Faction(tooltips.GenericTooltipMixin):
 	def __init__(self, config):
 		self.config=config
 		self.id_str=config["id"]
@@ -33,6 +33,10 @@ class Faction(object):
 		self.join_effects=config.get("join_effects",[])
 		self.leave_effects=config.get("leave_effects",[])
 		self.relations=config.get("relations",{})
+		self.visible=config.get("visible", True)
+		if self.visible:
+			self.icon_image=absroot.gamedb(config.get("icon_image", "$BLANK"))
+			self.banner_image=absroot.gamedb(config.get("banner_image", "$BLANK"))
 		#print config
 
 	def do_join(self, ship, force_functional=False):
@@ -68,6 +72,14 @@ class Faction(object):
 			self.do_leave(ship)
 			return True
 		return False
+
+	def tt_render_image(self):
+		self.tt_image_init((1000,1000))
+		self.tt_image.blit(self.banner_image, (0,0))
+		self.tt_image.blit(absroot.gamedb("font_item_title").render(self.name, 1, (20,20,20)), (70,0))
+		self.tt_image_clip()
+		self.tt_add_box()
+
 
 class FactionManager(object):
 	def __init__(self, root):

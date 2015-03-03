@@ -1,0 +1,16 @@
+{
+	"assets":[
+		{
+			"type":"image",
+			"name":"img_federation_icon",
+			"path":"factions/federation/fedicon.png",
+			"scale":[25,25]
+		},
+		{
+			"type":"image",
+			"name":"img_federation_banner",
+			"path":"factions/federation/fedbanner.png",
+			"scale":[64,64]
+		}
+	]
+}

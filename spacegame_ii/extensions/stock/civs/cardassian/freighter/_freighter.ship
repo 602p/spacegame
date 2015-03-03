@@ -1,0 +1,9 @@
+{
+	"%+base_ship%":0,
+	"id":"cardassian_freighter",
+	"image":"img_cardassian_freighter",
+	"name":"Cardassian Freighter",
+	"hull":300,
+	"shields":100,
+	"max_speed":200
+}

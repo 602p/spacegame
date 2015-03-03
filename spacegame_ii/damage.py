@@ -205,6 +205,7 @@ class DamageModel:
 				if i.status==2:
 					screen.blit(i.image_destroyed, (x+ox, y+140))
 					ox+=16
+		self.ship.render_factions(x-27, y)
 
 	def regen(self):
 		if self.shields<self.maxshields:

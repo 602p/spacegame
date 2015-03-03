@@ -29,7 +29,7 @@ class InventoryState(state.InterdictingState):
 				image.blit(self.font.render(line, 1, (255,255,255)), pos)
 				pos[1]+=self.font.size("|")[1]
 			
-			rect=pygame.Rect(currpos[0]+64, currpos[1], *image.get_size())
+			rect=pygame.Rect(currpos[0]+64, currpos[1], image.get_size()[0], 64)
 
 			pygame.draw.rect(image, (0,255,0), pygame.Rect(-2,0,1300,63), 2)
 
@@ -48,6 +48,9 @@ class InventoryState(state.InterdictingState):
 				pygame.draw.rect(screen, pygame.Color(0,0,255,127), pygame.Rect(rect.topleft, (10000, 64)))
 			screen.blit(inv_image, (rect.left-64, rect.top))
 			screen.blit(text_image, rect.topleft)
+			item.tt_delay_update(rect)
+			item.tt_delay_update(pygame.Rect((rect.left-64, rect.top), (64,64)))
+
 			
 	def process_events(self, events):
 		for event in events:

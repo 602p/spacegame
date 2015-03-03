@@ -5,7 +5,7 @@ from triggers import *
 module_logger=logging.getLogger("sg.sectors")
 debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
 
-SECTORSIZE=5000 #Actually 2x this
+SECTORSIZE=15000 #Actually 2x this
 GALAXYSIZE=11 #Again, 2x this in each axis
 
 def init(root):

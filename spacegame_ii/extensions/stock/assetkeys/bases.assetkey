@@ -67,6 +67,17 @@
 				"tags":[],
 				"count":1
 			}
+		},
+		{
+			"type":"json",
+			"name":"cfg_base_planet",
+			"json":{
+				"%+base_ship%":0,
+				"hull":99999999,
+				"render_rotation":false,
+			    "can_be_hit":false,
+			    "can_be_targeted":false
+			}
 		}
 	]
 }

@@ -3,7 +3,7 @@ import absroot
 
 
 
-SKIP_TO_GAME=False
+SKIP_TO_GAME=True
 SKIP_START_ID='startdefun_cu'
 
 from logging import debug, info, warning, error, critical
@@ -26,7 +26,7 @@ except ImportError:
 	print "This game may run faster if you install psyco"
 
 import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader, triggers
-import assets, pyconsole, interdiction_gui, overlay_gui, ui_states, sectors, newgame, dialog, quests, inventory
+import assets, pyconsole, interdiction_gui, overlay_gui, ui_states, sectors, newgame, dialog, quests, inventory, atexit
 import sgc, serialize, gfxcursor, formatting, pyganim, keymapping, sys, traceback, datetime, ai, types, faction
 import entitybase as eb
 debug("...(Imports done)")
@@ -63,13 +63,15 @@ root.formatter=formatting.Formatter({"root":root})
 root.extentions={}
 
 root.settings=serialize.load_settings()
+if root.settings["debug"]["dump_at_die"]:
+	atexit.register(extention_loader.AssetInfoClass.dump_assetlist)
 
 renderspace_size=root.settings["graphics"]["window_size"]
 flags=pygame.DOUBLEBUF
 if root.settings["graphics"]["fullscreen"]: flags=flags|pygame.FULLSCREEN
 
 screen=sgc.surface.Screen(renderspace_size, flags, root.settings["graphics"]["color_depth"])
-pygame.display.set_caption("Spacegame Alpha")
+pygame.display.set_caption("[Loading...]")
 
 scrollingscreen=rotutil.ScrollingWorldManager(root, screen.image)
 root.screen=scrollingscreen
@@ -118,6 +120,7 @@ root.state_manager.add_state(gamestate.RunningGameState(), "game")
 
 root.state_manager.add_state(newgame.ShipSelectState(), "newgame_selectship")
 root.state_manager.factories["ext_info"]=state.InterdictingStateFactory(extention_loader.ExtentionInfoClass)
+root.state_manager.factories["ass_info"]=state.InterdictingStateFactory(extention_loader.AssetInfoClass)
 root.state_manager.factories["generic_ui"]=state.InterdictingStateFactory(ui_states.GenericUIInterdictor)
 root.state_manager.factories["keymapper"]=state.InterdictingStateFactory(keymapping.KeyMapperState)
 root.state_manager.factories["credits"]=state.InterdictingStateFactory(gamestate.CreditsState)
@@ -194,11 +197,13 @@ while run:
 			if e.key==pygame.K_F1:
 				root.quest_manager.start_quest("event_pirate_raid_1")
 			if e.key==pygame.K_F2:
-				faction.get_faction("klingonempire").try_join(g.player)
+				faction.get_faction("federation").try_join(g.player)
 			if e.key==pygame.K_F3:
-				faction.get_faction("klingonempire").try_leave(g.player)
+				faction.get_faction("klingonempire").try_join(g.player)
 			if e.key==pygame.K_F4:
 				absroot.state_manager.start_interdicting("cutscene_anim", "fsanim_intro_ke")
+			if e.key==pygame.K_F12:
+				absroot.state_manager.start_interdicting("ass_info")
 		elif e.type==pygame.VIDEORESIZE:
 			debug("Root resize")
 			root.renderspace_size=e.dict['size']
@@ -212,6 +217,7 @@ while run:
 		root.fps=999
 	else:
 		root.fps=root.clock.get_fps()
+	pygame.display.set_caption("Spacegame "+root.version+" ("+str("%3d" % root.fps)+" FPS)")
 
 	if pygame.event.peek(pygame.QUIT):run=0
 	root.console.process_input(events)
@@ -237,6 +243,8 @@ while run:
 
 	root.console.draw()
 	#pygame.draw.line(root.screen.screen, (255,0,0), (0,0), root.renderspace_size, 20)
+
+	tasks.run_group(root, 'tooltips')
 
 	root.gfxcursor.show()
 

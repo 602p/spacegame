@@ -1,12 +1,35 @@
 {
    "keys" : [ "UNI_the_wounded_cardassian_hail3" ],
-   "text" : "Head to the Cuella system in sector 0,10...\n...Thats where he was last seen."
+   "text" : "Head to the Cuella system in sector 0,10...\n...Weve spotted him persuing a $@frieetgter:UNI_wounded_freighter_innocent@$ ."
    ,"events":[
-   		{
-   			"primitive":"UNI_wounded_spawn_ship_in_other_sector",
-   			"secid":"0,10",
-   			"worldpos":[0,0]
-   		},
+      {   
+         "effects":[
+      		{
+               "primitive":"UNI_wounded_spawn_ship_in_other_sector",
+               "secid":"0,10",
+               "worldpos":[0,0]
+            },
+            {
+               "primitive":"UNI_wounded_spawn_ship_in_other_sector2",
+               "secid":"0,10",
+               "worldpos":[600,100]
+            },
+            {
+               "name" : "the_wounded_spawned_pheonix",
+               "primitive" : "set_variable",
+               "value" : true
+            }
+         ],
+         "else":[
+            {
+               "id" : "UNI_wounded_ship_spawned",
+               "primitive" : "show_speech"
+            }
+         ],
+         "name" : "the_wounded_spawned_pheonix",
+         "primitive" : "check_variable",
+         "value" : null
+      },
 		{
 			"primitive":"set_current_dialog_exitability",
 			"value":true

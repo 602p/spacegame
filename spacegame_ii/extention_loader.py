@@ -1,4 +1,4 @@
-import os, item, ship, serialize, primitives, imp, json, fnmatch, pygame, time, sys, dialog, quests, faction, state, absroot
+import os, item, ship, serialize, primitives, imp, json, fnmatch, pygame, time, sys, dialog, quests, faction, state, absroot, textwrap
 from logging import debug, info, warning, error, critical
 import logging
 module_logger=logging.getLogger("sg.extention_loader")
@@ -199,22 +199,110 @@ class HookableExtention(object):
 		return 0
 
 class ExtentionInfoClass(state.InterdictingState):
+	def first_start(self):
+		self.basepos=0
 	def internal_update(self):
 		absroot.screen.screen.fill((0,0,0))
-		pos=0
+		pos=self.basepos
 		for name, ext in absroot.extentions.iteritems():
-			absroot.gamedb("LOADER_font_mono").set_bold(ext.get_bold())
-			absroot.gamedb("LOADER_font_mono").set_italic(ext.get_italic())
-			absroot.screen.screen.blit(absroot.gamedb("LOADER_font_mono").render(name+": "+ext.get_text(), 1, ext.get_color()), [0, pos])
-			pos+=absroot.gamedb("LOADER_font_mono").size("A")[1]
-		absroot.gamedb("LOADER_font_mono").set_bold(0)
-		absroot.gamedb("LOADER_font_mono").set_italic(0)
+			absroot.gamedb("LOADER_font_plugin_list").set_bold(ext.get_bold())
+			absroot.gamedb("LOADER_font_plugin_list").set_italic(ext.get_italic())
+			absroot.screen.screen.blit(absroot.gamedb("LOADER_font_plugin_list").render(name+": "+ext.get_text(), 1, ext.get_color()), [0, pos])
+			pos+=absroot.gamedb("LOADER_font_plugin_list").size("A")[1]
+		absroot.gamedb("LOADER_font_plugin_list").set_bold(0)
+		absroot.gamedb("LOADER_font_plugin_list").set_italic(0)
+
+	def process_events(self, events):
+		for e in events:
+			if e.type==pygame.KEYDOWN:
+				if e.key==pygame.K_ESCAPE:
+					self.finish()
+			if e.type==pygame.MOUSEBUTTONDOWN:
+				if e.button==5:
+					self.basepos+=20
+				if e.button==4:
+					self.basepos-=20
+
+class AssetInfoClass(state.InterdictingState):
+	def first_start(self):
+		self.basepos=0
+
+	def internal_update(self):
+		absroot.screen.screen.fill((0,0,0))
+		root=absroot
+		self.pos=self.basepos
+		self.render_lines("")
+		self.render_lines("Press D to dump asset info.")
+		self.render_lines(str(len(root.gamedb.assets))+" assets: "+(", ".join([x+"["+str(root.gamedb.metadata[x]["refs"])+","+str(root.gamedb.metadata[x]["trefs"])+"]" for x in sorted(root.gamedb.assets.keys(), key=lambda k: -root.gamedb.metadata[k]["refs"]-root.gamedb.metadata[k]["trefs"])])), (255,255,255))
+		self.render_lines(str(len(root.item_factories))+" items: "+(", ".join(sorted(root.item_factories))), (255,125,125))
+		self.render_lines(str(len(root.ship_factories))+" ships: "+(", ".join(sorted(root.ship_factories.keys()))), (125,125,255))
+		self.render_lines(str(root.dialog_manager.count_pools())+" speech pools: "+(", ".join(sorted(root.dialog_manager.pools.keys()))), (125,255,125))
+		self.render_lines(str(len(root.quest_factories))+" quests: "+(", ".join(sorted(root.quest_factories.keys()))),  (255,125,255))
+
+	def render_lines(self, text, color=(255,255,255)):
+		text=textwrap.wrap(text, int(absroot.renderspace_size[0]/absroot.gamedb("LOADER_font_small").size("_")[0])-2)
+		for l in text:
+			absroot.screen.screen.blit(absroot.gamedb("LOADER_font_small").render(l, 1, color), (0, self.pos))
+			self.pos+=absroot.gamedb("LOADER_font_small").size("|")[1]
+		self.pos+=absroot.gamedb("LOADER_font_small").size("|")[1]
+
+	@staticmethod
+	def dump_start():
+		with open("assetlist.txt", 'w') as fd:pass
+
+	@staticmethod
+	def dump_lines(text, _=0):
+		with open("assetlist.txt", 'a') as fd:
+			fd.write(text+"\n")
+
+	@staticmethod
+	def dump_assetlist():
+		root=absroot
+		debug("Dumping assetlist...")
+		AssetInfoClass.dump_start()
+		debug("Writing...")
+		AssetInfoClass.dump_lines(str(len(root.gamedb.assets))+" assets: "+(", ".join([x+"["+str(root.gamedb.metadata[x]["refs"])+","+str(root.gamedb.metadata[x]["trefs"])+"]" for x in sorted(root.gamedb.assets.keys(), key=lambda k: -root.gamedb.metadata[k]["refs"]-root.gamedb.metadata[k]["trefs"])])), (255,255,255))
+		AssetInfoClass.dump_lines(str(len(root.item_factories))+" items: "+(", ".join(sorted(root.item_factories))), (255,125,125))
+		AssetInfoClass.dump_lines(str(len(root.ship_factories))+" ships: "+(", ".join(sorted(root.ship_factories.keys()))), (125,125,255))
+		AssetInfoClass.dump_lines(str(root.dialog_manager.count_pools())+" speech pools: "+(", ".join(sorted(root.dialog_manager.pools.keys()))), (125,255,125))
+		AssetInfoClass.dump_lines(str(len(root.quest_factories))+" quests: "+(", ".join(sorted(root.quest_factories.keys()))),  (255,125,255))
+		AssetInfoClass.dump_lines("="*30)
+		for i in root.gamedb.assets.keys():
+			AssetInfoClass.dump_lines("<ASSET> "+i+" ("+str(type(root.gamedb.assets[i]))+"): "+str(root.gamedb.assets[i]))
+			if i in root.gamedb.metadata:
+				AssetInfoClass.dump_lines(" <META> "+i+": "+str(root.gamedb.metadata[i]))
+			else:
+				AssetInfoClass.dump_lines(" <NOMETA>")
+		AssetInfoClass.dump_lines("="*30)
+		for i in root.item_factories.keys():
+			AssetInfoClass.dump_lines("<ITEM> "+i+": "+str(root.item_factories[i]))
+		AssetInfoClass.dump_lines("="*30)
+		for i in root.ship_factories.keys():
+			AssetInfoClass.dump_lines("<SHIP> "+i+": "+str(root.ship_factories[i]))
+		AssetInfoClass.dump_lines("="*30)
+		for i in root.dialog_manager.pools.keys():
+			AssetInfoClass.dump_lines("<POOL> "+i+": "+str(root.dialog_manager.pools[i]))
+		AssetInfoClass.dump_lines("="*30)
+		for i in root.quest_factories.keys():
+			AssetInfoClass.dump_lines("<QUEST> "+i+": "+str(root.quest_factories[i]))
+		debug("Done")
 
 	def process_events(self, events):
 		for e in events:
 			if e.type==pygame.MOUSEBUTTONDOWN or e.type==pygame.KEYDOWN:
-				self.finish()
+				if e.type==pygame.KEYDOWN:
+					if e.key==pygame.K_d:
+						self.dump_assetlist()
 
+						return
+					if e.key==pygame.K_ESCAPE:
+						self.finish()
+				if e.type==pygame.MOUSEBUTTONDOWN:
+					if e.button==5:
+						self.basepos+=20
+					if e.button==4:
+						self.basepos-=20
+					
 def create_master_ext(name_, desc='Package notifier for $name', color=(127,127,255), bold=1, italic=0):
 	debug("Adding a _Master plugin id, name:"+name_)
 	desc=desc.replace("$name", name_)
@@ -231,4 +319,4 @@ def create_master_ext(name_, desc='Package notifier for $name', color=(127,127,2
 
 		def get_color(self):
 			return color
-	absroot.extentions["master_"+name_]=_Master(absroot)
+	absroot.extentions["m_"+name_]=_Master(absroot)

@@ -12,6 +12,19 @@
 			"sys_name":"monospace",
 			"size":12,
 			"default_bold":true
+		},
+		{
+			"name":"LOADER_font_plugin_list",
+			"type":"sysfont",
+			"sys_name":"monospace",
+			"size":14,
+			"default_bold":true
+		},
+		{
+			"name":"LOADER_font_small",
+			"type":"sysfont",
+			"sys_name":"monospace",
+			"size":11
 		}
 	]
 }

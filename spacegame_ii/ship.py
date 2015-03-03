@@ -1,5 +1,5 @@
 from __future__ import division
-import rarity, os, json, serialize, item, assets, entitybase, faction
+import rarity, os, json, serialize, item, assets, entitybase, faction, tooltips, absroot
 import random, assets, pygame, math, particles, physics, damage, pygame, primitives, ai
 from triggers import *
 from math import cos, sin, radians, degrees
@@ -29,7 +29,7 @@ def load_string(root, string, path=None):
 	json_o=get_expanded_json(root.gamedb, json.loads(string))
 	register_ship(root, json_o)
 	root.gamedb.assets["ship:"+json_o["id"]]=json_o
-	root.gamedb.metadata["ship:"+json_o["id"]]={"path":path, "node":json_o, "is_ship":False}
+	root.gamedb.metadata["ship:"+json_o["id"]]={"path":path, "node":json_o, "is_ship":False, "refs":0, "trefs":0}
 
 def register_ship(root, config):
 	root.ship_factories[config["id"]]=create_ship_factory(root, config)
@@ -48,6 +48,7 @@ def _load_ship(root, node, parent):
 	s = create_ship(root, node["ship_id"], 0, 0, not "packed" in node.keys(), node.get("ai", 1))
 	
 	if "packed" in node.keys():
+		s.config=node["config_cache"]
 		for item in node["inventory"]:
 			serialize.load_from_node(root, item, s)
 		s.damage.hull=node["currhull"]
@@ -106,7 +107,7 @@ class ShipFactory:
 				s.inventory.append(item.create_item(self.root, i["item_name"], s, i["equipped"]))
 		return s
 
-class Ship(serialize.SerializableObject, entitybase.FlaggedEntity, entitybase.TiggerablePosteventAdapterMixin):
+class Ship(serialize.SerializableObject, entitybase.FlaggedEntity, entitybase.TiggerablePosteventAdapterMixin, tooltips.GenericTooltipMixin):
 	can_be_targeted=1
 	def __init__(self, root, image, id_string, name, hull, mass, cost, cargo, start_speed, reactor_max,
 		reactor_regen, hardpoints, engine_sources, shields, rarity, max_speed, turn_rate, systems, config, x, y, use_ai=True):
@@ -324,7 +325,8 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity, entitybase.Ti
 			"hash_id":self.hash_id,
 			"triggers":self.serialize_triggers(),
 			"relations":self.player_relations,
-			"factions":self.faction_memberships
+			"factions":self.faction_memberships,
+			"config_cache":self.config
 		}
 		if self.use_ai:
 			d["ai_controller"]=self.ai.save_to_config_node()
@@ -344,3 +346,12 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity, entitybase.Ti
 
 	def finalize(self):
 		self.__exit__()
+
+	def render_factions(self, x, y):
+		oy=0
+		for fmember in self.faction_memberships:
+			if faction.get_faction(fmember).visible:
+				temp_rect=pygame.Rect(x, y+oy, *faction.get_faction(fmember).icon_image.get_size())
+				faction.get_faction(fmember).tt_delay_update(temp_rect)
+				absroot.screen.screen.blit(faction.get_faction(fmember).icon_image, (x, y+oy))
+				oy+=faction.get_faction(fmember).icon_image.get_height()

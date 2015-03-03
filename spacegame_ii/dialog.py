@@ -49,7 +49,7 @@ class DialogManager(object):
 	def start_dialog(self, target, topic="greeting"):
 		self.player=self.root.state_manager.states["game"].player
 		self.othership=target
-		self.current_state=self.root.state_manager.start_interdicting("dialog", [topic, "font_dialog_default"])
+		self.current_state=self.root.state_manager.start_interdicting("dialog", [topic, self.player.get_faction_attr("dialog_font_group","font_dialog_default")])
 
 	def get_for(self, name):
 		s=self.pools[name].get_speech()
@@ -163,7 +163,8 @@ class DialogState(state.InterdictingState):
 		self.topics_rect.move_ip(self.box_pos)
 		self.rep_pos.move_ip(self.box_pos)
 		
-		self.font=self.root.gamedb(self.params[1])
+		self.font=self.root.gamedb(self.params[1]+".text")
+		self.topic_font=self.root.gamedb(self.params[1]+".topic")
 		self.max_width=int(self.words_rect.width/self.font.size("_")[0])-2
 		
 		self.text_scroll=0
@@ -200,7 +201,8 @@ class DialogState(state.InterdictingState):
 					"dialog_m":self.dialog_manager,
 					"speech":speech,
 					"othership":self.dialog_manager.othership,
-					"player":self.root.state_manager.states["game"].player
+					"player":self.root.state_manager.states["game"].player,
+					"savedb":self.root.savegame.database
 				}).format_string(tmp_text)
 				for line in rep_text.split("\n"):
 					split_text.append(line.replace("\n",""))
@@ -242,7 +244,7 @@ class DialogState(state.InterdictingState):
 		self.show_loading()
 		pygame.display.flip()
 		debug("Rebuilding topics")
-		self.font.set_bold(1)
+		self.topic_font.set_bold(1)
 		self.topics_hotspots=[]
 		preadj_surf=pygame.Surface((self.topics_rect.width,10000)).convert_alpha()
 		preadj_surf.fill(pygame.Color(0,0,0,0))
@@ -250,18 +252,18 @@ class DialogState(state.InterdictingState):
 
 		for topic in self.dialog_manager.known_topics:
 			topic_text=self.dialog_manager.poolmappings[topic]
-			preadj_surf.blit(self.font.render(topic_text, 1, (255,255,255)), current_pos)
+			preadj_surf.blit(self.topic_font.render(topic_text, 1, (255,255,255)), current_pos)
 			#print topic+" :: "+topic_text
 
-			surf=pygame.Surface(self.font.size(topic_text)).convert_alpha()
+			surf=pygame.Surface(self.topic_font.size(topic_text)).convert_alpha()
 			# surf.fill((255,0,0,180))
 			# preadj_surf.blit(surf, current_pos)
 			self.topics_hotspots.append([pygame.Rect(current_pos, surf.get_size()), topic, topic_text])
 
-			current_pos[1]+=self.font.size("|")[1]
+			current_pos[1]+=self.topic_font.size("|")[1]
 			current_pos[0]=0
 
-		self.font.set_bold(0)
+		self.topic_font.set_bold(0)
 		new_surf=pygame.Surface((preadj_surf.get_bounding_rect().width+100,
 		 preadj_surf.get_bounding_rect().height+50)).convert_alpha()
 		new_surf.fill(pygame.Color(0,0,0,0))
@@ -280,7 +282,7 @@ class DialogState(state.InterdictingState):
 		
 		screen.blit(self.root.gamedb("uia_dialog_box"), self.box_pos)
 
-		pygame.draw.rect(screen, (0,255,0), self.words_rect, 3)
+		#pygame.draw.rect(screen, (0,255,0), self.words_rect, 3)
 		pygame.draw.rect(screen, (255,0,0), self.goodbye_rect, 3)
 		pygame.draw.rect(screen, (0,0,255), self.topics_rect, 3)
 

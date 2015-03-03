@@ -69,15 +69,35 @@
 								]
 							},
 							{
-								"type":"Button",
-								"label":"EXTENTIONS",
-								"surf":[150,50],
-								"label_font":"$font_standard_small",
-								"col":[170,0,170],
-								"controllers":[
+								"type":"HBox",
+								"spacing":4,
+								"border":0,
+								"widgets":[
 									{
-										"controller":"goto_istate",
-										"state":"ext_info"
+										"type":"Button",
+										"label":"PLUGINS",
+										"surf":[73,50],
+										"label_font":"$font_standard_14",
+										"col":[170,0,170],
+										"controllers":[
+											{
+												"controller":"goto_istate",
+												"state":"ext_info"
+											}
+										]
+									},
+									{
+										"type":"Button",
+										"label":"ASSETS",
+										"surf":[73,50],
+										"label_font":"$font_standard_14",
+										"col":[170,0,170],
+										"controllers":[
+											{
+												"controller":"goto_istate",
+												"state":"ass_info"
+											}
+										]
 									}
 								]
 							},

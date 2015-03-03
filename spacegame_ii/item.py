@@ -1,4 +1,5 @@
-import pygame, rarity, assets, datetime, os, json, primitives, serialize, ai
+from __future__ import division
+import pygame, rarity, assets, datetime, os, json, primitives, serialize, ai, tooltips, absroot, textwrap
 from rotutil import *
 from jsonutil import dget
 from logging import debug, info, warning, error, critical
@@ -71,7 +72,7 @@ class ItemFactory:
 		return Item(self.root, equipped, parent, self.config)
 
 
-class Item(serialize.SerializableObject, entitybase.Triggerable,entitybase.TiggerablePosteventAdapterMixin):
+class Item(serialize.SerializableObject, entitybase.Triggerable, entitybase.TiggerablePosteventAdapterMixin, tooltips.GenericTooltipMixin):
 	def __init__(self, root, equipped, parent, json_dict):
 		config=json_dict
 		# self.costper=cost
@@ -281,3 +282,33 @@ class Item(serialize.SerializableObject, entitybase.Triggerable,entitybase.Tigge
 
 	def do_additional_load(self, config):
 		pass
+
+	def tt_render_image(self):
+		self.tt_image_init((1000,1000))
+		self.tt_image.blit(self.inventory_image, (0,0))
+		self.tt_image.blit(absroot.gamedb("font_item_title").render(self.name, 1, (20,20,20)), (70,0))
+		text=self.config.get("desc_text", "Some indescribably horror.")
+		image_1=tooltips.render_wrapped_text(text, 400, absroot.gamedb("font_item_desc"), (40,40,40))
+		self.tt_image.blit(
+			image_1,
+			(70,absroot.gamedb("font_item_title").size("|")[1]))
+		absroot.gamedb("font_item_desc").set_italic(1)
+		text=""
+		for i in self.fire_required:
+			if i=='enemy_selected':
+				if self.fire_required[i]:
+					text+="\nRequires targeted enemy."
+			if i=="energy":
+				text+="\nRequires "+str(self.fire_required[i])+" energy."
+			if i=="cooldown":
+				text+="\nRequires "+str(self.fire_required[i])+" seconds between shots."
+			if i=="item":
+				text+="\nRequires a "+str(self.fire_required[i])+" to fire."
+			if i=="distance<":
+				text+="\nTarget must be closer than "+str(self.fire_required[i])+"u."
+		self.tt_image.blit(
+			tooltips.render_wrapped_text(text, 400, absroot.gamedb("font_item_desc"), (40,40,40)),
+			(70,absroot.gamedb("font_item_title").size("|")[1]+image_1.get_height()+10))
+		absroot.gamedb("font_item_desc").set_italic(0)
+		self.tt_image_clip()
+		self.tt_add_box()
