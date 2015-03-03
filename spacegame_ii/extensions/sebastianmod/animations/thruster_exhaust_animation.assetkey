@@ -1,0 +1,38 @@
+{
+	"assets":[
+		{
+			"type":"image",
+			"name":"image_thruster1_0",
+			"path":"amimatioms/engine_animation_1.png"
+		},
+		{
+			"type":"image",
+			"name":"image_thruster1_1",
+			"path":"amimatioms/engine_animation_2.png"
+		},
+		{
+			"type":"image",
+			"name":"image_thruster1_2",
+			"path":"amimatioms/engine_animation_3.png"
+		},
+		{
+			"type":"image",
+			"name":"image_thruster1_3",
+			"path":"amimatioms/engine_animation_4.png"
+		},
+		{
+			"type":"json",
+			"name":"cfg_thruster_exhaust_1",
+			"json":{
+				"sum_duration":0.85,
+				"offset":[0,0],
+				"frames":[
+					["image_thruster1_0", 0.25],
+					["image_thruster1_1", 0.25],
+					["image_thruster1_2", 0.25],
+					["image_thruster1_3", 0.25]
+				]
+			}
+		}
+	]
+}
