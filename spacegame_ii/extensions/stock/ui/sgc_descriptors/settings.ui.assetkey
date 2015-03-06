@@ -14,7 +14,9 @@
 				"gfxcursor":"graphics:gfxcursor",
 				"minspeed":"graphics:min_trail_speed",
 				"fullscreen":"graphics:fullscreen",
-				"dump":"debug:dump_at_die"
+				"dump":"debug:dump_at_die",
+				"show_intro_popup":"gameplay:intro_popup",
+				"bs_confirm":"gameplay:buysell_confirm"
 			}
 		},
 		{
@@ -308,7 +310,7 @@
 								"widgets":[
 									{
 										"type":"Label",
-										"text":"Keybindings",
+										"text":"Gameplay",
 										"font":"$font_standard_large"
 									},
 									{
@@ -331,6 +333,36 @@
 											{
 												"controller":"json_settings_get",
 												"bindings":"%sgcui_settings_jsonbindings%"
+											}
+										]
+									},
+									{
+										"type":"VBox",
+										"widgets":[
+											{
+												"type":"Switch",
+												"id":"show_intro_popup"
+											},
+											{
+												"type":"Label",
+												"text":"Show intro popup",
+												"col":[255,255,255],
+												"font":"$font_standard_small"
+											}
+										]
+									},
+									{
+										"type":"VBox",
+										"widgets":[
+											{
+												"type":"Switch",
+												"id":"bs_confirm"
+											},
+											{
+												"type":"Label",
+												"text":"Show Buy/Sell confirm",
+												"col":[255,255,255],
+												"font":"$font_standard_small"
 											}
 										]
 									}

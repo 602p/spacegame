@@ -1,5 +1,5 @@
 from __future__ import division
-import random, rarity, primitives, json, absroot
+import random, rarity, primitives, json, absroot, state, tooltips
 from logging import debug, info, warn, error, critical
 from jsonutil import dget, get_expanded_json
 import logging
@@ -32,7 +32,7 @@ def create_quest_factory(root, config):
 def create_quest(root, name):
 	return root.quest_factories[name]()
 
-class QuestManager:
+class QuestManager(object):
 	def __init__(self, root, player):
 		self.player=player
 		self.root=root
@@ -72,7 +72,7 @@ class QuestManager:
 				if quest.database["ship_mappings"][key]==hid:
 					return quest
 
-class QuestFactory:
+class QuestFactory(object):
 	def __init__(self, root, config):
 		self.id=config["id"]
 		self.name=config.get("name", "EVENT NAME")
@@ -101,7 +101,7 @@ class QuestFactory:
 	def __call__(self):
 		return Quest(self.root, self.config)
 
-class Quest:
+class Quest(tooltips.GenericTooltipMixin):
 	def __init__(self, root, config):
 		self.config=config
 		self.root=root
@@ -138,17 +138,15 @@ class Quest:
 		self.database=config["database"]
 		self.state=config["state"]
 		self.active=config["active"]
-	
 
-"""
-QuestManager keeps track of your quests and each 5 (?) seconds checks to see if you have completed it.
-It also instanciates and manages quests. It is also used to spawn random quests.
+	def get_descriptions(self):
+		return "Not Implemented"
 
-A Quest has some requirements needed to spawn it and a rarity. It also has events that are run right when it starts.
--name
--id
--rarity
--spawn requirements
--finish requirements
--sort order (highest at top)
-"""
+	def tt_render_image(self):
+		self.tt_image_init((1000,1000))
+		self.tt_image.blit(absroot.gamedb("font_item_title").render(self.name, 1, (200,200,200)), (0,0))
+		self.tt_image.blit(
+			tooltips.render_wrapped_text(self.get_description(), 400, absroot.gamedb("font_item_desc"), (40,40,40))
+			,(0, absroot.gamedb("font_item_title").size("|")[1]))
+		self.tt_image_clip()
+		self.tt_add_box()

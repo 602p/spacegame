@@ -15,17 +15,18 @@ class InteractableToEnterStation(ai.AIControllerUpdateNode):
 				if self.controller.gamestate.player.rigidbody.moving()<self.config.get("max_speed", 75):
 					debug("Entering station")
 					self.controller.gamestate.player.rigidbody.set_magnitude(0)
-					self.config["ui_config"]["bg_image"]=self.config["bg_image"]
-					state=self.controller.root.state_manager.start_interdicting("generic_ui", self.config["ui_config"])
-					debug("Patching State")
-					patch_text_kit={
-						"station_name":self.config.get("name", "UNSET NAME")
-					}
-					for widget_k in state.widgets:
-						widget=state.widgets[widget_k]
-						if "text" in widget._json_config.keys():
-							widget.config(text=widget._json_config["text"] % patch_text_kit)
-						widget._switch()
+					# self.config["ui_config"]["bg_image"]=self.config["bg_image"]
+					# state=self.controller.root.state_manager.start_interdicting("generic_ui", self.config["ui_config"])
+					# debug("Patching State")
+					# patch_text_kit={
+					# 	"station_name":self.config.get("name", "UNSET NAME")
+					# }
+					# for widget_k in state.widgets:
+					# 	widget=state.widgets[widget_k]
+					# 	if "text" in widget._json_config.keys():
+					# 		widget.config(text=widget._json_config["text"] % patch_text_kit)
+					# 	widget._switch()
+					self.controller.root.state_manager.start_interdicting("inventory", {"ship":self.controller.gamestate.player, "is_shop":True, "shop_ship":self.controller.ship})
 				else:
 					if self.controller.root.game_time-self.cooldown_last>4:
 						self.controller.root.igconsole.post("Please slow down before docking", (255,255,0))

@@ -1,0 +1,34 @@
+{
+	"%+base_item%":0,
+	"name":"$Money",
+    "desc_text":"Universal Currency.",
+	"id":"moneygun",
+	"inventory_image":"img_money",
+	"mass":1,
+	"cost":1,
+    "count":-1,
+	"can_sell":false,
+	"can_buy":false,
+	"required":{
+		"cooldown":0.025,
+		"item":"money"
+	},
+	"fire_events":[
+		{
+            "primitive":"fire_projectile",
+            "image":"img_money_bill",
+            "lifetime":5,
+            "homing":true,
+            "turnrate":720,
+            "velocity":550,
+            "maxspeed":550,
+            "accel":0,
+            "impact":[
+                {
+                    "primitive":"simple_damage",
+                    "damage":1
+                }
+            ]
+        }
+    ]
+}

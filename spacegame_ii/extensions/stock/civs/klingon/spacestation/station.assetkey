@@ -3,7 +3,8 @@
 		{
 			"type":"image",
 			"name":"img_ship_klingon_station_tygokor",
-			"path":"civs/klingon/spacestation/tygokor_s.png"
+			"path":"civs/klingon/spacestation/tygokor_scc.png",
+			"colorkey":-1
 		}
 	]
 }

@@ -49,7 +49,7 @@
          }
       ]
    },
-   "spawn_random" : true,
+   "spawn_random" : false,
    "spawn_requirements" : [
       {
          "name" : "event_the_wounded",

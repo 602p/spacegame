@@ -1,0 +1,11 @@
+{
+	"%+base_item%":0,
+	"name":"$Money",
+    "desc_text":"Universal Currency.",
+	"id":"money",
+	"inventory_image":"img_money",
+	"mass":0,
+	"cost":1,
+	"can_sell":false,
+	"can_buy":false
+}

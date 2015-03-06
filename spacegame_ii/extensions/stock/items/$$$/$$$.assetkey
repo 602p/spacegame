@@ -1,0 +1,17 @@
+{
+	"assets":[
+		{
+			"name":"img_money",
+			"type":"image",
+			"path":"items/$$$/$$$.png",
+			"colorkey":-1
+		},
+		{
+			"name":"img_money_bill",
+			"type":"image",
+			"path":"items/$$$/bill.png",
+			"colorkey":-1,
+			"scale":[20,20]
+		}
+	]
+}

@@ -88,7 +88,7 @@ class Item(serialize.SerializableObject, entitybase.Triggerable, entitybase.Tigg
 		# self.equipped_image=equipped_image.copy() #Make a copy so we dont contaminate the gdb
 		# self.rarity=rarity.Rarity(config["rarity"])
 		self.triggers={}
-		self.costper=json_dict["cost"]
+		self.costper=json_dict.get("cost", 0)
 		self.id_str=json_dict["id"]
 		self.name=json_dict["name"]
 		self.inventory_image=root.gamedb.get_asset(json_dict["inventory_image"]).copy()
@@ -100,6 +100,10 @@ class Item(serialize.SerializableObject, entitybase.Triggerable, entitybase.Tigg
 		self.passive_equip=json_dict["equip"]
 		self.passive_dequip=json_dict["dequip"]
 		self.fire_events=json_dict["fire_events"]
+		self.tags=json_dict.get("tags", [])
+		self.tags.append("_all")
+		self.can_sell=json_dict.get("can_sell", True)
+		self.can_buy=json_dict.get("can_buy", True)
 		self.root=root
 
 		self.parent=parent
@@ -151,13 +155,14 @@ class Item(serialize.SerializableObject, entitybase.Triggerable, entitybase.Tigg
 		return d
 
 	def get_inventory_image(self):
-		surface=pygame.Surface((64,64))
+		surface=pygame.Surface((64,64)).convert_alpha()
+		surface.fill((0,0,0,0))
 		surface.blit(self.inventory_image, (0,0))
 		font=self.root.gamedb("font_sys_mono")
 		font.set_bold(1)
 		surface.blit(font.render(str(self.count), 0, (0,0,255)), (0,0))
 		#print "a"
-		if "item" in self.fire_required.keys():
+		if "item" in self.fire_required.keys() and not self.config.get("hide_ammo", False):
 			#print "b"
 			none=1
 			for item in self.parent.inventory:
@@ -217,6 +222,7 @@ class Item(serialize.SerializableObject, entitybase.Triggerable, entitybase.Tigg
 
 	def fire(self):
 		if self.can_fire():
+			#print "canfire"
 			self.sg_postevent(UE_FIRE_REQUIRE_SUCCESS, item=self)
 			#self.trigger(UE_FIRE_REQUIRE_SUCCESS)
 			self.sg_postevent(UE_BEFORE_FIRE, item=self)
@@ -227,6 +233,8 @@ class Item(serialize.SerializableObject, entitybase.Triggerable, entitybase.Tigg
 				for item in self.parent.inventory:
 					if item.id_str==self.fire_required["item"]:
 						item.consume_one()
+				# if self.id_str==self.fire_required["item"]:
+				# 	self.consume_one()
 		else:
 			self.sg_postevent(UE_FIRE_REQUIRE_FAIL, item=self)
 			
@@ -259,7 +267,10 @@ class Item(serialize.SerializableObject, entitybase.Triggerable, entitybase.Tigg
 		return (self.get_center_()[0]-self.rotated_rect.width/2,self.get_center_()[1]-self.rotated_rect.height/2)
 
 	def consume_one(self):
-		self.count-=1
+		self.consume(1)
+
+	def consume(self, amount):
+		self.count-=amount
 		#debug("Consuming one "+self.id_str)
 		if self.count<1:
 			#debug("Consumed all. Deleting")
@@ -282,6 +293,12 @@ class Item(serialize.SerializableObject, entitybase.Triggerable, entitybase.Tigg
 
 	def do_additional_load(self, config):
 		pass
+
+	def get_mass(self):
+		return self.count*self.mass
+
+	def get_cost(self):
+		return self.count*self.costper
 
 	def tt_render_image(self):
 		self.tt_image_init((1000,1000))
@@ -310,5 +327,22 @@ class Item(serialize.SerializableObject, entitybase.Triggerable, entitybase.Tigg
 			tooltips.render_wrapped_text(text, 400, absroot.gamedb("font_item_desc"), (40,40,40)),
 			(70,absroot.gamedb("font_item_title").size("|")[1]+image_1.get_height()+10))
 		absroot.gamedb("font_item_desc").set_italic(0)
+		absroot.gamedb("font_item_desc").set_bold(1)
+
+		self.tt_image.blit(
+			absroot.gamedb("font_item_desc").render("Mass: "+str(self.get_mass()), 1 ,(40,40,40))
+			,(0,65))
+		self.tt_image.blit(
+			absroot.gamedb("font_item_desc").render("Cost: "+str(self.get_cost()), 1 ,(40,40,40))
+			,(0,65+absroot.gamedb("font_item_desc").size("|")[1]))
+
+		absroot.gamedb("font_item_desc").set_bold(0)
 		self.tt_image_clip()
 		self.tt_add_box()
+
+	tt_last_rerender_count=0
+	def tt_needs_rerender(self):
+		if self.tt_last_rerender_count!=self.count:
+			self.tt_last_rerender_count=self.count
+			return True
+		return False

@@ -4,7 +4,7 @@ import absroot
 
 
 SKIP_TO_GAME=True
-SKIP_START_ID='startdefun_cu'
+SKIP_START_ID='startdefun_ke'
 
 from logging import debug, info, warning, error, critical
 import logging
@@ -27,7 +27,7 @@ except ImportError:
 
 import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader, triggers
 import assets, pyconsole, interdiction_gui, overlay_gui, ui_states, sectors, newgame, dialog, quests, inventory, atexit
-import sgc, serialize, gfxcursor, formatting, pyganim, keymapping, sys, traceback, datetime, ai, types, faction
+import sgc, serialize, gfxcursor, formatting, pyganim, keymapping, sys, traceback, datetime, ai, types, faction, inventory2
 import entitybase as eb
 debug("...(Imports done)")
 
@@ -125,8 +125,8 @@ root.state_manager.factories["generic_ui"]=state.InterdictingStateFactory(ui_sta
 root.state_manager.factories["keymapper"]=state.InterdictingStateFactory(keymapping.KeyMapperState)
 root.state_manager.factories["credits"]=state.InterdictingStateFactory(gamestate.CreditsState)
 root.state_manager.factories["dialog"]=state.InterdictingStateFactory(dialog.DialogState)
-root.state_manager.factories["inventory"]=state.InterdictingStateFactory(inventory.InventoryState)
-root.state_manager.factories["hardpoint_select"]=state.InterdictingStateFactory(inventory.SlotSelectorState)
+root.state_manager.factories["inventory"]=state.InterdictingStateFactory(inventory2.InventoryState2)
+root.state_manager.factories["hardpoint_select"]=state.InterdictingStateFactory(inventory2.SlotSelectorState2)
 
 #root.state_manager.goto_state("game")
 root.state_manager.start_interdicting("generic_ui", root.gamedb("sgcui_mainmenu"))
@@ -197,9 +197,9 @@ while run:
 			if e.key==pygame.K_F1:
 				root.quest_manager.start_quest("event_pirate_raid_1")
 			if e.key==pygame.K_F2:
-				faction.get_faction("federation").try_join(g.player)
+				faction.get_faction("klingonempire").try_join(g.player)
 			if e.key==pygame.K_F3:
-				faction.get_faction("federation").try_leave(g.player)
+				faction.get_faction("klingonempire").try_leave(g.player)
 			if e.key==pygame.K_F4:
 				absroot.state_manager.start_interdicting("cutscene_anim", "fsanim_intro_ke")
 			if e.key==pygame.K_F12:

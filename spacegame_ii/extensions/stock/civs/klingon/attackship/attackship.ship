@@ -35,21 +35,13 @@
         },
         {
             "size":"warpdrive",
-            "x":82,
+            "x":35,
             "y":69
         }
     ],
     "start_equip":[
         {
             "item_name":"item_klingon_warpdrive1",
-            "equipped":2
-        },
-        {
-            "item_name":"item_durasteel_cargo",
-            "equipped":-1
-        },
-        {
-            "item_name":"item_durasteel_cargo",
             "equipped":-1
         },
         {

@@ -1,0 +1,10 @@
+{
+	"assets":[
+		{
+			"name":"img_scanner_basic_inv",
+			"type":"image",
+			"path":"items/scanners/basic/scanner.png",
+			"colorkey":-1
+		}
+	]
+}

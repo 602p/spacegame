@@ -130,10 +130,11 @@ label = sgc.Label(text="This is a selectable label", selectable=True)
 label.rect.midtop = title.rect.midbottom
 label.add()
 
-ds9=pygame.image.load(r"..\extentions\stock\civs\bajor\teroknorinorbit.jpg")
+# ds9=pygame.image.load(r"..\extentions\stock\civs\bajor\teroknorinorbit.jpg")
 
 while True:
     time = clock.tick()
+    screen.fill((0,0,0))
     for event in pygame.event.get():
         # Send event to widgets
         sgc.event(event)
@@ -155,11 +156,6 @@ while True:
         if not widget.active():
             dialogs.remove(widget)
 
-    if not screen._opengl:
-        screen.blit(ds9, (0,0))
-    else:
-        glClearColor(0,0,1,1)
-        glClear(GL_COLOR_BUFFER_BIT)
     # Update the widgets once for each frame
     sgc.update(time)
 

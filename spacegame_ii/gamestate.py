@@ -178,7 +178,7 @@ class RunningGameState(state.State):
 					self.entities[-1].rigidbody.y=0
 					self.player.targeted=self.entities[-1]
 				elif e.key == pygame.K_i:
-					self.root.state_manager.start_interdicting("inventory", self.player)
+					self.root.state_manager.start_interdicting("inventory", {"ship":self.player})
 				elif e.key == pygame.K_BACKQUOTE: pass #hiding window
 				elif e.key == pygame.K_ESCAPE:
 					self.root.state_manager.start_interdicting("generic_ui", self.root.gamedb("sgcui_settings"))

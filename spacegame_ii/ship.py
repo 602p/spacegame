@@ -104,7 +104,10 @@ class ShipFactory:
 			self.rarity, self.max_speed, self.turn_rate, self.systems, self.config, x, y, use_ai=ai)
 		if with_equip:
 			for i in self.start_equip:
-				s.inventory.append(item.create_item(self.root, i["item_name"], s, i["equipped"]))
+				io=item.create_item(self.root, i["item_name"], s, i["equipped"])
+				if "count" in i:
+					io.count=i["count"]
+				s.inventory.append(io)
 		return s
 
 class Ship(serialize.SerializableObject, entitybase.FlaggedEntity, entitybase.TiggerablePosteventAdapterMixin, tooltips.GenericTooltipMixin):
@@ -169,7 +172,7 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity, entitybase.Ti
 		self.faction_memberships=[]
 
 	def get_faction_attr(self, key, default="[[A faction attribute could not be found, and a default was not provided]]"):
-		debug("Seeking '"+key+"' in faction data")
+		#debug("Seeking '"+key+"' in faction data")
 		for i in self.faction_memberships:
 			#print faction.get_faction(i).config.keys()
 			if key in faction.get_faction(i).config.keys():
@@ -179,7 +182,7 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity, entitybase.Ti
 	def get_inventory_mass(self):
 		m=0
 		for i in self.inventory:
-			m+=i.mass
+			m+=i.get_mass()
 		return m
 
 	def get_mass(self):
@@ -211,6 +214,7 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity, entitybase.Ti
 
 	def try_split(self, itemx, count):
 		assert count<itemx.count, "Tried to take more than you have"
+		assert count>0, "Tried to take less than 1"
 		itemx.count-=count
 		self.inventory.append(item.create_item(self.root, itemx.id_str, self, -1, count))
 
@@ -355,3 +359,9 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity, entitybase.Ti
 				faction.get_faction(fmember).tt_delay_update(temp_rect)
 				absroot.screen.screen.blit(faction.get_faction(fmember).icon_image, (x, y+oy))
 				oy+=faction.get_faction(fmember).icon_image.get_height()
+
+	def get_item(self, id_str):
+		for i in self.inventory:
+			if i.id_str==id_str:
+				return i
+		return False

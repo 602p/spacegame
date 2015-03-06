@@ -192,6 +192,7 @@ class DialogState(state.InterdictingState):
 		current_pos=[0,0]
 		#print current_pos
 		debug("Rebuilding dialog text")
+		need_trb=False
 
 		for speech in self.speeches:
 			if speech.text:
@@ -220,7 +221,8 @@ class DialogState(state.InterdictingState):
 
 								if speech_pointer in self.dialog_manager.poolmappings.keys():
 									self.dialog_manager.learn_topic(speech_pointer)
-									self.rebuild_topics()
+									need_trb=True
+								
 
 								surf=pygame.Surface(self.font.size(token)).convert_alpha()
 								surf.fill((255,0,0,220))
@@ -240,6 +242,8 @@ class DialogState(state.InterdictingState):
 		new_surf.fill(pygame.Color(0,0,0,0))
 		new_surf.blit(self.text_image, (0,0))
 		self.text_image=new_surf
+		if need_trb:
+			self.rebuild_topics()
 
 	def rebuild_topics(self):
 		self.show_loading()

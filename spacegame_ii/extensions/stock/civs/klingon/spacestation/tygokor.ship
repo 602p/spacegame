@@ -33,6 +33,34 @@
     		}
     	]
     },
+    "start_equip":[
+        {
+            "item_name":"item_antimatter_cargo",
+            "equipped":-1,
+            "count":200
+        },
+        {
+            "item_name":"item_durasteel_cargo",
+            "equipped":-1,
+            "count":200
+        },
+        {
+            "item_name":"wep_basic_laser",
+            "equipped":-1,
+            "count":20
+        },
+        {
+            "item_name":"wep_proj_laser",
+            "equipped":-1,
+            "count":20
+        },
+        {
+            "item_name":"item_scanner_basic",
+            "equipped":-1,
+            "count":10
+        }
+
+    ],
     "triggers":{
         "UE_DAMAGE_DEALT":[
             {

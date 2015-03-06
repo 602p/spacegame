@@ -1,0 +1,11 @@
+{
+	"%+base_item%":0,
+	"id":"item_antimatter_cargo",
+	"name":"Antimatter Pod",
+	"inventory_image":"item_ammo_torpedo_stinger1",
+	"always_show_count":true,
+	"mount_types":"inventory",
+	"mass":2,
+	"cost":1000,
+	"count":5
+}

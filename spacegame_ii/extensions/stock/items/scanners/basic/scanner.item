@@ -1,0 +1,19 @@
+{
+	"%+base_item%":0,
+	"name":"Basic Scanner",
+	"id":"item_scanner_basic",
+	"inventory_image":"img_scanner_basic_inv",
+	"mass":2,
+	"cost":4000,
+	"required":{
+        "enemy_selected":true,
+        "distance<":500
+    },
+    "fire_events":[
+        {
+            "primitive":"scan",
+            "max_shields":9999,
+            "comment":"TODO: Replace this"
+        }
+    ]
+}

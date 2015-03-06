@@ -20,5 +20,6 @@
    "tags" : [ "all", "has_any_klingons", "has_many_klingons" ],
 
    "icon_image":"img_klingon_icon",
-   "banner_image":"img_klingon_banner"
+   "banner_image":"img_klingon_banner",
+   "inventory_image":"img_cargobay_klingon"
 }

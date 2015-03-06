@@ -45,7 +45,8 @@ def new_game(root, start, player_name, ship_name):
 	root.galaxy.goto_sector(*start.get("sector", [0,0]))
 	root.state_manager.goto_state("game")
 	root.state_manager.run_tick()
-	ui_states.interdict_ok(root, title="Welcome to Spacegame!", text="Fly your ship with WASD%nSelect weapons with 1 & 2%nInteract with E%nTalk to selected with F%nFire with SPACE%n%n(Or rebind in the settings menu [ESC])", button = "Start!")
+	if root.settings["gameplay"]["intro_popup"]:
+		ui_states.interdict_ok(root, title="Welcome to Spacegame!", text="Fly your ship with WASD%nSelect weapons with 1 & 2%nInteract with E%nTalk to selected with F%nFire with SPACE%n%n(Or rebind in the settings menu [ESC])", button = "Start!")
 
 def save_object(item):
 	#assert isinstance(item, SerializableObject) #NO! DUCK TYPING IS GOD!

@@ -1,0 +1,16 @@
+{
+	"assets":[
+		{
+			"type":"image",
+			"name":"img_playermenu_inv_sel",
+			"path":"ui/playermenu/inventory_sel.png",
+			"colorkey":-1
+		},
+		{
+			"type":"image",
+			"name":"img_playermenu_quest_sel",
+			"path":"ui/playermenu/quests_sel.png",
+			"colorkey":-1
+		}
+	]
+}

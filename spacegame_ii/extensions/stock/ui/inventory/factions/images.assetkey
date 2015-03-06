@@ -1,0 +1,21 @@
+{
+	"assets":[
+		{
+			"type":"image",
+			"path":"ui/inventory/factions/federation.jpg",
+			"name":"img_cargobay_federation",
+			"scale":[1300,700]
+		},
+		{
+			"type":"image",
+			"path":"ui/inventory/factions/klingon.jpg",
+			"name":"img_cargobay_klingon",
+			"scale":[1300,700]
+		},
+		{
+			"type":"json",
+			"name":"img_cargobay_default",
+			"json":"$ASSETREDIR:large_black_bg"
+		}
+	]
+}
