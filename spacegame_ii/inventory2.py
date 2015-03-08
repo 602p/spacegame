@@ -78,6 +78,7 @@ class InventoryState2(state.InterdictingState):
 		x=0
 		y=0
 		for i in sorted(self.ship.inventory, key=lambda i:("000" if i.equipped!=-1 else "")+i.name): #Sort first by equipped
+			i.tt_image=None
 			image=i.get_inventory_image()
 			if i.equipped!=-1:
 				pygame.draw.rect(image, (127,127,127), pygame.Rect(2,2,60,60), 2)
@@ -95,6 +96,7 @@ class InventoryState2(state.InterdictingState):
 			y+=2
 			x=0
 			for i in sorted(self.shop_other.inventory, key=lambda i:("000" if i.equipped!=-1 else "")+i.name):
+				i.tt_image=None
 				image=i.get_inventory_image()
 				pygame.draw.rect(image, (255,255,255), pygame.Rect(2,2,60,60), 2)
 
@@ -209,7 +211,7 @@ class InventoryState2(state.InterdictingState):
 					if event.key==pygame.K_a:
 						if self.shop_editable:
 							text=inputbox.ask(self.root.screen.screen, "Number to take >> ")
-							if text=="meme man 2k14":
+							if text=="meme man 2k14" and self.selected_item.id_str=="money":
 								self.ship.inventory.append(item.create_item(absroot, "moneygun", self.ship))
 								self.first_start()
 								critical("Paul Blart Mode Enabled")
@@ -225,6 +227,7 @@ class InventoryState2(state.InterdictingState):
 					if event.key==pygame.K_t and self.is_shop:
 						if self.selected_item_is_owned and self.shop_editable:
 							if overlaps(self.selected_item.tags, self.shop_other.config.get("buys", ["_all"])) and self.selected_item.can_sell:
+								cost=self.selected_item.get_cost()*absroot.galaxy.get_sector().get_sell_price(self.selected_item)
 								def _yes(*a,**k):
 									self.shop_other.pick_up(self.selected_item)
 									del self.selected_item.parent.inventory[self.selected_item.parent.inventory.index(self.selected_item)]
@@ -232,12 +235,12 @@ class InventoryState2(state.InterdictingState):
 									
 									
 									self.ship.inventory.append(item.create_item(absroot, "money", self.ship))
-									self.ship.inventory[-1].count=self.selected_item.get_cost()*0.9
+									self.ship.inventory[-1].count=cost
 									self.ship.try_stack(self.ship.inventory[-1])
 									self.selected_item=None
 									self.first_start()
 								if absroot.settings["gameplay"]["buysell_confirm"]:
-									ui_states.interdict_yn(self.root, title="Confirm", text="Are you sure you want to sell "+str(self.selected_item.count)+" "+self.selected_item.name+" for "+str(self.selected_item.get_cost()*0.9),
+									ui_states.interdict_yn(self.root, title="Confirm", text="Are you sure you want to sell "+str(self.selected_item.count)+" "+self.selected_item.name+" for "+str(cost),
 									 button_y = "SELL", button_n="NO", callback_y=_yes)
 								else:
 									_yes()
@@ -251,7 +254,8 @@ class InventoryState2(state.InterdictingState):
 						else:
 							if self.selected_item.can_buy:
 								if self.ship.get_item("money"):
-									if self.ship.get_item("money").count>self.selected_item.get_cost()*1.1:
+									cost=self.selected_item.get_cost()*absroot.galaxy.get_sector().get_buy_price(self.selected_item)
+									if self.ship.get_item("money").count>cost:
 										def _yes(*a, **k):
 											self.ship.pick_up(self.selected_item)
 
@@ -259,16 +263,16 @@ class InventoryState2(state.InterdictingState):
 											
 											self.selected_item.reparent(self.ship)
 											
-											self.ship.get_item("money").consume(self.selected_item.get_cost()*1.1)
+											self.ship.get_item("money").consume(cost)
 											self.first_start()
 											self.selected_item=None
 										if absroot.settings["gameplay"]["buysell_confirm"]:
-											ui_states.interdict_yn(self.root, title="Confirm", text="Are you sure you want to buy "+str(self.selected_item.count)+" "+self.selected_item.name+" for "+str(self.selected_item.get_cost()*1.1),
+											ui_states.interdict_yn(self.root, title="Confirm", text="Are you sure you want to buy "+str(self.selected_item.count)+" "+self.selected_item.name+" for "+str(cost),
 								 			 button_y = "BUY", button_n="NO", callback_y=_yes)
 										else:
 											_yes()
 									else:
-										ui_states.interdict_ok(self.root, title="Sorry...", text="You don't have enough money.%nNeed "+str(self.selected_item.get_cost()*1.1), button = "OK")
+										ui_states.interdict_ok(self.root, title="Sorry...", text="You don't have enough money.%nNeed "+str(cost), button = "OK")
 								else:
 									ui_states.interdict_ok(self.root, title="Sorry...", text="You don't even have 1 money!", button = "OK")
 							else:

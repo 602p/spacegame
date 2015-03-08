@@ -8,7 +8,18 @@
 			"ship_id":"ss_cardassia_planet",
 			"x":-400,
 			"y":-400
+		},{
+			"type":"ship",
+			"ship_id":"ss_klingon_tygokor",
+			"x":100,
+			"y":100
 		}
 	],
-	"tags": [ "cardassian" ]
+	"tags": [ "cardassian" ],
+	"prices":{
+		"materials":{
+			"price":1.1,
+			"abs_mag":0.2
+		}
+	}
 }

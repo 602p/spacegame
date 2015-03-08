@@ -1,4 +1,5 @@
-import ship, json, extention_loader, triggers, pygame, serialize, logging
+from __future__ import division
+import ship, json, extention_loader, triggers, pygame, serialize, logging, math
 from extention_loader import HookableExtention
 from triggers import *
 
@@ -86,6 +87,9 @@ class Galaxy(object):
 		for i in self.iter_sectors():
 			i.update_statics()
 
+	def tick_economy(self):
+		[x.tick_economy() for x in self.iter_sectors()]
+
 class Sector(object):
 	def __init__(self, root, config):
 		self.x=config["x"]
@@ -98,6 +102,7 @@ class Sector(object):
 		self.leave_effects=config.get("leave_effects", [])
 		self.statics = config.get("statics", [])
 		self.tags = config.get("tags", [])
+		self.prices = config.get("prices", {})
 
 	def get_savegame_id(sector):
 		return str(sector.x)+","+str(sector.y)
@@ -114,6 +119,9 @@ class Sector(object):
 		if self.get_savegame_id() not in self.root.savegame.database["sector_data"].keys():
 			self.root.savegame.database["sector_data"][self.get_savegame_id()]={}
 		self.root.savegame.database["sector_data"][self.get_savegame_id()]["last_loaded_entity"]=len(self.statics)-1
+
+		self.root.savegame.database["sector_data"][self.get_savegame_id()]["economy"]={}
+		self.update_economy()
 
 	def update_statics(self):
 		debug("Updating statics for sector "+self.get_savegame_id()+"...")
@@ -178,6 +186,54 @@ class Sector(object):
 		self.galaxy.gamestate.player.targeted=None
 		del self.galaxy.gamestate.entities[1:]
 
+
+	#======Economics======
+
+	def update_economy(self):
+		debug("... Update Economy")
+		for group in self.prices.keys():
+			if group not in self.root.savegame.database["sector_data"][self.get_savegame_id()]["economy"]:
+				debug("... Setting up economy for "+group)
+				self.root.savegame.database["sector_data"][self.get_savegame_id()]["economy"][group]={
+					#"group":group,
+					"price":self.prices[group].get("price", 1.),
+					"orig_price":self.prices[group].get("price", 1.),
+					"sin_frame":0,
+					"sin_speed":self.prices[group].get("speed", 1.),
+					"sin_mag":self.prices[group].get("abs_mag", self.prices[group].get("price", 1.)*self.prices[group].get("rel_mag", 1.))
+				}
+
+	def tick_economy(self):
+		econ_cache=self.root.savegame.database["sector_data"][self.get_savegame_id()]["economy"]
+		for group, config in econ_cache.iteritems():
+			# mod=math.sin(math.radians(config["sin_frame"]))*config["sin_mag"]
+			# mod*=1/self.root.fps
+			# config["price"]+=mod
+			config["price"]=config["orig_price"]+(math.sin(math.radians(config["sin_frame"]))*config["sin_mag"]*config["sin_mag"])
+
+			config["sin_frame"]+=(1/self.root.fps)*config["sin_speed"]
+
+			if config["sin_frame"]>180:
+				config["sin_frame"]=config["sin_frame"]-180
+			
+			
+
+			# if group=='materials':
+			# 	print config["price"]
+
+
+	def get_commodity_mod(self, group):
+		return self.root.savegame.database["sector_data"][self.get_savegame_id()]["economy"].get(group, {"price":1})["price"]
+
+	def get_price(self, item):
+		return max([self.get_commodity_mod(x) for x in item.tags])
+
+	def get_buy_price(self, item):
+		return self.get_price(item)*1.05
+
+	def get_sell_price(self, item):
+		return self.get_price(item)*0.95
+
 class SectorManager(HookableExtention):
 	def __init__(self, root):
 		self.root=root
@@ -185,6 +241,7 @@ class SectorManager(HookableExtention):
 	def tick(self, state):
 		if state=="game":
 			player = self.root.state_manager.states["game"].player
+			self.root.galaxy.tick_economy()
 			#self.root.screen.draw_rect((0,255,0), pygame.Rect(-SECTORSIZE, -SECTORSIZE, SECTORSIZE, SECTORSIZE), 10)
 			if player.rigidbody.x>SECTORSIZE:
 				self.root.galaxy.change_sector_by(1,0)

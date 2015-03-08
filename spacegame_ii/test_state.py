@@ -4,7 +4,7 @@ import absroot
 
 
 SKIP_TO_GAME=True
-SKIP_START_ID='startdefun_ke'
+SKIP_START_ID='startdefun_cu'
 
 from logging import debug, info, warning, error, critical
 import logging

@@ -330,11 +330,14 @@ class Item(serialize.SerializableObject, entitybase.Triggerable, entitybase.Tigg
 		absroot.gamedb("font_item_desc").set_bold(1)
 
 		self.tt_image.blit(
-			absroot.gamedb("font_item_desc").render("Mass: "+str(self.get_mass()), 1 ,(40,40,40))
-			,(0,65))
+			absroot.gamedb("font_item_desc").render("Mass : "+str(self.get_mass()), 1 ,(40,40,40))
+			,(0,130))
 		self.tt_image.blit(
-			absroot.gamedb("font_item_desc").render("Cost: "+str(self.get_cost()), 1 ,(40,40,40))
-			,(0,65+absroot.gamedb("font_item_desc").size("|")[1]))
+			absroot.gamedb("font_item_desc").render("Cost : "+str(self.get_cost()), 1 ,(40,40,40))
+			,(0,130+absroot.gamedb("font_item_desc").size("|")[1]))
+		self.tt_image.blit(
+			absroot.gamedb("font_item_desc").render("(Here) "+str(self.get_cost()*absroot.galaxy.get_sector().get_price(self)), 1 ,(40,40,40))
+			,(0,130+absroot.gamedb("font_item_desc").size("|")[1]*2))
 
 		absroot.gamedb("font_item_desc").set_bold(0)
 		self.tt_image_clip()
@@ -346,3 +349,4 @@ class Item(serialize.SerializableObject, entitybase.Triggerable, entitybase.Tigg
 			self.tt_last_rerender_count=self.count
 			return True
 		return False
+	# tt_islive=1
