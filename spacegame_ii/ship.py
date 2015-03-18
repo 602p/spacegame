@@ -6,7 +6,7 @@ from math import cos, sin, radians, degrees
 from rotutil import *
 from logging import debug, info, warning, error, critical
 from jsonutil import get_expanded_json, dget
-import logging
+import logging, uidict
 module_logger=logging.getLogger("sg.ship")
 debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
 
@@ -48,7 +48,7 @@ def _load_ship(root, node, parent):
 	s = create_ship(root, node["ship_id"], 0, 0, not "packed" in node.keys(), node.get("ai", 1))
 	
 	if "packed" in node.keys():
-		s.config=node["config_cache"]
+		s.config.aro.append(node["config_cache"])
 		for item in node["inventory"]:
 			serialize.load_from_node(root, item, s)
 		s.damage.hull=node["currhull"]
@@ -135,7 +135,7 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity, entitybase.Ti
 		self.max_speed=max_speed
 		self.turn_rate=turn_rate
 
-		self.config=config
+		self.config=uidict.HierarchicalDict(config)
 		self.triggers=self.config.get("triggers",{})
 		self.player_relations=self.config.get("relations", 0)
 

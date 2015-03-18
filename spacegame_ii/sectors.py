@@ -36,14 +36,17 @@ class Galaxy(object):
 		for x in range(-GALAXYSIZE, GALAXYSIZE+1):
 			self.sectormap[x]={}
 			for y in range(-GALAXYSIZE, GALAXYSIZE+1):
-				self.add_sector(Sector(root, {"x":x,"y":y}))
-				self.root.savegame.database["packed_entities"][self.sectormap[x][y].get_savegame_id()]=[]
+				s=Sector(root, {"x":x,"y":y})
+				self.root.savegame.database["sector_data"][s.get_savegame_id()]={}
+				self.add_sector(s)
+				
 
 	def add_sector(self, sector):
 		if sector.x not in self.sectormap.keys():
 			self.sectormap[sector.x]={}
-		if sector.get_savegame_id() not in self.root.savegame.database["packed_entities"]:
-			self.root.savegame.database["packed_entities"][sector.get_savegame_id()]=[]
+		#print self.root.savegame.database["sector_data"]
+		if "packed_entities" not in self.root.savegame.database["sector_data"][sector.get_savegame_id()]:
+			self.root.savegame.database["sector_data"][sector.get_savegame_id()]["packed_entities"]=[]
 		self.sectormap[sector.x][sector.y]=sector
 		sector.bind(self)
 
@@ -115,9 +118,9 @@ class Sector(object):
 
 			static["__deserialize_handler__"]=static["type"]
 			entity = serialize.load_from_node(self.root, static, None)
-			self.root.savegame.database["packed_entities"][self.get_savegame_id()].append(entity.save_to_config_node())
-		if self.get_savegame_id() not in self.root.savegame.database["sector_data"].keys():
-			self.root.savegame.database["sector_data"][self.get_savegame_id()]={}
+			self.root.savegame.database["sector_data"][self.get_savegame_id()]["packed_entities"].append(entity.save_to_config_node())
+		# if self.get_savegame_id() not in self.root.savegame.database["sector_data"].keys():
+		# 	self.root.savegame.database["sector_data"][self.get_savegame_id()]={}
 		self.root.savegame.database["sector_data"][self.get_savegame_id()]["last_loaded_entity"]=len(self.statics)-1
 
 		self.root.savegame.database["sector_data"][self.get_savegame_id()]["economy"]={}
@@ -131,7 +134,7 @@ class Sector(object):
 				#print ">>>>>>"+str(static)
 				static["__deserialize_handler__"]=static["type"]
 				entity = serialize.load_from_node(self.root, static, None)
-				self.root.savegame.database["packed_entities"][self.get_savegame_id()].append(entity.save_to_config_node())
+				self.root.savegame.database["sector_data"][self.get_savegame_id()]["packed_entities"].append(entity.save_to_config_node())
 			count+=1
 
 		self.root.savegame.database["sector_data"][self.get_savegame_id()]["last_loaded_entity"]=len(self.statics)-1
@@ -160,13 +163,13 @@ class Sector(object):
 		# 			debug("--(Not adding static, should_spawn neutral, in removed_statics)")
 		# 	else:
 		# 		debug("--(Not adding static, should_spawn disabled)")
-		for static in self.root.savegame.database["packed_entities"][self.get_savegame_id()]:
+		for static in self.root.savegame.database["sector_data"][self.get_savegame_id()]["packed_entities"]:
 			#static["__deserialize_handler__"]=static["type"]
 			debug("Adding a PPE...")
 			#print static
 			entity = serialize.load_from_node(self.root, static, None)
 			self.galaxy.gamestate.entities.append(entity)
-		self.root.savegame.database["packed_entities"][self.get_savegame_id()]=[]
+		self.root.savegame.database["sector_data"][self.get_savegame_id()]["packed_entities"]=[]
 
 	def bind(self, galaxy):
 		self.galaxy=galaxy
@@ -182,7 +185,7 @@ class Sector(object):
 		return packed
 
 	def unload_entities(self):
-		self.root.savegame.database["packed_entities"][self.get_savegame_id()].extend(self.pack_entities())
+		self.root.savegame.database["sector_data"][self.get_savegame_id()]["packed_entities"].extend(self.pack_entities())
 		self.galaxy.gamestate.player.targeted=None
 		del self.galaxy.gamestate.entities[1:]
 

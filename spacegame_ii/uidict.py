@@ -97,3 +97,18 @@ class UIDict(dict):
 			self.deld(name)
 		else:
 			dict.__delitem__(self, name)
+
+class HierarchicalDict(dict):
+	aro=[None] #None represents this dict
+
+	def __getitem__(self, name):
+		for d in self.aro:
+			d_resolved = self if d is None else d
+			if name in d_resolved:
+				return d_resolved[name]
+
+	def __delitem__(self, name):
+		for d in self.aro:
+			d_resolved = self if d is None else d
+			if name in d_resolved:
+				del d_resolved[name]

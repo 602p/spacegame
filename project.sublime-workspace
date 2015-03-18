@@ -4,6 +4,66 @@
 		"selected_items":
 		[
 			[
+				"inst",
+				"installed_list"
+			],
+			[
+				"Pak",
+				"PackFSSoundWrapper"
+			],
+			[
+				"e",
+				"exlib_"
+			],
+			[
+				"mod",
+				"module_name"
+			],
+			[
+				"DATA",
+				"DATA_HEADER_EXT"
+			],
+			[
+				"defaul",
+				"default_unzip"
+			],
+			[
+				"default",
+				"default_install"
+			],
+			[
+				"grou",
+				"groups_"
+			],
+			[
+				"load",
+				"loadgroups_string"
+			],
+			[
+				"file",
+				"filegroups"
+			],
+			[
+				"find_all_",
+				"find_all_files_in_dirs"
+			],
+			[
+				"LOAD",
+				"LOADGROUPS"
+			],
+			[
+				"find",
+				"find_by_cli"
+			],
+			[
+				"pack_f",
+				"pack_filed"
+			],
+			[
+				"inclu",
+				"include"
+			],
+			[
 				"cons",
 				"consume_one"
 			],
@@ -436,10 +496,6 @@
 				"interface"
 			],
 			[
-				"load",
-				"loaders"
-			],
-			[
 				"JSON",
 				"JSONSettingsBindingsSet"
 			],
@@ -458,101 +514,48 @@
 			[
 				"key",
 				"key_in"
-			],
-			[
-				"stae",
-				"state_manager"
-			],
-			[
-				"Wid",
-				"WidgetController"
-			],
-			[
-				"contr",
-				"controller"
-			],
-			[
-				"rende",
-				"renderspace_size"
-			],
-			[
-				"ov",
-				"overlay_gui"
-			],
-			[
-				"rota",
-				"rotated_rect"
-			],
-			[
-				"rotated_",
-				"rotated_image"
-			],
-			[
-				"rotat",
-				"rotated_images"
-			],
-			[
-				"De",
-				"DelayedSoundPrimitive"
-			],
-			[
-				"particl",
-				"particles"
-			],
-			[
-				"of",
-				"offset_y"
-			],
-			[
-				"tar",
-				"targetdistance"
-			],
-			[
-				"font",
-				"font_standard_very_small"
-			],
-			[
-				"lo",
-				"locked_by"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "spacegame_ii/spacegame.log",
+			"file": "/C/Users/Louis/Desktop/GitHub/pypackfs/test/ted_example/test.py",
 			"settings":
 			{
-				"buffer_size": 210464,
+				"buffer_size": 116,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "spacegame_ii/sectors.py",
+			"file": "/C/Users/Louis/Desktop/GitHub/pypackfs/test/ted_example/out.py",
 			"settings":
 			{
-				"buffer_size": 9133,
-				"line_ending": "Unix"
+				"buffer_size": 1556,
+				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "spacegame_ii/inventory2.py",
+			"file": "/C/Users/Louis/Desktop/GitHub/pypackfs/test/yaps-0.92/lib/build.bat",
 			"settings":
 			{
-				"buffer_size": 12532,
-				"line_ending": "Unix"
+				"buffer_size": 171,
+				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "spacegame_ii/test_state.py",
+			"contents": "import os\n\nclass LoadGroup(object):\n	def __init__(self, text, depends=[]):\n		self.text=text\n		self.depends=depends\n		self.name=\"(unset)\"\n\n	def _bind(self, name):\n		self.name=name\n\n	def should_install(self, installed_list):\n		return self.name not in installed_list\n\n	def do_install_deps(self, installed_list):\n		for name in self.depends:\n			groups[name].install(installed_list)\n\n	def install(self, installed_list):\n		if self.can_install():\n			self.do_install_deps(installed_list)\n			if self.should_install(installed_list):\n				return \"\\nBEGIN LOADGROUP [\"+self.name+\"]\\n\"+self.text\n			else:\n				return \"\"\n		else:\n			raise \n\ndef include(path):\n	with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), path), 'r') as fd:\n		return \"\".join(fd.readlines())\n\ndef _finalize(dictionary):\n	for k in dictionary.keys():\n		dictionary[k]._bind(k)\n\ngroups=_finalize({\n	\"util\":            include( \"util.py\"                   ),\n	\"file\":            include( \"includes/lg_file.py\"       ),\n	\"pygame\":          include( \"includes/lg_pygame.py\"     ),\n	\"os\":              include( \"includes/lg_os.py\"         ),\n	\"default_unzip\":   include( \"includes/default_unzip.py\" ),\n	\"import\":          include( \"includes/lg_import.py\"     )\n})\n\ndefaults=[\n	\"util\",\n	\"default_unzip\"\n]",
+			"file": "/C/Users/Louis/Desktop/GitHub/pypackfs/packfs/loadgroups.py",
+			"file_size": 1262,
+			"file_write_time": 130710298408838971,
 			"settings":
 			{
-				"buffer_size": 8978,
-				"line_ending": "Unix"
+				"buffer_size": 1265,
+				"line_ending": "Windows"
 			}
 		}
 	],
-	"build_system": "Spacegame",
+	"build_system": "Packages/Python/Python.sublime-build",
 	"command_palette":
 	{
 		"height": 58.0,
@@ -672,19 +675,72 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/packfs/filegroups.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/packfs/loadgroups.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/test/ted_example/settings.json",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/packfs/core.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/packfs/__main__.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/packfs/includes/lg_pygame.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/test/yaps-0.92/lib/data/font/abel.ttf",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/test/yaps-0.92/lib/build.bat",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/test/yaps-0.92/lib/gui.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/packfs/includes/lg_os.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/test/yaps-0.92/lib/data.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/packfs/includes/lg_import.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/packfs/includes/lg_file.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/test/yaps-0.92/lib/sound_engine.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/test/yaps-0.92/lib/boot_screen.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/test/yaps-0.92/lib/main.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/packfs/includes/default_unzip.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/test/imports/exlib.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/test/imports/main.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/test/imports/test_imports.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/test/yaps-0.92/lib/constants.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/test/yaps-0.92/lib/preferences.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/test/imports/exlib2.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/test/imports/out.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/test/test_imports.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/test.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/packfs/util.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/test/backup.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/test/Asteroids.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/test/test.json",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/text_o.py",
+		"/C/Users/Louis/Desktop/Important Documents/python snippets/blartozoomer/pack_images_inc.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/text.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/packedfs.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/b",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/packfs/bak",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/pypackfs/loadgroups.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/pypackfs/core.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/pypackfs/__main__.py",
+		"/C/Users/Louis/Desktop/Important Documents/python snippets/blartozoomer/pack_images.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/pypackfs/includes/base.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/pypackfs/includes/core.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/pypackfs/cli.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/pypackfs/includes/lg_os.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/pypackfs/filegroups.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/pypackfs/__init__.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/pypackfs/includes/lg_pygame.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/pypackfs/includes/lg_file.py",
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/pypackfs/load_groups.py",
+		"/C/Users/Louis/Desktop/Important Documents/python snippets/blartozoomer/aabbc.py",
+		"/C/Users/Louis/Desktop/Important Documents/python snippets/blartozoomer/packed_data.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/item.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/test_state.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/inventory2.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/sectors.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/spacegame.log",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/sectors/cardassia_system_0,10.sector",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/sectors/bajor_system_0,0.sector",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/sectors/kronos_system_10,0.sector",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/serialize.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/tooltips.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/item.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/inventory2.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/items/cargo/antimatter_cargo.item",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/items/cargo/durasteel_cargo.item",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/items/$$$/$$$.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/items/$$$/$$$gun.item",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/items/$$$/$$$.item",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/spacegame.log",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/items/weapons/federation_contact_mine/mine.item",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/items/weapons/laser_proj.item",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/assetkeys/font.assetkey",
@@ -714,7 +770,6 @@
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/inputbox.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/entitybase.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/factions/klingon/klingon_empire.faction",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/test_state.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/inventory.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/civs/klingon/attackship/attackship.ship",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/civs/klingon/birdofwar/_birdofwar.ship",
@@ -747,59 +802,7 @@
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/rainbows/rainbow.plugin.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/loader/loader/loader_fonts.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/jsonutil.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/sectors.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/sgc/widgets/boxes.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/sgc/widgets/container.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/factions/fonts.assetkey",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/fonts/fontsquirrel/josefin/font.assetkey",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/factions/federation.faction",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/dialog/driver.plugin.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/the_wounded/hail.talk",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/physics.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/the_wounded/wreckfreighter.assetkey",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/the_wounded/wreckfreighter.ship",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/civs/cardassian/freighter/_freighter.ship",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/civs/cardassian/freighter/freighter.assetkey",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/the_wounded/pheonix_hail.talk",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/the_wounded/innocent_freighter.talk",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/the_wounded/freighter_no.talk",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/the_wounded/freighter_scan.talk",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/the_wounded/accuse_freighter.talk",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/the_wounded/pheonix_hail3.talk",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/the_wounded/pheonix_hail2.talk",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/the_wounded/already_spawned.talk",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/dialog/klingon/give_lasers_junction.talk",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/assetkeys/bases.assetkey",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/civs/cardassian/cardassia/cardassia.assetkey",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/civs/cardassian/cardassia/cardassiaplanet.ship",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/the_wounded/pheonix.ship",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/starts/cardassian/start.assetkey",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/civs/federation/galaxy/galaxy.ship",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/the_wounded/trager.ship",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/triggers.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/civs/federation/galaxy/galaxy.assetkey",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/pirate_kmtar_interdiction/hail.talk",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/the_wounded/hail_2.talk",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/the_wounded/test_state.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/quests/force_dialog.plugin.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/dialog/plugins/set_ai.plugin.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/factions/klingon_empire.faction",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/dialog/generic/plot.talk",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/formatting.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/quest_basics.plugin.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/video/play_cutscene_animation.plugin.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/video/intro_ke/intro_ke.assetkey",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/.gitignore",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/video/play_cutscene.plugin.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/zanimations/explosion_1.animation.assetkey",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/absroot.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/pirate_kmtar_interdiction/ship.ship",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/drop_items.plugin.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/ui/cargopod.ship",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/project.sublime-project",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/keymapping.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/ui/sgc_descriptors/modals.ui.assetkey",
-		"/C/Users/Louis/AppData/Roaming/Sublime Text 2/Packages/User/Preferences.sublime-settings"
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/sgc/widgets/boxes.py"
 	],
 	"find":
 	{
@@ -810,6 +813,10 @@
 		"height": 0.0,
 		"where_history":
 		[
+			"C:\\Users\\Louis\\Desktop\\GitHub\\pypackfs\\test\\yaps-0.92\\lib",
+			"C:\\Users\\Louis\\Desktop\\GitHub\\pypackfs\\test\\yaps-0.92",
+			"C:\\Users\\Louis\\Desktop\\GitHub\\pypackfs\\test\\yaps-0.92\\lib",
+			"C:\\Users\\Louis\\Desktop\\GitHub\\pypackfs\\packfs",
 			"C:\\Users\\Louis\\Desktop\\GitHub\\spacegame\\spacegame_ii",
 			"C:\\Users\\Louis\\Desktop\\GitHub\\spacegame\\spacegame_ii\\extensions",
 			"C:\\Users\\Louis\\Desktop\\GitHub\\spacegame\\spacegame_ii\\sgc\\widgets",
@@ -826,6 +833,57 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"load",
+			"pygame.font.Font",
+			"set_fontsize",
+			"WARNING: Resource not available",
+			"WARNING: Resource not available \"data\\music\\boot.mp3\"",
+			"filename_or_object",
+			"font",
+			"Font",
+			"pygame.mixer.Sound",
+			"abel.ttf",
+			"MusicPlayer",
+			"boot_",
+			"--no-group-defaults",
+			"no_file_defaults",
+			"no-file-defaults",
+			"no-defaults",
+			"additional_filters",
+			"VFSImporter",
+			"MyImporter",
+			"pygame.image.load(\"",
+			"dict_fs",
+			"out",
+			"out_compile",
+			"in",
+			"out_pack",
+			"out",
+			" ...",
+			"<out>",
+			"<",
+			"\"|\"",
+			"\",\"",
+			",",
+			"install",
+			"_",
+			"print",
+			"pint",
+			"print",
+			"loadgroups_string",
+			"normpath",
+			".join",
+			"import",
+			"filegroups",
+			"pygame",
+			"python",
+			"out",
+			"file",
+			"),",
+			",",
+			"r",
+			"65",
+			"absroot",
 			"materials",
 			"print",
 			"sum([",
@@ -902,58 +960,7 @@
 			"11",
 			"mono",
 			"11",
-			".topic",
-			"NOMETA",
-			"gamedb.assets",
-			"keys()))",
-			".join",
-			".join(",
-			"render_",
-			"200",
-			"255",
-			"\" \".",
-			"LOADER_font_mono",
-			"]",
-			"[x.id for x in ",
-			"post_and_flip(console, \"Loaded \"+",
-			"75",
-			"sourcecodepro/SourceCodePro-Regular.otf",
-			"font",
-			"freighter.assetkey",
-			"800",
-			"ship",
-			"item_b",
-			"item",
-			"FinishQuest",
-			"rebuild_text",
-			"faction",
-			"]=",
-			"loaders[",
-			"\"",
-			"0.9",
-			"1",
-			"3",
-			"2",
-			"image/animations/explosion1/",
-			"MPGCutscenePlayer",
-			"MPGCutscenePlayerPrimitive",
-			"0.1",
-			"explosion1_",
-			"self.selected_item.parent",
-			"self.root.",
-			"ExplosionAtPrimitive",
-			"settings",
-			"tab",
-			"Plugin Notifier for plugin $name",
-			"0",
-			"name",
-			"_",
-			"ext.get_bold()",
-			"bold",
-			"CheatHook",
-			"root",
-			"170,0,170",
-			"state"
+			".topic"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -986,44 +993,44 @@
 			[
 				{
 					"buffer": 0,
-					"file": "spacegame_ii/spacegame.log",
+					"file": "/C/Users/Louis/Desktop/GitHub/pypackfs/test/ted_example/test.py",
 					"settings":
 					{
-						"buffer_size": 210464,
+						"buffer_size": 116,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								168234,
-								168243
+								104,
+								104
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/Python/Python.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 28472.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "spacegame_ii/sectors.py",
+					"file": "/C/Users/Louis/Desktop/GitHub/pypackfs/test/ted_example/out.py",
 					"settings":
 					{
-						"buffer_size": 9133,
+						"buffer_size": 1556,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8119,
-								8119
+								236,
+								236
 							]
 						],
 						"settings":
@@ -1032,56 +1039,52 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2440.0,
+						"translation.y": 126.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "spacegame_ii/inventory2.py",
+					"file": "/C/Users/Louis/Desktop/GitHub/pypackfs/test/yaps-0.92/lib/build.bat",
 					"settings":
 					{
-						"buffer_size": 12532,
+						"buffer_size": 171,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								9354,
-								9354
-							],
-							[
-								10805,
-								10805
+								171,
+								171
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/Batch File/Batch File.tmLanguage",
+							"word_wrap": true
 						},
-						"translation.x": 363.0,
-						"translation.y": 2602.0,
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "spacegame_ii/test_state.py",
+					"file": "/C/Users/Louis/Desktop/GitHub/pypackfs/packfs/loadgroups.py",
 					"settings":
 					{
-						"buffer_size": 8978,
+						"buffer_size": 1265,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								96,
-								96
+								621,
+								621
 							]
 						],
 						"settings":
@@ -1090,7 +1093,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 3219.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

@@ -40,6 +40,9 @@ def create_item(root, name, parent, equipped=-1, count=None):
 		i.count=count
 	return i
 
+def create_item2(*a, **k):
+	return create_item(absroot, *a, **k)
+
 def _deserialize_item(root, node, parent):
 	item=create_item(root, node["id"], parent, node["equipped"])
 	item.count=node["count"]
@@ -72,7 +75,7 @@ class ItemFactory:
 		return Item(self.root, equipped, parent, self.config)
 
 
-class Item(serialize.SerializableObject, entitybase.Triggerable, entitybase.TiggerablePosteventAdapterMixin, tooltips.GenericTooltipMixin):
+class Item(serialize.SerializableObject, entitybase.Triggerable, entitybase.TiggerablePosteventAdapterMixin, tooltips.TimedReloadTooltipMixin):
 	def __init__(self, root, equipped, parent, json_dict):
 		config=json_dict
 		# self.costper=cost
@@ -348,5 +351,5 @@ class Item(serialize.SerializableObject, entitybase.Triggerable, entitybase.Tigg
 		if self.tt_last_rerender_count!=self.count:
 			self.tt_last_rerender_count=self.count
 			return True
-		return False
+		return tooltips.TimedReloadTooltipMixin.tt_needs_rerender(self)
 	# tt_islive=1

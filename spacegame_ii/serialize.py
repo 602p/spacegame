@@ -70,7 +70,6 @@ class SaveGame(object, SerializableObject):
 	def __init__(self, root, player_name="pn", ship_name="sn"):
 		self.root=root
 		self.database={
-			"packed_entities":{},
 			"player_name":player_name,
 			"ship_name":ship_name,
 			"sector_data":{}
@@ -82,7 +81,7 @@ class SaveGame(object, SerializableObject):
 
 	def save_to_config_node(self): #When we load the sector it removes all the packed entites. Need a way to get a copy from the Sector instance
 		temp_db=self.database.copy()
-		temp_db["packed_entities"][self.root.galaxy.get_sector().get_savegame_id()]=self.root.galaxy.get_sector().pack_entities()
+		temp_db["sector_data"][self.root.galaxy.get_sector().get_savegame_id()]["packed_entities"]=self.root.galaxy.get_sector().pack_entities()
 		savegame={
 			"savegame_revision":self.curr_revsion,
 			"game_time":self.root.game_time,

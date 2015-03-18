@@ -48,6 +48,18 @@ class GenericTooltipMixin(object):
 			self.tt_update(rect)
 		tasks.delay( _temp , 'tooltips' )
 
+class TimedReloadTooltipMixin(GenericTooltipMixin):
+	tt_last_refresh = 0
+	tt_refresh_time = 2
+
+	def tt_needs_rerender(self):
+
+		#print (absroot.game_time-self.tt_last_refresh)
+		if (absroot.game_time-self.tt_last_refresh) > self.tt_refresh_time:
+			self.tt_last_refresh=absroot.game_time
+			return True
+		return False
+
 def render_wrapped_text(text, width, font, color=(255,255,255)):
 	chars=width/font.size("_")[0]
 	wrapped=[]
