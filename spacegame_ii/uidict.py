@@ -105,10 +105,10 @@ class HierarchicalDict(dict):
 		for d in self.aro:
 			d_resolved = self if d is None else d
 			if name in d_resolved:
-				return d_resolved[name]
+				return dict.__getitem__(d_resolved, name)
 
 	def __delitem__(self, name):
 		for d in self.aro:
 			d_resolved = self if d is None else d
 			if name in d_resolved:
-				del d_resolved[name]
+				dict.__delitem__(d_resolved, name)

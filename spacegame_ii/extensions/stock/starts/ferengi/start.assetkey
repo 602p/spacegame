@@ -15,6 +15,7 @@
 				"banner":"img_start_ferengi_banner",
 				"ship":"ferengi_cruiser",
 				"start_effects":[],
+				"wspos":[650,650],
 				"description":"FERENGIS%nYELL YEAH!"
 			}
 		}

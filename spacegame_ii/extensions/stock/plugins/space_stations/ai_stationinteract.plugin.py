@@ -26,7 +26,8 @@ class InteractableToEnterStation(ai.AIControllerUpdateNode):
 					# 	if "text" in widget._json_config.keys():
 					# 		widget.config(text=widget._json_config["text"] % patch_text_kit)
 					# 	widget._switch()
-					self.controller.root.state_manager.start_interdicting("inventory", {"ship":self.controller.gamestate.player, "is_shop":True, "shop_ship":self.controller.ship})
+					debug("Dispatching to plg_internal_scene_selector")
+					self.controller.root.state_manager.start_interdicting("plg_internal_scene_selector", [self.config.get("ss_config",{}), self.ship])#{"ship":self.controller.gamestate.player, "is_shop":True, "shop_ship":self.controller.ship})
 				else:
 					if self.controller.root.game_time-self.cooldown_last>4:
 						self.controller.root.igconsole.post("Please slow down before docking", (255,255,0))

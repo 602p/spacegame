@@ -1,0 +1,22 @@
+{
+	"assets":[
+		{
+			"type":"image",
+			"name":"img_quarks_bar_empty",
+			"path":"{$LDIR$}/quarks_bar1.jpg",
+			"scale":[300, 300]
+		},
+		{
+			"type":"image",
+			"name":"img_quarks_bar_scaled_scn",
+			"path":"{$LDIR$}/quarks_bar2.jpg",
+			"scale":[1300, 700]
+		},
+		{
+			"type":"sound",
+			"name":"snd_quarks_bar_ambiance",
+			"path":"{$LDIR$}/quarks_bar_amb2.ogg",
+			"volume":0.5000
+		}
+	]
+}

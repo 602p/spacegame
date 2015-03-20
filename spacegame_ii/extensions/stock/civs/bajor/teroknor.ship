@@ -145,9 +145,26 @@
     		{
     			"controller":"spacestation",
                 "max_speed":100,
-				"bg_image":"image_bajor_ds9_splash",
-				"name":"Deep Space 9",
-				"ui_config":"%default_spacestation_ui%"
+                "ss_config":{
+    				"bg_image":"image_bajor_ds9_splash",
+    				"name":"Deep Space 9",
+    				"subscreens":[
+                        {
+                            "name":"Store",
+                            "action":"store",
+                            "image":"img_quarks_bar_empty",
+                            "pos":[200,100]
+                        },
+                        {
+                            "name":"Bar",
+                            "action":"bar",
+                            "image":"img_quarks_bar_empty",
+                            "pos":[800,100],
+                            "scn_image":"img_quarks_bar_scaled_scn",
+                            "ambiance":"snd_quarks_bar_ambiance"
+                        }
+                    ]
+                }
     		}
     	]
     }

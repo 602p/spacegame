@@ -42,9 +42,17 @@ class GameAssetDatabase:
 		self.delayed_load_nodes=[]
 		self.loaded_nodes=[]
 		self.metadata={"$BLANK":{"refs":0, "trefs":0}}
-		def load_image(node, basepath):
+		def _process_ldir(basepath, metadata, path):
+			n_2 = path.replace("{$LDIR$}", metadata.get("udpath", "(udpath not availible???)"))
+			print n_2
+			if not "{$LDIR$}" in path:
+				print "Prepending..."
+				n_2=os.path.join(basepath, n_2)
+			return n_2
+		def load_image(node, basepath, metadata={}):
+			node["path"]=_process_ldir(basepath, metadata, node["path"])
 			debug("Loading image "+node["path"])
-			i=pygame.image.load(os.path.join(basepath+node["path"]))
+			i=pygame.image.load(os.path.join(node["path"]))
 			ca=1
 			if "convert_alpha" in node:
 				if not node["convert_alpha"]:
@@ -65,22 +73,23 @@ class GameAssetDatabase:
 				return i.convert()
 		self.register_loader("image",load_image)
 
-		def load_cursor(node, basepath):
+		def load_cursor(node, basepath, metadata={}):
 			debug("Loading cursor "+node["path"])
-			i=pygame.image.load(os.path.join(basepath+node["path"]))
+			i=pygame.image.load(os.path.join(basepath+node["path"].replace("{$LDIR$}", metadata.get("udpath", "(udpath not availible???)"))))
 			return [i.convert_alpha(), node.get("hotspot", (0,0))]
 		self.register_loader("gfxcursor",load_cursor)
 
-		def load_sound(node, basepath):
+		def load_sound(node, basepath, metadata={}):
+			node["path"]=_process_ldir(basepath, metadata, node["path"])
 			debug("Loading sound "+node["path"])
-			i=pygame.mixer.Sound(basepath+node["path"])
+			i=pygame.mixer.Sound(node["path"])
 			if "volume" in node:
 				i.set_volume(node["volume"])
 			return i
 		self.register_loader("sound",load_sound)
 
-		def load_font(node, basepath):
-			debug("Loading font "+node["path"])
+		def load_font(node, basepath, metadata={}):
+			debug("Loading font "+node["path"].replace("{$LDIR$}", metadata.get("udpath", "(udpath not availible???)")))
 			s=20
 			if "size" in node:
 				s=node["size"]
@@ -89,7 +98,7 @@ class GameAssetDatabase:
 			return f
 		self.register_loader("font",load_font)
 
-		def load_sysfont(node, basepath):
+		def load_sysfont(node, basepath, metadata={}):
 			s=20
 			if "size" in node:
 				s=node["size"]
@@ -99,7 +108,7 @@ class GameAssetDatabase:
 			return f
 		self.register_loader("sysfont",load_sysfont)
 
-		def load_json(node, basepath):
+		def load_json(node, basepath, metadata={}):
 			debug("Loading JSON '"+str(node["json"])[:10]+"...'")
 			return node["json"]
 		self.register_loader("json",load_json)
@@ -108,14 +117,14 @@ class GameAssetDatabase:
 		self.loaders[key]=func
 		debug("Registered loader '"+key+"'::"+str(func))
 
-	def load_with_loader(self, node, basepath, console=None):
+	def load_with_loader(self, node, basepath, path, console=None):
 		# print node["type"]
 		# print node["type"] in self.loaders.keys()
 		# print
 		try:
 			debug("Applying loader:'"+node["type"]+"' infer from:'"+node["name"]+"'...")
-			self.assets[str(node["name"])]=self.loaders[str(node["type"])](get_expanded_json(self, node), basepath)
-			self.metadata[node["name"]]={"basepath":basepath, "node":node, "refs":0, "trefs":0}
+			self.metadata[node["name"]]={"basepath":basepath, "apath":path, "udpath":os.path.dirname(path), "node":node, "refs":0, "trefs":0}
+			self.assets[str(node["name"])]=self.loaders[str(node["type"])](get_expanded_json(self, node), basepath, self.metadata[node["name"]])
 		except KeyError:
 			error("Loader "+node["type"]+" not found! (probably)")
 			exc_type, exc_value, exc_traceback = sys.exc_info()
@@ -138,7 +147,7 @@ class GameAssetDatabase:
 		if do_load:
 			for i in data:
 				debug("Load ["+"::"+path+"]:"+str(data.index(i)))
-				self.load_with_loader(i, basepath, console)
+				self.load_with_loader(i, basepath, path, console)
 				self.loaded_nodes.append(i["name"])
 		else:
 			self.delayed_load_nodes.append(fullnode)
