@@ -95,7 +95,7 @@ class SpeechPool(object):
 		return c
 
 	def get_speech(self):
-		random.seed(self.root.game_time*82)
+		#random.seed(self.root.game_time*82)
 		updated_pool={}
 		for key in self.pool.keys():
 			for speech in self.pool[key]:
@@ -105,8 +105,8 @@ class SpeechPool(object):
 					updated_pool[key].append(speech)
 		sorted_pool=sorted(updated_pool)
 		sorted_pool.reverse()
-		#print sorted_pool
-		#print updated_pool
+		# print sorted_pool
+		# print updated_pool
 		return random.sample(updated_pool[sorted_pool[0]], 1)[0]
 
 class Speech(object):

@@ -52,6 +52,7 @@ def _load_ship(root, node, parent):
 		for item in node["inventory"]:
 			serialize.load_from_node(root, item, s)
 		s.damage.hull=node["currhull"]
+		s.database=node["database"]
 		s.damage.shields=node["currshld"]
 		s.current_power=node["currpwr"]
 		s.damage.load_systems_json(node["damagesystems"])
@@ -141,6 +142,7 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity, entitybase.Ti
 
 		self.damage=damage.DamageModel(self, hull, shields)
 		self.damage.load_systems(systems)
+		self.database={}
 
 		self.inventory=[]
 		self.rigidbody=physics.RigidBody2D(mass, x, y, None)
@@ -330,7 +332,8 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity, entitybase.Ti
 			"triggers":self.serialize_triggers(),
 			"relations":self.player_relations,
 			"factions":self.faction_memberships,
-			"config_cache":self.config
+			"config_cache":self.config,
+			"database":self.database
 		}
 		if self.use_ai:
 			d["ai_controller"]=self.ai.save_to_config_node()

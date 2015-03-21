@@ -1,6 +1,6 @@
 import state, sgc, pygame, uidict, serialize, textwrap
 from logging import debug, info, warning, error, critical
-import os
+import os, absroot
 import sys,random,pygame,uidict,sgc
 
 from pygame.locals import *
@@ -55,6 +55,9 @@ def interdict_ok(root, title="NOT_SET", text="NOT_SET", button="NOT_SET", callba
 	state.widgets["replace_button"].config(label=button)
 	state.callback=callback
 
+def interdict_ok2(*a, **k):
+	interdict_ok(absroot, *a, **k)
+
 def interdict_ok_node(root, config, callback=lambda s:0):
 	if "body" in config.keys() and "text" not in config.keys():
 		config["text"]=config["body"]
@@ -88,6 +91,9 @@ def interdict_yn(root, title="NOT_SET", text="NOT_SET", button_y="NOT_SET", butt
 	state.callback_y=callback_y
 	state.callback_n=callback_n
 	return state
+
+def interdict_yn2(*a, **k):
+	interdict_yn(absroot, *a, **k)
 
 # Each widget gets a controller that has some bindings thru a binding layer to some number of components
 # Each component is a stateful object and has hooks for on_click etc

@@ -20,28 +20,38 @@ class BasePrimitive:
 		pass
 
 	def run_in_item(self, item, *args):
-		pass
+		warning("Behavior for "+self.primitive_id+" is undefined in context [item], running as default")
+		self.run_in_default()
 
 	def run_in_event(self, event, *args):
-		pass
+		warning("Behavior for "+self.primitive_id+" is undefined in context [event], running as default")
+		self.run_in_default()
 
 	def run_in_ship(self, ship, *args):
-		pass
+		warning("Behavior for "+self.primitive_id+" is undefined in context [ship], running as default")
+		self.run_in_default()
 
 	def run_in_impact(self, item, impact, projectile=None, *args):
+		warning("Behavior for "+self.primitive_id+" is undefined in context [impact], running as item")
 		self.run_in_item(item)
 
 	def run_in_sector(self, sector, *args):
-		pass
+		warning("Behavior for "+self.primitive_id+" is undefined in context [sector], running as default")
+		self.run_in_default()
 
 	def run_in_dialog(self, dialog, speech, *args):
 		return True
 
 	def run_in_trigger(self, *args, **kw):
-		pass
+		warning("Behavior for "+self.primitive_id+" is undefined in context [trigger], running as default")
+		self.run_in_default()
 
 	def run_in_faction(self, faction):
-		pass
+		warning("Behavior for "+self.primitive_id+" is undefined in context [faction], running as default")
+		self.run_in_default()
+
+	def run_in_default(self):
+		warning("Behavior for "+self.primitive_id+" is undefined in context [default]")
 
 def init(root):
 	if not 'primitives' in dir(root):

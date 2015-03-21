@@ -1,0 +1,16 @@
+{
+	"assets":[
+		{
+			"type":"image",
+			"name":"img_cardassian_person_generic1",
+			"path":"{$LDIR$}/generic1.png",
+			"scale":[100,300]
+		},
+		{
+			"type":"image",
+			"name":"img_cardassian_person_generic2",
+			"path":"{$LDIR$}/generic2.png",
+			"scale":[100,300]
+		}
+	]
+}

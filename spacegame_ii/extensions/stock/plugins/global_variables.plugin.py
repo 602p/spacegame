@@ -23,12 +23,9 @@ class CheckVariablePrimitive(primitives.BasePrimitive):
 		return r
 
 class SetVariablePrimitive(primitives.BasePrimitive):
-	def do(self):
+	def run_in_default(self):
+		debug("Setting "+self.config["name"]+" to "+str(self.config["value"]))
 		self.root.savegame.database[self.config["name"]]=self.config["value"]
-	def run_in_dialog(self, *a, **k):
-		self.do()
-	def run_in_event(self, *a, **k):
-		self.do()
 
 def init_primitives(root, console):
 	primitives.register_primitive(root, "check_variable", CheckVariablePrimitive)

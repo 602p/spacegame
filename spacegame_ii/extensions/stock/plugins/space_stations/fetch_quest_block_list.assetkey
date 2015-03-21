@@ -1,0 +1,11 @@
+{
+	"assets":[
+		{
+			"name":"fetch_quest_block_list",
+			"type":"json",
+			"json":[
+				"item_dev_warpdrive"
+			]
+		}
+	]
+}

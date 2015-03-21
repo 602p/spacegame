@@ -1,0 +1,11 @@
+{
+	"keys":["bar_greeting"],
+	"text":"I'm glad someone taught K'mtar a lesson!",
+	"requirements":[
+		{
+			 "name" : "event_kmtar_raid_defeated",
+	         "primitive" : "check_variable",
+	         "value" : true
+      	}
+	]
+}

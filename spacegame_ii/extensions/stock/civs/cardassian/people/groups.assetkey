@@ -1,0 +1,12 @@
+{
+	"assets":[
+		{
+			"type":"json",
+			"name":"cfg_pool_portraits_cardassian_generic",
+			"json":[
+				"img_cardassian_person_generic1",
+				"img_cardassian_person_generic2"
+			]
+		}
+	]
+}

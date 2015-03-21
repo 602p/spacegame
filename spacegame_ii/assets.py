@@ -44,9 +44,9 @@ class GameAssetDatabase:
 		self.metadata={"$BLANK":{"refs":0, "trefs":0}}
 		def _process_ldir(basepath, metadata, path):
 			n_2 = path.replace("{$LDIR$}", metadata.get("udpath", "(udpath not availible???)"))
-			print n_2
+			# print n_2
 			if not "{$LDIR$}" in path:
-				print "Prepending..."
+				# print "Prepending..."
 				n_2=os.path.join(basepath, n_2)
 			return n_2
 		def load_image(node, basepath, metadata={}):

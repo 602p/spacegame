@@ -161,7 +161,8 @@
                             "image":"img_quarks_bar_empty",
                             "pos":[800,100],
                             "scn_image":"img_quarks_bar_scaled_scn",
-                            "ambiance":"snd_quarks_bar_ambiance"
+                            "ambiance":"snd_quarks_bar_ambiance",
+                            "patron_pool":"%pool_portraits_ds9_UNI%"
                         }
                     ]
                 }

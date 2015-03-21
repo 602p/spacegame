@@ -1,8 +1,6 @@
 from __future__ import division
 import absroot
 
-
-
 SKIP_TO_GAME=True
 SKIP_START_ID='startdefun_tt'
 
@@ -132,6 +130,8 @@ root.state_manager.factories["hardpoint_select"]=state.InterdictingStateFactory(
 root.state_manager.start_interdicting("generic_ui", root.gamedb("sgcui_mainmenu"))
 
 g=root.state_manager.states["game"]
+#root.player=root.state_manager.states["game"].player
+root.gamestate=root.state_manager.states["game"]
 
 debug("StateManager initialized")
 

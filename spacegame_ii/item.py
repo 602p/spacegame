@@ -54,9 +54,10 @@ def _deserialize_item(root, node, parent):
 
 class ItemFactory:
 	def __init__(self, root, json_dict):
-		# self.cost=json_dict["cost"]
-		# self.id=json_dict["id"]
-		# self.name=json_dict["name"]
+		self.cost=json_dict["cost"]
+		self.id=json_dict["id"]
+		self.name=json_dict["name"]
+		self.questable_for=json_dict.get("allow_fetch_quests", True) and (self.id not in absroot.gamedb("fetch_quest_block_list"))
 		# self.inventory_image=root.gamedb.get_asset(json_dict["inventory_image"])
 		# self.equipped_image=root.gamedb.get_asset(json_dict["equipped_image"])
 		# self.mass=json_dict["mass"]

@@ -32,6 +32,9 @@ def create_quest_factory(root, config):
 def create_quest(root, name):
 	return root.quest_factories[name]()
 
+def create_quest2(name):
+	return create_quest(absroot, name)
+
 class QuestManager(object):
 	def __init__(self, root, player):
 		self.player=player

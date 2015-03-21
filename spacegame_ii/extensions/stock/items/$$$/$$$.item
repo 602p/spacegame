@@ -7,5 +7,6 @@
 	"mass":0,
 	"cost":1,
 	"can_sell":false,
-	"can_buy":false
+	"can_buy":false,
+	"allow_fetch_quests":false
 }

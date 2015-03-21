@@ -20,6 +20,11 @@
 				{
 					"id":"joke_plot",
 					"name":"The Plot"
+				},
+				{
+					"id":"bar_greeting",
+					"name":"Chat",
+					"kas":true
 				}
 			]
 		}

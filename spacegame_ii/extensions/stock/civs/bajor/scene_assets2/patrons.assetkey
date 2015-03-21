@@ -1,0 +1,12 @@
+{
+	"require":["cfg_pool_portraits_cardassian_generic"],
+	"assets":[
+		{
+			"type":"json",
+			"name":"cfg_pool_portraits_ds9_UNI",
+			"json":[
+				"%+pool_portraits_cardassian_generic%"
+			]
+		}
+	]
+}

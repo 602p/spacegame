@@ -14,6 +14,14 @@
                "primitive" : {
                   "primitive": "finish_event"
                }
+            },
+            {
+               "group":"UE_SHIP_DIE_RUN",
+               "primitive":{
+                  "name" : "event_kmtar_raid_defeated",
+                  "primitive" : "set_variable",
+                  "value" : true
+               }
             }
          ],
          "faction" : "neutral",
