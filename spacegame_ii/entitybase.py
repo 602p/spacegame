@@ -4,7 +4,7 @@ import primitives, triggers, types, serialize, types
 class Triggerable(object):
 	def trigger(self, event, *args, **kw):
 		if event in self.triggers.keys():
-			if event == "UE_SHIP_DIE_RUN": print "Running UE_SHIP_DIE_RUN event="+str(self.triggers[event])
+			# if event == "UE_SHIP_DIE_RUN": print "Running UE_SHIP_DIE_RUN event="+str(self.triggers[event])
 			primitives.do_group_for_trigger(self.root, self.triggers[event], *args, context=self, **kw)
 		else:
 			pass#warn("No triggers set up for event "+event+" (p.s. louis you should really disable this warning)")
