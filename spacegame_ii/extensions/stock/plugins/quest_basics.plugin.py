@@ -18,17 +18,14 @@ class QuestYNInterdictor(primitives.BasePrimitive):
 			self.config.get("modalid", "sgcui_modalyn"))
 
 class QuestOKInterdictor(primitives.BasePrimitive):
-	def run(self):
+	def run_in_default(self):
 		#print "popup_ok called"
 		ui_states.interdict_ok_node(self.root, self.config)
-	def run_in_event(self, *a, **b):
-		self.run()
-	def run_in_item(self, *a, **b):
-		self.run()
-	def run_in_ship(self, *a, **b):
-		self.run()
-	def run_in_impact(self, *a, **b):
-		self.run()
+
+	def run_in_event(self, event):
+		ui_states.interdict_ok_node(self.root, self.config, formatter=formatting.SubFormatter(self.root.formatter,{
+			"event":event
+		}))
 
 class PostIGConsoleMessage(primitives.BasePrimitive):
 	def run_in_event(self, event):

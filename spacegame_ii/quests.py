@@ -2,7 +2,7 @@ from __future__ import division
 import random, rarity, primitives, json, absroot, state, tooltips
 from logging import debug, info, warn, error, critical
 from jsonutil import dget, get_expanded_json
-import logging
+import logging, formatting
 module_logger=logging.getLogger("sg.quests")
 debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
 
@@ -55,6 +55,9 @@ class QuestManager(object):
 	def add_quest(self, quest):
 		self.quests.append(quest)
 		quest.start()
+
+	def get_quest(self, hid):
+		return [x for x in self.quests if x.hid==hid][0]
 
 	def save_to_config_node(self):
 		qlist=[]
@@ -120,6 +123,8 @@ class Quest(tooltips.GenericTooltipMixin):
 		}
 		self.state=0
 		self.active=True
+		primitives.do_group_for_event(self.root, config.get("init_events",[]), self)
+		self.hid=hash(self)
 
 	def start(self):
 		self.root.igconsole.post(self.intro, color=(255,255,0), italic=1)
@@ -134,16 +139,20 @@ class Quest(tooltips.GenericTooltipMixin):
 			"id":self.id,
 			"database":self.database,
 			"state":self.state,
-			"active":self.active
+			"active":self.active,
+			"hash":self.hid
 		}
 
 	def do_additional_load(self, config):
 		self.database=config["database"]
 		self.state=config["state"]
 		self.active=config["active"]
+		self.hid=config["hash"]
 
-	def get_descriptions(self):
-		return "Not Implemented"
+	def get_description(self):
+		return formatting.SubFormatter(absroot.formatter,{
+			"event":self
+		}).format_string(self.config.get("desc", self.config.get("description", "[Description Not Set]")))
 
 	def tt_render_image(self):
 		self.tt_image_init((1000,1000))

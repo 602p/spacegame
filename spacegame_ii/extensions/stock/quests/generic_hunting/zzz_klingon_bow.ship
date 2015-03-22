@@ -1,0 +1,19 @@
+{
+	"%+ship:klingon_warbird%":null,
+	"id":"qghunting_klingon_bow",
+	"name":"Heavily Armed Klingon Bird Of War",
+	"start_equip":[
+        {
+            "item_name":"wep_proj_laser",
+            "equipped":0
+        },
+        {
+            "item_name":"wep_basic_laser",
+            "equipped":-1
+        },
+        {
+            "item_name":"wep_shield_laser",
+            "equipped":1
+        }
+    ]
+}

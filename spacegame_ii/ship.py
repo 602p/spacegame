@@ -43,6 +43,9 @@ def create_ship(root, id_, x=0, y=0, with_equip=1, ai=True):
 	debug("Instantiating ship "+str(id_)+" at "+str((x,y,)) + ". w_e: "+str(with_equip)+". u_a: "+str(ai))
 	return root.ship_factories[id_](x, y, with_equip, ai)
 
+def create_ship2(*a, **k):
+	return create_ship(absroot, *a, **k)
+
 def _load_ship(root, node, parent):
 	#print ">>>"+str(node)
 	s = create_ship(root, node["ship_id"], 0, 0, not "packed" in node.keys(), node.get("ai", 1))
@@ -287,6 +290,9 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity, entitybase.Ti
 	def render_items(self, render_top=True):
 		for i in self.inventory:
 			if i.equipped!=-1:
+				# print len(self.hardpoints)
+				# print i.equipped
+				# print
 				if render_top==self.hardpoints[i.equipped].get("render_on_top", True):
 					i.render_equipped(self.root.screen, self.hardpoints[i.equipped], self.hardpoints[i.equipped].get("scale", 1))
 				# scaledsize=(i.equipped_image.get_size()[0]*self.hardpoints[i.equipped].get("scale", 1), i.equipped_image.get_size()[0]*self.hardpoints[i.equipped].get("scale", 1))

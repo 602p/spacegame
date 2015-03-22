@@ -6,6 +6,7 @@ debug, info, warning, error, critical = module_logger.debug, module_logger.info,
 
 
 def load_all_packages(root, dirn, console=None):
+	sys.dont_write_bytecode=True
 	info("Loading Plugins")
 	#if console: post_and_flip(console, "| | |                     | | |", bold=1, color=(0,255,0))
 	if console: post_and_flip(console, "V V V   Loading Plugins   V V V", bold=1, color=(0,255,0))

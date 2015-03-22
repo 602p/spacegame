@@ -17,7 +17,7 @@ class SpawnInOther(primitives.BasePrimitive):
 		ship_b.config["dialog_topic"]="UNI_wounded_pheonix_hail"
 		ship_b.rigidbody._vector.magnitude=75
 		ship_b.rigidbody._vector.angle=22
-		absroot.savegame.database["packed_entities"][self.config["secid"]].append(
+		absroot.savegame.database["sector_data"][self.config["secid"]]["packed_entities"].append(
 			ship_b.save_to_config_node()
 		)
 
@@ -27,7 +27,7 @@ class SpawnInOther2(primitives.BasePrimitive):
 		ship_b.rigidbody._vector.magnitude=75
 		ship_b.rigidbody._vector.angle=22
 		faction.get_faction("cardassianunion").do_join(ship_b)
-		absroot.savegame.database["packed_entities"][self.config["secid"]].append(
+		absroot.savegame.database["sector_data"][self.config["secid"]]["packed_entities"].append(
 			ship_b.save_to_config_node()
 		)
 

@@ -58,9 +58,13 @@ def interdict_ok(root, title="NOT_SET", text="NOT_SET", button="NOT_SET", callba
 def interdict_ok2(*a, **k):
 	interdict_ok(absroot, *a, **k)
 
-def interdict_ok_node(root, config, callback=lambda s:0):
+def interdict_ok_node(root, config, callback=lambda s:0, formatter=None):
 	if "body" in config.keys() and "text" not in config.keys():
 		config["text"]=config["body"]
+	if "text" in config:
+		if formatter is not None:
+			config["text"]=formatter.format_string(config["text"])
+
 	interdict_ok(
 		root,
 		config.get("title","UNSET (interdict_ok_node)"),

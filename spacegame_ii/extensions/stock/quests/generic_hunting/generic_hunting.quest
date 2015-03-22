@@ -1,0 +1,35 @@
+{
+   "events" : [
+      {
+         "primitive":"event_generic_hunting_driver_start"
+      }
+   ],
+   "finish_events":[
+      {
+         "primitive":"popup_ok",
+         "text":"<@{event:name}> is complete!",
+         "title":"Quest Complete",
+         "text":"You've destroyed the ship as charged.%n <@{event:database['payout']}> Cr has been added to your inventory"
+      },
+      {
+         "primitive":"player_add_item",
+         "id":"money",
+         "count":"*event.database['payout']"
+      }
+   ],
+   "init_events":[
+      {
+         "primitive":"event_generic_hunting_driver_init",
+         "spawnpool":[
+            "qghunting_ferengi_cruiser",
+            "qghunting_klingon_bow"
+         ]
+      }
+   ],
+   "id" : "event_generic_hunting1",
+   "intro" : "Your hunting task has begun",
+   "desc" : "Destroy a <@{root:ship_factories[self.modules['event'].database['ship_id']].name}>...%nfor <@{event:database['payout']}> Cr.%n In sector <@{event:database['sec_pos']}> .",
+   "name" : "Bounty Hunter Contract",
+   "spawn_random" : false,
+   "tags" : [ "generic", "bar_spawned", "assasination" ]
+}

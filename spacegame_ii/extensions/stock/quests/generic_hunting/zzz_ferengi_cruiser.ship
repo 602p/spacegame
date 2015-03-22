@@ -1,0 +1,19 @@
+{
+	"%+ship:ferengi_cruiser%":null,
+	"id":"qghunting_ferengi_cruiser",
+	"name":"Heavily Armed Ferengi Cruiser",
+	"start_equip":[
+        {
+            "item_name":"wep_proj_laser",
+            "equipped":0
+        },
+        {
+            "item_name":"wep_basic_laser",
+            "equipped":1
+        },
+        {
+            "item_name":"wep_shield_laser",
+            "equipped":2
+        }
+    ]
+}

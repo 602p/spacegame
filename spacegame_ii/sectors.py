@@ -56,6 +56,9 @@ class Galaxy(object):
 	def get_sector(self):
 		return self.sectormap[self.currentx][self.currenty]
 
+	def reload_curr_sector(self):
+		self.goto_sector(self.currentx, self.currenty)
+
 	def goto_sector(self, x, y):
 		info("Transitioning from sector ("+str(self.currentx)+","+str(self.currenty)+") to ("+str(x)+","+str(y)+")")
 		if x in self.sectormap.keys():

@@ -128,7 +128,7 @@ class SellPatron(BarPatron):
 		else:
 			ui_states.interdict_ok2("Selling", "We've already talked, thank you!", button="Goodbye")
 
-	def _save_to_config_node(s):return {"reqitem":s.wanted, "reqcount":s.selling_count, "payout":s.payout, "done":s.done}
+	#def _save_to_config_node(s):return {"reqitem":s.wanted, "reqcount":s.selling_count, "payout":s.payout, "done":s.done}
 
 	def _save_to_config_node(s):return {"sellitem":s.selling, "sellcount":s.selling_count, "cost_mod":s.cost_mod, "done":s.done}
 	def _load_from_config_node(s, n):
@@ -139,7 +139,28 @@ class SellPatron(BarPatron):
 		s.done=n["done"]
 		s.fcost=self.cost_mod*self.selling_o.cost*self.selling_count
 
-patron_types=[ChatPatron, BuyPatron, SellPatron]
+class QuestPatron(BarPatron):
+	def _init(self):
+		self.qid=random.choice(absroot.gamedb("cfg_list_bar_pquests"))
+		self.quest=quests.create_quest2(self.qid)
+		debug("Created a QuestPatron for "+self.qid)
+
+	def on_click(self):
+		def _y(*a):
+			absroot.quest_manager.add_quest(self.quest)
+			ui_states.interdict_ok2("Quest", "Thank you very much", button="Goodbye")
+		ui_states.interdict_yn2("Quest", "Are you interested?", button_y="YES", button_n="NO",
+			callback_y=_y,
+			callback_n=lambda s:ui_states.interdict_ok2("Quest", "I'm sorry to hear that...", button="Goodbye"))
+		ui_states.interdict_ok2("Quest", "Here's what I have in mind...%n("+self.qid+"):%n "+self.quest.get_description(), button="...")
+		ui_states.interdict_ok2("Quest", "I have a buiness proposition for you....", button="Let's hear it")
+
+	def _save_to_config_node(self):return {"quest":self.quest.save_to_config_node()}
+	def _load_from_config_node(self, n):
+		self.quest = quests.create_quest2(n["quest"]["id"])
+		self.quest.do_additional_load(n["quest"])
+
+patron_types=[QuestPatron]#[ChatPatron, BuyPatron, SellPatron, QuestPatron]
 
 class BarState(state.InterdictingState):
 	def first_start(self):
