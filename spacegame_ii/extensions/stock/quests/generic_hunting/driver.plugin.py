@@ -1,4 +1,4 @@
-import logging, random, absroot, primitives, ship
+import logging, random, absroot, primitives, ship, sectors
 module_logger=logging.getLogger("x.qghunting_d")
 debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
 
@@ -13,17 +13,17 @@ class QGHuntingDriverInit(primitives.BasePrimitive):
 		event.database['payout']=absroot.ship_factories[event.database['ship_id']].config.get("hull", 100)*random.randint(90,110)
 		debug("payout="+str(event.database['payout']))
 		ox=0
-		# while ox==0:
-			# ox=random.randint(-3,3)
+		while ox==0 or ox>sectors.GALAXYSIZE or ox<-sectors.GALAXYSIZE:
+			ox=random.randint(-3,3)
 		oy=0
-		# while oy==0:
-			# oy=random.randint(-3,3)
+		while oy==0 or ox>sectors.GALAXYSIZE or ox<-sectors.GALAXYSIZE:
+			oy=random.randint(-3,3)
 		event.database['sec_pos']=absroot.galaxy.sectormap[absroot.galaxy.currentx+ox][absroot.galaxy.currenty+oy].get_savegame_id()
 
 class QGHuntingDriverStart(primitives.BasePrimitive):
 	def run_in_event(self, event):
-		pos_x=500#random.randint(-5000,5000)
-		pos_y=500#random.randint(-5000,5000)
+		pos_x=random.randint(-5000,5000)
+		pos_y=random.randint(-5000,5000)
 		debug("Starting QGHuntingDriverStart")
 		debug("Spawning a "+event.database['ship_id'])
 		debug("pos_x,pos_y="+str((pos_x,pos_y)))

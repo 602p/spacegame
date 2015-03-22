@@ -76,7 +76,7 @@ class ItemFactory:
 		return Item(self.root, equipped, parent, self.config)
 
 
-class Item(serialize.SerializableObject, entitybase.Triggerable, entitybase.TiggerablePosteventAdapterMixin, tooltips.TimedReloadTooltipMixin):
+class Item(serialize.SerializableObject, entitybase.Triggerable, entitybase.TiggerablePosteventAdapterMixin, tooltips.ReloadOnMouseOverTooltipMixin):
 	def __init__(self, root, equipped, parent, json_dict):
 		config=json_dict
 		# self.costper=cost
@@ -347,10 +347,10 @@ class Item(serialize.SerializableObject, entitybase.Triggerable, entitybase.Tigg
 		self.tt_image_clip()
 		self.tt_add_box()
 
-	tt_last_rerender_count=0
-	def tt_needs_rerender(self):
-		if self.tt_last_rerender_count!=self.count:
-			self.tt_last_rerender_count=self.count
-			return True
-		return tooltips.TimedReloadTooltipMixin.tt_needs_rerender(self)
+	# tt_last_rerender_count=0
+	# # def tt_needs_rerender(self):
+	# 	if self.tt_last_rerender_count!=self.count:
+	# 		self.tt_last_rerender_count=self.count
+	# 		return True
+	# 	return tooltips.TimedReloadTooltipMixin.tt_needs_rerender(self)
 	# tt_islive=1

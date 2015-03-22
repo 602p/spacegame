@@ -14,7 +14,8 @@ class WarpDriveItem(item.Item):
 		#print self.fire_required
 		self.xwd_is_charging=0
 		self.xwd_charge_status=0
-		self.xwd_warp_factor=self.config["xwd_warp_factor"]
+		self.xwd_warp_factor=self.config.get("xwd_warp_factor", None)
+		self.xwd_warp_speed=self.config.get("xwd_warp_speed", None)
 		self.xwd_charge_power=self.config["xwd_charge_power"]
 		self.xwd_charge_shield=self.config["xwd_charge_shield"]
 		self.xwd_charge_time=self.config["xwd_charge_time"]
@@ -52,7 +53,10 @@ class WarpDriveItem(item.Item):
 				self.xwd_is_charging=0
 				self.xwd_at_warp=1
 				self.xwd_orig_speed=self.parent.max_speed
-				self.parent.max_speed*=self.xwd_warp_factor
+				if self.xwd_warp_factor:
+					self.parent.max_speed*=self.xwd_warp_factor
+				else:
+					self.parent.max_speed=self.xwd_warp_speed
 				self.parent.rigidbody._vector.magnitude=self.parent.max_speed
 		tasks.add_task(self.root, "render_last", tasks.Task(self.root, _internalt, DURATION, self))
 

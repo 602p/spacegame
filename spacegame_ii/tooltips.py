@@ -13,7 +13,7 @@ class GenericTooltipMixin(object):
 		self.tt_image=pygame.Surface(size).convert_alpha()
 		self.tt_image.fill((0,0,0,0))
 
-	def tt_image_clip(self, bonus=(5,5,5,5)):
+	def tt_image_clip(self, bonus=(5,5,10,10)):
 		temp_image=self.tt_image
 		self.tt_image=pygame.Surface((temp_image.get_bounding_rect().width+bonus[0]+bonus[2], temp_image.get_bounding_rect().height+bonus[1]+bonus[3])).convert_alpha()
 		self.tt_image.fill((0,0,0,0))
@@ -40,8 +40,11 @@ class GenericTooltipMixin(object):
 		absroot.screen.screen.blit(self.tt_image, rect)
 
 	def tt_update(self, rect):
+		self.tt_update_(rect)
 		if rect.collidepoint(pygame.mouse.get_pos()):
 			self.tt_draw(pygame.mouse.get_pos())
+
+	def tt_update_(self, rect):pass
 
 	def tt_delay_update(self, rect):
 		def _temp():
@@ -59,6 +62,15 @@ class TimedReloadTooltipMixin(GenericTooltipMixin):
 			self.tt_last_refresh=absroot.game_time
 			return True
 		return False
+
+class ReloadOnMouseOverTooltipMixin(GenericTooltipMixin):
+	tt_mouse_over_last = 0
+
+	def tt_update_(self, rect):
+		if rect.collidepoint(pygame.mouse.get_pos()) and not self.tt_mouse_over_last:
+			self.tt_render_image()
+		self.tt_mouse_over_last=rect.collidepoint(pygame.mouse.get_pos())
+
 
 def render_wrapped_text(text, width, font, color=(255,255,255)):
 	chars=width/font.size("_")[0]

@@ -2,6 +2,9 @@
 	"id":"human",
 	"name":"Human",
 	"description":"Humanity... pretty generic",
+	"namedb":"cfg_human_name_pool:*",
+	"tags":["species"],
+	"people_pool":["img_cardassian_person_generic2"],
 
 	"relations":{
 		"klingon":-1,

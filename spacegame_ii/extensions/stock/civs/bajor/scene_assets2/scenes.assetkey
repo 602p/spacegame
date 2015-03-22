@@ -13,6 +13,18 @@
 			"scale":[1300, 700]
 		},
 		{
+			"type":"image",
+			"name":"img_ds9_hangar_scn",
+			"path":"{$LDIR$}/hangar.jpg",
+			"scale":[1300, 700]
+		},
+		{
+			"type":"image",
+			"name":"img_ds9_hangar_icn",
+			"path":"{$LDIR$}/hangar.jpg",
+			"scale":[300, 300]
+		},
+		{
 			"type":"sound",
 			"name":"snd_quarks_bar_ambiance",
 			"path":"{$LDIR$}/quarks_bar_amb2.ogg",

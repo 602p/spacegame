@@ -19,8 +19,8 @@ class RunningGameState(state.State):
 			self.generated.append([[random.randint(-8000,8000), random.randint(-6000,6000)], random.sample(self.root.gamedb.get_startswith("bg_nebula"), 1)[0]])
 		# for i in range(random.randint(5,10)):
 		# 	self.generated.append([[random.randint(-8000,8000), random.randint(-6000,6000)], random.sample(self.root.gamedb.get_startswith("bg_planet"), 1)[0]])
-
 		
+
 
 		self.parralax_scroller=parralax.ParralaxStarfieldScroller(
 			self.root.renderspace_size,

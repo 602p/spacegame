@@ -1,0 +1,20 @@
+{
+	"assets":[
+		{
+			"name":"cfg_cardassian_name_pool:first",
+			"type":"json",
+			"json":[
+				"Gul"
+			]
+		},
+		{
+			"name":"cfg_cardassian_name_pool:last",
+			"type":"json",
+			"json":[
+				"Teraksdna",
+				"Flubflub",
+				"poobnub"
+			]
+		}
+	]
+}

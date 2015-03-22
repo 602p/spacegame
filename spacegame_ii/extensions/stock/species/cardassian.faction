@@ -1,0 +1,12 @@
+{
+	"id":"cardassian",
+	"name":"Cardassian",
+	"description":"Cardassians are jerks [TODO: REPLACE THIS]",
+	"namedb":"cfg_cardassian_name_pool:*",
+	"tags":["species"],
+	"people_pool":["img_cardassian_person_generic1"],
+
+	"relations":{
+		"human":-1
+	}
+}

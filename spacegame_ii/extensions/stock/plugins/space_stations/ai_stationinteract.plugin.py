@@ -30,7 +30,7 @@ class InteractableToEnterStation(ai.AIControllerUpdateNode):
 					self.controller.root.state_manager.start_interdicting("plg_internal_scene_selector", [self.config.get("ss_config",{}), self.ship])#{"ship":self.controller.gamestate.player, "is_shop":True, "shop_ship":self.controller.ship})
 				else:
 					if self.controller.root.game_time-self.cooldown_last>4:
-						self.controller.root.igconsole.post("Please slow down before docking", (255,255,0))
+						self.controller.root.igconsole.post("Please slow down before docking" if self.controller.gamestate.player.rigidbody.moving()<700 else "Ya cant fukin dock at warp dammit", (255,255,0))
 						self.cooldown_last=self.controller.root.game_time
 
 def init_ais(root, console):

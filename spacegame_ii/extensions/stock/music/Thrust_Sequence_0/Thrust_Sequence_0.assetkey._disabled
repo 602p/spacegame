@@ -3,7 +3,7 @@
 		{
 			"type":"sound",
 			"name":"snd_Thrust_Sequence_0",
-			"path":"music/Thrust_Sequence_0/Thrust_Sequence_0.mp3",
+			"path":"{$LDIR$}/Thrust_Sequence_0.mp3",
 			"volume":0.75,
 			"x_attribute_to":"Music by Matthew Pablo|http://www.matthewpablo.com"
 		},

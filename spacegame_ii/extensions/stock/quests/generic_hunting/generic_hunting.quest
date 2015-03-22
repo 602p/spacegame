@@ -9,6 +9,7 @@
          "primitive":"popup_ok",
          "text":"<@{event:name}> is complete!",
          "title":"Quest Complete",
+         "button":"Sweet!",
          "text":"You've destroyed the ship as charged.%n <@{event:database['payout']}> Cr has been added to your inventory"
       },
       {

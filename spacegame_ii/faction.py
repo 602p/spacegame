@@ -1,4 +1,4 @@
-import json, jsonutil, absroot, primitives, tooltips
+import json, jsonutil, absroot, primitives, tooltips, random
 from logging import debug, info, warn, error, critical
 from triggers import *
 import logging
@@ -34,6 +34,9 @@ class Faction(tooltips.GenericTooltipMixin):
 		self.leave_effects=config.get("leave_effects",[])
 		self.relations=config.get("relations",{})
 		self.visible=config.get("visible", True)
+		self.has_name_gen="namedb" in config
+		if self.has_name_gen:
+			self.name_pool_base=config["namedb"]
 		if self.visible:
 			self.icon_image=absroot.gamedb(config.get("icon_image", "$BLANK"))
 			self.banner_image=absroot.gamedb(config.get("banner_image", "$BLANK"))
@@ -47,6 +50,9 @@ class Faction(tooltips.GenericTooltipMixin):
 			ship.faction_memberships.append(self.id_str)
 			sg_postevent(UE_FACTION_JOINED_LOGIC, faction=self, ship=ship)
 			debug("A "+ship.id_str+" joined "+self.id_str+" [logical]")
+
+	def gen_name(self):
+		return random.choice(absroot.gamedb(self.name_pool_base.replace("*","first")))+" "+random.choice(absroot.gamedb(self.name_pool_base.replace("*","last")))
 
 	def can_join(self, ship):
 		return primitives.do_group_for_ship(absroot, self.join_required, ship)
@@ -99,10 +105,13 @@ class FactionManager(object):
 			for faction2 in self.root.factions.itervalues():
 				if self.get_lookup_id([faction1.id_str, faction2.id_str]) not in self.relations:
 					if faction1.relations.get(faction2.id_str, None)!=None or faction2.relations.get(faction1.id_str, None)!=None:
-						self.relations[self.get_lookup_id([faction1.id_str, faction2.id_str])]=faction1.relations.get(faction2.id_str)+faction2.relations.get(faction1.id_str)
+						self.relations[self.get_lookup_id([faction1.id_str, faction2.id_str])]=faction1.relations.get(faction2.id_str, 0)+faction2.relations.get(faction1.id_str, 0)
 
 	def inc_relations(self, faction1, faction2, amount):
 		self.relations[self.get_lookup_id([faction1.id_str, faction2.id_str])]+=amount
+
+	def pick_faction_with_tag(self, tag):
+		return random.choice([x for x in [absroot.factions[x] for x in absroot.factions] if (tag in x.tags)])
 
 	def update_newgame(self):
 		self.update_relations()

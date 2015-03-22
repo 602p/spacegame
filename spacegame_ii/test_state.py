@@ -1,7 +1,7 @@
 from __future__ import division
 import absroot
 
-SKIP_TO_GAME=True
+SKIP_TO_GAME=1
 SKIP_START_ID='startdefun_tt'
 
 from logging import debug, info, warning, error, critical
@@ -41,11 +41,11 @@ def credits():
 	print("\tGFXCursor by Frank Raiser, Pete Shinner")
 
 if allowdebug:
-	def g_spawnship(name, a=True, w=True, k=False):
+	def g_ss(name, a=True, w=True, k=False):
 		g.entities.append(ship.create_ship(root, name, g.player.rigidbody.x, g.player.rigidbody.y, w, a))
 		g.entities[-1].keep_in_save=k
 	def g_sst():
-		g_spawnship("destroyer_transport_test", 0, 1, 1)
+		g_ss("destroyer_transport_test", 0, 1, 1)
 	def g_gs(s1,s2):
 		root.galaxy.goto_sector(s1,s2)
 

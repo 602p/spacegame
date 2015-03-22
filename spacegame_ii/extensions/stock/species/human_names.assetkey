@@ -1,0 +1,24 @@
+{
+	"assets":[
+		{
+			"name":"cfg_human_name_pool:first",
+			"type":"json",
+			"json":[
+				"John",
+				"Abby",
+				"Jill",
+				"Joe",
+				"Susan"
+			]
+		},
+		{
+			"name":"cfg_human_name_pool:last",
+			"type":"json",
+			"json":[
+				"Johnson",
+				"Anderson",
+				"Scott"
+			]
+		}
+	]
+}
