@@ -20,6 +20,8 @@ UE_PROJECTILE_TIMEOUT='UE_PROJECTILE_TIMEOUT'	  #projectile 							Called in pro
 
 UE_STATE_CHANGE='UE_STATE_CHANGE'				  #manager, oldstate, newstate			Called in statemgr context, when switching state
 UE_GAME_START='UE_GAME_START'                     #										Called w/o context right before loop starts. Is not called if SKIP_TO_GAME is enabled
+UE_STATION_DOCK='UE_STATION_DOCK'				  #player, station 						Called in ship context when ship enteres station
+UE_STATION_DOCK_AFTER='UE_STATION_DOCK_AFTER'
 
 UE_SYSTEM_REPAIRED='UE_SYSTEM_REPAIRED'			  #manager, system 						Called in damagesystem when system is repaired
 UE_SYSTEM_DAMAGED='UE_SYSTEM_DAMAGED'			  #manager, system 						Called in damagesystem when system is damaged

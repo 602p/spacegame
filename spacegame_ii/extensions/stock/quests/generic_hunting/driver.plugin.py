@@ -13,10 +13,10 @@ class QGHuntingDriverInit(primitives.BasePrimitive):
 		event.database['payout']=absroot.ship_factories[event.database['ship_id']].config.get("hull", 100)*random.randint(90,110)
 		debug("payout="+str(event.database['payout']))
 		ox=0
-		while ox==0 or ox>sectors.GALAXYSIZE or ox<-sectors.GALAXYSIZE:
+		while ox==0 or ox+absroot.galaxy.currentx>sectors.GALAXYSIZE or ox+absroot.galaxy.currentx<-sectors.GALAXYSIZE:
 			ox=random.randint(-3,3)
 		oy=0
-		while oy==0 or ox>sectors.GALAXYSIZE or ox<-sectors.GALAXYSIZE:
+		while oy==0 or oy+absroot.galaxy.currenty>sectors.GALAXYSIZE or oy+absroot.galaxy.currenty<-sectors.GALAXYSIZE:
 			oy=random.randint(-3,3)
 		event.database['sec_pos']=absroot.galaxy.sectormap[absroot.galaxy.currentx+ox][absroot.galaxy.currenty+oy].get_savegame_id()
 
@@ -31,7 +31,7 @@ class QGHuntingDriverStart(primitives.BasePrimitive):
 		ship_b=ship.create_ship2(event.database['ship_id'], pos_x, pos_y)
 		ship_b.add_trigger("UE_SHIP_DIE_RUN", 
 			{
-				"primitive":"event_generic_hunting_driver_kill",
+				"primitive":"end_event_by_hid",
 				"hid":event.hid
 			}
 		)
@@ -41,11 +41,11 @@ class QGHuntingDriverStart(primitives.BasePrimitive):
 		debug("Spawned")
 		absroot.galaxy.reload_curr_sector()
 
-class QGHuntingDriverKill(primitives.BasePrimitive):
+class QEndEventByHID(primitives.BasePrimitive):
 	def run_in_trigger(self, *a, **k):
 		absroot.quest_manager.get_quest(self.config["hid"]).finish()
 
 def init_primitives(root,console):
 	primitives.register_primitive(root, "event_generic_hunting_driver_init", QGHuntingDriverInit)
 	primitives.register_primitive(root, "event_generic_hunting_driver_start", QGHuntingDriverStart)
-	primitives.register_primitive(root, "event_generic_hunting_driver_kill", QGHuntingDriverKill)
+	primitives.register_primitive(root, "end_event_by_hid", QEndEventByHID)

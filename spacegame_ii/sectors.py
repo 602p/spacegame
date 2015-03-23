@@ -27,8 +27,8 @@ def _create_ship_static(root, sector, config):
 
 class Galaxy(object):
 	def __init__(self, root):
-		self.currentx=None
-		self.currenty=None
+		self.currentx=0
+		self.currenty=0
 		self.root=root
 		self.gamestate=None
 		self.sectormap={} #[x][y]

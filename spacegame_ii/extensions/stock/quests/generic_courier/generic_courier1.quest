@@ -1,0 +1,36 @@
+{
+  "events": [
+    {
+      "primitive": "event_generic_courier_driver_start"
+    }
+  ],
+  "finish_events": [
+    {
+      "primitive": "popup_ok",
+      "text": "You've delivered the gear as charged.%n <@{event:database['payout']}> Cr has been added to your inventory",
+      "title": "Quest Complete",
+      "button": "Sweet!"
+    },
+    {
+      "primitive": "player_add_item",
+      "id": "money",
+      "count": "*event.database['payout']"
+    }
+  ],
+  "init_events": [
+    {
+      "primitive": "event_generic_courier_driver_init",
+      "pool": "%list_spacestation_courier_destinations%"
+    }
+  ],
+  "id": "event_generic_courier1",
+  "intro": "Your courier task has begun",
+  "desc" : "Carry <@{event:database['tonnage']}> tons of <@{root:item_factories[self.modules['event'].database['item_id']].name}>...%nfor <@{event:database['payout']}> Cr.%n To <@{root:get_entity_by_hid(self.modules['event'].database['endpoint']).name}> in  <@{event:database['sector_hint']}>.",
+  "name": "Courier Contract",
+  "spawn_random": false,
+  "tags": [
+    "generic",
+    "bar_spawned",
+    "courier"
+  ]
+}

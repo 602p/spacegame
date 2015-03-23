@@ -5,7 +5,8 @@
 			"WARNING":"THIS IS USED INTERNALLY BY icn_bar, EDIT ONLY IF YOU KNOW WHAT YOU ARE DOING",
 			"type":"json",
 			"json":[
-				"event_generic_hunting1"
+				"event_generic_hunting1",
+				"event_generic_courier1"
 			]
 		}
 	]

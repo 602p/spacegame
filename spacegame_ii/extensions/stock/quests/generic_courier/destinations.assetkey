@@ -1,0 +1,12 @@
+{
+	"assets":[
+		{
+			"name":"cfg_list_spacestation_courier_destinations",
+			"type":"json",
+			"json":[
+				"@0,0;#ss_bajor_ds9;",
+				"@10,0;#ss_klingon_tygokor;"
+			]
+		}
+	]
+}

@@ -60,7 +60,7 @@ class ItemFactory:
 		self.questable_for=json_dict.get("allow_fetch_quests", True) and (self.id not in absroot.gamedb("fetch_quest_block_list"))
 		# self.inventory_image=root.gamedb.get_asset(json_dict["inventory_image"])
 		# self.equipped_image=root.gamedb.get_asset(json_dict["equipped_image"])
-		# self.mass=json_dict["mass"]
+		self.mass=json_dict.get("mass", 1)
 		# self.hardpoint=json_dict["mount_type"]
 		# self.rarity=rarity.Rarity(json_dict["rarity"])
 		# self.fire_required=json_dict["required"]

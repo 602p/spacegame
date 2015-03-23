@@ -1,4 +1,4 @@
-import ai, pygame
+import ai, pygame, triggers
 from logging import debug, info, warning, error, critical
 
 class InteractableToEnterStation(ai.AIControllerUpdateNode):
@@ -14,6 +14,8 @@ class InteractableToEnterStation(ai.AIControllerUpdateNode):
 				#print "collided"
 				if self.controller.gamestate.player.rigidbody.moving()<self.config.get("max_speed", 75):
 					debug("Entering station")
+					self.controller.gamestate.player.sg_postevent(triggers.UE_STATION_DOCK, player=self.controller.gamestate.player, station=self.controller.ship)
+					debug("Trigger Called")
 					self.controller.gamestate.player.rigidbody.set_magnitude(0)
 					# self.config["ui_config"]["bg_image"]=self.config["bg_image"]
 					# state=self.controller.root.state_manager.start_interdicting("generic_ui", self.config["ui_config"])
@@ -28,6 +30,7 @@ class InteractableToEnterStation(ai.AIControllerUpdateNode):
 					# 	widget._switch()
 					debug("Dispatching to plg_internal_scene_selector")
 					self.controller.root.state_manager.start_interdicting("plg_internal_scene_selector", [self.config.get("ss_config",{}), self.ship])#{"ship":self.controller.gamestate.player, "is_shop":True, "shop_ship":self.controller.ship})
+					self.controller.gamestate.player.sg_postevent(triggers.UE_STATION_DOCK_AFTER, player=self.controller.gamestate.player, station=self.controller.ship)
 				else:
 					if self.controller.root.game_time-self.cooldown_last>4:
 						self.controller.root.igconsole.post("Please slow down before docking" if self.controller.gamestate.player.rigidbody.moving()<700 else "Ya cant fukin dock at warp dammit", (255,255,0))
