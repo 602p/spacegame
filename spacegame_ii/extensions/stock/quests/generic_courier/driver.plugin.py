@@ -9,7 +9,7 @@ class QGCourierDriverInit(primitives.BasePrimitive):
 		event.database['tonnage']=random.randint(10,30)
 		#event.database['count']=event.database['tonnage']/absroot.item_factories[event.database['item_id']].mass
 		event.database['payout']=event.database['tonnage']*200
-		sel_sel=random.choice(absroot.gamedb("cfg_list_spacestation_courier_destinations"))
+		sel_sel=random.choice([x for x in absroot.gamedb("cfg_list_spacestation_courier_destinations") if absroot.get_entity_by_selector(x) not in [s.hash_id for s in absroot.gamestate.entities]])
 		event.database['endpoint']=absroot.get_hid_by_selector(sel_sel)
 		event.database['sector_hint']=sel_sel[sel_sel.find("@")+1:sel_sel.find(";")]
 		

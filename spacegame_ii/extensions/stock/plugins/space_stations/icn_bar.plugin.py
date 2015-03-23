@@ -206,6 +206,31 @@ class QuestPatron(BarPatron):
 	def get_additional_text(self):
 		return "(You've completed his task)" if self.done else ""
 
+class WaitButton(tooltips.ReloadOnMouseOverTooltipMixin):
+	desc_text="Wait around for new patrons"
+	def __init__(self, state):
+		self.name="Wait"
+		self.color=(200,0,0)
+		self.size=absroot.gamedb("font_item_title").size(self.name)
+		self.pos=(0,0)
+		self.state=state
+		self.rect=pygame.Rect(self.pos, self.size)
+
+	def render(self):
+		pygame.draw.rect(absroot.screen.screen, self.color, self.rect)
+		absroot.screen.screen.blit(absroot.gamedb("font_item_title").render(self.name, 1, (0,0,0)), self.rect)
+
+	def on_click(self):
+		self.state.rebuild_patrons()
+
+	def tt_render_image(self):
+		self.tt_image_init((1000,1000))
+
+		self.tt_image.blit(absroot.gamedb("font_item_title").render(self.desc_text, 1, (20,20,20)), (0,0))
+
+		self.tt_image_clip()
+		self.tt_add_box()
+
 patron_types=[ChatPatron, BuyPatron, SellPatron, QuestPatron]
 
 class BarState(state.InterdictingState):
@@ -220,23 +245,37 @@ class BarState(state.InterdictingState):
 		self.title_render=absroot.gamedb(self.g_config.get("lg_font", "font_standard_large")).render(self.g_config.get("name","[Station name not set]")+" Bar", 1, self.config.get("color",(255,255,255)))
 
 		self.people=[]
+		self.wait_button=WaitButton(self)
 
 		if "bar_people" in self.ship.database:
 			for conf in self.ship.database["bar_people"]:
 				self.people.append(BarPatron.load_from_config_node(conf))
 		else:
-			for _ in xrange(random.randint(self.config.get("patron_count_min", 3), self.config.get("patron_count_min", 10))):
-				self.people.append(random.sample(patron_types,1)[0]( 
+			self.rebuild_patrons()
+
+	def rebuild_patrons(self):
+		self.people=[]
+		for _ in xrange(random.randint(self.config.get("patron_count_min", 3), self.config.get("patron_count_min", 8))):
+			collides=1
+			while collides==1:
+				temp=random.sample(patron_types,1)[0]( 
 					(
 						random.randint(0, 800),
-						random.randint(0, 600)
+						random.randint(0, 400)
 					),
 					race=absroot.faction_manager.pick_faction_with_tag("species")
-				))
+				)
+				collides=0
+				for person in self.people:
+					if person.rect.colliderect(temp.rect):
+						collides=1
+			self.people.append(temp)
 
 	def internal_update(self):
 		absroot.screen.screen.blit(absroot.gamedb(self.config.get("scn_image", "large_black_bg")), (0,0))
 		absroot.screen.screen.blit(self.title_render, (0,0))
+		self.wait_button.render()
+		self.wait_button.tt_delay_update(self.wait_button.rect)
 
 		for patron in self.people:
 			patron.render()
@@ -253,6 +292,8 @@ class BarState(state.InterdictingState):
 					for patron in self.people:
 						if patron.rect.collidepoint(pygame.mouse.get_pos()):
 							patron.on_click()
+					if self.wait_button.rect.collidepoint(pygame.mouse.get_pos()):
+						self.wait_button.on_click()
 
 	def suspend(self):
 		self.channel.stop()

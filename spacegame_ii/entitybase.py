@@ -2,6 +2,7 @@ from logging import debug, warn, error, info, critical
 import primitives, triggers, types, serialize, types
 
 class Triggerable(object):
+	triggers={}
 	def trigger(self, event, *args, **kw):
 		if event in self.triggers.keys():
 			# if event == "UE_SHIP_DIE_RUN": print "Running UE_SHIP_DIE_RUN event="+str(self.triggers[event])
@@ -29,6 +30,8 @@ class FlaggedEntity(Triggerable):
 	targeted=None
 	selected_wep=0
 	can_save=False
+	hash_id="[NOTIMPLEMENTED]"
+	id_string="[NOTIMPLEMENTED]"
 
 	def should_spawn_for_savegame(self, save):
 		return None

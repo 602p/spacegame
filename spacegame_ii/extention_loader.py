@@ -239,6 +239,7 @@ class AssetInfoClass(state.InterdictingState):
 		self.render_lines(str(len(root.ship_factories))+" ships: "+(", ".join(sorted(root.ship_factories.keys()))), (125,125,255))
 		self.render_lines(str(root.dialog_manager.count_pools())+" speech pools: "+(", ".join(sorted(root.dialog_manager.pools.keys()))), (125,255,125))
 		self.render_lines(str(len(root.quest_factories))+" quests: "+(", ".join(sorted(root.quest_factories.keys()))),  (255,125,255))
+		self.render_lines(str(len(root.primitives_list))+" primitives: "+(", ".join(sorted(root.primitives_list.keys()))), (125,125,125))
 
 	def render_lines(self, text, color=(255,255,255)):
 		text=textwrap.wrap(text, int(absroot.renderspace_size[0]/absroot.gamedb("LOADER_font_small").size("_")[0])-2)
@@ -267,6 +268,7 @@ class AssetInfoClass(state.InterdictingState):
 		AssetInfoClass.dump_lines(str(len(root.ship_factories))+" ships: "+(", ".join(sorted(root.ship_factories.keys()))), (125,125,255))
 		AssetInfoClass.dump_lines(str(root.dialog_manager.count_pools())+" speech pools: "+(", ".join(sorted(root.dialog_manager.pools.keys()))), (125,255,125))
 		AssetInfoClass.dump_lines(str(len(root.quest_factories))+" quests: "+(", ".join(sorted(root.quest_factories.keys()))),  (255,125,255))
+		AssetInfoClass.dump_lines(str(len(root.primitives_list))+" primitives: "+(", ".join(sorted(root.primitives_list.keys()))), (125,125,125))
 		AssetInfoClass.dump_lines("="*30)
 		for i in root.gamedb.assets.keys():
 			AssetInfoClass.dump_lines("<ASSET> "+i+" ("+str(type(root.gamedb.assets[i]))+"): "+str(root.gamedb.assets[i]))
@@ -286,6 +288,9 @@ class AssetInfoClass(state.InterdictingState):
 		AssetInfoClass.dump_lines("="*30)
 		for i in root.quest_factories.keys():
 			AssetInfoClass.dump_lines("<QUEST> "+i+": "+str(root.quest_factories[i]))
+		AssetInfoClass.dump_lines("="*30)
+		for i in root.primitives_list.keys():
+			AssetInfoClass.dump_lines("<PRIMITIVE> "+i+": "+str(root.primitives_list[i]))
 		debug("Done")
 
 	def process_events(self, events):

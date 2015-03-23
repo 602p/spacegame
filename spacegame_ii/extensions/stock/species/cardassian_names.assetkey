@@ -4,7 +4,11 @@
 			"name":"cfg_cardassian_name_pool:first",
 			"type":"json",
 			"json":[
-				"Gul"
+				"Gul",
+				"Damar",
+				"Garak",
+				"Wingmeme",
+				"pooBblupp"
 			]
 		},
 		{
@@ -13,7 +17,10 @@
 			"json":[
 				"Teraksdna",
 				"Flubflub",
-				"poobnub"
+				"poobnub",
+				"memecop",
+				"poopbutt",
+				"Dukat"
 			]
 		}
 	]
