@@ -206,7 +206,7 @@ class QuestPatron(BarPatron):
 	def get_additional_text(self):
 		return "(You've completed his task)" if self.done else ""
 
-patron_types=[QuestPatron]#[ChatPatron, BuyPatron, SellPatron, QuestPatron]
+patron_types=[ChatPatron, BuyPatron, SellPatron, QuestPatron]
 
 class BarState(state.InterdictingState):
 	def first_start(self):
