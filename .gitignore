@@ -162,7 +162,7 @@ pip-log.txt
 # Mac crap
 .DS_Store
 
-#Log
+#Log 
 
 spacegame_ii/spacegame.log
 spacegame_ii/*.log
