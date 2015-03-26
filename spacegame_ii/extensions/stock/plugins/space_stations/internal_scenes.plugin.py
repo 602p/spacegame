@@ -31,7 +31,7 @@ class DispatchState(state.InterdictingState):
 		mapping={
 			"store":lambda ic:absroot.state_manager.start_interdicting("inventory", {"ship":absroot.state_manager.states["game"].player, "is_shop":True, "shop_ship":self.ship}),
 			"bar":lambda ic:absroot.state_manager.start_interdicting("icn_ss_bar", [self.params[0], self.params[1], ic]),
-			"hangar":lambda ic:absroot.state_manager.start_interdicting("icn_ss_hangar", [self.params[0], self.params[1], ic])
+			"hangar":lambda ic:absroot.state_manager.start_interdicting("icn_ss_hangar2", [self.params[0], self.params[1], ic])
 		}
 		for event in events:
 			if event.type==pygame.KEYDOWN:

@@ -2,6 +2,7 @@ import extention_loader, absroot, tasks, pygame, rotutil, triggers, particles
 from rotutil import *
 from logging import debug, info
 import logging
+from triggers import IS_SG_EVENT
 module_logger=logging.getLogger("plugin.menu_music")
 debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
 
@@ -15,7 +16,7 @@ class SoundHook_Music(extention_loader.HookableExtention):
 		self.last_hull_warning=-10
 		self.channel=pygame.mixer.Channel(0)
 	def event_root(self, event):
-		if event.type==pygame.USEREVENT:
+		if IS_SG_EVENT(event):
 			if event.sg_type==triggers.UE_STATE_CHANGE:
 				if event.newstate.startswith('generic_ui') or \
 			 event.newstate.startswith("credits") or \

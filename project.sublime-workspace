@@ -4,6 +4,38 @@
 		"selected_items":
 		[
 			[
+				"process",
+				"process_events"
+			],
+			[
+				"cont",
+				"controller_cfg"
+			],
+			[
+				"id",
+				"id_str"
+			],
+			[
+				"wig",
+				"widgets"
+			],
+			[
+				"pri",
+				"primitives_list"
+			],
+			[
+				"wai",
+				"wait_button"
+			],
+			[
+				"UE_AFTER",
+				"UE_STATION_DOCK_AFTER"
+			],
+			[
+				"eve",
+				"event_generic_courier_driver_init"
+			],
+			[
 				"get_entit",
 				"get_entity_by_selector"
 			],
@@ -482,117 +514,74 @@
 			[
 				"shou",
 				"should_spawn"
-			],
-			[
-				"pri",
-				"primitive_id"
-			],
-			[
-				"we",
-				"web_morse"
-			],
-			[
-				"scar",
-				"scaryimage"
-			],
-			[
-				"scr",
-				"screen"
-			],
-			[
-				"do_th",
-				"do_thing_first"
-			],
-			[
-				"pyg",
-				"pygame_thread"
-			],
-			[
-				"imag",
-				"imageobj"
-			],
-			[
-				"tri",
-				"triggers"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "spacegame_ii/extensions/stock/plugins/space_stations/icn_bar.plugin.py",
+			"file": "spacegame_ii/state.py",
 			"settings":
 			{
-				"buffer_size": 10399,
+				"buffer_size": 2938,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "spacegame_ii/entitybase.py",
+			"file": "spacegame_ii/ui_states.py",
 			"settings":
 			{
-				"buffer_size": 3723,
+				"buffer_size": 14065,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "spacegame_ii/sectors.py",
+			"file": "spacegame_ii/extensions/stock/plugins/space_stations/icn_hangar2.plugin.py",
 			"settings":
 			{
-				"buffer_size": 9596,
+				"buffer_size": 942,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "spacegame_ii/test_state.py",
+			"settings":
+			{
+				"buffer_size": 9062,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "spacegame_ii/extensions/stock/quests/generic_courier/destinations.assetkey",
+			"file": "spacegame_ii/spacegame.log",
 			"settings":
 			{
-				"buffer_size": 177,
+				"buffer_size": 150079,
 				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "spacegame_ii/extensions/stock/quests/generic_courier/generic_courier1.quest",
-			"settings":
-			{
-				"buffer_size": 911,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "import logging, random, absroot, primitives, ship, sectors\nmodule_logger=logging.getLogger(\"x.qghunting_d\")\ndebug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical\n\nclass QGHuntingDriverInit(primitives.BasePrimitive):\n	def run_in_event(self, event):\n		debug(\"event_generic_hunting_driver_init started...\")\n		debug(\"Selecting ship...\")\n		debug(\"pool=\"+str(self.config[\"spawnpool\"]))\n		event.database['ship_id']=random.choice(self.config[\"spawnpool\"])\n		debug(\"sel=\"+event.database['ship_id'])\n		debug(\"computing payout...\")\n		event.database['payout']=absroot.ship_factories[event.database['ship_id']].config.get(\"hull\", 100)*random.randint(90,110)\n		debug(\"payout=\"+str(event.database['payout']))\n		ox=0\n		while ox==0 or ox+absroot.galaxy.currentx>sectors.GALAXYSIZE or ox+absroot.galaxy.currentx<-sectors.GALAXYSIZE:\n			ox=random.randint(-3,3)\n		oy=0\n		while oy==0 or oy+absroot.galaxy.currenty>sectors.GALAXYSIZE or oy+absroot.galaxy.currenty<-sectors.GALAXYSIZE:\n			oy=random.randint(-3,3)\n		event.database['sec_pos']=absroot.galaxy.sectormap[absroot.galaxy.currentx+ox][absroot.galaxy.currenty+oy].get_savegame_id()\n\nclass QGHuntingDriverStart(primitives.BasePrimitive):\n	def run_in_event(self, event):\n		pos_x=random.randint(-5000,5000)\n		pos_y=random.randint(-5000,5000)\n		debug(\"Starting QGHuntingDriverStart\")\n		debug(\"Spawning a \"+event.database['ship_id'])\n		debug(\"pos_x,pos_y=\"+str((pos_x,pos_y)))\n\n		ship_b=ship.create_ship2(event.database['ship_id'], pos_x, pos_y)\n		ship_b.add_trigger(\"UE_SHIP_DIE_RUN\", \n			{\n				\"primitive\":\"event_generic_hunting_driver_kill\",\n				\"hid\":event.hid\n			}\n		)\n		absroot.savegame.database[\"sector_data\"][event.database[\"sec_pos\"]][\"packed_entities\"].append(\n			ship_b.save_to_config_node()\n		)\n		debug(\"Spawned\")\n		absroot.galaxy.reload_curr_sector()\n\nclass QGHuntingDriverKill(primitives.BasePrimitive):\n	def run_in_trigger(self, *a, **k):\n		absroot.quest_manager.get_quest(self.config[\"hid\"]).finish()\n\ndef init_primitives(root,console):\n	primitives.register_primitive(root, \"event_generic_hunting_driver_init\", QGHuntingDriverInit)\n	primitives.register_primitive(root, \"event_generic_hunting_driver_start\", QGHuntingDriverStart)\n	primitives.register_primitive(root, \"event_generic_hunting_driver_kill\", QGHuntingDriverKill)",
-			"file": "spacegame_ii/extensions/stock/quests/generic_courier/driver.plugin.py",
-			"file_size": 0,
-			"file_write_time": 130715983678111412,
-			"settings":
-			{
-				"buffer_size": 2363,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "spacegame_ii/triggers.py",
-			"settings":
-			{
-				"buffer_size": 3789,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "spacegame_ii/extensions/stock/plugins/space_stations/ai_stationinteract.plugin.py",
-			"settings":
-			{
-				"buffer_size": 2171,
-				"line_ending": "Unix"
 			}
 		}
 	],
 	"build_system": "Spacegame",
 	"command_palette":
 	{
-		"height": 58.0,
+		"height": 127.0,
 		"selected_items":
 		[
+			[
+				"pretty",
+				"Pretty JSON: Format (Pretty Print) JSON"
+			],
+			[
+				"j",
+				"Pretty JSON: JSON query with ./jq"
+			],
+			[
+				"format",
+				"Pretty JSON: Format (Pretty Print) JSON"
+			],
+			[
+				"package",
+				"Package Control: Install Package"
+			],
 			[
 				"convert tab",
 				"Indentation: Convert to Tabs"
@@ -707,59 +696,81 @@
 	},
 	"file_history":
 	[
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/generic_hunting/driver.plugin.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/sectors/kronos_system_10,0.sector",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/ship.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/generic_courier/destinations.assetkey",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/generic_courier/generic_courier1.quest",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/triggers.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/test_state.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/absroot.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/spacegame.log",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/sgsl.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/space_stations/icn_bar.plugin.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/sgc/__init__.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/space_stations/internal_scenes.plugin.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/sgc/widgets/tooltips_ext.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/space_stations/icn_hangar2.ui.assetkey",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/space_stations/icn_hangar2.plugin.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/ui_states.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/sgc/widgets/button.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/item.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/state.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/space_stations/icn_hangar.plugin.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/sgc/widgets/base_widget.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/triggers.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/main_menu_ambiance.plugin.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/sgc_example/helloworld.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/tooltips.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/sgc/locals.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/__init__.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/sgc/LICENSE",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugin.id",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/generic_courier/driver.plugin.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/assets.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extention_loader.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/species/cardassian_names.assetkey",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/species/human_names.assetkey",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/migrations/migration_0to1.plugin.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/entitybase.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/assetlist.txt",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/saves/test111.json",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/sectors.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/ship.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/gamestate.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/generic_courier/generic_courier1.quest",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/space_stations/ai_stationinteract.plugin.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/generic_hunting/driver.plugin.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/space_stations/bar_quest_list.assetkey",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/generic_hunting/generic_hunting.quest",
+		"/C/Users/Louis/AppData/Roaming/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/C/Users/Louis/AppData/Roaming/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/Louis/AppData/Roaming/Sublime Text 2/Packages/User/Default (Windows).sublime-keymap",
+		"/C/Users/Louis/AppData/Roaming/Sublime Text 2/Packages/Default/Default (Windows).sublime-keymap",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/generic_courier/destinations.assetkey",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/sectors/kronos_system_10,0.sector",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/test_state.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/civs/klingon/spacestation/tygokor.ship",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/generic_courier",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/space_stations/icn_bar.plugin.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/space_stations/icn_hangar.plugin.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/damage.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/sectors.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/civs/bajor/teroknor.ship",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/civs/bajor/scene_assets2/scenes.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/civs/bajor/bajor.ship",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/items/warpdrives/klingon_wd_1.wditem.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/items/warpdrives/base_wd.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/items/warpdrives/driver.plugin.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/space_stations/ai_stationinteract.plugin.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/settings.cfg",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/gamestate.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/generic_hunting/generic_hunting.quest",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/tooltips.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/item.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/civs/cardassian/people/generics.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/species/cardassian.faction",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/species/human.faction",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/species/klingon.faction",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/species/human_names.assetkey",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/species/cardassian_names.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/dialog/plugins/additem.plugin.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/entitybase.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/civs/klingon/birdofwar/_birdofwar.ship",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/quests/spawnship.plugin.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/generic_hunting/zzz_klingon_bow.ship",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/generic_hunting/zzz_ferengi_cruiser.ship",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/assetlist.txt",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/the_wounded/spawn_in_other.plugin.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/civs/ferengi/cruiser.ship",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/serialize.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/formatting.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/ui_states.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/quest_basics.plugin.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/quests.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/space_stations/bar_quest_list.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/space_stations/fetch_quest_block_list.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/generic/generic_hunting.quest",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/civs/cardassian/people/groups.assetkey",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/absroot.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/items/$$$/$$$.item",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/dialog/pools/generics.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/global_variables.plugin.py",
@@ -772,9 +783,6 @@
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/dialog/bar/goaway.talk",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/civs/cardassian/names.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/civs/bajor/scene_assets2/patrons.assetkey",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/assets.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/state.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/main_menu_ambiance.plugin.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/starts/ferengi/start.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/uidict.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/inventory2.py",
@@ -815,26 +823,7 @@
 		"/C/Users/Louis/Desktop/GitHub/pypackfs/text_o.py",
 		"/C/Users/Louis/Desktop/Important Documents/python snippets/blartozoomer/pack_images_inc.py",
 		"/C/Users/Louis/Desktop/GitHub/pypackfs/text.py",
-		"/C/Users/Louis/Desktop/GitHub/pypackfs/b",
-		"/C/Users/Louis/Desktop/GitHub/pypackfs/packfs/bak",
-		"/C/Users/Louis/Desktop/GitHub/pypackfs/pypackfs/loadgroups.py",
-		"/C/Users/Louis/Desktop/GitHub/pypackfs/pypackfs/core.py",
-		"/C/Users/Louis/Desktop/GitHub/pypackfs/pypackfs/__main__.py",
-		"/C/Users/Louis/Desktop/Important Documents/python snippets/blartozoomer/pack_images.py",
-		"/C/Users/Louis/Desktop/GitHub/pypackfs/pypackfs/includes/base.py",
-		"/C/Users/Louis/Desktop/GitHub/pypackfs/pypackfs/includes/core.py",
-		"/C/Users/Louis/Desktop/GitHub/pypackfs/pypackfs/cli.py",
-		"/C/Users/Louis/Desktop/GitHub/pypackfs/pypackfs/includes/lg_os.py",
-		"/C/Users/Louis/Desktop/GitHub/pypackfs/pypackfs/filegroups.py",
-		"/C/Users/Louis/Desktop/GitHub/pypackfs/pypackfs/__init__.py",
-		"/C/Users/Louis/Desktop/GitHub/pypackfs/pypackfs/includes/lg_pygame.py",
-		"/C/Users/Louis/Desktop/GitHub/pypackfs/pypackfs/includes/lg_file.py",
-		"/C/Users/Louis/Desktop/GitHub/pypackfs/pypackfs/load_groups.py",
-		"/C/Users/Louis/Desktop/Important Documents/python snippets/blartozoomer/aabbc.py",
-		"/C/Users/Louis/Desktop/Important Documents/python snippets/blartozoomer/packed_data.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/sectors/cardassia_system_0,10.sector",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/sectors/bajor_system_0,0.sector",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/items/cargo/antimatter_cargo.item"
+		"/C/Users/Louis/Desktop/GitHub/pypackfs/b"
 	],
 	"find":
 	{
@@ -845,6 +834,7 @@
 		"height": 0.0,
 		"where_history":
 		[
+			"C:\\Users\\Louis\\Desktop\\GitHub\\spacegame\\spacegame_ii",
 			"C:\\Users\\Louis\\Desktop\\GitHub\\spacegame\\spacegame_ii\\extensions",
 			"C:\\Users\\Louis\\Desktop\\GitHub\\pypackfs\\test\\yaps-0.92\\lib",
 			"C:\\Users\\Louis\\Desktop\\GitHub\\pypackfs\\test\\yaps-0.92",
@@ -866,6 +856,35 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"mouse",
+			"BarState",
+			"main_menu",
+			"				\"id\":\"main_menu\",\n",
+			"construct_screen",
+			"0",
+			"on_click",
+			"_proto",
+			"1000",
+			"<META>",
+			"<NOMETA>",
+			"triggers",
+			"courier",
+			"x",
+			"_GenericButton",
+			"\"done\": true",
+			"15480597",
+			"15699845",
+			"None",
+			"except",
+			")\n",
+			"Gcourier",
+			"Hunting",
+			"hunting",
+			"Hunting",
+			"hunting",
+			"event_generic_hunting_driver_init",
+			"_in_stack",
+			"//",
 			"QGHuntingDriverKill",
 			"event_generic_hunting_driver_kill",
 			"get_hid_by_selector",
@@ -964,36 +983,7 @@
 			"<out>",
 			"<",
 			"\"|\"",
-			"\",\"",
-			",",
-			"install",
-			"_",
-			"print",
-			"pint",
-			"print",
-			"loadgroups_string",
-			"normpath",
-			".join",
-			"import",
-			"filegroups",
-			"pygame",
-			"python",
-			"out",
-			"file",
-			"),",
-			",",
-			"r",
-			"65",
-			"absroot",
-			"materials",
-			"print",
-			"sum([",
-			"sum",
-			"config",
-			"500",
-			"self.selected_item.get_cost()*1.1",
-			"self.selected_item.get_cost()*0.9",
-			"tags"
+			"\",\""
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1021,69 +1011,15 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "spacegame_ii/extensions/stock/plugins/space_stations/icn_bar.plugin.py",
+					"file": "spacegame_ii/state.py",
 					"settings":
 					{
-						"buffer_size": 10399,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6948,
-								6948
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1080.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "spacegame_ii/entitybase.py",
-					"settings":
-					{
-						"buffer_size": 3723,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1175,
-								1175
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "spacegame_ii/sectors.py",
-					"settings":
-					{
-						"buffer_size": 9596,
+						"buffer_size": 2938,
 						"regions":
 						{
 						},
@@ -1100,30 +1036,83 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1576.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "spacegame_ii/extensions/stock/quests/generic_courier/destinations.assetkey",
+					"buffer": 1,
+					"file": "spacegame_ii/ui_states.py",
 					"settings":
 					{
-						"buffer_size": 177,
+						"buffer_size": 14065,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								29,
-								71
+								13407,
+								13407
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 6075.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "spacegame_ii/extensions/stock/plugins/space_stations/icn_hangar2.plugin.py",
+					"settings":
+					{
+						"buffer_size": 942,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								782,
+								782
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "spacegame_ii/test_state.py",
+					"settings":
+					{
+						"buffer_size": 9062,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								62,
+								62
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
@@ -1134,109 +1123,26 @@
 				},
 				{
 					"buffer": 4,
-					"file": "spacegame_ii/extensions/stock/quests/generic_courier/generic_courier1.quest",
+					"file": "spacegame_ii/spacegame.log",
 					"settings":
 					{
-						"buffer_size": 911,
+						"buffer_size": 150079,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								680,
-								680
+								150079,
+								150079
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage",
-							"tab_size": 3,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "spacegame_ii/extensions/stock/quests/generic_courier/driver.plugin.py",
-					"settings":
-					{
-						"buffer_size": 2363,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2363,
-								2363
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 250.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "spacegame_ii/triggers.py",
-					"settings":
-					{
-						"buffer_size": 3789,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1742,
-								1757
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 90.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "spacegame_ii/extensions/stock/plugins/space_stations/ai_stationinteract.plugin.py",
-					"settings":
-					{
-						"buffer_size": 2171,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								27,
-								27
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 35.0,
-						"translation.y": 0.0,
+						"translation.y": 22892.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1277,7 +1183,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 100.0
+		"height": 201.0
 	},
 	"output.git":
 	{

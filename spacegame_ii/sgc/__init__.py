@@ -39,3 +39,7 @@ from widgets.switch import Switch
 
 # Import Menu last, so it can import the other widgets from here.
 from widgets.menu import Menu
+
+#Custom widgets
+#from widgets.tooltips_ext import TTButton
+from widgets.tooltips_ext import SimpleTTButton

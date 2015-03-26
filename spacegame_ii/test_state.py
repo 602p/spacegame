@@ -1,7 +1,7 @@
 from __future__ import division
 import absroot
 
-SKIP_TO_GAME=1
+SKIP_TO_GAME=0
 SKIP_START_ID='startdefun_tt'
 
 from logging import debug, info, warning, error, critical
@@ -176,8 +176,14 @@ if SKIP_TO_GAME:
 else:
 	triggers.sg_postevent(triggers.UE_GAME_START)
 
+import fpsgraph
+
 while run:
 	events=pygame.event.get()
+	root.last_events_len=len(events)
+	fpsgraph.event(events)
+	fpsgraph.update(absroot=absroot)
+	
 
 	for ext in root.extentions:
 		for e in events:
@@ -231,17 +237,19 @@ while run:
 		for i in traceback.format_exception(exc_type, exc_value, exc_traceback): error(i)
 		ui_states.interdict_yn(root, "StateMGR Error", "ERROR in state_manager.run_tick. Game my corrupt if continued...%n"+str(e), "Continue", "Quit", callback_n=lambda s:pygame.quit())
 
-	if fps_log_enable:
-		if datetime.datetime.now()-fps_last>datetime.timedelta(seconds=1):
-			fps_last=datetime.datetime.now()
-			fps_sps=root.game_time-fps_last_gt
-			fps_last_gt=root.game_time
-			fps_osps=fps_sps
-		root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("FPS: "+str(root.clock.get_fps()), False, (0,255,255)), (0,310))
-		root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("S/S: "+str(fps_sps)+"/1", False, (0,255,255)), (0,320))
-		root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("LEN(EVENTS): "+str(len(events)), False, (0,255,255)), (0,330))
+	# if fps_log_enable:
+	# 	if datetime.datetime.now()-fps_last>datetime.timedelta(seconds=1):
+	# 		fps_last=datetime.datetime.now()
+	# 		fps_sps=root.game_time-fps_last_gt
+	# 		fps_last_gt=root.game_time
+	# 		fps_osps=fps_sps
+	# 	root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("FPS: "+str(root.clock.get_fps()), False, (0,255,255)), (0,310))
+	# 	root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("S/S: "+str(fps_sps)+"/1", False, (0,255,255)), (0,320))
+	# 	root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("LEN(EVENTS): "+str(len(events)), False, (0,255,255)), (0,330))
+
 
 	root.console.draw()
+	fpsgraph.render(root.screen.screen)
 	#pygame.draw.line(root.screen.screen, (255,0,0), (0,0), root.renderspace_size, 20)
 
 	tasks.run_group(root, 'tooltips')

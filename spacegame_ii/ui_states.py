@@ -21,7 +21,8 @@ def init(root):
 		"Switch":sgc.Switch,
 		"InputBox":sgc.InputBox,
 		"Container":sgc.Container,
-		"Combo":sgc.Combo
+		"Combo":sgc.Combo,
+		"SimpleTTButton":sgc.SimpleTTButton
 	}
 	root.widget_controllers={
 		"exit_state":ExitStateWidgetController,
@@ -279,6 +280,7 @@ class WidgetAbstractionInterface:
 			i.on_event(e)
 
 class GenericUIInterdictor(state.InterdictingState):
+	data_inserts={}
 	def del_widget(self, n):
 		self.widgets[n].remove()
 		del self.widgets[n]
@@ -295,6 +297,8 @@ class GenericUIInterdictor(state.InterdictingState):
 				if isinstance(node[i], basestring):
 					if node[i].startswith("$"):
 						node[i]=db(node[i].replace("$",""))
+					elif node[i].startswith("&"):
+						node[i]=self.data_inserts[node[i].replace("&", "")]
 				if isinstance(node[i], dict):
 					node[i]=process_inserts(node[i], db)
 			return node
@@ -303,18 +307,21 @@ class GenericUIInterdictor(state.InterdictingState):
 		config_["__interdictor"]=self
 
 		if config_["type"] in self.root.widget_constructors.keys():
-			#debug("Creating a '"+config_["type"]+"'")
+			# debug("Creating a '"+config_["type"]+"'")
 			widget=self.root.widget_constructors[config_["type"]](**config_)
 			widget._is_internal=_is_internal
 			widget._json_config=config_
 			widget.wai=WidgetAbstractionInterface(widget, self, self.root)
 			for controller_cfg in config_.get("controllers",[]):
 				if controller_cfg["controller"] in self.root.widget_controllers.keys():
-					#debug("--Binding '"+controller_cfg["controller"]+"' to it")
+					# debug("--Binding '"+controller_cfg["controller"]+"' to it")
 					controller_obj=self.root.widget_controllers[controller_cfg["controller"]](controller_cfg)
 					widget.wai.add_controller(controller_obj)
 				else:
-					error("--CONTROLLER "+controller_cfg["controller"]+" NOT FOUND!")
+					if issubclass(controller_cfg["controller"], WidgetController): #Let Mixin states just provide a class
+						widget.wai.add_controller(controller_cfg["controller"](controller_cfg))
+					else:
+						error("--CONTROLLER "+controller_cfg["controller"]+" NOT FOUND!")
 			if add_dict:
 				key=config_.get("id", hash(widget))
 				self.widgets[key]=widget
@@ -324,7 +331,6 @@ class GenericUIInterdictor(state.InterdictingState):
 			return widget
 		else:
 			error("WIDGET '"+config_["type"]+"' NOT FOUND")
-
 
 	def construct_screen(self):
 		info("Constructing screen...")
@@ -366,3 +372,67 @@ class GenericUIInterdictor(state.InterdictingState):
 	def suspend(self):
 		debug("suspend() called, removing")
 		self.clear_widgets()
+
+class SimpleGenericUIStateMixin(object):
+	def uimi_start(self):
+		# print "uimi_start"
+		for widget_proto in dir(self):
+			widget=eval("self."+widget_proto)
+			# print widget
+			# print dir(widget)
+			# print
+			if "_is_sgc_widget" in dir(widget):
+				# print "ASDASD"
+				widget.add()
+		# print dir(self)
+		if "widgets" in dir(self):
+			# print "w"
+			for widget in self.widgets:
+				widget.add() 
+
+	def uimi_suspend(self):
+		#print "uimi_suspend"
+		for widget_proto in dir(self):
+			widget=eval("self."+widget_proto)
+			# print widget
+			if "_is_sgc_widget" in dir(widget):
+				# print "ASDASD"
+				widget.remove()
+		
+		if "widgets" in dir(self):
+			for widget in self.widgets:
+				widget.remove() 
+
+	def start(self):self.uimi_start()
+	def suspend(self):self.uimi_suspend()
+
+class JSONGenericUIStateMixin(GenericUIInterdictor): #Preffered
+	def init_ui(self):
+		self.widgets={}
+		debug("JSONGenericUIStateMixin constructing screen...")
+		self.default_config=self.__dict__.get("ui_defaults", {})
+		for widget_cfg in self.__dict__.get("ui_widgets", {}):
+			self.create_widget(widget_cfg, 1, 0)
+
+	def start_ui(self):
+		GenericUIInterdictor.start(self)
+
+	def suspend_ui(self):
+		GenericUIInterdictor.suspend(self)
+
+	def render_ui(self):
+		if self.__dict__.get("ui_bg", False):
+			self.root.screen.screen.blit(self.root.gamedb(self.__dict__["ui_bg"]), (0,0))
+		sgc.update(self.root.clock.get_fps())
+		self.root.fps=9999
+
+	def internal_update(self):
+		self.render_ui()
+
+	def update_ui(self, events):
+		GenericUIInterdictor.process_events(self, events)
+
+def bind_and_return(obj, attrs):
+	for name in attrs.keys():
+		setattr(obj, name, attrs[name])
+	return obj

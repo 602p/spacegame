@@ -1,5 +1,5 @@
-import state, absroot, pygame, ui_states, item
-import logging, uidict, quests, random, tooltips
+import state, absroot, pygame, ui_states, item, sgc
+import logging, uidict, quests, random, tooltips, types
 module_logger=logging.getLogger("sg.plgissc.bar")
 debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
 
@@ -206,34 +206,9 @@ class QuestPatron(BarPatron):
 	def get_additional_text(self):
 		return "(You've completed his task)" if self.done else ""
 
-class WaitButton(tooltips.ReloadOnMouseOverTooltipMixin):
-	desc_text="Wait around for new patrons"
-	def __init__(self, state):
-		self.name="Wait"
-		self.color=(200,0,0)
-		self.size=absroot.gamedb("font_item_title").size(self.name)
-		self.pos=(0,0)
-		self.state=state
-		self.rect=pygame.Rect(self.pos, self.size)
-
-	def render(self):
-		pygame.draw.rect(absroot.screen.screen, self.color, self.rect)
-		absroot.screen.screen.blit(absroot.gamedb("font_item_title").render(self.name, 1, (0,0,0)), self.rect)
-
-	def on_click(self):
-		self.state.rebuild_patrons()
-
-	def tt_render_image(self):
-		self.tt_image_init((1000,1000))
-
-		self.tt_image.blit(absroot.gamedb("font_item_title").render(self.desc_text, 1, (20,20,20)), (0,0))
-
-		self.tt_image_clip()
-		self.tt_add_box()
-
 patron_types=[ChatPatron, BuyPatron, SellPatron, QuestPatron]
 
-class BarState(state.InterdictingState):
+class BarState(state.InterdictingState, ui_states.SimpleGenericUIStateMixin):
 	def first_start(self):
 		debug("Starting BarState")
 		self.g_config=self.params[0]
@@ -241,17 +216,27 @@ class BarState(state.InterdictingState):
 		#print self.config
 		self.ship=self.params[1]
 		self.channel=pygame.mixer.Channel(1)
-		self.channel.play(absroot.gamedb(self.config.get("ambiance", "snd_quarks_bar_ambiance")), -1)
 		self.title_render=absroot.gamedb(self.g_config.get("lg_font", "font_standard_large")).render(self.g_config.get("name","[Station name not set]")+" Bar", 1, self.config.get("color",(255,255,255)))
 
 		self.people=[]
-		self.wait_button=WaitButton(self)
+		#self.wait_button=WaitButton(self)
+		self.widgets=[
+			ui_states.bind_and_return(sgc.SimpleTTButton(label="Wait", tt_title="Wait around for more patrons", pos=(0,50)),
+				{
+					"on_click":lambda *a:self.rebuild_patrons()
+				}
+			)
+		]
 
 		if "bar_people" in self.ship.database:
 			for conf in self.ship.database["bar_people"]:
 				self.people.append(BarPatron.load_from_config_node(conf))
 		else:
 			self.rebuild_patrons()
+
+	def start(self):
+		self.channel.play(absroot.gamedb(self.config.get("ambiance", "snd_quarks_bar_ambiance")), -1)
+		self.uimi_start()
 
 	def rebuild_patrons(self):
 		self.people=[]
@@ -274,8 +259,9 @@ class BarState(state.InterdictingState):
 	def internal_update(self):
 		absroot.screen.screen.blit(absroot.gamedb(self.config.get("scn_image", "large_black_bg")), (0,0))
 		absroot.screen.screen.blit(self.title_render, (0,0))
-		self.wait_button.render()
-		self.wait_button.tt_delay_update(self.wait_button.rect)
+		# self.wait_button.render()
+		# self.wait_button.tt_delay_update(self.wait_button.rect)
+		sgc.update(absroot.clock.get_fps())
 
 		for patron in self.people:
 			patron.render()
@@ -284,6 +270,7 @@ class BarState(state.InterdictingState):
 
 	def process_events(self, events):
 		for event in events:
+			sgc.event(event)
 			if event.type==pygame.KEYDOWN:
 				if event.key==pygame.K_ESCAPE:
 					self.finish()
@@ -292,14 +279,15 @@ class BarState(state.InterdictingState):
 					for patron in self.people:
 						if patron.rect.collidepoint(pygame.mouse.get_pos()):
 							patron.on_click()
-					if self.wait_button.rect.collidepoint(pygame.mouse.get_pos()):
-						self.wait_button.on_click()
+					# if self.wait_button.rect.collidepoint(pygame.mouse.get_pos()):
+						# self.wait_button.on_click()
 
 	def suspend(self):
 		self.channel.stop()
 		self.ship.database["bar_people"]=[]
 		for person in self.people:
 			self.ship.database["bar_people"].append(person.save_to_config_node())
+		self.uimi_suspend()
 
 def init_states(root, console):
 	info("Setting up BarState")

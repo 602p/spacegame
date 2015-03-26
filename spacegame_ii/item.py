@@ -331,6 +331,7 @@ class Item(serialize.SerializableObject, entitybase.Triggerable, entitybase.Tigg
 			tooltips.render_wrapped_text(text, 400, absroot.gamedb("font_item_desc"), (40,40,40)),
 			(70,absroot.gamedb("font_item_title").size("|")[1]+image_1.get_height()+10))
 		absroot.gamedb("font_item_desc").set_italic(0)
+		
 		absroot.gamedb("font_item_desc").set_bold(1)
 
 		self.tt_image.blit(
@@ -345,6 +346,18 @@ class Item(serialize.SerializableObject, entitybase.Triggerable, entitybase.Tigg
 
 		absroot.gamedb("font_item_desc").set_bold(0)
 		self.tt_image_clip()
+
+		# absroot.gamedb("font_item_desc").set_underline(1)
+
+		
+		img=absroot.gamedb("font_item_desc").render(self.id_str, 1, (100,210,100))
+		rect=pygame.Rect((0,0), img.get_size())
+		rect.bottomright=self.tt_image.get_size()
+		rect.move_ip(-5,-5)
+		self.tt_image.blit(img, rect)
+
+		# absroot.gamedb("font_item_desc").set_underline(0)
+
 		self.tt_add_box()
 
 	# tt_last_rerender_count=0

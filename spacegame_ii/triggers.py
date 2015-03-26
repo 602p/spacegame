@@ -55,3 +55,9 @@ def sg_postevent(type_const, *a, **k):
 		warn("Pygame event queue full: Event dropped")
 	#debug("Posted an event of type "+type_const)
 	#debug("-->"+str(built_dict))
+
+def IS_SG_EVENT(event):
+	if event.type==pygame.USEREVENT:
+		if 'sg_type' in dir(event):
+			return True
+	return False
