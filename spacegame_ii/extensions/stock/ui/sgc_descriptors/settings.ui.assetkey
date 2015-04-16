@@ -16,7 +16,9 @@
 				"fullscreen":"graphics:fullscreen",
 				"dump":"debug:dump_at_die",
 				"show_intro_popup":"gameplay:intro_popup",
-				"bs_confirm":"gameplay:buysell_confirm"
+				"bs_confirm":"gameplay:buysell_confirm",
+				"slowmo_factor":"debug:slowmo_factor",
+				"show_tips":"gameplay:tips"
 			}
 		},
 		{
@@ -301,6 +303,21 @@
 												"font":"$font_standard_small"
 											}
 										]
+									},
+									{
+										"type":"HBox",
+										"widgets":[
+											{
+												"type":"InputBox",
+												"id":"slowmo_factor"
+											},
+											{
+												"type":"Label",
+												"text":"Slowmo (F7) FPS",
+												"col":[255,255,255],
+												"font":"$font_standard_small"										
+											}
+										]
 									}
 								]
 							},
@@ -361,6 +378,21 @@
 											{
 												"type":"Label",
 												"text":"Show Buy/Sell confirm",
+												"col":[255,255,255],
+												"font":"$font_standard_small"
+											}
+										]
+									},
+									{
+										"type":"VBox",
+										"widgets":[
+											{
+												"type":"Switch",
+												"id":"show_tips"
+											},
+											{
+												"type":"Label",
+												"text":"Show tips",
 												"col":[255,255,255],
 												"font":"$font_standard_small"
 											}

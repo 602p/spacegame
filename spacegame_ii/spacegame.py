@@ -177,6 +177,11 @@ else:
 	triggers.sg_postevent(triggers.UE_GAME_START)
 
 import fpsgraph
+enable_slowmo=False
+
+splash_texts=[]
+[splash_texts.extend(x) for x in absroot.gamedb.get_startswith("splashes_")]
+splash_text=random.choice(splash_texts)
 
 while run:
 	events=pygame.event.get()
@@ -208,6 +213,8 @@ while run:
 				faction.get_faction("klingonempire").try_leave(g.player)
 			if e.key==pygame.K_F4:
 				absroot.state_manager.start_interdicting("cutscene_anim", "fsanim_intro_ke")
+			if e.key==pygame.K_F7:
+				enable_slowmo=not enable_slowmo
 			if e.key==pygame.K_F12:
 				absroot.state_manager.start_interdicting("ass_info")
 		elif e.type==pygame.VIDEORESIZE:
@@ -221,9 +228,11 @@ while run:
 
 	if root.clock.get_fps()<1:
 		root.fps=999
+	elif enable_slowmo:
+		root.fps=root.settings["debug"]["slowmo_factor"]
 	else:
 		root.fps=root.clock.get_fps()
-	pygame.display.set_caption("Spacegame "+root.version+" ("+str("%3d" % root.fps)+" FPS)")
+	pygame.display.set_caption("Spacegame "+root.version+" ("+str("%3d" % root.fps)+" FPS): "+splash_text)
 
 	if pygame.event.peek(pygame.QUIT):run=0
 	root.console.process_input(events)

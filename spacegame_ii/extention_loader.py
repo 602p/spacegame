@@ -326,3 +326,19 @@ def create_master_ext(name_, desc='Package notifier for $name', color=(127,127,2
 		def get_color(self):
 			return color
 	absroot.extentions["m_"+name_]=_Master(absroot)
+
+def hook_extention(cls, name=None):
+	if isinstance(cls, type):
+		fname=name if name else str(hash(cls))
+		debug("Using @hook_extention to hook "+str(cls)+" as "+fname)
+		absroot.extentions[fname]=cls(absroot)
+		return cls
+	else:
+		return lambda x:hook_extention(x, cls)
+
+def add_primitive(name):
+	def _int(cls):
+		debug("Using @add_primitive to add "+str(cls)+" as "+name)
+		primitives.register_primitive2(name, cls)
+		return cls
+	return _int

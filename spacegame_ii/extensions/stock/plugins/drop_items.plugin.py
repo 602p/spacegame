@@ -1,7 +1,8 @@
-import primitives, tasks, particles, absroot
+import primitives, tasks, particles, absroot, extention_loader
 import ship as ship_module
 from jsonutil import dget
 
+@extention_loader.add_primitive("drop_inventory")
 class DropInventoryOnDeath(primitives.BasePrimitive):
 	def run_in_ship(self, ship):
 		if (len(ship.inventory)>0 )or 1:
@@ -12,6 +13,3 @@ class DropInventoryOnDeath(primitives.BasePrimitive):
 				if item.config.get("is_dropped", True):
 					item.reparent(None)
 					absroot.state_manager.states["game"].entities[-1].pick_up(item)
-
-def init_primitives(root,console):
-	primitives.register_primitive(root, "drop_inventory", DropInventoryOnDeath)

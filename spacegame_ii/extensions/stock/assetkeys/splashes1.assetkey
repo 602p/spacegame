@@ -1,0 +1,13 @@
+{
+	"assets":[
+		{
+			"type":"json",
+			"name":"splashes_stock_1",
+			"json":[
+				"Sponsored by Paul Blart",
+				"Sponsored by Shrek",
+				"This is a splash message"
+			]
+		}
+	]
+}
