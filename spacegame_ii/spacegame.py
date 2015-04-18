@@ -23,8 +23,11 @@ except ImportError:
 	warning( '...(This game may run faster if you install psyco)' )
 	print "This game may run faster if you install psyco"
 
+import assets, absroot
+absroot.gamedb=assets.GameAssetDatabase()
+
 import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader, triggers
-import assets, pyconsole, interdiction_gui, overlay_gui, ui_states, sectors, newgame, dialog, quests, inventory, atexit
+import pyconsole, interdiction_gui, overlay_gui, ui_states, sectors, newgame, dialog, quests, inventory, atexit
 import sgc, serialize, gfxcursor, formatting, pyganim, keymapping, sys, traceback, datetime, ai, types, faction, inventory2
 import entitybase as eb
 debug("...(Imports done)")
@@ -59,6 +62,7 @@ root=absroot
 
 root.formatter=formatting.Formatter({"root":root})
 root.extentions={}
+root.gamedb.postload_init()
 
 root.settings=serialize.load_settings()
 if root.settings["debug"]["dump_at_die"]:
@@ -94,7 +98,7 @@ root.particlemanager=particles.ParticleManager()
 
 root.state_manager=state.StateManager(root)
 root.console = pyconsole.Console(screen.image,(0,0,1300,200),localsx=locals())
-root.gamedb=assets.GameAssetDatabase()
+
 
 root.igconsole = overlay_gui.IngameRenderedConsole(root, 5)
 root.igconsole.enable_debug()

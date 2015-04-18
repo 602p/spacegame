@@ -4,7 +4,6 @@ import logging
 module_logger=logging.getLogger("sg.extention_loader")
 debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
 
-
 def load_all_packages(root, dirn, console=None):
 	sys.dont_write_bytecode=True
 	info("Loading Plugins")
@@ -14,44 +13,15 @@ def load_all_packages(root, dirn, console=None):
 	info("Doing last plugin init...")
 	for ext in root.extentions:
 		root.extentions[ext].after_plugins_load()
-	info("Loading Assetkeys")
-	#if console: post_and_flip(console, "| | |                     | | |", bold=1, color=(0,255,0))
-	if console: post_and_flip(console, "V V V   Loading Assets    V V V", bold=1, color=(0,255,0))
-	load_assetkeys(root, dirn, console)
-	for ext in root.extentions:
-		root.extentions[ext].after_assets_load()
-	info("Loading items")
-	#if console: post_and_flip(console, "| | |                     | | |", bold=1, color=(0,255,0))
-	if console: post_and_flip(console, "V V V   Compiling Items   V V V", bold=1, color=(0,255,0))
-	load_items(root, dirn, console)
-	for ext in root.extentions:
-		root.extentions[ext].after_items_load()
-	info("Loading Ships")
-	#if console: post_and_flip(console, "| | |                     | | |", bold=1, color=(0,255,0))
-	if console: post_and_flip(console, "V V V   Compiling Ships   V V V", bold=1, color=(0,255,0))
-	load_ships(root, dirn, console)
-	for ext in root.extentions:
-		root.extentions[ext].after_ships_load()
 
-	info("Loading dialog")
-	#if console: post_and_flip(console, "| | |                     | | |", bold=1, color=(0,255,0))
-	if console: post_and_flip(console, "V V V  Installing Dialog  V V V", bold=1, color=(0,255,0))
-	load_dialog(root, dirn, console)
-	for ext in root.extentions:
-		root.extentions[ext].after_dialog_load()
+	load_notifiers(root, dirn)
+	
+	[load_assetkeys(root, dirn, console, pattern) for pattern in root.gamedb.json_extentions]
 
-	info("Loading factions")
-	#if console: post_and_flip(console, "| | |                     | | |", bold=1, color=(0,255,0))
-	if console: post_and_flip(console, "V V V Installing Factions V V V", bold=1, color=(0,255,0))
-	load_factions(root, dirn, console)
-	for ext in root.extentions:
-		root.extentions[ext].after_faction_load()
-
-	info("Loading quests")
-	if console: post_and_flip(console, "V V V  Compiling  Quests  V V V", bold=1, color=(0,255,0))
-	load_quests(root, dirn, console)
-	for ext in root.extentions:
-		root.extentions[ext].after_quests_load()
+	if len(absroot.gamedb.delayed_load_files)>0:
+		warning("After load_assetkeys there are "+str(len(absroot.gamedb.delayed_load_files))+" files that were not loaded because they had unmet dependencies... Listing:")
+		for i in absroot.gamedb.delayed_load_files:
+			warning("    "+str(i))
 
 	if console:
 		post_and_flip(console, "LOADING FINISHED!", bold=1, italic=1, color=(0,255,0))
@@ -60,7 +30,7 @@ def load_all_packages(root, dirn, console=None):
 		post_and_flip(console, "Loaded "+str(len(root.ship_factories))+" ships")
 		post_and_flip(console, "Loaded "+str(root.dialog_manager.count_pools())+" speech pools ("+str(root.dialog_manager.count_speeches())+" speechIs distributed)")
 		post_and_flip(console, "Loaded "+str(len(root.quest_factories))+" quests")
-		post_and_flip(console, "(Sectors get loaded at runtime C: )")
+		post_and_flip(console, "Loaded "+str(len(root.sector_prototypes))+" sectors")
 		time.sleep(2.5)
 
 def safepost(console, text, bold=0, italic=0, underline=0, color=(255,255,255), bg=(0,0,0), debugmsg=False):
@@ -74,55 +44,24 @@ def findall(dirn, pattern):
 			matches.append(os.path.join(root, filename))
 	return sorted(matches)
 
-def load_assetkeys(root, dirn, console):
+def load_notifiers(root, dirn):
 	for rootn, dirnames, filenames in os.walk(dirn):
 		if "plugin.id" in filenames:
 			with open(rootn+"/plugin.id", 'r') as fd:
 				debug("Loading a plugin.id from "+rootn)
 				data=json.load(fd)
 				create_master_ext(data["name"], desc="&"+data.get("desc", "Package notifier for $name")+" [from "+rootn+"]", color=data.get("color", (127,127,255)), bold=data.get("bold", 1), italic=data.get("italic", 0))
-		for filename in fnmatch.filter(filenames, "*.assetkey"):
-			root.gamedb.load_assetfile(os.path.join(rootn, filename), rootn.split("\\")[0]+"\\"+rootn.split("\\")[1]+"\\", console)
-	root.gamedb.process_delayed_load(console)
+
+def load_assetkeys(root, dirn, console, pattern):
+	for rootn, dirnames, filenames in os.walk(dirn):
+		absroot.gamedb.load_dir(rootn, filenames, console, pattern)
+		#root.gamedb.load_assetfile(os.path.join(rootn, filename), rootn.split("\\")[0]+"\\"+rootn.split("\\")[1]+"\\", console)
+	#root.gamedb.process_delayed_load(console)
 
 def load_plugins(root, dirn, console):
 	for rn in findall(dirn, "*.plugin.py"):
 		if console: post_and_flip(console, "Loading Plugin '"+rn+"'...", color=(255,255,255))
 		load_plugin(root, rn, console)
-
-def load_quests(root, dirn, console):
-	for rn in findall(dirn, "*.quest"):
-		if console: post_and_flip(console, "Loading Quest '"+rn+"'...", color=(255,255,255))
-		quests.load_file(root, rn)
-
-def load_items(root, dirn, console):
-	for rn in findall(dirn, "*.item"):
-		if console: post_and_flip(console, "Loading Item '"+rn+"'...", color=(255,255,255))
-		item.load_file(root, rn)
-
-def load_factions(root, dirn, console):
-	for rn in findall(dirn, "*.faction"):
-		if console: post_and_flip(console, "Loading Faction '"+rn+"'...", color=(255,255,255))
-		faction.load_file(root, rn)
-
-def load_dialog(root, dirn, console):
-	for rn in findall(dirn, "*.talk"):
-		if console: post_and_flip(console, "Loading dialog '"+rn+"'...", color=(255,255,255))
-		dialog.load_file(root, rn)
-
-def load_ships(root, dirn, console):
-	for rn in sorted(findall(dirn, "*.ship")):
-		if console: post_and_flip(console, "Loading Ship '"+rn+"'...", color=(255,255,255))
-		ship.load_file(root, rn)	
-
-def load_galaxy(root, dirn, console):
-	import sectors #dumb hack to fix circular imports
-	c=0
-	for rn in findall(dirn, "*.sector"):
-		c+=1
-		if console: post_and_flip(console, "Loading Sector '"+rn+"'...", color=(255,255,255))
-		sectors.load_file(root, rn)		
-	return c
 
 def load_plugin(root, fname, console):
 	if not ".PYC" in fname.upper():

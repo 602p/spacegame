@@ -40,7 +40,7 @@ def new_game(root, start, player_name, ship_name):
 	root.state_manager.states["game"].entities=[ship.create_ship(root, start["ship"], *start.get("wspos", [0,0]), ai=False)]
 	root.state_manager.states["game"].player=root.state_manager.states["game"].entities[0]
 	root.quest_manager=quests.QuestManager(root, root.state_manager.states["game"].player)
-	extention_loader.load_galaxy(root, 'extensions', None)
+	sectors.install_galaxy()
 	root.galaxy.preprocess_statics()
 	root.galaxy.goto_sector(*start.get("sector", [0,0]))
 	root.state_manager.goto_state("game")

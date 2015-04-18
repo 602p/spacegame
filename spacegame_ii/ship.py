@@ -25,11 +25,12 @@ def load_file(root, fname):
 	with open(fname, 'r') as f:
 		load_string(root, f.read(), path=fname)
 
-def load_string(root, string, path=None):
-	json_o=get_expanded_json(root.gamedb, json.loads(string))
-	register_ship(root, json_o)
-	root.gamedb.assets["ship:"+json_o["id"]]=json_o
-	root.gamedb.metadata["ship:"+json_o["id"]]={"path":path, "node":json_o, "is_ship":False, "refs":0, "trefs":0}
+@assets.load_where_endswith(".ship")
+def load_ship(config, basepath, dirn, filen, console):
+	json_o=get_expanded_json(absroot.gamedb, config)
+	register_ship(absroot, json_o)
+	absroot.gamedb.assets["ship:"+json_o["id"]]=json_o
+	absroot.gamedb.metadata["ship:"+json_o["id"]]={"path":dirn+"/"+filen, "node":json_o, "is_ship":False, "refs":0, "trefs":0}
 
 def register_ship(root, config):
 	root.ship_factories[config["id"]]=create_ship_factory(root, config)

@@ -1,0 +1,10 @@
+{
+	"%+item_wd_base%":0,
+	"id":"item_klingon_warpdrive1",
+	"name":"Vor'cha class warpdrive",
+	"inventory_image":"img_inv_klingon_wd",
+	"xwd_warp_speed":4800,
+	"xwd_charge_power":0.2,
+	"xwd_charge_shield":0.4,
+	"warp_color":[255,0,0]
+}
