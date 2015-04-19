@@ -1,8 +1,8 @@
 from __future__ import division
-import random, rarity, primitives, json, absroot, state, tooltips
+import random, rarity, primitives, json, absroot, state, tooltips, assets
 from logging import debug, info, warn, error, critical
-from jsonutil import dget, get_expanded_json
-import logging, formatting
+from jsonutil import dget, get_expanded_json, get_expanded_json2
+import logging, formatting, absroot
 module_logger=logging.getLogger("sg.quests")
 debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
 
@@ -11,20 +11,9 @@ def init(root):
 	if not 'quest_factories' in dir(root):
 		root.quest_factories={}
 
-def load_dir(root, dname):
-	for i in os.listdir(dname):
-		load_file(root, dname+"/"+i, dname)
-
-def load_file(root, fname):
-	debug("Load quest_file '"+fname)
-	with open(fname, 'r') as f:
-		load_string(root, f.read())
-
-def load_string(root, string):
-	register_quest(root, get_expanded_json(root.gamedb, json.loads(string)))
-
-def register_quest(root, config):
-	root.quest_factories[config["id"]]=create_quest_factory(root, config)
+@assets.load_where_endswith(".quest")
+def register_quest(config, *a):
+	absroot.quest_factories[config["id"]]=create_quest_factory(absroot, get_expanded_json2(config))
 
 def create_quest_factory(root, config):
 	return QuestFactory(root, config)

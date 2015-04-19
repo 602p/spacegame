@@ -1,6 +1,6 @@
 import json, primitives, random, state, pygame, textwrap, random, jsonutil, formatting
 from logging import debug, info, warning, error, critical
-import logging
+import logging, assets, absroot
 module_logger=logging.getLogger("sg.dialog")
 debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
 
@@ -8,10 +8,9 @@ debug, info, warning, error, critical = module_logger.debug, module_logger.info,
 def init(root):
 	root.dialog_manager=DialogManager(root)
 
-def load_file(root, fname):
-	debug("Load talk_file '"+fname)
-	with open(fname, 'r') as f:
-		root.dialog_manager.add_speech_config(jsonutil.get_expanded_json(root.gamedb, json.load(f)))
+@assets.load_where_endswith(".talk")
+def load_dialog(config, *a):
+	absroot.dialog_manager.add_speech_config(jsonutil.get_expanded_json(absroot.gamedb, config))
 
 class DialogManager(object):
 	def __init__(self, root):

@@ -31,6 +31,8 @@ class Simple(pygame.sprite.Sprite):
 
     """
 
+    _is_sgc_widget=1
+
     # Widget settings
     _can_focus = False
     _modal = False

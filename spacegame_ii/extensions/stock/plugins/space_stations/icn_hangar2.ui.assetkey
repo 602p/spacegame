@@ -1,0 +1,71 @@
+{
+	"assets":[
+		{
+			"name":"sgcui_icn_hangar2",
+			"type":"json",
+			"json":{
+				"widgets":[
+					{
+						"type":"VBox",
+						"pos":[0,0],
+						"spacing":20,
+						"widgets":[
+							{
+								"type":"Label",
+								"text":"&hangar_name",
+								"font":"$font_standard_75"
+							},
+							{
+								"type":"HBox",
+								"widgets":[
+									{
+										"type":"SimpleTTButton",
+										"label":"Repair Hull",
+										"tt_title":"Repair Ship Hull to Full",
+										"surf":[150,50],
+										"label_font":"$font_standard_small",
+										"col":[170,170,0],
+										"controllers":[
+											{
+												"controller":"goto_state",
+												"state":"newgame_selectship"
+											}
+										]
+									},
+									{
+										"type":"SimpleTTButton",
+										"label":"Repair One Hull",
+										"tt_title":"Repair One Hull Point",
+										"tt_body":"Cost: 20cr",
+										"surf":[150,50],
+										"label_font":"$font_standard_small",
+										"col":[0,170,0],
+										"controllers":[
+											{
+												"controller":"load_game"
+											}
+										]
+									}
+								]
+							},
+							{
+								"type":"SimpleTTButton",
+								"tt_title":"Repair All Ship Subsystems to Full",
+								"label":"Repair Subsystems",
+								"surf":[200,50],
+								"label_font":"$font_standard_small",
+								"col":[0,0,170],
+								"controllers":[
+									{
+										"controller":"goto_istate",
+										"state":"credits"
+									}
+								]
+							}
+						]
+					}
+				]
+			}
+		}
+	]
+}

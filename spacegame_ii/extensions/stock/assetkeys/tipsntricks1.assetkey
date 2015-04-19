@@ -1,0 +1,13 @@
+{
+	"assets":[
+		{
+			"type":"json",
+			"name":"tipsntricks_stock_1",
+			"json":[
+				"Open the inventory with I to arrange your stuff.",
+				"Press F7 to enter slowmo mode.",
+				"This is a tip."
+			]
+		}
+	]
+}

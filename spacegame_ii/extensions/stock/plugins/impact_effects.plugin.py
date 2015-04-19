@@ -4,6 +4,7 @@ from logging import debug, info
 
 clamp = lambda my_value, min_value, max_value: max(min(my_value, max_value), min_value)
 
+@extention_loader.hook_extention('shieldfx')
 class ShieldFXManager(extention_loader.HookableExtention):
 	def __init__(self, root):
 		self.root=root
@@ -45,8 +46,3 @@ class ShieldFXManager(extention_loader.HookableExtention):
 						self.last_hull_warning=absroot.game_time
 						if (event.system.ship == absroot.state_manager.getcurr().player):
 							absroot.gamedb("snd_hull_breach_player").play()
-
-def init_inject(root, console):
-	info("Injecting the ShieldHook")
-	extention_loader.safepost(console, "[ShieldFXManager]: Injecting the ShieldHook", color=(0,255,255), bold=1)                                                                                           
-	root.extentions["shield_fx"]=ShieldFXManager(root)

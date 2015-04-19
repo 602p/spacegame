@@ -1,5 +1,5 @@
 from logging import debug, info, warning, error, critical
-import state, pygame, ui_states, serialize
+import state, pygame, ui_states, serialize, absroot, random
 from toolbox import EasyGame
 import logging
 module_logger=logging.getLogger("sg.newgame")
@@ -12,6 +12,17 @@ def init(root):
 		"create_new_save":CreateNewSave,
 		"do_save_game":SaveCurrentGame
 	})
+
+def show_tip():
+	debug("show_tip called:")
+	tips=[]
+	[tips.extend(x) for x in absroot.gamedb.get_startswith("tipsntricks_")]
+	tip=random.choice(tips)
+	debug("  picked tip: "+tip)
+	if absroot.settings["gameplay"]["tips"]:
+		ui_states.interdict_ok2(title="Tip", text=tip+"\n\n\nThis can be disabled in Settings", button="Close")
+		debug("  popped")
+	else:debug("  (disabled)")
 
 class ShipSelectState(state.State):
 	def first_start(self):
@@ -45,6 +56,9 @@ class NGInputsController(ui_states.WidgetController):
 class CreateNewSave(ui_states.WidgetController):
 	def on_click(self):
 		serialize.new_game(self.root, self.state.params["_startcfg"], self.state.widgets["playername"].text, self.state.widgets["shipname"].text)
+		if self.root.settings["gameplay"]["intro_popup"]:
+			ui_states.interdict_ok(self.root, title="Welcome to Spacegame!", text="Fly your ship with WASD%nSelect weapons with 1 & 2%nInteract with E%nTalk to selected with F%nFire with SPACE%n%n(Or rebind in the settings menu [ESC])", button = "Start!")
+		show_tip()
 
 class SaveCurrentGame(ui_states.WidgetController):
 	def on_click(self):

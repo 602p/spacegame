@@ -1,5 +1,5 @@
 from logging import debug, info, warning, error, critical
-import logging
+import logging, absroot
 module_logger=logging.getLogger("sg.primitives")
 debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
 
@@ -61,6 +61,9 @@ def register_primitive(root, name, primitive):
 	debug("Registering primitive "+name+" ("+str(primitive)+")")
 	root.primitives_list[name]=primitive
 	primitive._bind(name)
+
+def register_primitive2(name, cls):
+	register_primitive(absroot, name, cls)
 
 def get_primitive(root, name, config):
 	if name in root.primitives_list.keys():

@@ -3,7 +3,7 @@ import pygame, rarity, assets, datetime, os, json, primitives, serialize, ai, to
 from rotutil import *
 from jsonutil import dget
 from logging import debug, info, warning, error, critical
-from jsonutil import get_expanded_json
+from jsonutil import get_expanded_json2
 from triggers import *
 import entitybase
 import logging
@@ -16,20 +16,10 @@ def init(root):
 		root.item_factories={}
 	serialize.register_load_mode(root, "item", _deserialize_item)
 
-def load_dir(root, dname):
-	for i in os.listdir(dname):
-		load_file(root, dname+"/"+i)
-
-def load_file(root, fname):
-	debug("Load item_file '"+fname)
-	with open(fname, 'r') as f:
-		load_string(root, f.read())
-
-def load_string(root, string):
-	register_item(root, get_expanded_json(root.gamedb, json.loads(string)))
-
-def register_item(root, config):
-	root.item_factories[config["id"]]=create_item_factory(root, config)
+@assets.load_where_endswith(".item")
+def register_item(config, *a):
+	debug("Loading "+config["id"])
+	absroot.item_factories[config["id"]]=create_item_factory(absroot, get_expanded_json2(config))
 
 def create_item_factory(root, config):
 	return ItemFactory(root, config)
@@ -331,6 +321,7 @@ class Item(serialize.SerializableObject, entitybase.Triggerable, entitybase.Tigg
 			tooltips.render_wrapped_text(text, 400, absroot.gamedb("font_item_desc"), (40,40,40)),
 			(70,absroot.gamedb("font_item_title").size("|")[1]+image_1.get_height()+10))
 		absroot.gamedb("font_item_desc").set_italic(0)
+		
 		absroot.gamedb("font_item_desc").set_bold(1)
 
 		self.tt_image.blit(
@@ -345,6 +336,18 @@ class Item(serialize.SerializableObject, entitybase.Triggerable, entitybase.Tigg
 
 		absroot.gamedb("font_item_desc").set_bold(0)
 		self.tt_image_clip()
+
+		# absroot.gamedb("font_item_desc").set_underline(1)
+
+		
+		img=absroot.gamedb("font_item_desc").render(self.id_str, 1, (100,210,100))
+		rect=pygame.Rect((0,0), img.get_size())
+		rect.bottomright=self.tt_image.get_size()
+		rect.move_ip(-5,-5)
+		self.tt_image.blit(img, rect)
+
+		# absroot.gamedb("font_item_desc").set_underline(0)
+
 		self.tt_add_box()
 
 	# tt_last_rerender_count=0

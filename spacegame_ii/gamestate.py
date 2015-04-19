@@ -14,7 +14,7 @@ class RunningGameState(state.State):
 		# 	self.entities.append(ship.create_ship(self.root, "cargo_transport_test", random.randint(-300,300), random.randint(-300,300)))
 		self.generated=[]
 
-		random.seed(0)
+		#random.seed(0)
 		for i in range(random.randint(30,60)):
 			self.generated.append([[random.randint(-8000,8000), random.randint(-6000,6000)], random.sample(self.root.gamedb.get_startswith("bg_nebula"), 1)[0]])
 		# for i in range(random.randint(5,10)):

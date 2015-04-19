@@ -1,5 +1,5 @@
 from __future__ import division
-import item, extention_loader, pygame, particles, tasks
+import item, extention_loader, pygame, particles, tasks, assets, absroot, jsonutil
 
 from logging import debug, info, warning, error, critical
 
@@ -103,15 +103,8 @@ class WarpDriveItem(item.Item):
 			self.xwd_charge_status=99999999
 			self.fire_actions()
 
-class WarpDriveManager(extention_loader.HookableExtention):
-	def __init__(self, root, console):
-		self.root=root
-		self.console=console
-	def after_items_load(self):
-		for asset_cfg in self.root.gamedb.get_startswith("warpdriveloader_"):
-			extention_loader.safepost(self.console, "Loading Item from assetkey:"+asset_cfg["id"]+" with WarpdriveItemFactory...")
-			self.root.item_factories[asset_cfg["id"]]=WarpdriveItemFactory(self.root, asset_cfg)
-
-
-def init_regwarps(root, _):
-	root.extentions["warp_drive_manager"]=WarpDriveManager(root, _)
+@assets.load_where_endswith(".warpdrive")
+def wditem_hook(json_data, basepath, dirn, filen, console):
+	json_data=jsonutil.get_expanded_json2(json_data)
+	extention_loader.safepost(console, "Loading Item from assetkey:"+json_data["id"]+" with WarpdriveItemFactory...")
+	absroot.item_factories[json_data["id"]]=WarpdriveItemFactory(absroot, json_data)

@@ -1,7 +1,7 @@
 from __future__ import division
 import absroot
 
-SKIP_TO_GAME=1
+SKIP_TO_GAME=0
 SKIP_START_ID='startdefun_tt'
 
 from logging import debug, info, warning, error, critical
@@ -23,8 +23,11 @@ except ImportError:
 	warning( '...(This game may run faster if you install psyco)' )
 	print "This game may run faster if you install psyco"
 
+import assets, absroot
+absroot.gamedb=assets.GameAssetDatabase()
+
 import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader, triggers
-import assets, pyconsole, interdiction_gui, overlay_gui, ui_states, sectors, newgame, dialog, quests, inventory, atexit
+import pyconsole, interdiction_gui, overlay_gui, ui_states, sectors, newgame, dialog, quests, inventory, atexit
 import sgc, serialize, gfxcursor, formatting, pyganim, keymapping, sys, traceback, datetime, ai, types, faction, inventory2
 import entitybase as eb
 debug("...(Imports done)")
@@ -59,6 +62,7 @@ root=absroot
 
 root.formatter=formatting.Formatter({"root":root})
 root.extentions={}
+root.gamedb.postload_init()
 
 root.settings=serialize.load_settings()
 if root.settings["debug"]["dump_at_die"]:
@@ -94,7 +98,7 @@ root.particlemanager=particles.ParticleManager()
 
 root.state_manager=state.StateManager(root)
 root.console = pyconsole.Console(screen.image,(0,0,1300,200),localsx=locals())
-root.gamedb=assets.GameAssetDatabase()
+
 
 root.igconsole = overlay_gui.IngameRenderedConsole(root, 5)
 root.igconsole.enable_debug()
@@ -176,8 +180,19 @@ if SKIP_TO_GAME:
 else:
 	triggers.sg_postevent(triggers.UE_GAME_START)
 
+import fpsgraph
+enable_slowmo=False
+
+splash_texts=[]
+[splash_texts.extend(x) for x in absroot.gamedb.get_startswith("splashes_")]
+splash_text=random.choice(splash_texts)
+
 while run:
 	events=pygame.event.get()
+	root.last_events_len=len(events)
+	fpsgraph.event(events)
+	fpsgraph.update(absroot=absroot)
+	
 
 	for ext in root.extentions:
 		for e in events:
@@ -202,6 +217,8 @@ while run:
 				faction.get_faction("klingonempire").try_leave(g.player)
 			if e.key==pygame.K_F4:
 				absroot.state_manager.start_interdicting("cutscene_anim", "fsanim_intro_ke")
+			if e.key==pygame.K_F7:
+				enable_slowmo=not enable_slowmo
 			if e.key==pygame.K_F12:
 				absroot.state_manager.start_interdicting("ass_info")
 		elif e.type==pygame.VIDEORESIZE:
@@ -215,9 +232,11 @@ while run:
 
 	if root.clock.get_fps()<1:
 		root.fps=999
+	elif enable_slowmo:
+		root.fps=root.settings["debug"]["slowmo_factor"]
 	else:
 		root.fps=root.clock.get_fps()
-	pygame.display.set_caption("Spacegame "+root.version+" ("+str("%3d" % root.fps)+" FPS)")
+	pygame.display.set_caption("Spacegame "+root.version+" ("+str("%3d" % root.fps)+" FPS): "+splash_text)
 
 	if pygame.event.peek(pygame.QUIT):run=0
 	root.console.process_input(events)
@@ -231,17 +250,19 @@ while run:
 		for i in traceback.format_exception(exc_type, exc_value, exc_traceback): error(i)
 		ui_states.interdict_yn(root, "StateMGR Error", "ERROR in state_manager.run_tick. Game my corrupt if continued...%n"+str(e), "Continue", "Quit", callback_n=lambda s:pygame.quit())
 
-	if fps_log_enable:
-		if datetime.datetime.now()-fps_last>datetime.timedelta(seconds=1):
-			fps_last=datetime.datetime.now()
-			fps_sps=root.game_time-fps_last_gt
-			fps_last_gt=root.game_time
-			fps_osps=fps_sps
-		root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("FPS: "+str(root.clock.get_fps()), False, (0,255,255)), (0,310))
-		root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("S/S: "+str(fps_sps)+"/1", False, (0,255,255)), (0,320))
-		root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("LEN(EVENTS): "+str(len(events)), False, (0,255,255)), (0,330))
+	# if fps_log_enable:
+	# 	if datetime.datetime.now()-fps_last>datetime.timedelta(seconds=1):
+	# 		fps_last=datetime.datetime.now()
+	# 		fps_sps=root.game_time-fps_last_gt
+	# 		fps_last_gt=root.game_time
+	# 		fps_osps=fps_sps
+	# 	root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("FPS: "+str(root.clock.get_fps()), False, (0,255,255)), (0,310))
+	# 	root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("S/S: "+str(fps_sps)+"/1", False, (0,255,255)), (0,320))
+	# 	root.screen.screen.blit(root.gamedb.get_asset("font_standard_very_small").render("LEN(EVENTS): "+str(len(events)), False, (0,255,255)), (0,330))
+
 
 	root.console.draw()
+	fpsgraph.render(root.screen.screen)
 	#pygame.draw.line(root.screen.screen, (255,0,0), (0,0), root.renderspace_size, 20)
 
 	tasks.run_group(root, 'tooltips')

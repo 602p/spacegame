@@ -1,4 +1,4 @@
-import json, jsonutil, absroot, primitives, tooltips, random
+import json, jsonutil, absroot, primitives, tooltips, random, assets
 from logging import debug, info, warn, error, critical
 from triggers import *
 import logging
@@ -10,11 +10,10 @@ def init(root):
 	root.factions={}
 	#
 
-def load_file(root, fn):
-	debug("Loading faction_file: "+fn)
-	with open(fn, 'r') as fd:
-		jsone=jsonutil.get_expanded_json(root.gamedb, json.load(fd))
-		root.factions[jsone["id"]] = Faction(jsone)
+@assets.load_where_endswith(".faction")
+def load_faction(jdata, *a):
+	jsone=jsonutil.get_expanded_json(absroot.gamedb, jdata)
+	absroot.factions[jsone["id"]] = Faction(jsone)
 
 def get_faction(name):
 	return absroot.factions[name]

@@ -40,14 +40,12 @@ def new_game(root, start, player_name, ship_name):
 	root.state_manager.states["game"].entities=[ship.create_ship(root, start["ship"], *start.get("wspos", [0,0]), ai=False)]
 	root.state_manager.states["game"].player=root.state_manager.states["game"].entities[0]
 	root.quest_manager=quests.QuestManager(root, root.state_manager.states["game"].player)
-	extention_loader.load_galaxy(root, 'extensions', None)
+	sectors.install_galaxy()
 	root.galaxy.preprocess_statics()
 	root.galaxy.goto_sector(*start.get("sector", [0,0]))
 	root.state_manager.goto_state("game")
 	root.state_manager.run_tick()
-	if root.settings["gameplay"]["intro_popup"]:
-		ui_states.interdict_ok(root, title="Welcome to Spacegame!", text="Fly your ship with WASD%nSelect weapons with 1 & 2%nInteract with E%nTalk to selected with F%nFire with SPACE%n%n(Or rebind in the settings menu [ESC])", button = "Start!")
-
+	
 def save_object(item):
 	#assert isinstance(item, SerializableObject) #NO! DUCK TYPING IS GOD!
 	return item.save_to_config_node()

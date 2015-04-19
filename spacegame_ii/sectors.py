@@ -1,5 +1,5 @@
 from __future__ import division
-import ship, json, extention_loader, triggers, pygame, serialize, logging, math
+import ship, json, extention_loader, triggers, pygame, serialize, logging, math, absroot, jsonutil, assets
 from extention_loader import HookableExtention
 from triggers import *
 
@@ -11,19 +11,15 @@ GALAXYSIZE=11 #Again, 2x this in each axis
 
 def init(root):
 	root.extentions["sector_transition_manager"]=SectorManager(root)
+	root.sector_prototypes=[]
 
-def load_file(root, fname):
-	debug("Load sector_file '"+fname)
-	with open(fname, 'r') as f:
-		root.galaxy.load_sector(json.load(f))
+@assets.load_where_endswith(".sector")
+def load_sector(config, *a):
+	absroot.sector_prototypes.append(SectorProto(jsonutil.get_expanded_json2(config)))
 
-def add_static_creator(root, key, func):
-	root.static_creators[key]=func
-
-def _create_ship_static(root, sector, config):
-	ship_o = ship.create_ship(root, config["id"], config.get("x", 0), config.get("y", 0),
-		config.get("equipment", True), config.get("ai", True))
-	return ship_o
+def install_galaxy():
+	for proto in absroot.sector_prototypes:
+		proto()
 
 class Galaxy(object):
 	def __init__(self, root):
@@ -95,6 +91,13 @@ class Galaxy(object):
 
 	def tick_economy(self):
 		[x.tick_economy() for x in self.iter_sectors()]
+
+class SectorProto(object):
+	def __init__(self, config):
+		self.config=config
+
+	def __call__(self):
+		absroot.galaxy.load_sector(self.config)
 
 class Sector(object):
 	def __init__(self, root, config):

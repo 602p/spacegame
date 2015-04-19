@@ -1,0 +1,10 @@
+{
+	"require":["cfg_item_wd_base"],
+	"assets":[
+		{
+			"type":"image",
+			"name":"img_inv_klingon_wd",
+			"path":"items/warpdrives/klingon_inv.png"
+		}
+	]
+}

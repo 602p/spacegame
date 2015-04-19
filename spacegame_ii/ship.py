@@ -25,11 +25,12 @@ def load_file(root, fname):
 	with open(fname, 'r') as f:
 		load_string(root, f.read(), path=fname)
 
-def load_string(root, string, path=None):
-	json_o=get_expanded_json(root.gamedb, json.loads(string))
-	register_ship(root, json_o)
-	root.gamedb.assets["ship:"+json_o["id"]]=json_o
-	root.gamedb.metadata["ship:"+json_o["id"]]={"path":path, "node":json_o, "is_ship":False, "refs":0, "trefs":0}
+@assets.load_where_endswith(".ship")
+def load_ship(config, basepath, dirn, filen, console):
+	json_o=get_expanded_json(absroot.gamedb, config)
+	register_ship(absroot, json_o)
+	absroot.gamedb.assets["ship:"+json_o["id"]]=json_o
+	absroot.gamedb.metadata["ship:"+json_o["id"]]={"path":dirn+"/"+filen, "node":json_o, "is_ship":False, "refs":0, "trefs":0}
 
 def register_ship(root, config):
 	root.ship_factories[config["id"]]=create_ship_factory(root, config)
@@ -302,11 +303,16 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity, entitybase.Ti
 	def render_engines(self):
 		if self.rigidbody.moving()>self.root.settings["graphics"]["min_trail_speed"]:
 			for emitter in self.engine_sources:
-				random.seed(self.root.game_time)					
+				#random.seed(self.root.game_time)					
 				y_=self.rigidbody.y+emitter["y"]
 				x_=self.rigidbody.x+emitter["x"]
 				x_, y_=rotate_point(self.rotated_rect.center, [x_, y_], -self.rigidbody.get_angle())
+				# old_level=emitter["style"]["particles"]
+				# speed_frac=(float(self.rigidbody.moving())/float(self.max_speed))
+				# print "speed_frac: ", speed_frac
+				# emitter["style"]["particles"]=int(float(emitter["style"]["particles"])*speed_frac)
 				self.particlemanager.add_particles(particles.make_explosion_cfg(self.root, x_, y_, emitter["style"]))
+				# emitter["style"]["particles"]=old_level
 
 	def exert_engine(self):
 		self.rigidbody.exert_in_vector(self.speed)
@@ -353,7 +359,7 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity, entitybase.Ti
 		try:
 			self.root.savegame.database["packed_entities"][self._source_sector_id][self._source_idx]=self.save_to_config_node()
 			debug("_finalize completed")
-			print "_finalize run on get_entity_by_id::ship_ref"
+			# print "_finalize run on get_entity_by_id::ship_ref"
 		except AttributeError:
 			pass
 

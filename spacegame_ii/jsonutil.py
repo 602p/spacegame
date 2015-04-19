@@ -1,6 +1,6 @@
 from logging import debug, info, warning, error, critical
 
-ju_debug=False
+ju_debug=True
 import logging
 module_logger=logging.getLogger("sg.jsonutil")
 debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
@@ -15,6 +15,10 @@ def get_expanded_json(gamedb, json):
 		debug(str(o))
 		debug("=========================================================================")
 	return o
+
+def get_expanded_json2(json):
+	import absroot
+	return get_expanded_json(absroot.gamedb, json)
 
 def expand_object(db, j):
 	if type(j)==dict:
@@ -32,9 +36,7 @@ def expand_dict(db, j):
 		if k.startswith("%+") and k.endswith("%"):
 			#debug("DICT_EXAND_MODE: Expanding "+k)
 			assetname=k.replace("%", '').replace("+", '')
-			if not "ship:" in assetname:
-				assetname="cfg_"+assetname
-			db.metadata[assetname]["trefs"]+=1
+			db.get_meta(assetname)["trefs"]+=1
 			new.update(db.get_asset(assetname))
 	#Expand all normal
 	for k in j.keys():
@@ -43,7 +45,7 @@ def expand_dict(db, j):
 	for k in filter(lambda x:x.startswith("%++"), j.keys()):
 		if k.startswith("%+") and k.endswith("%"):
 			#debug("DICT_EXAND_MODE: Expanding woveride "+k)
-			db.metadata["cfg_"+k.replace("%", '').replace("+", '')]["trefs"]+=1
+			db.get_meta("cfg_"+k.replace("%", '').replace("+", ''))["trefs"]+=1
 			new.update(db.get_asset("cfg_"+k.replace("%", '').replace("+", '')))
 	return new
 
@@ -59,7 +61,7 @@ def expand_list(db, j):
 def expand_string(db, j):
 	if j.startswith("%") and j.endswith("%"):
 		if ju_debug: debug("Replacing node "+j+" with node '"+str(db.get_asset("cfg_"+j.replace("%", '').replace("+", '')))+"'")
-		db.metadata["cfg_"+j.replace("%", '').replace("+", '')]["trefs"]+=1
+		db.get_meta("cfg_"+j.replace("%", '').replace("+", ''))["trefs"]+=1
 		return db.get_asset("cfg_"+j.replace("%", '').replace("+", ''))
 	return j
 
@@ -69,3 +71,17 @@ def dget(dictx, att, default, root=None):
 			return root.gamedb.get_asset("cfg_"+att.strip("%"))
 		return dictx[att]
 	return default
+
+def get_inserts(o):
+	l=[]
+	if type(o)==dict:
+		for k, v in o.iteritems():
+			l.extend(get_inserts(k))
+			l.extend(get_inserts(v))
+	if type(o)==list:
+		for v in o:
+			l.extend(get_inserts(v))
+	if type(o)==str or type(o)==unicode:
+		if o.startswith("%") and o.endswith("%"):
+			l.append(o.replace("%","").replace("+",""))
+	return l
