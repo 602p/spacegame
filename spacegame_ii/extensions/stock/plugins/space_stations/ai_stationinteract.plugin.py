@@ -12,7 +12,7 @@ class InteractableToEnterStation(ai.AIControllerUpdateNode):
 					(self.ship.rotated_rect.x-self.controller.gamestate.player.rotated_rect.x,
 					self.ship.rotated_rect.y-self.controller.gamestate.player.rotated_rect.y)) or 0:
 				#print "collided"
-				if self.controller.gamestate.player.rigidbody.moving()<self.config.get("max_speed", 75):
+				if self.controller.gamestate.player.rigidbody.get_magnitude()<self.config.get("max_speed", 75):
 					debug("Entering station")
 					self.controller.gamestate.player.sg_postevent(triggers.UE_STATION_DOCK, player=self.controller.gamestate.player, station=self.controller.ship)
 					debug("Trigger Called")
@@ -33,7 +33,7 @@ class InteractableToEnterStation(ai.AIControllerUpdateNode):
 					self.controller.gamestate.player.sg_postevent(triggers.UE_STATION_DOCK_AFTER, player=self.controller.gamestate.player, station=self.controller.ship)
 				else:
 					if self.controller.root.game_time-self.cooldown_last>4:
-						self.controller.root.igconsole.post("Please slow down before docking" if self.controller.gamestate.player.rigidbody.moving()<700 else "Ya cant fukin dock at warp dammit", (255,255,0))
+						self.controller.root.igconsole.post("Please slow down before docking" if self.controller.gamestate.player.rigidbody.get_magnitude()<700 else "Ya cant fukin dock at warp dammit", (255,255,0))
 						self.cooldown_last=self.controller.root.game_time
 
 def init_ais(root, console):
