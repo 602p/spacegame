@@ -14,14 +14,14 @@ debug, info, warning, error, critical = module_logger.debug, module_logger.info,
 info("Booting Spacegame_ii "+absroot.version)
 debug("...(Logging Started)")
 
-try:
-	import psyco
-	debug("...(Found psyco)")
-	psyco.full()
-	info("...(psyco configured)")
-except ImportError:
-	warning( '...(This game may run faster if you install psyco)' )
-	print "This game may run faster if you install psyco"
+# try:
+# 	import psyco
+# 	debug("...(Found psyco)")
+# 	psyco.full()
+# 	info("...(psyco configured)")
+# except ImportError:
+# 	warning( '...(This game may run faster if you install psyco)' )
+# 	print "This game may run faster if you install psyco"
 
 import assets, absroot
 absroot.gamedb=assets.GameAssetDatabase()
@@ -30,6 +30,7 @@ import ship, item, primitives, pygame, rotutil, particles, random, tasks, state,
 import pyconsole, interdiction_gui, overlay_gui, ui_states, sectors, newgame, dialog, quests, inventory, atexit
 import sgc, serialize, gfxcursor, formatting, pyganim, keymapping, sys, traceback, datetime, ai, types, faction, inventory2
 import entitybase as eb
+import pygame._view
 debug("...(Imports done)")
 
 allowdebug=True

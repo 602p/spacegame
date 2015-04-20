@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"sec",
+				"sector_prototypes"
+			],
+			[
 				"json",
 				"json_data"
 			],
@@ -206,10 +210,6 @@
 			[
 				"sect",
 				"sector_data"
-			],
-			[
-				"sec",
-				"sector_id"
 			],
 			[
 				"coll",
@@ -519,54 +519,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "spacegame_ii/assets.py",
-			"settings":
-			{
-				"buffer_size": 12916,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "spacegame_ii/item.py",
-			"settings":
-			{
-				"buffer_size": 12176,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "spacegame_ii/ship.py",
-			"settings":
-			{
-				"buffer_size": 13099,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "spacegame_ii/spacegame.log",
-			"settings":
-			{
-				"buffer_size": 600319,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "spacegame_ii/extensions/stock/assetkeys/explosions.assetkey",
-			"settings":
-			{
-				"buffer_size": 7007,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "spacegame_ii/extensions/stock/items/weapons/laser.item",
-			"settings":
-			{
-				"buffer_size": 1168,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "Spacegame",
 	"command_palette":
@@ -708,16 +660,27 @@
 	},
 	"file_history":
 	[
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/items/scanners/basic/image.assetkey",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/build.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/spacegame.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/faction.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/item.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/ship.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/dialog.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extention_loader.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/serialize.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/sectors.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/spacegame.log",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/assets.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/build2.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/quests.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/items/weapons/laser.item",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/assetkeys/explosions.assetkey",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/items/scanners/basic/image.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/jsonutil.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/items/warpdrives/base_wd.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/items/warpdrives/dev_wd.warpdrive",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/items/warpdrives/driver.plugin.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extention_loader.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/civs/bajor/scene_assets2/patrons.assetkey",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/item.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/spacegame.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/assetkeys/bases.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/items/warpdrives/klingon_wd_1.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/items/warpdrives/dev_wd.wditem.assetkey",
@@ -732,7 +695,6 @@
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/impact_effects.plugin.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/gamestate.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/physics.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/ship.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/the_wounded/the_wounded.quest",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/assetkeys/trails.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/assetkeys/splashes1.assetkey",
@@ -740,9 +702,7 @@
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/parralax.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/ui/sgc_descriptors/settings.ui.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/settings.cfg",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/serialize.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/newgame.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/assets.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugin.id",
 		"/C/Users/Louis/Desktop/Important Documents/python snippets/enotebook/format.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/project.sublime-project",
@@ -794,7 +754,6 @@
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/entitybase.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/assetlist.txt",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/saves/test111.json",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/sectors.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/generic_courier/generic_courier1.quest",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/space_stations/ai_stationinteract.plugin.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/generic_hunting/driver.plugin.py",
@@ -826,16 +785,9 @@
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/civs/ferengi/cruiser.ship",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/formatting.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/quest_basics.plugin.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/quests.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/space_stations/fetch_quest_block_list.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/generic/generic_hunting.quest",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/civs/cardassian/people/groups.assetkey",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/items/$$$/$$$.item",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/dialog/pools/generics.assetkey",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/global_variables.plugin.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/pirate_kmtar_interdiction/kmtar.quest",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/dialog.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/dialog/driver.plugin.py"
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/civs/cardassian/people/groups.assetkey"
 	],
 	"find":
 	{
@@ -843,7 +795,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 90.0,
+		"height": 0.0,
 		"where_history":
 		[
 			"C:\\Users\\Louis\\Desktop\\GitHub\\spacegame\\spacegame_ii",
@@ -868,6 +820,14 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"class ",
+			"class",
+			"after_",
+			"_view",
+			"test_state",
+			"root",
+			"_create_ship_static",
+			"load_where_endswith",
 			"root",
 			"depend",
 			"explosions",
@@ -987,15 +947,7 @@
 			"x",
 			"g_spawnship",
 			"__str__",
-			"self.root",
-			"(100,50), ",
-			"200",
-			"patron",
-			"BarState",
-			"20",
-			"100",
-			"xwd_warp_factor",
-			"human"
+			"self.root"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1023,173 +975,8 @@
 	"groups":
 	[
 		{
-			"selected": 3,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "spacegame_ii/assets.py",
-					"settings":
-					{
-						"buffer_size": 12916,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								7106,
-								7147
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 868.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "spacegame_ii/item.py",
-					"settings":
-					{
-						"buffer_size": 12176,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								713,
-								677
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "spacegame_ii/ship.py",
-					"settings":
-					{
-						"buffer_size": 13099,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1270,
-								1270
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "spacegame_ii/spacegame.log",
-					"settings":
-					{
-						"buffer_size": 600319,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								32246,
-								32252
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 75850.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "spacegame_ii/extensions/stock/assetkeys/explosions.assetkey",
-					"settings":
-					{
-						"buffer_size": 7007,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1,
-								1
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "spacegame_ii/extensions/stock/items/weapons/laser.item",
-					"settings":
-					{
-						"buffer_size": 1168,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
 			]
 		}
 	],

@@ -307,12 +307,17 @@ class Ship(serialize.SerializableObject, entitybase.FlaggedEntity, entitybase.Ti
 				y_=self.rigidbody.y+emitter["y"]
 				x_=self.rigidbody.x+emitter["x"]
 				x_, y_=rotate_point(self.rotated_rect.center, [x_, y_], -self.rigidbody.get_angle())
-				# old_level=emitter["style"]["particles"]
-				# speed_frac=(float(self.rigidbody.moving())/float(self.max_speed))
+				old_max=emitter["style"]["size_max"]
+				old_min=emitter["style"]["size_min"]
+				speed_frac=(float(self.rigidbody.get_magnitude())/float(self.max_speed))
 				# print "speed_frac: ", speed_frac
-				# emitter["style"]["particles"]=int(float(emitter["style"]["particles"])*speed_frac)
+				emitter["style"]["size_max"]=int(float(emitter["style"]["size_max"])*speed_frac)
+				emitter["style"]["size_min"]=int(float(emitter["style"]["size_min"])*speed_frac)
+				# speed_frac=(float(self.rigidbody.get_magnitude())/float(self.max_speed))
+				# print speed_frac
 				self.particlemanager.add_particles(particles.make_explosion_cfg(self.root, x_, y_, emitter["style"]))
-				# emitter["style"]["particles"]=old_level
+				emitter["style"]["size_max"]=old_max
+				emitter["style"]["size_min"]=old_min
 
 	def exert_engine(self):
 		self.rigidbody.exert_in_vector(self.speed)

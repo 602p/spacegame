@@ -102,24 +102,6 @@ class HookableExtention(object):
 	def after_plugins_load(self):
 		pass
 
-	def after_assets_load(self):
-		pass
-
-	def after_items_load(self):
-		pass
-
-	def after_ships_load(self):
-		pass
-
-	def after_dialog_load(self):
-		pass
-
-	def after_quests_load(self):
-		pass
-
-	def after_faction_load(self):
-		pass
-
 	def tick(self, state):
 		pass
 
