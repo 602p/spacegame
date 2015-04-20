@@ -42,7 +42,7 @@ class pygame2exe(py2exe.build_exe.py2exe): #This hack make sure that pygame defa
 class BuildExe:
     def __init__(self):
         #Name of starting .py
-        self.script = "test_state.py"
+        self.script = "spacegame.py"
  
         #Name of program
         self.project_name = "SpaceGame"
@@ -80,7 +80,7 @@ class BuildExe:
         self.extra_scripts = []
  
         #Zip file name (None will bundle files in exe instead of zip file)
-        self.zipfile_name = None
+        self.zipfile_name = 'sg_pybundle.zip'
  
         #Dist directory
         self.dist_dir ='dist'
@@ -164,14 +164,14 @@ class BuildExe:
         if os.path.isdir('build'): #Clean up build dir
             shutil.rmtree('build')
 
-        try:
-            os.remove("spacegame.exe")
-        except BaseException as e:
-            print "Can't remove spacegame.exe"
-            print e
-        shutil.copyfile("dist/test_state.exe", "spacegame.exe")
-        if os.path.isdir('dist'): #Clean up dist dir
-            shutil.rmtree('dist')
+        # try:
+        #     os.remove("spacegame.exe")
+        # except BaseException as e:
+        #     print "Can't remove spacegame.exe"
+        #     print e
+        # shutil.copyfile("dist/spacegame.exe", "spacegame.exe")
+        # if os.path.isdir('dist'): #Clean up dist dir
+        #     shutil.rmtree('dist')
  
 if __name__ == '__main__':
     if operator.lt(len(sys.argv), 2):
