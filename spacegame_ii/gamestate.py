@@ -1,5 +1,5 @@
 from __future__ import division
-import state, ship, pygame, random, tasks, overlay_gui, interdiction_gui, sys, math, parralax, sectors
+import state, ship, pygame, random, tasks, overlay_gui, interdiction_gui, sys, math, parralax, sectors, serialize
 from logging import debug, info, warning, error, critical
 import logging
 module_logger=logging.getLogger("sg.gamestate")
@@ -182,6 +182,10 @@ class RunningGameState(state.State):
 				elif e.key == pygame.K_BACKQUOTE: pass #hiding window
 				elif e.key == pygame.K_ESCAPE:
 					self.root.state_manager.start_interdicting("generic_ui", self.root.gamedb("sgcui_settings"))
+				elif e.key == pygame.K_F5:
+					serialize.save_game(self.root, "saves/quicksave.sgs")
+				elif e.key == pygame.K_F9:
+					serialize.load_game(self.root, "saves/quicksave.sgs")
 			elif e.type==pygame.VIDEORESIZE:
 				print e
 				print "gsresize"

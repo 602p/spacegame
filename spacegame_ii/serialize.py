@@ -126,7 +126,7 @@ class SaveGame(object, SerializableObject):
 			root.dialog_manager.do_additional_load(json_save["dialog_manager"])
 			
 			root.galaxy.gamestate=root.state_manager.states["game"]
-			extention_loader.load_galaxy(root, 'extensions', None)
+			sectors.install_galaxy()
 
 			root.galaxy.update_statics()
 

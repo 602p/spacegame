@@ -519,6 +519,22 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "spacegame_ii/spacegame.py",
+			"settings":
+			{
+				"buffer_size": 9615,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "spacegame_ii/spacegame.log",
+			"settings":
+			{
+				"buffer_size": 650940,
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "Spacegame",
 	"command_palette":
@@ -660,15 +676,19 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/sectors.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/serialize.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/gamestate.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/physics.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/space_stations/ai_stationinteract.plugin.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/assetkeys/trails.assetkey",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/ship.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/build.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/spacegame.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/faction.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/item.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/ship.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/dialog.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extention_loader.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/serialize.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/sectors.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/spacegame.log",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/assets.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/build2.py",
@@ -693,10 +713,7 @@
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/primitives.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/drop_items.plugin.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/impact_effects.plugin.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/gamestate.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/physics.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/the_wounded/the_wounded.quest",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/assetkeys/trails.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/assetkeys/splashes1.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/assetkeys/tipsntricks1.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/parralax.py",
@@ -755,7 +772,6 @@
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/assetlist.txt",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/saves/test111.json",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/generic_courier/generic_courier1.quest",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/space_stations/ai_stationinteract.plugin.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/generic_hunting/driver.plugin.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/space_stations/bar_quest_list.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/generic_hunting/generic_hunting.quest",
@@ -820,6 +836,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"max",
+			"old_level",
+			"particles",
 			"class ",
 			"class",
 			"after_",
@@ -944,10 +963,7 @@
 			"@",
 			"hunting",
 			"ox",
-			"x",
-			"g_spawnship",
-			"__str__",
-			"self.root"
+			"x"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -975,8 +991,62 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "spacegame_ii/spacegame.py",
+					"settings":
+					{
+						"buffer_size": 9615,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3927,
+								3927
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3360.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "spacegame_ii/spacegame.log",
+					"settings":
+					{
+						"buffer_size": 650940,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								609293,
+								609293
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 88689.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -1013,7 +1083,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 139.0
+		"height": 138.0
 	},
 	"output.git":
 	{
@@ -1048,6 +1118,6 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 273.0,
+	"side_bar_width": 150.0,
 	"status_bar_visible": true
 }
