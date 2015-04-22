@@ -1,4 +1,4 @@
-import os, pygame, json, sys, traceback, absroot, jsonutil
+import os, pygame, json, sys, traceback, absroot, jsonutil, tasks
 from logging import debug, info, warning, error, critical
 from jsonutil import get_expanded_json, get_expanded_json2
 import logging
@@ -46,6 +46,15 @@ def load_where_endswith(extention):
         return func
     return load_where_endswith_w
 
+def _process_ldir(basepath, metadata, path):
+            #print path
+            n_2 = path.replace("{$LDIR$}", metadata.get("udpath", "(udpath not availible???)"))
+            #print n_2
+            if not "{$LDIR$}" in path:
+                #print "Prepending..."
+                n_2=os.path.join(basepath, n_2)
+            return n_2
+
 class GameAssetDatabase(object):
     json_extentions=[
         '.assetkey',
@@ -64,14 +73,7 @@ class GameAssetDatabase(object):
         self.delayed_load_files=[]
         self.metadata={"$BLANK":{"refs":0, "trefs":0}}
 
-        def _process_ldir(basepath, metadata, path):
-            #print path
-            n_2 = path.replace("{$LDIR$}", metadata.get("udpath", "(udpath not availible???)"))
-            #print n_2
-            if not "{$LDIR$}" in path:
-                #print "Prepending..."
-                n_2=os.path.join(basepath, n_2)
-            return n_2
+        
         def load_image(node, basepath, metadata={}):
             node["path"]=_process_ldir(basepath, metadata, node["path"])
             debug("Loading image "+node["path"])
@@ -157,8 +159,15 @@ class GameAssetDatabase(object):
             #print "Loading "+node["name"]
             self.metadata[node["name"]]={"basepath":basepath, "apath":path, "udpath":path, "node":node, "refs":0, "trefs":0}
             self.assets[str(node["name"])]=self.loaders[str(node["type"])](get_expanded_json(self, node), basepath, self.metadata[node["name"]])
-        except KeyError:
+        except KeyError as e:
             error("Loader "+node["type"]+" not found! (probably)")
+            exc_type, exc_value, exc_traceback = sys.exc_info()
+            error("================ERROR LOG=====================")
+            for i in traceback.format_exception(exc_type, exc_value, exc_traceback): error(i)
+            if console: extention_loader.post_and_flip(console, "ASSETKEY ERROR! KeyError: '"+traceback.format_exception(exc_type, exc_value, exc_traceback)[-1]+"'", color=(255,0,0), bold=1)
+            tasks.display_hanging_message("An unknown error appeared while loading the asset `"+node.get("name", "[no name, this is probably the problem]")+"` [KeyError]: Check log ("+str(e)+")", color=(255,0,0))
+        except BaseException as e:
+            tasks.display_hanging_message("An unknown error appeared while loading the asset `"+node.get("name", "[no name, this is probably the problem]")+"`: Check log ("+str(e)+")", color=(255,0,0))
             exc_type, exc_value, exc_traceback = sys.exc_info()
             error("================ERROR LOG=====================")
             for i in traceback.format_exception(exc_type, exc_value, exc_traceback): error(i)
@@ -183,8 +192,14 @@ class GameAssetDatabase(object):
             self._process_delayed_load(console)
             
     def get_asset(self, key):
-        if key not in self.assets and "cfg_"+key in self.assets: key="cfg_"+key
-        elif key not in self.assets and key.replace("cfg_","") in self.assets: key=key.replace("cfg_","")
+        if key not in self.assets and "cfg_"+key in self.assets:
+            warning("A request for `"+key+"` was made (key does not exist) and `cfg_` was prepended.")
+            key="cfg_"+key
+            
+        elif key not in self.assets and key.replace("cfg_","") in self.assets:
+            warning("A request for `"+key+"` was made (key does not exist) and `cfg_` was removed.")
+            key=key.replace("cfg_","")
+            
         #print "Request for "+key
         d = self.assets[key]
         if key in self.metadata:
@@ -197,15 +212,27 @@ class GameAssetDatabase(object):
     def get_meta(self, key):
         # print self.metadata.keys()
         # print key
-        if key not in self.metadata and "cfg_"+key in self.metadata: key="cfg_"+key
-        elif key not in self.metadata and key.replace("cfg_","") in self.metadata: key=key.replace("cfg_","")
+        if key not in self.metadata and "cfg_"+key in self.metadata:
+            warning("A request for `"+key+"` was made (key does not exist) and `cfg_` was prepended.")
+            key="cfg_"+key
+            
+        elif key not in self.metadata and key.replace("cfg_","") in self.metadata:
+            warning("A request for `"+key+"` was made (key does not exist) and `cfg_` was removed.")
+            key=key.replace("cfg_","")
+            
         # print key
         # print
         return self.metadata[key]
 
     def has_asset(self, key):
-        if key not in self.assets and "cfg_"+key in self.assets: key="cfg_"+key
-        elif key not in self.assets and key.replace("cfg_","") in self.assets: key=key.replace("cfg_","")
+        if key not in self.assets and "cfg_"+key in self.assets:
+            warning("A request for `"+key+"` was made (key does not exist) and `cfg_` was prepended.")
+            key="cfg_"+key
+            
+        elif key not in self.assets and key.replace("cfg_","") in self.assets:
+            warning("A request for `"+key+"` was made (key does not exist) and `cfg_` was removed.")
+            key=key.replace("cfg_","")
+            
         return key in self.assets
 
     def get_startswith(self, key):
@@ -273,7 +300,10 @@ class GameAssetDatabase(object):
             debug("Loading "+dirn+"/"+filen+" (matched pattern "+pattern+") using all known loaders")
             t="Loading "+dirn+"/"+filen+" --> "
             for loader in self.extention_loaders[pattern]:
-                loader(json_data, basepath, dirn, filen, console)
+                try:
+                    loader(json_data, basepath, dirn, filen, console)
+                except BaseException as e:
+                    tasks.display_hanging_message("An unknown error appeared while loading the file `"+dirn+"/"+filen+"` : Check log ("+str(e)+")", color=(255,0,0))
                 t+=loader.func_name+", "
             t=t[:-2]
             extention_loader.safepost(console, t)

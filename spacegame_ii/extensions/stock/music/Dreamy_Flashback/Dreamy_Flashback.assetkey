@@ -1,0 +1,28 @@
+{
+	"assets":[
+		{
+			"type":"sound",
+			"name":"snd_dreamy_flashback",
+			"path":"{$LDIR$}/dreamy_flashback.ogg",
+			"volume":0.75,
+			"x_attribute_to":"{$LDIR$}/dreamy_flashback_attr.txt"
+		},
+		{
+			"type":"track",
+			"name":"track_dreamy_flashback",
+			"sound":"snd_dreamy_flashback",
+			"tags":[
+				"peaceful",
+				"exploration",
+				"slow"
+			],
+			"affinity":{
+				"UE_DAMAGE_DEALT":-200
+			},
+			"decay":-0.01,
+			"threshold":5,
+			"priority":0.75,
+			"trackname":"'Dreamy Flashback' by Kevin MacLeod"
+		}
+	]
+}

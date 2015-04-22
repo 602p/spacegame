@@ -7,6 +7,8 @@ debug, info, warning, error, critical = module_logger.debug, module_logger.info,
 def init(r):
 	r.tasks_index={}
 	r.delayed_oo={}
+	r.messages_count=0
+	r.current_messages=[]
 
 def add_group(root, tag):
 	if not tag in root.tasks_index:
@@ -33,6 +35,19 @@ def run_group(root, tag):
 def delay(function, tag):
 	add_group(absroot, tag)
 	absroot.delayed_oo[tag].append(function)
+
+def display_hanging_message(text, time=2, pos=(0 ,500), font='font_item_desc', color=(255,255,255)):
+	def _internal_hanging_message(task, root):
+		root.screen.screen.blit(root.gamedb(font).render(text, 0, color), (pos[0], pos[1]+((absroot.messages_count-absroot.current_messages.index(text))*15)))
+		if task.delete:
+			absroot.messages_count-=1
+			if text in absroot.current_messages:
+				del absroot.current_messages[absroot.current_messages.index(text)]
+	if text not in absroot.current_messages:
+		debug("Showing hanging message: "+text)
+		add_task(absroot, 'messages', Task(absroot, _internal_hanging_message, time))
+		absroot.messages_count+=1
+		absroot.current_messages.append(text)
 
 class Task:
 	def __init__(self, root, update, duration, data=None):

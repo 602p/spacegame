@@ -1,0 +1,28 @@
+{
+	"assets":[
+		{
+			"type":"sound",
+			"name":"snd_frozen_star",
+			"path":"{$LDIR$}/frozen_star.ogg",
+			"volume":0.75,
+			"x_attribute_to":"{$LDIR$}/frozen_star_attr.txt"
+		},
+		{
+			"type":"track",
+			"name":"track_frozen_star",
+			"sound":"snd_frozen_star",
+			"tags":[
+				"peaceful",
+				"exploration",
+				"slow"
+			],
+			"affinity":{
+				"UE_DAMAGE_DEALT":-200
+			},
+			"decay":-0.01,
+			"threshold":5,
+			"priority":0.75,
+			"trackname":"'Frozen Star' by Kevin MacLeod"
+		}
+	]
+}

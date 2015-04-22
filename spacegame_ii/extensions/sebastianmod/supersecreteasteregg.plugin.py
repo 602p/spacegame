@@ -2,7 +2,7 @@ import time
 import extention_loader, pygame, ui_states, item
 from logging import debug, info, warning, error, critical
 
-SECRET_KEY = pygame.K_F9
+SECRET_KEY = 9999999999999999999999999#pygame.K_F9
 
 class supersecreteasteregg(extention_loader.HookableExtention):
 	name="SebastianMod thing"

@@ -1,0 +1,28 @@
+{
+	"assets":[
+		{
+			"type":"sound",
+			"name":"snd_frost_waltz",
+			"path":"{$LDIR$}/frost_waltz.ogg",
+			"volume":0.75,
+			"x_attribute_to":"{$LDIR$}/frost_waltz_attr.txt"
+		},
+		{
+			"type":"track",
+			"name":"track_frost_waltz",
+			"sound":"snd_frost_waltz",
+			"tags":[
+				"peaceful",
+				"exploration",
+				"slow"
+			],
+			"affinity":{
+				"UE_DAMAGE_DEALT":-200
+			},
+			"decay":-0.01,
+			"threshold":5,
+			"priority":0.75,
+			"trackname":"'Frost Waltz' by Kevin MacLeod"
+		}
+	]
+}

@@ -1,5 +1,5 @@
 from __future__ import division
-import ship, json, extention_loader, triggers, pygame, serialize, logging, math, absroot, jsonutil, assets
+import ship, json, extention_loader, triggers, pygame, serialize, logging, math, absroot, jsonutil, assets, tasks
 from extention_loader import HookableExtention
 from triggers import *
 
@@ -68,6 +68,7 @@ class Galaxy(object):
 				sg_postevent(UE_CHANGE_SECTOR_FINISH, galaxy=self)
 				return
 		error("Sector not defined! (No change made)")
+		tasks.display_hanging_message("ERROR: Tried to move to a nonexistant sector (no change made)", color=(255,255,0))
 
 	def change_sector_by(self, x, y):
 		self.goto_sector(self.currentx+x, self.currenty+y)
@@ -117,7 +118,7 @@ class Sector(object):
 		return str(sector.x)+","+str(sector.y)
 
 	def preprocess_statics(self):
-		debug("Processing statics for sector "+self.get_savegame_id()+"...")
+		# debug("Processing statics for sector "+self.get_savegame_id()+"...")
 		#print "PROCESSING FOR "+self.get_savegame_id()
 		for static in self.statics:
 			#print ">>>>>>"+str(static)

@@ -1,11 +1,12 @@
 import pygame, textwrap
 from logging import debug, info, warning, error, critical
-import logging
+import logging, tasks
 module_logger=logging.getLogger("sg.interdiction_gui")
 debug, info, warn, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
 
 
 def interdict_ok(root, title, content, button="ACCEPT", titlecolor=(255,255,255), textcolor=(0,0,0), buttoncolor=(0,0,255)):
+	tasks.display_hanging_message("Something started interdict_ok, Don't use that!", color=(255,255,0))
 	debug("Starting interdict_ok")
 	warn("THIS MODULE IS DEPRECATED. USE UI_STATES INSTEAD")
 	debug("T:"+title)
@@ -47,6 +48,7 @@ def interdict_ok(root, title, content, button="ACCEPT", titlecolor=(255,255,255)
 		pygame.display.flip()
 
 def interdict_yn(root, title, content, buttont="YES", buttonf="NO", titlecolor=(255,255,255), textcolor=(0,0,0), buttoncolort=(0,0,255), buttoncolorf=(0,0,255)):
+	tasks.display_hanging_message("Something used interdict_yn, Don't use that!", color=(255,255,0))
 	debug("Starting interdict_yn")
 	warn("THIS MODULE IS DEPRECATED. USE UI_STATES INSTEAD")
 	debug("T:"+title)

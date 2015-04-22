@@ -63,6 +63,7 @@ root=absroot
 
 root.formatter=formatting.Formatter({"root":root})
 root.extentions={}
+
 root.gamedb.postload_init()
 
 root.settings=serialize.load_settings()
@@ -92,6 +93,9 @@ dialog.init(root)
 quests.init(root)
 eb.init_grufs(root)
 faction.init(root)
+
+import music
+music.init()
 
 root.gfxcursor=gfxcursor.GfxCursor(root, root.screen.screen)
 
@@ -197,8 +201,14 @@ while run:
 
 	for ext in root.extentions:
 		for e in events:
-			root.extentions[ext].event_root(e)
-		root.extentions[ext].tick(root.state_manager.current)
+			try:
+				root.extentions[ext].event_root(e)
+			except BaseException as e:
+				tasks.display_hanging_message("An unknown error appeared in the event callback for `"+ext+"`: Check log ("+str(e)+")", color=(255,0,0))
+		try:
+			root.extentions[ext].tick(root.state_manager.current)
+		except BaseException as e:
+			tasks.display_hanging_message("An unknown error appeared in the tick for `"+ext+"`: Check log ("+str(e)+")", color=(255,0,0))
 
 	for e in events:
 		if e.type==pygame.QUIT:
@@ -249,7 +259,8 @@ while run:
 		exc_type, exc_value, exc_traceback = sys.exc_info()
 		error("================ROOT ERROR=====================")
 		for i in traceback.format_exception(exc_type, exc_value, exc_traceback): error(i)
-		ui_states.interdict_yn(root, "StateMGR Error", "ERROR in state_manager.run_tick. Game my corrupt if continued...%n"+str(e), "Continue", "Quit", callback_n=lambda s:pygame.quit())
+		tasks.display_hanging_message("An unknown error appeared in the state manager: Check log ("+str(e)+")", color=(255,0,0))
+		# ui_states.interdict_yn(root, "StateMGR Error", "ERROR in state_manager.run_tick. Game my corrupt if continued...%n"+str(e), "Continue", "Quit", callback_n=lambda s:pygame.quit())
 
 	# if fps_log_enable:
 	# 	if datetime.datetime.now()-fps_last>datetime.timedelta(seconds=1):
@@ -267,6 +278,7 @@ while run:
 	#pygame.draw.line(root.screen.screen, (255,0,0), (0,0), root.renderspace_size, 20)
 
 	tasks.run_group(root, 'tooltips')
+	tasks.run_group(root, 'messages')
 
 	root.gfxcursor.show()
 

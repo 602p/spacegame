@@ -184,8 +184,10 @@ class RunningGameState(state.State):
 					self.root.state_manager.start_interdicting("generic_ui", self.root.gamedb("sgcui_settings"))
 				elif e.key == pygame.K_F5:
 					serialize.save_game(self.root, "saves/quicksave.sgs")
+					tasks.display_hanging_message("Quicksaving...")
 				elif e.key == pygame.K_F9:
 					serialize.load_game(self.root, "saves/quicksave.sgs")
+					tasks.display_hanging_message("Quickloading...")
 			elif e.type==pygame.VIDEORESIZE:
 				print e
 				print "gsresize"

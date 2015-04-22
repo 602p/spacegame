@@ -42,6 +42,7 @@ class SoundHook_Music(extention_loader.HookableExtention):
 		self.channel.stop()
 
 def init_inject(root, console):
-	info("Injecting the SoundHook")
-	extention_loader.safepost(console, "[MusicManager]: Injecting the SoundHook", color=(0,255,255), bold=1)                                                                                           
-	root.extentions["ambience"]=SoundHook_Music(root)
+	pass
+	#info("Injecting the SoundHook")
+	#extention_loader.safepost(console, "[MusicManager]: Injecting the SoundHook", color=(0,255,255), bold=1)                                                                                           
+	#root.extentions["ambience"]=SoundHook_Music(root) #FOR THE LOVE OF GOD LEAVE THIS OFF

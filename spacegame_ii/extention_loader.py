@@ -1,6 +1,6 @@
 import os, item, ship, serialize, primitives, imp, json, fnmatch, pygame, time, sys, dialog, quests, faction, state, absroot, textwrap
 from logging import debug, info, warning, error, critical
-import logging
+import logging, tasks
 module_logger=logging.getLogger("sg.extention_loader")
 debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
 
@@ -15,13 +15,14 @@ def load_all_packages(root, dirn, console=None):
 		root.extentions[ext].after_plugins_load()
 
 	load_notifiers(root, dirn)
-	
+	if console: post_and_flip(console, "V V V Loading Other Files V V V", bold=1, color=(0,255,0))
 	[load_assetkeys(root, dirn, console, pattern) for pattern in root.gamedb.json_extentions]
 
 	if len(absroot.gamedb.delayed_load_files)>0:
 		warning("After load_assetkeys there are "+str(len(absroot.gamedb.delayed_load_files))+" files that were not loaded because they had unmet dependencies... Listing:")
 		for i in absroot.gamedb.delayed_load_files:
 			warning("    "+str(i))
+		tasks.display_hanging_message("After load_assetkeys there are "+str(len(absroot.gamedb.delayed_load_files))+" files that were not loaded because they had unmet dependencies... Check log.", color=(255,255,0))
 
 	if console:
 		post_and_flip(console, "LOADING FINISHED!", bold=1, italic=1, color=(0,255,0))
@@ -67,14 +68,24 @@ def load_plugin(root, fname, console):
 	if not ".PYC" in fname.upper():
 		debug("Load plugin '"+fname+"'")
 		key=fname.replace("\\", "").replace(".", "")
-		exec key+" = imp.load_source('"+key+"', fname)"
+		try:
+			exec key+" = imp.load_source('"+key+"', fname)"
+		except BaseException as e:
+			tasks.display_hanging_message("Loading of "+fname+" failed: "+str(e), color=(255,0,0))
+			return
 		debug("Key mapped as '"+key+"' 	")
 		for funcname in eval("dir("+key+")"):
 			if funcname.upper().startswith("INIT"):
 				debug("Run init '"+fname+"'::"+funcname)
 				if console: post_and_flip(console, "Initilizing Plugin '"+fname+"::"+funcname+"'...", color=(255,255,255))
-				if eval(key+"."+funcname+"(root, console)")==False:
-					warning( "Loading of '"+funcname+"' from '"+fname+"' in '"+dirn+"' failed: False")
+				try:
+					retdat=eval(key+"."+funcname+"(root, console)")
+					debug("It returned: "+str(retdat))
+					if retdat==False:
+						warning( "Loading of '"+funcname+"' from '"+fname+"' failed: False")
+						tasks.display_hanging_message("Loading of "+fname+"::"+funcname+" failed: False", color=(255,0,0))
+				except BaseException as e:
+					tasks.display_hanging_message("Loading of "+fname+"::"+funcname+" failed: "+str(e), color=(255,0,0))
 
 def post_and_flip(console, *args, **kwargs):
 	console.post(*args, **kwargs)
@@ -89,6 +100,10 @@ class HookableExtention(object):
 	name="[unset-name]"
 	def __init__(self, root):
 		self.root=root
+		self._init()
+
+	def _init(self):
+		pass
 		
 	def event_root(self, event):
 		pass
