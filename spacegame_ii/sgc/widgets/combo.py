@@ -29,6 +29,8 @@ class Combo(Simple):
     _settings_default = {"values": ()}
 
     _selection = -1
+    def get_sel_text(self):
+        return self._options[self._selection]
     @property
     def selection(self):
         return self._selection

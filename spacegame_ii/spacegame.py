@@ -27,7 +27,7 @@ import assets, absroot
 absroot.gamedb=assets.GameAssetDatabase()
 
 import ship, item, primitives, pygame, rotutil, particles, random, tasks, state, gamestate, extention_loader, triggers
-import pyconsole, interdiction_gui, overlay_gui, ui_states, sectors, newgame, dialog, quests, inventory, atexit
+import pyconsole, interdiction_gui, overlay_gui, ui_states, sectors, newgame, dialog, quests, inventory, atexit, lang
 import sgc, serialize, gfxcursor, formatting, pyganim, keymapping, sys, traceback, datetime, ai, types, faction, inventory2
 import entitybase as eb
 import pygame._view
@@ -93,6 +93,7 @@ dialog.init(root)
 quests.init(root)
 eb.init_grufs(root)
 faction.init(root)
+lang.init()
 
 import music
 music.init()

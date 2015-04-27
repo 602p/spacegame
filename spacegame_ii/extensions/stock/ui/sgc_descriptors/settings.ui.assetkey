@@ -18,7 +18,8 @@
 				"show_intro_popup":"gameplay:intro_popup",
 				"bs_confirm":"gameplay:buysell_confirm",
 				"slowmo_factor":"debug:slowmo_factor",
-				"show_tips":"gameplay:tips"
+				"show_tips":"gameplay:tips",
+				"language":"lang"
 			}
 		},
 		{
@@ -395,6 +396,27 @@
 												"text":"Show tips",
 												"col":[255,255,255],
 												"font":"$font_standard_small"
+											}
+										]
+									},
+									{
+										"type":"VBox",
+										"widgets":[
+											{
+												"type":"InputBox",
+												"id":"language"
+											},
+											{
+												"type":"Label",
+												"text":"Language",
+												"col":[255,255,255],
+												"font":"$font_standard_small"										
+											},
+											{
+												"type":"Label",
+												"text":"(Needs Restart)",
+												"col":[255,255,255],
+												"font":"$font_standard_small"										
 											}
 										]
 									}

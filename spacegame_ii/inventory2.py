@@ -1,4 +1,5 @@
 import pygame, state, inputbox, ship, ui_states, logging, rotutil, absroot, tooltips, item
+from lang import gettext as _t
 module_logger=logging.getLogger("sg.inventory2")
 debug, info, warning, error, critical = module_logger.debug, module_logger.info, module_logger.warning, module_logger.error, module_logger.critical
 
@@ -38,7 +39,7 @@ class SlotSelectorState2(state.InterdictingState):
 
 		screen.blit(self.ship_image, self.ship_image_pos)
 		# pygame.draw.line(screen, (255,0,255), (0,0), self.ship_image_pos, 5)
-		screen.blit(absroot.gamedb("font_standard_large").render("Select A Slot", 1, (255,255,255)), (0,0))
+		screen.blit(absroot.gamedb("font_standard_large").render(_t("Select A Slot"), 1, (255,255,255)), (0,0))
 
 		for i in self.scaled_hardpoints:
 			pygame.draw.rect(screen, i[2], i[0], 2)
@@ -131,23 +132,23 @@ class InventoryState2(state.InterdictingState):
 		screen.blit(absroot.gamedb("img_playermenu_inv_sel"), (0,0))
 		pygame.draw.rect(screen, (0,0,0), pygame.Rect(962, 50, 400, 700))
 
-		text="INVENTORY MANAGEMENT SYSTEM"
-		text+="\nGrey  -->  Equipped"
-		text+="\nWhite -->  Not Owned"
-		text+="\nGreen -->  Selected"
-		text+="\n[=======================================]"
-		text+="\nShip   :   "+str(self.ship.name)
-		text+="\nAccel  :   "+str(int(self.ship.speed/self.ship.get_mass()))
-		text+="\nMass   :   "+str(self.ship.get_mass())+"t"
-		text+="\nCargo  :   "+str(self.ship.get_inventory_mass())+"t"
-		text+="\nItems  :   "+str(sum([x.count for x in self.ship.inventory]))
+		text=_t("INVENTORY MANAGEMENT SYSTEM")
+		text+=_t("\nGrey  -->  Equipped")
+		text+=_t("\nWhite -->  Not Owned")
+		text+=_t("\nGreen -->  Selected")
+		text+=_t("\n[=======================================]")
+		text+=_t("\nShip   :   ")+str(self.ship.name)
+		text+=_t("\nAccel  :   ")+str(int(self.ship.speed/self.ship.get_mass()))
+		text+=_t("\nMass   :   ")+str(self.ship.get_mass())+"t"
+		text+=_t("\nCargo  :   ")+str(self.ship.get_inventory_mass())+"t"
+		text+=_t("\nItems  :   ")+str(sum([x.count for x in self.ship.inventory]))
 		if self.is_shop:
-			text+="\n[=======================================]\nTRADE MANAGEMENT SYSTEM\nSelect an item and press T to trade"
-			text+="\nShop   :   "+self.shop_other.name
-			#text+="\nAccel : "+str(int(self.shop_other.speed/self.shop_other.get_mass())) #Probably don't need this...
-			text+="\nMass   :   "+str(self.shop_other.get_mass())+"t"
-			text+="\nCargo  :   "+str(self.shop_other.get_inventory_mass())+"t"
-			text+="\nItems  :   "+str(sum([x.count for x in self.shop_other.inventory]))
+			text+=_t("\n[=======================================]\nTRADE MANAGEMENT SYSTEM\nSelect an item and press T to trade")
+			text+=_t("\nShop   :   ")+self.shop_other.name
+			#text+=_t("\nAccel : "+str(int(self.shop_other.speed/self.shop_other.get_mass())) #Probably don't need this...
+			text+=_t("\nMass   :   ")+str(self.shop_other.get_mass())+"t"
+			text+=_t("\nCargo  :   ")+str(self.shop_other.get_inventory_mass())+"t"
+			text+=_t("\nItems  :   ")+str(sum([x.count for x in self.shop_other.inventory]))
 
 		screen.blit(
 			tooltips.render_wrapped_text(text, 300, absroot.gamedb("font_item_desc"), (200,200,200))

@@ -5,6 +5,7 @@ import sys,random,pygame,uidict,sgc
 
 from pygame.locals import *
 from sgc.locals import *
+from lang import gettext as _t
 
 from toolbox import EasyGame
 import logging
@@ -51,9 +52,9 @@ def interdict_ok(root, title="NOT_SET", text="NOT_SET", button="NOT_SET", callba
 	text=text.replace("%n", "\n")
 	state=root.state_manager.start_interdicting("generic_ui", root.gamedb(key))
 	#print state.widgets.keys()
-	state.widgets["replace_title"].config(text=title)
-	state.widgets["replace_body"].config(text=text)
-	state.widgets["replace_button"].config(label=button)
+	state.widgets["replace_title"].config(text=_t(title))
+	state.widgets["replace_body"].config(text=_t(text))
+	state.widgets["replace_button"].config(label=_t(button))
 	state.callback=callback
 
 def interdict_ok2(*a, **k):
@@ -89,10 +90,10 @@ def interdict_yn(root, title="NOT_SET", text="NOT_SET", button_y="NOT_SET", butt
 	for l in text_:
 		text+="\n"+l.replace("%n", "\n")
 	state=root.state_manager.start_interdicting("generic_ui", root.gamedb(key))
-	state.widgets["replace_title"].config(text=title)
-	state.widgets["replace_body"].config(text=text)
-	state.widgets["replace_button_yes"].config(label=button_y)
-	state.widgets["replace_button_no"].config(label=button_n)
+	state.widgets["replace_title"].config(text=_t(title))
+	state.widgets["replace_body"].config(text=_t(text))
+	state.widgets["replace_button_yes"].config(label=_t(button_y))
+	state.widgets["replace_button_no"].config(label=_t(button_n))
 	state.callback_y=callback_y
 	state.callback_n=callback_n
 	return state
@@ -160,7 +161,7 @@ class JSONSettingsBindingsSet(WidgetController):
 				wrapper[self.config["bindings"][key_id]]=int(self.interface.state.widgets[key_id].text)
 			if isinstance(wrapper[self.config["bindings"][key_id]],basestring):
 				wrapper[self.config["bindings"][key_id]]=self.interface.state.widgets[key_id].text
-		serialize.save_settings(self.interface.root.settings)
+		serialize.save_settings(wrapper)
 
 class JSONSettingsBindingsGet(WidgetController):
 	def on_click(self):
@@ -305,6 +306,11 @@ class GenericUIInterdictor(state.InterdictingState):
 
 		config_=process_inserts(config, self.root.gamedb)
 		config_["__interdictor"]=self
+
+		if "text" in config_:
+			config_["text"]=_t(config_["text"])
+		if "label" in config_:
+			config_["label"]=_t(config_["label"])
 
 		if config_["type"] in self.root.widget_constructors.keys():
 			# debug("Creating a '"+config_["type"]+"'")

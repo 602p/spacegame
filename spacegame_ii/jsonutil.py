@@ -1,5 +1,5 @@
 from logging import debug, info, warning, error, critical
-
+import lang
 ju_debug=True
 import logging
 module_logger=logging.getLogger("sg.jsonutil")
@@ -63,7 +63,7 @@ def expand_string(db, j):
 		if ju_debug: debug("Replacing node "+j+" with node '"+str(db.get_asset("cfg_"+j.replace("%", '').replace("+", '')))+"'")
 		db.get_meta("cfg_"+j.replace("%", '').replace("+", ''))["trefs"]+=1
 		return db.get_asset("cfg_"+j.replace("%", '').replace("+", ''))
-	return j
+	return lang.gettext(j)
 
 def dget(dictx, att, default, root=None):
 	if att in dictx:

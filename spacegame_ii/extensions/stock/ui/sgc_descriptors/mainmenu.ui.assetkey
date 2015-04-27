@@ -32,7 +32,7 @@
 							},
 							{
 								"type":"Button",
-								"label":"LOAD SAVED",
+								"label":"LOAD GAME",
 								"surf":[150,50],
 								"label_font":"$font_standard_small",
 								"col":[0,170,0],
