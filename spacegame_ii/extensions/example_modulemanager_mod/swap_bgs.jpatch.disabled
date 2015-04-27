@@ -1,0 +1,7 @@
+{
+	"patch":[
+		{"op":"test",     "path":"/assets/0/name",  "value":"large_black_bg"         },
+		{"op":"replace",  "path":"/assets/1/path",  "value":"image/menu_bg.jpg"      },
+		{"op":"replace",  "path":"/assets/2/path",  "value":"image/settings_bg.jpg"  }
+	]
+}

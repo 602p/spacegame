@@ -1,0 +1,6 @@
+{
+	"patch":[
+		{"op":"test", "path":"/id",        "value":"item_scanner_basic"},
+		{"op":"add",  "path":"/desc_text", "value":"A simple scanner.\nScans that cargo hold of ships with lower that 20 shields."}
+	]
+}

@@ -298,17 +298,13 @@ class GameAssetDatabase(object):
 
         if pattern in self.extention_loaders:
             debug("Loading "+dirn+"/"+filen+" (matched pattern "+pattern+") using all known loaders")
-            t="Loading "+dirn+"/"+filen+" --> "
+            extention_loader.safepost(console, "Loading "+dirn+"/"+filen+" --> "+", ".join([f.func_name for f in self.extention_loaders[pattern]]))
             for loader in self.extention_loaders[pattern]:
                 try:
                     loader(json_data, basepath, dirn, filen, console)
                 except BaseException as e:
                     tasks.display_hanging_message("An unknown error appeared while loading the file `"+dirn+"/"+filen+"` : Check log ("+str(e)+")", color=(255,0,0))
-                t+=loader.func_name+", "
-            t=t[:-2]
-            extention_loader.safepost(console, t)
-
-
+                
         for config in self.delayed_load_files:
             if config[0]==basepath and config[1]==dirn and config[2]==filen:
                 del self.delayed_load_files[self.delayed_load_files.index(config)]

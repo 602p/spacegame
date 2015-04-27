@@ -16,7 +16,9 @@ def load_all_packages(root, dirn, console=None):
 
 	load_notifiers(root, dirn)
 	if console: post_and_flip(console, "V V V Loading Other Files V V V", bold=1, color=(0,255,0))
-	[load_assetkeys(root, dirn, console, pattern) for pattern in root.gamedb.json_extentions]
+	for pattern in root.gamedb.json_extentions:
+		safepost(console, "Loading Files That End With `"+pattern+"`", italic=1, color=(0,255,0))
+		load_assetkeys(root, dirn, console, pattern)
 
 	if len(absroot.gamedb.delayed_load_files)>0:
 		warning("After load_assetkeys there are "+str(len(absroot.gamedb.delayed_load_files))+" files that were not loaded because they had unmet dependencies... Listing:")
@@ -29,7 +31,7 @@ def load_all_packages(root, dirn, console=None):
 		post_and_flip(console, "Loaded "+str(len(root.gamedb.assets))+" assets")
 		post_and_flip(console, "Loaded "+str(len(root.item_factories))+" items")
 		post_and_flip(console, "Loaded "+str(len(root.ship_factories))+" ships")
-		post_and_flip(console, "Loaded "+str(root.dialog_manager.count_pools())+" speech pools ("+str(root.dialog_manager.count_speeches())+" speechIs distributed)")
+		post_and_flip(console, "Loaded "+str(root.dialog_manager.count_pools())+" speech pools ("+str(root.dialog_manager.count_speeches())+" speech instances distributed)")
 		post_and_flip(console, "Loaded "+str(len(root.quest_factories))+" quests")
 		post_and_flip(console, "Loaded "+str(len(root.sector_prototypes))+" sectors")
 		time.sleep(2.5)
@@ -61,13 +63,14 @@ def load_assetkeys(root, dirn, console, pattern):
 
 def load_plugins(root, dirn, console):
 	for rn in findall(dirn, "*.plugin.py"):
-		if console: post_and_flip(console, "Loading Plugin '"+rn+"'...", color=(255,255,255))
+		# if console: post_and_flip(console, "Loading Plugin '"+rn+"'...", color=(255,255,255))
 		load_plugin(root, rn, console)
 
 def load_plugin(root, fname, console):
 	if not ".PYC" in fname.upper():
 		debug("Load plugin '"+fname+"'")
 		key=fname.replace("\\", "").replace(".", "")
+		sys.path.append(os.path.dirname(os.path.realpath(fname)))
 		try:
 			exec key+" = imp.load_source('"+key+"', fname)"
 		except BaseException as e:
@@ -77,7 +80,7 @@ def load_plugin(root, fname, console):
 		for funcname in eval("dir("+key+")"):
 			if funcname.upper().startswith("INIT"):
 				debug("Run init '"+fname+"'::"+funcname)
-				if console: post_and_flip(console, "Initilizing Plugin '"+fname+"::"+funcname+"'...", color=(255,255,255))
+				if console: post_and_flip(console, "Initilizing Plugin `"+fname+"`::"+funcname, color=(255,255,255))
 				try:
 					retdat=eval(key+"."+funcname+"(root, console)")
 					debug("It returned: "+str(retdat))
@@ -86,6 +89,7 @@ def load_plugin(root, fname, console):
 						tasks.display_hanging_message("Loading of "+fname+"::"+funcname+" failed: False", color=(255,0,0))
 				except BaseException as e:
 					tasks.display_hanging_message("Loading of "+fname+"::"+funcname+" failed: "+str(e), color=(255,0,0))
+		sys.path.remove(sys.path[-1])
 
 def post_and_flip(console, *args, **kwargs):
 	console.post(*args, **kwargs)
@@ -98,6 +102,7 @@ def post_and_flip(console, *args, **kwargs):
 
 class HookableExtention(object):
 	name="[unset-name]"
+	desc="Installed"
 	def __init__(self, root):
 		self.root=root
 		self._init()
@@ -124,7 +129,7 @@ class HookableExtention(object):
 		return self.name+" -- "+self.get_desc()
 
 	def get_desc(self):
-		return "Installed"
+		return self.desc
 		
 	def get_color(self):
 		return (255,255,255)

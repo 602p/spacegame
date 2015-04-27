@@ -4,12 +4,28 @@
 		"selected_items":
 		[
 			[
-				"Musi",
-				"MusicTrack"
+				"json",
+				"json_patches"
+			],
+			[
+				"ext",
+				"extention_loader"
+			],
+			[
+				"get",
+				"get_manager"
 			],
 			[
 				"pla",
-				"play_tagged"
+				"playing_requested"
+			],
+			[
+				"Music",
+				"MusicDebugClass"
+			],
+			[
+				"Musi",
+				"MusicTrack"
 			],
 			[
 				"pro",
@@ -22,10 +38,6 @@
 			[
 				"sec",
 				"sector_prototypes"
-			],
-			[
-				"json",
-				"json_data"
 			],
 			[
 				"delay",
@@ -49,10 +61,6 @@
 			],
 			[
 				"extentin",
-				"extention_loaders"
-			],
-			[
-				"ext",
 				"extention_loaders"
 			],
 			[
@@ -506,24 +514,32 @@
 			[
 				"sta",
 				"startswith"
-			],
-			[
-				"orig",
-				"orig_rect"
-			],
-			[
-				"rot",
-				"rot_rect"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "spacegame_ii/assets.py",
+			"file": "spacegame_ii/extensions/stock/assetkeys/core.assetkey",
 			"settings":
 			{
-				"buffer_size": 13810,
+				"buffer_size": 402,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "spacegame_ii/extensions/example_modulemanager_mod/swap_bgs.jpatch.disabled",
+			"settings":
+			{
+				"buffer_size": 262,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "spacegame_ii/pyconsole.py",
+			"settings":
+			{
+				"buffer_size": 18150,
 				"line_ending": "Unix"
 			}
 		},
@@ -533,46 +549,6 @@
 			{
 				"buffer_size": 10148,
 				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "spacegame_ii/music.py",
-			"settings":
-			{
-				"buffer_size": 1760,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "spacegame_ii/extensions/stock/music/Odyssey/Odyssey.assetkey",
-			"settings":
-			{
-				"buffer_size": 448,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "spacegame_ii/triggers.py",
-			"settings":
-			{
-				"buffer_size": 3953,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "spacegame_ii/extention_loader.py",
-			"settings":
-			{
-				"buffer_size": 11768,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "spacegame_ii/extensions/stock/plugins/main_menu_ambiance.plugin.py",
-			"settings":
-			{
-				"buffer_size": 1818,
-				"line_ending": "Windows"
 			}
 		}
 	],
@@ -716,28 +692,48 @@
 	},
 	"file_history":
 	[
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/music/Thrust_Sequence_0/Thrust_Sequence_0.assetkey",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/assetkeys/bases.assetkey",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/music/Odyssey/Odyssey.assetkey",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/main_menu_ambiance.plugin.py",
+		"/C/Users/Louis/Desktop/TimeTrek/TimeTrek.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/music.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/settings.cfg",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/assets.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extention_loader.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/modulemanager/main.plugin.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/absroot.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/buildcount.txtx",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/buildcount.txt",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/example_modulemanager_mod/add_desc_to_scanner.jpatch",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/example_modulemanager_mod/add_config_to_scanner.jpatch",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/example_modulemanager_mod/add_config_to_.jpatch",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/items/scanners/basic/scanner.item",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/items/weapons/laser.item",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/modulemanager/test.jpatch",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/spacegame.log",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/loadingsystemtransformerexample/driver.plugin.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/music/Wizardtoruim/Wizardtorium.assetkey",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/music/Thrust_Sequence_0/Thrust_Sequence_0.assetkey",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/music/Odyssey/Odyssey.assetkey",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/music/Frozen_Star/Frozen_Star.assetkey",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/music/Frost_Waltz/Frost_Waltz.assetkey",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/music/Dreamy_Flashback/Dreamy_Flashback.assetkey",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/music/Arcadia/Arcadia.assetkey",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/triggers.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/spacegame.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/main_menu_ambiance.plugin.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/serialize.py",
+		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/assetkeys/bases.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/civs/bajor/bajor.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/tasks.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/spacegame.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/music/Odyssey/Odyssey_attr.txt",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/spacegame.log",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/pyconsole.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/primitives.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/sebastianmod/supersecreteasteregg.plugin.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/gamestate.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/sectors.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/ai.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/assets.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/assetkeys/ships.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/assetkeys/explosions.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/assetkeys/rangefinder.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/interdiction_gui.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/serialize.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/physics.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/space_stations/ai_stationinteract.plugin.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/assetkeys/trails.assetkey",
@@ -748,7 +744,6 @@
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/dialog.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/build2.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/quests.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/items/weapons/laser.item",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/items/scanners/basic/image.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/jsonutil.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/items/warpdrives/base_wd.assetkey",
@@ -761,7 +756,6 @@
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/loader/loader/loader_fonts.assetkey",
 		"/C/Users/Louis/Desktop/Important Documents/python snippets/memebot2/addloading.py",
 		"/C/Users/Louis/AppData/Roaming/Sublime Text 2/Packages/User/Python.sublime-settings",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/absroot.py",
 		"/C/Users/Louis/Desktop/Important Documents/python snippets/lhp_hsts_proxy.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/drop_items.plugin.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/impact_effects.plugin.py",
@@ -770,7 +764,6 @@
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/assetkeys/tipsntricks1.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/parralax.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/ui/sgc_descriptors/settings.ui.assetkey",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/settings.cfg",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/newgame.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugin.id",
 		"/C/Users/Louis/Desktop/Important Documents/python snippets/enotebook/format.py",
@@ -809,7 +802,6 @@
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/sgc/widgets/button.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/space_stations/icn_hangar.plugin.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/sgc/widgets/base_widget.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/triggers.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/sgc_example/helloworld.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/tooltips.py",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/sgc/locals.py",
@@ -827,23 +819,7 @@
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/plugins/space_stations/bar_quest_list.assetkey",
 		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/generic_hunting/generic_hunting.quest",
 		"/C/Users/Louis/AppData/Roaming/Sublime Text 2/Packages/User/Preferences.sublime-settings",
-		"/C/Users/Louis/AppData/Roaming/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
-		"/C/Users/Louis/AppData/Roaming/Sublime Text 2/Packages/User/Default (Windows).sublime-keymap",
-		"/C/Users/Louis/AppData/Roaming/Sublime Text 2/Packages/Default/Default (Windows).sublime-keymap",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/generic_courier/destinations.assetkey",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/sectors/kronos_system_10,0.sector",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/civs/klingon/spacestation/tygokor.ship",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/quests/generic_courier",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/damage.py",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/civs/bajor/teroknor.ship",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/civs/bajor/scene_assets2/scenes.assetkey",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/civs/bajor/bajor.ship",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/items/warpdrives/klingon_wd_1.wditem.assetkey",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/civs/cardassian/people/generics.assetkey",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/species/cardassian.faction",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/species/human.faction",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/species/klingon.faction",
-		"/C/Users/Louis/Desktop/GitHub/spacegame/spacegame_ii/extensions/stock/dialog/plugins/additem.plugin.py"
+		"/C/Users/Louis/AppData/Roaming/Sublime Text 2/Packages/Default/Preferences.sublime-settings"
 	],
 	"find":
 	{
@@ -876,6 +852,32 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"__locals",
+			"localsx",
+			"IS_DB",
+			"version_major",
+			"count",
+			"applied",
+			"after_",
+			"`",
+			"MusicDebugClass",
+			"self.get_top_track()",
+			"recent_plays",
+			"Odyssey",
+			"odyssey",
+			"Odyssey",
+			"odyssey",
+			"Odyssey",
+			"odyssey",
+			"Odyssey",
+			"odyssey",
+			"Odyssey",
+			"odyssey",
+			"Odyssey",
+			"print",
+			"pygame.mixer.music",
+			"events",
+			"ERROR",
 			"root.extentions",
 			"extentions",
 			"tasks.display_hanging_message",
@@ -977,33 +979,7 @@
 			"graph_active",
 			"0.2",
 			"tuple",
-			"Datasource",
-			"mouse",
-			"BarState",
-			"main_menu",
-			"				\"id\":\"main_menu\",\n",
-			"construct_screen",
-			"0",
-			"on_click",
-			"_proto",
-			"1000",
-			"<META>",
-			"<NOMETA>",
-			"triggers",
-			"courier",
-			"x",
-			"_GenericButton",
-			"\"done\": true",
-			"15480597",
-			"15699845",
-			"None",
-			"except",
-			")\n",
-			"Gcourier",
-			"Hunting",
-			"hunting",
-			"Hunting",
-			"hunting"
+			"Datasource"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1036,99 +1012,18 @@
 			[
 				{
 					"buffer": 0,
-					"file": "spacegame_ii/assets.py",
+					"file": "spacegame_ii/extensions/stock/assetkeys/core.assetkey",
 					"settings":
 					{
-						"buffer_size": 13810,
+						"buffer_size": 402,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3124,
-								3064
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 588.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "spacegame_ii/spacegame.py",
-					"settings":
-					{
-						"buffer_size": 10148,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3116,
-								3116
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 983.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "spacegame_ii/music.py",
-					"settings":
-					{
-						"buffer_size": 1760,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1355,
-								1355
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 378.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "spacegame_ii/extensions/stock/music/Odyssey/Odyssey.assetkey",
-					"settings":
-					{
-						"buffer_size": 448,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								93,
-								93
+								1,
+								1
 							]
 						],
 						"settings":
@@ -1143,46 +1038,45 @@
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "spacegame_ii/triggers.py",
+					"buffer": 1,
+					"file": "spacegame_ii/extensions/example_modulemanager_mod/swap_bgs.jpatch.disabled",
 					"settings":
 					{
-						"buffer_size": 3953,
+						"buffer_size": 262,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2854,
-								2854
+								262,
+								262
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 448.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "spacegame_ii/extention_loader.py",
+					"buffer": 2,
+					"file": "spacegame_ii/pyconsole.py",
 					"settings":
 					{
-						"buffer_size": 11768,
+						"buffer_size": 18150,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								9003,
+								9011
 							]
 						],
 						"settings":
@@ -1191,25 +1085,25 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 3391.0,
+						"translation.y": 4006.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "spacegame_ii/extensions/stock/plugins/main_menu_ambiance.plugin.py",
+					"buffer": 3,
+					"file": "spacegame_ii/spacegame.py",
 					"settings":
 					{
-						"buffer_size": 1818,
+						"buffer_size": 10148,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								919,
-								919
+								3229,
+								3229
 							]
 						],
 						"settings":
@@ -1218,7 +1112,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 210.0,
+						"translation.y": 1024.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1294,6 +1188,6 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 289.0,
+	"side_bar_width": 214.0,
 	"status_bar_visible": true
 }
